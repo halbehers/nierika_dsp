@@ -52,6 +52,12 @@ So to include a dial for example, you want to do something like this:
 nierika::gui::element::Dial _outputGain { "Output Gain", -60.f, 8.f, -8.f, "dB" };
 ```
 
+PS: you might want to clean that up with a `using`:
+```cpp
+using gui = nierika::gui::element;
+gui::Dial _outputGain { "Output Gain", -60.f, 8.f, -8.f, "dB" };
+```
+
 ---
 
 ## Developers
