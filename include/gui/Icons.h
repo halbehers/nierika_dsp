@@ -2,6 +2,9 @@
 
 #include "../NierikaDSPBinaryData.h"
 
+namespace nierika::gui
+{
+
 class Icons
 {
 public:
@@ -26,3 +29,5 @@ public:
 private:
     Icons() {}
 };
+
+}

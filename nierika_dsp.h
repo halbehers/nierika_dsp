@@ -54,6 +54,7 @@
 #include "include/gui/EmbeddedFonts.h"
 #include "include/gui/Formatter.h"
 #include "include/gui/Helpers.h"
+#include "include/gui/Icons.h"
 #include "include/gui/Section.h"
 #include "include/gui/Spacing.h"
 #include "include/gui/Theme.h"
