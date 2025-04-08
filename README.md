@@ -42,7 +42,15 @@ git clone git@github.com:halbehers/nierika_dsp.git
 
 ## Usage
 
+Every classes is included in the namespace `nierika`.
 
+This module is divided in 2 main namespaces: `gui` and `dsp`.
+
+So to include a dial for example, you want to do something like this:
+
+```cpp
+nierika::gui::element::Dial _outputGain { "Output Gain", -60.f, 8.f, -8.f, "dB" };
+```
 
 ---
 
