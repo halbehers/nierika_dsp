@@ -25,6 +25,7 @@
 #include "source/gui/Formatter.cpp"
 #include "source/gui/Helpers.cpp"
 #include "source/gui/Theme.cpp"
+#include "source/gui/Section.cpp"
 #include "source/gui/element/BoxToggle.cpp"
 #include "source/gui/element/ComboBox.cpp"
 #include "source/gui/element/Dial.cpp"
