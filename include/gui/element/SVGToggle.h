@@ -16,7 +16,7 @@ public:
     void resized() override;
     
 private:
-    ui::laf::SVGToggle _lookAndFeel;
+    laf::SVGToggle _lookAndFeel;
     int _width = -1;
     int _height = -1;
 

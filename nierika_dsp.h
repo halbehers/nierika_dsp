@@ -1,29 +1,38 @@
-#pragma once
-#define NIERIKA_MODULES_H_INCLUDED
-
 /*******************************************************************************
- The block below describes the properties of this module, and is read by
- the Projucer to automatically generate project code that uses it.
- For details about the syntax and how to create or use a module, see the
- JUCE Module Format.md file.
-
 
  BEGIN_JUCE_MODULE_DECLARATION
 
   ID:                 nierika_dsp
-  vendor:             nierika
+  vendor:             Nierika
   version:            0.1.0
-  name:               Nierka's JUCE module for DSP & GUI classes
+  name:               Nierika DSP
   description:        Classes for GUI creation and DSP processing.
   website:            http://www.juce.com/juce
   license:            MIT
   minimumCppStandard: 17
 
-  dependencies:       juce_core juce_dsp juce_graphics juce_gui_basics juce_gui_extra juce_audio_basics juce_audio_processors
+  dependencies:       juce_core juce_data_structures juce_events juce_dsp juce_graphics juce_gui_basics juce_gui_extra juce_audio_basics juce_audio_formats juce_audio_utils juce_audio_processors
 
  END_JUCE_MODULE_DECLARATION
 
 *******************************************************************************/
+
+#pragma once
+#define NIERIKA_MODULES_H_INCLUDED
+
+// JUCE
+#include <juce_audio_basics/juce_audio_basics.h>
+#include <juce_audio_devices/juce_audio_devices.h>
+#include <juce_audio_formats/juce_audio_formats.h>
+#include <juce_audio_processors/juce_audio_processors.h>
+#include <juce_audio_utils/juce_audio_utils.h>
+#include <juce_core/juce_core.h>
+#include <juce_data_structures/juce_data_structures.h>
+#include <juce_dsp/juce_dsp.h>
+#include <juce_events/juce_events.h>
+#include <juce_graphics/juce_graphics.h>
+#include <juce_gui_basics/juce_gui_basics.h>
+#include <juce_gui_extra/juce_gui_extra.h>
 
 // DSP
 #include "include/dsp/Channel.h"

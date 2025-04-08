@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace nierika::ui {
+namespace nierika::gui {
 
 class Formatter
 {

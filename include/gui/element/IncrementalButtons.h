@@ -16,7 +16,7 @@ class IncrementalButtons: public Slider
     void resized() override;
     
     private:
-    ui::laf::IncrementalButtons _lookAndFeel;
+    laf::IncrementalButtons _lookAndFeel;
 };
 
 }

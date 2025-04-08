@@ -39,7 +39,7 @@
 #define COLOR_DARK_SHADE COLOR_GRAY_300
 #define COLOR_FULL_SHADE COLOR_GRAY_400
 
-namespace nierika::ui
+namespace nierika::gui
 {
 
 class Theme

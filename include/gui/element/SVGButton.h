@@ -16,7 +16,7 @@ public:
     void resized() override;
 
 private:
-    ui::laf::SVGButton _lookAndFeel;
+    laf::SVGButton _lookAndFeel;
     int _width = -1;
     int _height = -1;
 

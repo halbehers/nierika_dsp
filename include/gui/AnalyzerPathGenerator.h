@@ -2,7 +2,7 @@
 
 #include "../dsp/FIFO.h"
 
-namespace nierika::ui
+namespace nierika::gui
 {
 
 template<typename PathType>

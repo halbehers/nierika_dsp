@@ -27,7 +27,7 @@ public:
     void setShortLabel(const juce::String& shortLabel);
     
 private:
-    ui::laf::Dial _lookAndFeel;
+    laf::Dial _lookAndFeel;
     Size _size;
     juce::String _label;
     std::unordered_map<Size, float> _sizeToPx {

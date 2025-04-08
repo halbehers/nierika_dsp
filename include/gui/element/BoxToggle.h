@@ -17,7 +17,7 @@ public:
     bool isActive();
     
 private:
-    ui::laf::BoxToggle _lookAndFeel;
+    laf::BoxToggle _lookAndFeel;
     bool _isActive = false;
 };
 

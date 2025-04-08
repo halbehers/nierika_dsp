@@ -15,7 +15,7 @@ public:
     void resized() override;
 
 private:
-    ui::laf::ComboBox _lookAndFeel;
+    laf::ComboBox _lookAndFeel;
 };
 
 }
