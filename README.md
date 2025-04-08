@@ -7,6 +7,7 @@ A JUCE module containing a collection of DSP &amp; GUI classes made to homegeniz
 ## Table of Contents
 
 - [About](#about)
+- [Dependencies](#dependencies)
 - [Installation](#installation)
   - [Using Projucer](#using-projucer)
 - [Usage](#usage)
@@ -17,6 +18,16 @@ A JUCE module containing a collection of DSP &amp; GUI classes made to homegeniz
 ## About
 
 This JUCE module is initially made for personnal use in order to make reusable GUI components and DSP processing classes to be used in all of my plugins.
+
+---
+
+## Dependencies
+
+**Minimum C++ Standard Version**: 17
+
+**JUCE Modules Dependencies**:
+
+`juce_core` `juce_dsp` `juce_graphics` `juce_gui_basics` `juce_gui_extra` `juce_audio_basics` `juce_audio_processors`
 
 ---
 
