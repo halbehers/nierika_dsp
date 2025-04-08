@@ -1,5 +1,5 @@
-#include "../../../includes/gui/element/TimeInMsDial.h"
-#include "../../../includes/gui/Formatter.h"
+#include "../../../include/gui/element/TimeInMsDial.h"
+#include "../../../include/gui/Formatter.h"
 
 namespace ui::element
 {

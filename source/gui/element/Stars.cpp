@@ -1,5 +1,5 @@
-#include "../../../includes/gui/element/Stars.h"
-#include "../../../includes/gui/Theme.h"
+#include "../../../include/gui/element/Stars.h"
+#include "../../../include/gui/Theme.h"
 
 namespace ui::element
 {

@@ -1,4 +1,4 @@
-#include "../../../includes/dsp/CircularAudioBuffer.h"
+#include "../../include/dsp/CircularAudioBuffer.h"
 
 namespace dsp
 {

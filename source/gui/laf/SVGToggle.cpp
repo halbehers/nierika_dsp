@@ -1,7 +1,7 @@
-#include "../../../includes/gui/laf/SVGToggle.h"
-#include "../../../includes/gui/Theme.h"
-#include "../../../includes/gui/Helpers.h"
-#include "../../../includes/gui/EmbeddedFonts.h"
+#include "../../../include/gui/laf/SVGToggle.h"
+#include "../../../include/gui/Theme.h"
+#include "../../../include/gui/Helpers.h"
+#include "../../../include/gui/EmbeddedFonts.h"
 
 namespace ui::laf
 {

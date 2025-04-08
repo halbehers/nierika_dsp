@@ -1,5 +1,5 @@
-#include "../../../includes/gui/element/PercentageDial.h"
-#include "../../../includes/gui/Formatter.h"
+#include "../../../include/gui/element/PercentageDial.h"
+#include "../../../include/gui/Formatter.h"
 
 namespace ui::element
 {

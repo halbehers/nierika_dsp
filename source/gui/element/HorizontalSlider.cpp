@@ -1,4 +1,4 @@
-#include "../../../includes/gui/element/HorizontalSlider.h"
+#include "../../../include/gui/element/HorizontalSlider.h"
 
 namespace ui::element
 {

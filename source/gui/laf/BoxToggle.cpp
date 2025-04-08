@@ -1,8 +1,8 @@
-#include "../../../includes/gui/laf/BoxToggle.h"
-#include "../../../includes/gui/Theme.h"
-#include "../../../includes/gui/Helpers.h"
-#include "../../../includes/gui/EmbeddedFonts.h"
-#include "../../../includes/gui/element/BoxToggle.h"
+#include "../../../include/gui/laf/BoxToggle.h"
+#include "../../../include/gui/Theme.h"
+#include "../../../include/gui/Helpers.h"
+#include "../../../include/gui/EmbeddedFonts.h"
+#include "../../../include/gui/element/BoxToggle.h"
 
 namespace ui::laf
 {

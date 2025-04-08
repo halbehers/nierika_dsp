@@ -7,7 +7,7 @@
  #error "Incorrect use of JUCE cpp file"
 #endif
 
-#include "nierikadsp.h"
+#include "nierika_dsp.h"
 
 // DSP
 #include "source/dsp/CircularAudioBuffer.cpp"

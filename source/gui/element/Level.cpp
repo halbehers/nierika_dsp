@@ -1,5 +1,5 @@
-#include "../../../includes/gui/element/Level.h"
-#include "../../../includes/gui/Theme.h"
+#include "../../../include/gui/element/Level.h"
+#include "../../../include/gui/Theme.h"
 
 namespace ui::element
 {

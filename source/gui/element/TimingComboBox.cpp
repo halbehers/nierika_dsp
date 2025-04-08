@@ -1,5 +1,5 @@
-#include "../../../includes/gui/element/TimingComboBox.h"
-#include "../../../includes/dsp/Timing.h"
+#include "../../../include/gui/element/TimingComboBox.h"
+#include "../../../include/dsp/Timing.h"
 
 namespace ui::element
 {

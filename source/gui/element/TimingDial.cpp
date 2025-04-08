@@ -1,5 +1,5 @@
-#include "../../../includes/gui/element/TimingDial.h"
-#include "../../../includes/dsp/Timing.h"
+#include "../../../include/gui/element/TimingDial.h"
+#include "../../../include/dsp/Timing.h"
 
 namespace ui::element
 {

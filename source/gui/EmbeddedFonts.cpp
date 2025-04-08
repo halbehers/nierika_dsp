@@ -1,4 +1,4 @@
-#include "../../includes/gui/EmbeddedFonts.h"
+#include "../../include/gui/EmbeddedFonts.h"
 
 const juce::Font EmbeddedFonts::getBrandonBold()
 {

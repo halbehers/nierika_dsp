@@ -1,5 +1,5 @@
-#include "../../../includes/gui/Helpers.h"
-#include "../../../includes/gui/element/IncrementalButton.h"
+#include "../../../include/gui/Helpers.h"
+#include "../../../include/gui/element/IncrementalButton.h"
 
 namespace ui::element
 {

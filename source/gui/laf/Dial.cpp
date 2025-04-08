@@ -1,6 +1,6 @@
-#include "../../../includes/gui/laf/Dial.h"
-#include "../../../includes/gui/Theme.h"
-#include "../../../includes/gui/EmbeddedFonts.h"
+#include "../../../include/gui/laf/Dial.h"
+#include "../../../include/gui/Theme.h"
+#include "../../../include/gui/EmbeddedFonts.h"
 
 namespace ui::laf
 {

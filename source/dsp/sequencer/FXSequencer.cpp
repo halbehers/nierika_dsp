@@ -1,4 +1,4 @@
-#include "../../../includes/dsp/sequencer/FXSequencer.h"
+#include "../../../include/dsp/sequencer/FXSequencer.h"
 
 namespace dsp {
 

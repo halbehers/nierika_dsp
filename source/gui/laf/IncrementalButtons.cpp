@@ -1,7 +1,7 @@
-#include "../../../includes/gui/laf/IncrementalButtons.h"
-#include "../../../includes/gui/Theme.h"
-#include "../../../includes/gui/Helpers.h"
-#include "../../../includes/gui/element/IncrementalButton.h"
+#include "../../../include/gui/laf/IncrementalButtons.h"
+#include "../../../include/gui/Theme.h"
+#include "../../../include/gui/Helpers.h"
+#include "../../../include/gui/element/IncrementalButton.h"
 
 namespace ui::laf
 {

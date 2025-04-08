@@ -1,5 +1,5 @@
-#include "../../../includes/gui/element/FrequencyDial.h"
-#include "../../../includes/gui/Formatter.h"
+#include "../../../include/gui/element/FrequencyDial.h"
+#include "../../../include/gui/Formatter.h"
 
 namespace ui::element
 {

@@ -1,4 +1,4 @@
-#include "../../../includes/dsp/delay/SimpleDelay.h"
+#include "../../../include/dsp/delay/SimpleDelay.h"
 
 namespace nierika::dsp
 {
