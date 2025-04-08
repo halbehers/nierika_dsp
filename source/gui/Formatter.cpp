@@ -4,7 +4,7 @@
 
 #include "../../include/gui/Formatter.h"
 
-namespace ui
+namespace nierika::gui
 {
 
 Formatter::Formatter()

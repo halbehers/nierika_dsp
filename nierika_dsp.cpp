@@ -9,6 +9,8 @@
 
 #include "nierika_dsp.h"
 
+#include "source/ModuleBinaryData.cpp"
+
 // DSP
 #include "source/dsp/CircularAudioBuffer.cpp"
 #include "source/dsp/Timing.cpp"
@@ -31,6 +33,7 @@
 #include "source/gui/element/IncrementalButtons.cpp"
 #include "source/gui/element/Level.cpp"
 #include "source/gui/element/PercentageDial.cpp"
+#include "source/gui/element/SpectrumAnalyzer.cpp"
 #include "source/gui/element/Slider.cpp"
 #include "source/gui/element/Stars.cpp"
 #include "source/gui/element/SVGButton.cpp"

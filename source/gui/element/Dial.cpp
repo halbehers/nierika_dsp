@@ -1,7 +1,7 @@
 #include "../../../include/gui/element/Dial.h"
 #include "../../../include/gui/Theme.h"
 
-namespace ui::element
+namespace nierika::gui::element
 {
 
 Dial::Dial(const juce::String& label, float minValue, float maxValue, float defaultValue, const juce::String& valueSuffix):

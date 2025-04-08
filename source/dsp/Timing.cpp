@@ -1,6 +1,6 @@
 #include "../../include/dsp/Timing.h"
 
-namespace dsp
+namespace nierika::dsp
 {
 
 Timing::Timing()

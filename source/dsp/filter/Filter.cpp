@@ -1,6 +1,6 @@
 #include "../../../include/dsp/filter/Filter.h"
 
-namespace dsp
+namespace nierika::dsp
 {
     Filter::Filter(float defaultCutoffFrequency):
         _cutoffFrequency(defaultCutoffFrequency)

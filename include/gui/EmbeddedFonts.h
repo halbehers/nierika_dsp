@@ -3,9 +3,9 @@
 class EmbeddedFonts
 {
 public:
-    static const juce::Font getBrandonBold();
-    static const juce::Font getBrandonMedium();
-    static const juce::Font getBrandonRegular();
-    static const juce::Font getBrandonLight();
-    static const juce::Font getBrandonThin();
+    static const juce::Font getBold();
+    static const juce::Font getMedium();
+    static const juce::Font getRegular();
+    static const juce::Font getLight();
+    static const juce::Font getThin();
 };

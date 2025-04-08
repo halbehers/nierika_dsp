@@ -1,6 +1,6 @@
 #include "../../../include/dsp/filter/HighPassFilter.h"
 
-namespace dsp
+namespace nierika::dsp
 {
     HighPassFilter::HighPassFilter(float defaultCutoffFrenquency):
         Filter::Filter(defaultCutoffFrenquency)

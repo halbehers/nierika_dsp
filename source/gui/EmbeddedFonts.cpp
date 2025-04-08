@@ -1,31 +1,31 @@
 #include "../../include/gui/EmbeddedFonts.h"
 
-const juce::Font EmbeddedFonts::getBrandonBold()
+const juce::Font EmbeddedFonts::getBold()
 {
-    static auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::Brandon_bld_otf, BinaryData::Brandon_bld_otfSize);
+    static auto typeface = juce::Typeface::createSystemTypefaceFor(ModuleBinaryData::Brandon_bld_otf, ModuleBinaryData::Brandon_bld_otfSize);
     return juce::Font(typeface);
 }
 
-const juce::Font EmbeddedFonts::getBrandonMedium()
+const juce::Font EmbeddedFonts::getMedium()
 {
-    static auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::Brandon_med_otf, BinaryData::Brandon_med_otfSize);
+    static auto typeface = juce::Typeface::createSystemTypefaceFor(ModuleBinaryData::Brandon_med_otf, ModuleBinaryData::Brandon_med_otfSize);
     return juce::Font(typeface);
 }
 
-const juce::Font EmbeddedFonts::getBrandonRegular()
+const juce::Font EmbeddedFonts::getRegular()
 {
-    static auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::Brandon_reg_otf, BinaryData::Brandon_reg_otfSize);
+    static auto typeface = juce::Typeface::createSystemTypefaceFor(ModuleBinaryData::Brandon_reg_otf, ModuleBinaryData::Brandon_reg_otfSize);
     return juce::Font(typeface);
 }
 
-const juce::Font EmbeddedFonts::getBrandonLight()
+const juce::Font EmbeddedFonts::getLight()
 {
-    static auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::Brandon_light_otf, BinaryData::Brandon_light_otfSize);
+    static auto typeface = juce::Typeface::createSystemTypefaceFor(ModuleBinaryData::Brandon_light_otf, ModuleBinaryData::Brandon_light_otfSize);
     return juce::Font(typeface);
 }
 
-const juce::Font EmbeddedFonts::getBrandonThin()
+const juce::Font EmbeddedFonts::getThin()
 {
-    static auto typeface = juce::Typeface::createSystemTypefaceFor(BinaryData::Brandon_thin_otf, BinaryData::Brandon_thin_otfSize);
+    static auto typeface = juce::Typeface::createSystemTypefaceFor(ModuleBinaryData::Brandon_thin_otf, ModuleBinaryData::Brandon_thin_otfSize);
     return juce::Font(typeface);
 }

@@ -3,7 +3,7 @@
 #include "../../../include/gui/Helpers.h"
 #include "../../../include/gui/EmbeddedFonts.h"
 
-namespace ui::laf
+namespace nierika::gui::laf
 {
 
 SVGButton::SVGButton()
@@ -48,7 +48,7 @@ void SVGButton::drawDrawableButton
         color = downColor;
     }
     
-    ui::helpers::drawFromSVG(g, _svgBinary, color, 0, 0, button.getWidth(), button.getHeight(), juce::AffineTransform());
+    helpers::drawFromSVG(g, _svgBinary, color, 0, 0, button.getWidth(), button.getHeight(), juce::AffineTransform());
 }
 
 }

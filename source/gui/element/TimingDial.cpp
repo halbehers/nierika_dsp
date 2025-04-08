@@ -1,7 +1,7 @@
 #include "../../../include/gui/element/TimingDial.h"
 #include "../../../include/dsp/Timing.h"
 
-namespace ui::element
+namespace nierika::gui::element
 {
 TimingDial::TimingDial(const juce::String& label, dsp::Timing::NoteTiming defaultValue, Size size):
     Dial(label, dsp::Timing::NoteTiming::NOTE_32, dsp::Timing::NoteTiming::NOTE_FOUR_STEP, defaultValue, "", size)

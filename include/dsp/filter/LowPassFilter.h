@@ -9,7 +9,7 @@ namespace nierika::dsp
 
 class LowPassFilter : public Filter
 {
-    public:
+public:
     LowPassFilter();
     LowPassFilter(float defaultCutoffFrenquency);
     ~LowPassFilter() override;

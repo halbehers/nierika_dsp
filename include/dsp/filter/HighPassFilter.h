@@ -9,7 +9,7 @@ namespace nierika::dsp
 
 class HighPassFilter : public Filter
 {
-    public:
+public:
     HighPassFilter();
     HighPassFilter(float defaultCutoffFrenquency);
     ~HighPassFilter() override;

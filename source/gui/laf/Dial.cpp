@@ -2,7 +2,7 @@
 #include "../../../include/gui/Theme.h"
 #include "../../../include/gui/EmbeddedFonts.h"
 
-namespace ui::laf
+namespace nierika::gui::laf
 {
 
 Dial::Dial()
@@ -127,7 +127,7 @@ void Dial::drawRotarySlider
     bool isMouseOver = slider.isMouseOver() || slider.isMouseButtonDown();
     
     if (_shortLabel != "" && isMouseOver) {
-        const juce::Font font(EmbeddedFonts::getBrandonBold()
+        const juce::Font font(EmbeddedFonts::getBold()
                               .withHeight(11));
 
         g.setColour(disabledColor);
@@ -179,7 +179,7 @@ void Dial::drawLabel (juce::Graphics& g, juce::Label& label)
     if (! label.isBeingEdited())
     {
         auto labelColor = label.isEnabled() ? label.findColour (juce::Label::textColourId) : disabledColor;
-        const juce::Font font(EmbeddedFonts::getBrandonRegular()
+        const juce::Font font(EmbeddedFonts::getRegular()
                               .withHeight((float) (juce::jmax(label.getWidth() * 0.18, label.getHeight() * 0.375)) + 2.0)
                               );
 

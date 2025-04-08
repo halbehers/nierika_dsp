@@ -1,6 +1,6 @@
 #include "../../include/gui/Helpers.h"
 
-namespace ui::helpers
+namespace nierika::gui::helpers
 {
 
 void changeColor(std::unique_ptr<juce::XmlElement>& xml, juce::String color_hex)
@@ -39,7 +39,7 @@ void drawFromSVG(juce::Graphics& g, const char* svgBinary, juce::String col_hex,
 {
     std::unique_ptr<juce::XmlElement> svg(juce::XmlDocument::parse(svgBinary));
     jassert(svg != nullptr);
-    ui::helpers::changeColor(svg, col_hex);
+    changeColor(svg, col_hex);
 
     std::unique_ptr<juce::Drawable> drawable = juce::Drawable::createFromSVG(*svg);
     drawable->setTransformToFit(juce::Rectangle<float>(x, y, newWidth, newHeight), juce::RectanglePlacement::centred);

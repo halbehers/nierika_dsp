@@ -1,7 +1,7 @@
 #include "../../../include/gui/element/ComboBox.h"
 #include "../../../include/gui/Theme.h"
 
-namespace ui::element
+namespace nierika::gui::element
 {
 
 ComboBox::ComboBox(const juce::String& name)

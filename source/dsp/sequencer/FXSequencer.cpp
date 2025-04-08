@@ -1,6 +1,7 @@
 #include "../../../include/dsp/sequencer/FXSequencer.h"
 
-namespace dsp {
+namespace nierika::dsp
+{
 
 FXSequencer::FXSequencer(int defaultNbOfSteps, Timing::NoteTiming defaultNoteTiming):
     _nbOfSteps(defaultNbOfSteps),

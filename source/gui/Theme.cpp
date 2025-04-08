@@ -1,6 +1,6 @@
 #include "../../include/gui/Theme.h"
 
-namespace ui
+namespace nierika::gui
 {
 
 Theme::Color::Color(ThemeColor color):

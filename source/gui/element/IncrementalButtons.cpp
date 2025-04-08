@@ -1,6 +1,6 @@
 #include "../../../include/gui/element/IncrementalButtons.h"
 
-namespace ui::element
+namespace nierika::gui::element
 {
 
 IncrementalButtons::IncrementalButtons(float minValue, float maxValue, float defaultValue):

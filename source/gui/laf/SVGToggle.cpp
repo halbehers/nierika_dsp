@@ -3,7 +3,7 @@
 #include "../../../include/gui/Helpers.h"
 #include "../../../include/gui/EmbeddedFonts.h"
 
-namespace ui::laf
+namespace nierika::gui::laf
 {
 
 SVGToggle::SVGToggle()
@@ -55,10 +55,7 @@ void SVGToggle::drawTickBox
     auto themeColor = _stateToThemeColors[getState(ticked, isEnabled, shouldDrawButtonAsHighlighted, shouldDrawButtonAsDown)];
     auto color = Theme::getInstance().getColor(themeColor).asHexString();
 
-    ui::helpers::drawFromSVG(g, _svgBinary, color, x, y, w, h, juce::AffineTransform());
-    
-    
-    
+    helpers::drawFromSVG(g, _svgBinary, color, x, y, w, h, juce::AffineTransform());
 }
 
 }

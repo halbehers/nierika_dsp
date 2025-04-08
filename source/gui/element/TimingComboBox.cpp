@@ -1,7 +1,7 @@
 #include "../../../include/gui/element/TimingComboBox.h"
 #include "../../../include/dsp/Timing.h"
 
-namespace ui::element
+namespace nierika::gui::element
 {
 
 TimingComboBox::TimingComboBox(const juce::String& name):

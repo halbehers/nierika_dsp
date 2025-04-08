@@ -42,7 +42,7 @@ bool SpectrumAnalyzer::isMono()
 
 void SpectrumAnalyzer::timerCallback()
 {
-    BlockType tempIncomingBuffer;
+    juce::AudioBuffer<float> tempIncomingBuffer;
     
     fillFFTDataGenerator(&_leftChannelFFTDataGenerator, _leftChannelFifo);
     fillPath(&_leftChannelFFTPath, &_leftChannelFFTDataGenerator);
@@ -56,9 +56,9 @@ void SpectrumAnalyzer::timerCallback()
     repaint();
 }
 
-void SpectrumAnalyzer::fillFFTDataGenerator( dsp::FFTDataGenerator<std::vector<float>>* fftDataGenerator, dsp::SingleChannelSampleFIFO<BlockType>* fifo)
+void SpectrumAnalyzer::fillFFTDataGenerator( dsp::FFTDataGenerator<std::vector<float>>* fftDataGenerator, dsp::SingleChannelSampleFIFO<juce::AudioBuffer<float>>* fifo)
 {
-    BlockType tempIncomingBuffer;
+    juce::AudioBuffer<float> tempIncomingBuffer;
 
     while (fifo->getNumCompleteBuffersAvailable() > 0)
     {

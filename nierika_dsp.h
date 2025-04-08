@@ -34,6 +34,8 @@
 #include <juce_gui_basics/juce_gui_basics.h>
 #include <juce_gui_extra/juce_gui_extra.h>
 
+#include "include/ModuleBinaryData.h"
+
 // DSP
 #include "include/dsp/Channel.h"
 #include "include/dsp/CircularAudioBuffer.h"
@@ -62,6 +64,7 @@
 #include "include/gui/element/IncrementalButtons.h"
 #include "include/gui/element/Level.h"
 #include "include/gui/element/PercentageDial.h"
+#include "include/gui/element/SpectrumAnalyzer.h"
 #include "include/gui/element/Slider.h"
 #include "include/gui/element/Stars.h"
 #include "include/gui/element/SVGButton.h"

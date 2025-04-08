@@ -1,13 +1,14 @@
 #include "../../../include/gui/Helpers.h"
 #include "../../../include/gui/element/IncrementalButton.h"
+#include "../../../include/gui/Icons.h"
 
-namespace ui::element
+namespace nierika::gui::element
 {
 
 IncrementalButton::IncrementalButton(const juce::String& buttonName, Type type):
     juce::ArrowButton(buttonName, 0.0f, Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce()),
     _type(type),
-    _svgBinary(type == Type::PLUS ? BinaryData::Plus_svg : BinaryData::Minus_svg)
+    _svgBinary(type == Type::PLUS ? Icons::getInstance().getPlus() : Icons::getInstance().getMinus())
 {
     
 }
@@ -16,7 +17,7 @@ IncrementalButton::IncrementalButton(const juce::String& buttonName, Type type):
 IncrementalButton::IncrementalButton(Type type):
     juce::ArrowButton(type == Type::PLUS ? "Plus" : "Minus", 0.0f, Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce()),
     _type(type),
-    _svgBinary(type == Type::PLUS ? BinaryData::Plus_svg : BinaryData::Minus_svg)
+    _svgBinary(type == Type::PLUS ? Icons::getInstance().getPlus() : Icons::getInstance().getMinus())
 {
     
 }
@@ -47,7 +48,7 @@ void IncrementalButton::paintButton(juce::Graphics& g, bool shouldDrawButtonAsHi
         color = downColor;
     }
     
-    ui::helpers::drawFromSVG(g, _svgBinary, color, 0, 0, 11, 11, juce::AffineTransform());
+    helpers::drawFromSVG(g, _svgBinary, color, 0, 0, 11, 11, juce::AffineTransform());
 }
 
 }

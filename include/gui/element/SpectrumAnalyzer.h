@@ -26,12 +26,12 @@ public:
     bool isMono();
 
 private:
-    SandboxPluginAudioProcessor& _audioProcessor;
-    dsp::SingleChannelSampleFIFO<BlockType>* _leftChannelFifo;
-    dsp::SingleChannelSampleFIFO<BlockType>* _rightChannelFifo;
+    juce::AudioProcessor& _audioProcessor;
+    dsp::SingleChannelSampleFIFO<juce::AudioBuffer<float>>* _leftChannelFifo;
+    dsp::SingleChannelSampleFIFO<juce::AudioBuffer<float>>* _rightChannelFifo;
     bool _isMono = false;
     
-    BlockType _monoBuffer;
+    juce::AudioBuffer<float> _monoBuffer;
     dsp::FFTDataGenerator<std::vector<float>> _leftChannelFFTDataGenerator;
     dsp::FFTDataGenerator<std::vector<float>> _rightChannelFFTDataGenerator;
     AnalyzerPathGenerator<juce::Path> _pathGenerator;

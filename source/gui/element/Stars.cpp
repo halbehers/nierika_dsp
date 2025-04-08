@@ -1,7 +1,7 @@
 #include "../../../include/gui/element/Stars.h"
 #include "../../../include/gui/Theme.h"
 
-namespace ui::element
+namespace nierika::gui::element
 {
 
 Stars::Stars(int maxWidth, int maxHeight):

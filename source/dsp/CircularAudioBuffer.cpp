@@ -1,6 +1,6 @@
 #include "../../include/dsp/CircularAudioBuffer.h"
 
-namespace dsp
+namespace nierika::dsp
 {
 
 CircularAudioBuffer::CircularAudioBuffer():

@@ -3,7 +3,7 @@
 #include "../../../include/gui/EmbeddedFonts.h"
 #include "../../../include/gui/Helpers.h"
 
-namespace ui::element
+namespace nierika::gui::element
 {
 
 BoxToggle::BoxToggle():

@@ -1,6 +1,6 @@
 #include "../../../include/gui/element/HorizontalSlider.h"
 
-namespace ui::element
+namespace nierika::gui::element
 {
 
 HorizontalSlider::HorizontalSlider(const juce::String& label, float minValue, float maxValue, float defaultValue, const juce::String& valueSuffix):
