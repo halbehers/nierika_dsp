@@ -6,7 +6,7 @@
 
 #include <cstring>
 
-namespace ModuleBinaryData
+namespace NierikaDSPBinaryData
 {
 
 //================== ArrowDown.svg ==================

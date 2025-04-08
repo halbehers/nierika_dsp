@@ -34,7 +34,7 @@
 #include <juce_gui_basics/juce_gui_basics.h>
 #include <juce_gui_extra/juce_gui_extra.h>
 
-#include "include/ModuleBinaryData.h"
+#include "include/NierikaDSPBinaryData.h"
 
 // DSP
 #include "include/dsp/Channel.h"
@@ -55,6 +55,7 @@
 #include "include/gui/Formatter.h"
 #include "include/gui/Helpers.h"
 #include "include/gui/Spacing.h"
+#include "include/gui/Theme.h"
 #include "include/gui/element/BoxToggle.h"
 #include "include/gui/element/ComboBox.h"
 #include "include/gui/element/Dial.h"

@@ -6,7 +6,7 @@
 
 #pragma once
 
-namespace ModuleBinaryData
+namespace NierikaDSPBinaryData
 {
     extern const char*   ArrowDown_svg;
     const int            ArrowDown_svgSize = 230;

@@ -9,7 +9,7 @@
 
 #include "nierika_dsp.h"
 
-#include "source/ModuleBinaryData.cpp"
+#include "source/NierikaDSPBinaryData.cpp"
 
 // DSP
 #include "source/dsp/CircularAudioBuffer.cpp"
@@ -24,6 +24,7 @@
 #include "source/gui/EmbeddedFonts.cpp"
 #include "source/gui/Formatter.cpp"
 #include "source/gui/Helpers.cpp"
+#include "source/gui/Theme.cpp"
 #include "source/gui/element/BoxToggle.cpp"
 #include "source/gui/element/ComboBox.cpp"
 #include "source/gui/element/Dial.cpp"

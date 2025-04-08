@@ -1,8 +1,7 @@
 #pragma once
 
 #include <unordered_map>
-
-#define FONT_FAMILY "Helvetica"
+#include <string>
 
 #define COLOR_WHITE 0xFFFFF8F8
 
