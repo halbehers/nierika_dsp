@@ -3,7 +3,7 @@
 #include "Dial.h"
 #include "../../dsp/Timing.h"
 
-namespace nierika::ui::element
+namespace nierika::gui::element
 {
 
 class TimingDial: public Dial

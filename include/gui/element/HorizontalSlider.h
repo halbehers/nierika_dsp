@@ -2,7 +2,7 @@
 
 #include "Slider.h"
 
-namespace nierika::ui::element
+namespace nierika::gui::element
 {
 
 class HorizontalSlider: public Slider

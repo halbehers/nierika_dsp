@@ -2,7 +2,7 @@
 
 #include "../Theme.h"
 
-namespace nierika::ui::laf
+namespace nierika::gui::laf
 {
 
 class SVGButton : public juce::LookAndFeel_V4

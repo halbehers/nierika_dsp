@@ -1,6 +1,6 @@
 #pragma once
 
-namespace nierika::ui::laf
+namespace nierika::gui::laf
 {
 
 class Dial : public juce::LookAndFeel_V4

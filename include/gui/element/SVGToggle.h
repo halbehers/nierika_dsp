@@ -2,7 +2,7 @@
 
 #include "../laf/SVGToggle.h"
 
-namespace nierika::ui::element
+namespace nierika::gui::element
 {
 
 class SVGToggle: public juce::ToggleButton

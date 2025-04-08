@@ -1,6 +1,6 @@
 #pragma once
 
-namespace nierika::ui::element
+namespace nierika::gui::element
 {
 
 class Slider: public juce::Slider

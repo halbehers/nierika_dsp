@@ -2,7 +2,7 @@
 
 #include "../laf/ComboBox.h"
 
-namespace nierika::ui::element
+namespace nierika::gui::element
 {
 
 class ComboBox: public juce::ComboBox

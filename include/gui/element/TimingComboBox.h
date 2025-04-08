@@ -2,7 +2,7 @@
 
 #include "ComboBox.h"
 
-namespace nierika::ui::element
+namespace nierika::gui::element
 {
 
 class TimingComboBox: public ComboBox

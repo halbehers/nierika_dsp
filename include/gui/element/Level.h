@@ -2,7 +2,7 @@
 
 #include "../Theme.h"
 
-namespace nierika::ui::element
+namespace nierika::gui::element
 {
 
 class Level: public juce::Component

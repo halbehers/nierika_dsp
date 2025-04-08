@@ -4,7 +4,7 @@
 
 #include "../Theme.h"
 
-namespace nierika::ui::laf
+namespace nierika::gui::laf
 {
 
 class SVGToggle : public juce::LookAndFeel_V4

@@ -2,7 +2,7 @@
 
 #include "../Theme.h"
 
-namespace nierika::ui::laf
+namespace nierika::gui::laf
 {
 
 struct ComboBox : public juce::LookAndFeel_V4

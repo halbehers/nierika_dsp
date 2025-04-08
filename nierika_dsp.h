@@ -10,18 +10,16 @@
 
  BEGIN_JUCE_MODULE_DECLARATION
 
-  ID:                 nierikadsp
+  ID:                 nierika_dsp
   vendor:             nierika
-  version:            1.0.0
-  name:               Nierka's DSP & GUI classes based on JUCE
+  version:            0.1.0
+  name:               Nierka's JUCE module for DSP & GUI classes
   description:        Classes for GUI creation and DSP processing.
   website:            http://www.juce.com/juce
   license:            MIT
   minimumCppStandard: 17
 
-  dependencies:       juce_core
-  OSXFrameworks:      Accelerate
-  iOSFrameworks:      Accelerate
+  dependencies:       juce_core juce_dsp juce_graphics juce_gui_basics juce_gui_extra juce_audio_basics juce_audio_processors
 
  END_JUCE_MODULE_DECLARATION
 

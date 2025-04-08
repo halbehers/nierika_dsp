@@ -3,7 +3,7 @@
 #include "Slider.h"
 #include "../laf/Dial.h"
 
-namespace nierika::ui::element
+namespace nierika::gui::element
 {
 
 class Dial: public Slider

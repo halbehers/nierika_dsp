@@ -2,7 +2,7 @@
 
 #include "../laf/BoxToggle.h"
 
-namespace nierika::ui::element
+namespace nierika::gui::element
 {
 
 class BoxToggle: public juce::ToggleButton

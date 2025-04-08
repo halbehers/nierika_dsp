@@ -3,7 +3,7 @@
 #include "../laf/IncrementalButtons.h"
 #include "Slider.h"
 
-namespace nierika::ui::element
+namespace nierika::gui::element
 {
 
 class IncrementalButtons: public Slider

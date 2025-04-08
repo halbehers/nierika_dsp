@@ -2,7 +2,7 @@
 
 #include "Dial.h"
 
-namespace nierika::ui::element
+namespace nierika::gui::element
 {
 
 class TimeInMsDial: public Dial

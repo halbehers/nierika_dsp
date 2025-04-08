@@ -3,7 +3,7 @@
 #define ATTRIBUTE_FILL "fill"
 #define SVG_DEFAULT_COLOR "#000000"
 
-namespace nierika::ui::helpers
+namespace nierika::gui::helpers
 {
 
 void changeColor(juce::XmlElement* xml, juce::String color_hex);

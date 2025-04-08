@@ -2,7 +2,7 @@
 
 #include "../laf/SVGButton.h"
 
-namespace nierika::ui::element
+namespace nierika::gui::element
 {
 
 class SVGButton: public juce::DrawableButton

@@ -2,7 +2,7 @@
 
 #include "../element/SVGButton.h"
 
-namespace nierika::ui::laf
+namespace nierika::gui::laf
 {
 
 class IncrementalButtons : public juce::LookAndFeel_V4
