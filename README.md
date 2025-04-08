@@ -7,7 +7,7 @@ A JUCE module containing a collection of DSP &amp; GUI classes made to homegeniz
 ## Table of Contents
 
 - [About](#about)
-- [Dependencies](#dependencies)
+- [Requirements & Dependencies](#requirements--dependencies)
 - [Installation](#installation)
   - [Using Projucer](#using-projucer)
 - [Usage](#usage)
@@ -21,7 +21,7 @@ This JUCE module is initially made for personnal use in order to make reusable G
 
 ---
 
-## Dependencies
+## Requirements & Dependencies
 
 **Minimum C++ Standard Version**: 17
 
