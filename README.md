@@ -32,10 +32,10 @@ git clone git@github.com:halbehers/nierika_dsp.git
 2. Add the module in the Projucer app:
 
 <span>
-<img width="512" alt="Screenshot 2025-04-08 at 14 12 11" src="https://github.com/user-attachments/assets/85a46d77-a872-47b7-ac43-5f47a4e2fc05" />
+<img width="400" alt="Screenshot 2025-04-08 at 14 12 11" src="https://github.com/user-attachments/assets/85a46d77-a872-47b7-ac43-5f47a4e2fc05" />
 </span>
 <span>
-<img width="512" alt="Screenshot 2025-04-08 at 14 13 45" src="https://github.com/user-attachments/assets/a9a5efda-7401-41c6-ab8f-505cf325f38f" />
+<img width="400" alt="Screenshot 2025-04-08 at 14 13 45" src="https://github.com/user-attachments/assets/a9a5efda-7401-41c6-ab8f-505cf325f38f" />
 </span>
 
 ---
