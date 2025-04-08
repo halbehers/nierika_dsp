@@ -2,6 +2,23 @@
 
 A JUCE module containing a collection of DSP &amp; GUI classes made to homegenize and facilitate Juce plugin development
 
+---
+
+## Table of Contents
+
+- [About](#about)
+- [Installation](#installation)
+  - [Using Projucer](#using-projucer)
+- [Developers](#developers)
+
+---
+
+## About
+
+This JUCE module is initially made for personnal use in order to make reusable GUI components and DSP processing classes to be used in all of my plugins.
+
+---
+
 ## Installation
 
 ### Using Projucer
@@ -16,3 +33,9 @@ git clone git@github.com:halbehers/nierika_dsp.git
 
 3. Start using it !
 <img width="892" alt="Screenshot 2025-04-08 at 14 13 45" src="https://github.com/user-attachments/assets/a9a5efda-7401-41c6-ab8f-505cf325f38f" />
+
+---
+
+## Developers
+
+- Sebastien Halbeher
