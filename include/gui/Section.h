@@ -13,8 +13,7 @@ namespace nierika::gui
 class Section : public juce::Component
 {
 public:
-    Section(std::string identifier, nierika::dsp::FXSequencer& fxSequencer,
-            juce::AudioProcessorValueTreeState& treeState, std::string sectionEnabledParameterID = "", std::string sectionFXSequencerActivationParameterID = "");
+    Section(std::string identifier, juce::AudioProcessorValueTreeState& treeState, std::string sectionEnabledParameterID = "", std::string sectionFXSequencerActivationParameterID = "");
     ~Section() override;
     
     void paint (juce::Graphics&) override;
@@ -29,9 +28,11 @@ public:
     juce::Rectangle<int> getLocalBounds();
     
     void setName(std::string name);
+
+    void setFXSequencer(dsp::FXSequencer* fxSequencer);
     
 protected:
-    nierika::dsp::FXSequencer& _fxSequencer;
+    dsp::FXSequencer* _fxSequencer =  nullptr;
     juce::AudioProcessorValueTreeState& _treeState;
     nierika::gui::element::SVGToggle _enabledButton { Icons::getInstance().getPowerOff() };
     juce::Label _nameLabel;

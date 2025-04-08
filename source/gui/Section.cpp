@@ -3,8 +3,7 @@
 namespace nierika::gui
 {
 
-Section::Section(std::string identifier, nierika::dsp::FXSequencer& fxSequencer, juce::AudioProcessorValueTreeState& treeState, std::string sectionEnabledParameterID, std::string sectionFXSequencerActivationParameterID):
-    _fxSequencer(fxSequencer),
+Section::Section(std::string identifier, juce::AudioProcessorValueTreeState& treeState, std::string sectionEnabledParameterID, std::string sectionFXSequencerActivationParameterID):
     _treeState(treeState),
     _identifier(identifier),
     _sectionEnabledParameterID(sectionEnabledParameterID),
@@ -15,7 +14,7 @@ Section::Section(std::string identifier, nierika::dsp::FXSequencer& fxSequencer,
 
 Section::~Section()
 {
-    _fxSequencer.unregisterSection(getID());
+    if (_fxSequencer != nullptr) _fxSequencer->unregisterSection(getID());
 }
 
 void Section::setBypassable(bool isBypassable)
@@ -39,14 +38,19 @@ void Section::setFXSequencerActivable(bool isFXSequencerActivable)
 
 void Section::setName(std::string name)
 {
-    _nameLabel.setText(nierika::gui::Formatter::toUpper(name), juce::NotificationType::dontSendNotification);
+    _nameLabel.setText(Formatter::toUpper(name), juce::NotificationType::dontSendNotification);
     if (name != "")
     {
         addAndMakeVisible(_nameLabel);
         _nameLabel.setFont(EmbeddedFonts::getLight().withHeight(16.0f));
-        _nameLabel.setColour(juce::Label::ColourIds::textColourId, nierika::gui::Theme::getInstance().getColor(nierika::gui::Theme::ThemeColor::TEXT).asJuce());
+        _nameLabel.setColour(juce::Label::ColourIds::textColourId, Theme::getInstance().getColor(Theme::ThemeColor::TEXT).asJuce());
         _nameLabel.setJustificationType(juce::Justification::centred);
     }
+}
+
+void Section::setFXSequencer(dsp::FXSequencer* fxSequencer)
+{
+    _fxSequencer = fxSequencer;
 }
 
 void Section::init()
@@ -61,11 +65,14 @@ void Section::init()
     {
         _enabledAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(_treeState, _sectionEnabledParameterID, _enabledButton);
     }
+
+    if (_fxSequencer == nullptr) return;
+
     addChildComponent(_fxSequencerButton, 100);
-    _fxSequencer.registerSection(getID());
+    _fxSequencer->registerSection(getID());
     _fxSequencerButton.onClick = [this]()
     {
-        _fxSequencer.setSectionActivation(getID(), _fxSequencerButton.getToggleState());
+        _fxSequencer->setSectionActivation(getID(), _fxSequencerButton.getToggleState());
     };
     _fxSequencerButton.setHelpText("Connect to FX Sequencer");
     if (_sectionFXSequencerActivationParameterID != "")
@@ -86,10 +93,10 @@ void Section::withDisplayBackground(bool displayBackground)
 
 void Section::paint (juce::Graphics& g)
 {
-    juce::Colour whiteColor = nierika::gui::Theme::getInstance().getColor(nierika::gui::Theme::ThemeColor::EMPTY_SHADE).asJuce();
+    juce::Colour whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
     if (_displayBackground)
     {
-        juce::Colour grayColor = nierika::gui::Theme::getInstance().getColor(nierika::gui::Theme::ThemeColor::LIGHTER_SHADE).asJuce();
+        juce::Colour grayColor = Theme::getInstance().getColor(Theme::ThemeColor::LIGHTER_SHADE).asJuce();
         g.setGradientFill(juce::ColourGradient(whiteColor.withAlpha(0.1f), getWidth() / 2, 0.0, grayColor.withAlpha(0.1f), getWidth() / 2, getHeight(), false));
         g.fillRoundedRectangle(0.0, 0.0, getWidth(), getHeight(), 17.0);
     }
