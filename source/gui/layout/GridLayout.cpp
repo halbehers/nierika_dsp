@@ -78,7 +78,7 @@ void GridLayout::paint(juce::Graphics& g)
 {
     if (_displayGrid)
     {
-        g.setColour(nierika::gui::Theme::getInstance().getColor(nierika::gui::Theme::ThemeColor::ACCENT).asJuce());
+        g.setColour(Theme::getInstance().getColor(Theme::ThemeColor::ACCENT).asJuce());
         for (int i = 0; i < _gridRows.size(); ++i)
             g.drawHorizontalLine(static_cast<int>(_gridRows[i]), _gridColumns[0], _gridColumns[0] + _width);
         for (int i = 0; i < _gridColumns.size(); ++i)

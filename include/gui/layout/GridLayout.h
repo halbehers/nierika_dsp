@@ -22,7 +22,7 @@ public:
         float handleAlpha = 1.f;
         float handleDotSize = 2.f;
         float lineOffset = 10.f;
-        juce::Colour color = nierika::gui::Theme::getInstance().getColor(nierika::gui::Theme::ThemeColor::EMPTY_SHADE).asJuce();
+        juce::Colour color = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
     };
     
     struct MovableConfiguration
@@ -32,9 +32,9 @@ public:
         float handleDotSize = 2.f;
         float movableZoneHeight = 20.f;
         float dropableZoneRadius = 17.f;
-        juce::Colour handleColor = nierika::gui::Theme::getInstance().getColor(nierika::gui::Theme::ThemeColor::EMPTY_SHADE).asJuce();
-        juce::Colour dropableZoneColor = nierika::gui::Theme::getInstance().getColor(nierika::gui::Theme::ThemeColor::ACCENT).asJuce();
-        juce::Colour dropableOnZoneColor = nierika::gui::Theme::getInstance().getColor(nierika::gui::Theme::ThemeColor::WARNING).asJuce();
+        juce::Colour handleColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
+        juce::Colour dropableZoneColor = Theme::getInstance().getColor(Theme::ThemeColor::ACCENT).asJuce();
+        juce::Colour dropableOnZoneColor = Theme::getInstance().getColor(Theme::ThemeColor::WARNING).asJuce();
     };
     
     GridLayout(juce::Component& component);
