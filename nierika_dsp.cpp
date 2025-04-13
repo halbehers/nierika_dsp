@@ -49,3 +49,7 @@
 #include "source/gui/laf/IncrementalButtons.cpp"
 #include "source/gui/laf/SVGButton.cpp"
 #include "source/gui/laf/SVGToggle.cpp"
+#include "source/gui/layout/GridLayout.cpp"
+#include "source/gui/layout/GridLayoutItem.cpp"
+#include "source/gui/layout/Margin.cpp"
+#include "source/gui/layout/Border.cpp"

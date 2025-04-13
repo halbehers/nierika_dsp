@@ -81,3 +81,7 @@
 #include "include/gui/laf/IncrementalButtons.h"
 #include "include/gui/laf/SVGButton.h"
 #include "include/gui/laf/SVGToggle.h"
+#include "include/gui/layout/GridLayout.h"
+#include "include/gui/layout/GridLayoutItem.h"
+#include "include/gui/layout/Margin.h"
+#include "include/gui/layout/Border.h"
