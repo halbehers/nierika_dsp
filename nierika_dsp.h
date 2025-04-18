@@ -92,3 +92,10 @@
 // Utilities
 #include "include/utils/Singleton.h"
 #include "include/utils/Logger.h"
+
+namespace nui = nierika::gui;
+namespace nelement = nierika::gui::element;
+namespace nlaf = nierika::gui::laf;
+namespace nlayout = nierika::gui::layout;
+namespace ndsp = nierika::dsp;
+namespace nutils = nierika::utils;
