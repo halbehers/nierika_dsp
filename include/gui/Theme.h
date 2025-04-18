@@ -3,6 +3,8 @@
 #include <unordered_map>
 #include <string>
 
+#include "../utils/Singleton.h"
+
 #define COLOR_WHITE 0xFFFFF8F8
 
 #define COLOR_GRAY_50 0xFF808080
@@ -41,17 +43,9 @@
 namespace nierika::gui
 {
 
-class Theme
+class Theme: public utils::Singleton<Theme>
 {
-public:
-    static Theme& getInstance()
-    {
-        static Theme instance;
-        return instance;
-    }
-    Theme(Theme const&) = delete;
-    void operator=(Theme const&) = delete;
-    
+public:    
     enum ThemeColor
     {
         TRANSPARENT,
@@ -75,9 +69,9 @@ public:
         Color(ThemeColor color);
         ~Color();
 
-        juce::uint32 asHex();
-        juce::Colour asJuce();
-        std::string asHexString();
+        juce::uint32 asHex() const;
+        juce::Colour asJuce() const;
+        std::string asHexString() const;
         
     private:
         ThemeColor _color;
@@ -101,9 +95,6 @@ public:
     };
     
     Color getColor(ThemeColor color);
-
-private:
-    Theme() {}
 };
 
 }

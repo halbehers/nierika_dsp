@@ -26,6 +26,8 @@
 #include "source/gui/Helpers.cpp"
 #include "source/gui/Theme.cpp"
 #include "source/gui/Section.cpp"
+#include "source/gui/Component.cpp"
+#include "source/gui/TooltipManager.cpp"
 #include "source/gui/element/BoxToggle.cpp"
 #include "source/gui/element/ComboBox.cpp"
 #include "source/gui/element/Dial.cpp"
@@ -43,6 +45,7 @@
 #include "source/gui/element/TimeInMsDial.cpp"
 #include "source/gui/element/TimingComboBox.cpp"
 #include "source/gui/element/TimingDial.cpp"
+#include "source/gui/element/Tooltip.cpp"
 #include "source/gui/laf/BoxToggle.cpp"
 #include "source/gui/laf/ComboBox.cpp"
 #include "source/gui/laf/Dial.cpp"
@@ -53,3 +56,6 @@
 #include "source/gui/layout/GridLayoutItem.cpp"
 #include "source/gui/layout/Margin.cpp"
 #include "source/gui/layout/Border.cpp"
+
+// Utilities
+#include "source/utils/Logger.cpp"

@@ -27,7 +27,7 @@ public:
     void setBypass(bool isBypassed);
     juce::Rectangle<int> getLocalBounds();
     
-    void setName(std::string name);
+    void setSectionName(std::string name);
 
     void setFXSequencer(dsp::FXSequencer* fxSequencer);
     

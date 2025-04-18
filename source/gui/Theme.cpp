@@ -17,18 +17,18 @@ Theme::Color::~Color()
 {
 }
 
-juce::uint32 Theme::Color::asHex()
+juce::uint32 Theme::Color::asHex() const
 {
-    return _themeColorToHex[_color];
+    return _themeColorToHex.at(_color);
 }
 
-juce::Colour Theme::Color::asJuce()
+juce::Colour Theme::Color::asJuce() const
 {
     return juce::Colour(asHex());
 }
 
 
-std::string Theme::Color::asHexString()
+std::string Theme::Color::asHexString() const
 {
     std::ostringstream oss;
     oss << "#" << std::uppercase << std::hex << std::setw(6) << std::setfill('0') << (asHex() & 0xFFFFFF);

@@ -1,6 +1,8 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include <vector>
+#include <string>
 
 #include "../../include/gui/Formatter.h"
 
@@ -63,6 +65,27 @@ std::string Formatter::formatTimeInMs(float timeInMs)
         oss << std::fixed << std::setprecision(1) << (timeInMs / 1000.0f) << " s";
     } else {
         oss << std::fixed << std::setprecision(1) << timeInMs << " ms";
+    }
+    return oss.str();
+}
+
+std::string Formatter::formatBPM(double bpm)
+{
+    std::ostringstream oss;
+
+    oss << std::fixed << std::setprecision(1) << bpm << " bpm";
+
+    return oss.str();
+}
+
+std::string Formatter::joinWithNewline(const std::vector<std::string>& lines)
+{
+    std::ostringstream oss;
+    for (auto i = 0; i < lines.size(); ++i) {
+        oss << lines.at(i);
+        if (i != lines.size() - 1) {
+            oss << '\n';
+        }
     }
     return oss.str();
 }

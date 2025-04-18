@@ -58,6 +58,8 @@
 #include "include/gui/Section.h"
 #include "include/gui/Spacing.h"
 #include "include/gui/Theme.h"
+#include "include/gui/Component.h"
+#include "include/gui/TooltipManager.h"
 #include "include/gui/element/BoxToggle.h"
 #include "include/gui/element/ComboBox.h"
 #include "include/gui/element/Dial.h"
@@ -75,6 +77,7 @@
 #include "include/gui/element/TimeInMsDial.h"
 #include "include/gui/element/TimingComboBox.h"
 #include "include/gui/element/TimingDial.h"
+#include "include/gui/element/Tooltip.h"
 #include "include/gui/laf/BoxToggle.h"
 #include "include/gui/laf/ComboBox.h"
 #include "include/gui/laf/Dial.h"
@@ -85,3 +88,7 @@
 #include "include/gui/layout/GridLayoutItem.h"
 #include "include/gui/layout/Margin.h"
 #include "include/gui/layout/Border.h"
+
+// Utilities
+#include "include/utils/Singleton.h"
+#include "include/utils/Logger.h"

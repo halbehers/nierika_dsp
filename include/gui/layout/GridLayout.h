@@ -128,6 +128,8 @@ public:
     bool keyPressed(const juce::KeyPress& key,
                     juce::Component* originatingComponent) override;
 
+    juce::Line<float> getBottom(const float distanceFromBottom = 0);
+    juce::Rectangle<float> getRectangleAtBottom(const float height, const float distanceFromBottom = 0);
 
 protected:
     juce::Component& _component;

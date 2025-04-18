@@ -1,21 +1,14 @@
 #pragma once
 
 #include "../NierikaDSPBinaryData.h"
+#include "../utils/Singleton.h"
 
 namespace nierika::gui
 {
 
-class Icons
+class Icons: public utils::Singleton<Icons>
 {
 public:
-    static Icons& getInstance()
-    {
-        static Icons instance;
-        return instance;
-    }
-    Icons(Icons const&) = delete;
-    void operator=(Icons const&) = delete;
-
     const char* getPlus() { return NierikaDSPBinaryData::Plus_svg; }
     const char* getMinus() { return NierikaDSPBinaryData::Minus_svg; }
     const char* getArrowUp() { return NierikaDSPBinaryData::ArrowUp_svg; }
@@ -25,9 +18,7 @@ public:
     const char* getPingPong() { return NierikaDSPBinaryData::PingPong_svg; }
     const char* getNote() { return NierikaDSPBinaryData::Note_svg; }
     const char* getBoxes() { return NierikaDSPBinaryData::Boxes_svg; }
-
-private:
-    Icons() {}
+    const char* getInfo() { return NierikaDSPBinaryData::Info_svg; }
 };
 
 }

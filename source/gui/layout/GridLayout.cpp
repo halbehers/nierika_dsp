@@ -805,6 +805,16 @@ bool GridLayout::canBeMovedInto(const GridLayoutItem& itemToMove, const GridLayo
     return itemToMove.getMovableGroup() == itemToMoveInto.getMovableGroup();
 }
 
+juce::Line<float> GridLayout::getBottom(const float distanceFromBottom)
+{
+    return juce::Line<float>(getColumn(0), getRow(_gridRows.size() - 1) + distanceFromBottom, getColumn(_gridColumns.size() - 1), getRow(_gridRows.size() - 1));
+}
+
+juce::Rectangle<float> GridLayout::getRectangleAtBottom(const float height, const float distanceFromBottom)
+{
+    return juce::Rectangle<float>(getBottom(distanceFromBottom).getStartX(), getBottom(distanceFromBottom).getStartY(), getBottom(distanceFromBottom).getEndX() - getBottom(distanceFromBottom).getStartX() + 1.f, height);
+}
+
 template void GridLayout::setMargin(Margin<int> margin);
 template void GridLayout::setMargin(Margin<float> margin);
 template void GridLayout::setMargin(Margin<double> margin);
