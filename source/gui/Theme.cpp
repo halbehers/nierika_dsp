@@ -8,7 +8,7 @@
 namespace nierika::gui
 {
 
-Theme::Color::Color(ThemeColor color):
+Theme::Color::Color(const ThemeColor color):
     _color(color)
 {
 }
@@ -38,6 +38,16 @@ std::string Theme::Color::asHexString() const
 Theme::Color Theme::getColor(ThemeColor color)
 {
     return Color(color);
+}
+
+juce::Font Theme::getFont(FontStyle style, FontSize size) const
+{
+    return _fontStyleToFont.at(style).withHeight(_fontSizesToPixels.at(size));
+}
+
+const float Theme::getFontSizeInPixels(const FontSize size) const
+{
+    return _fontSizesToPixels.at(size);
 }
 
 }

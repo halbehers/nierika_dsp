@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <string>
 
+#include "EmbeddedFonts.h"
 #include "../utils/Singleton.h"
 
 #define COLOR_WHITE 0xFFFFF8F8
@@ -62,11 +63,31 @@ public:
         DANGER,
         WARNING
     };
+
+    enum FontStyle
+    {
+        BOLD,
+        MEDIUM,
+        REGULAR,
+        LIGHT,
+        THIN
+    };
+
+    enum FontSize
+    {
+        TITLE,
+        SUBTITLE,
+        HEADING,
+        CAPTION,
+        PARAGRAPH,
+        LABEL,
+        SMALL
+    };
     
     class Color
     {
     public:
-        Color(ThemeColor color);
+        Color(const ThemeColor color);
         ~Color();
 
         juce::uint32 asHex() const;
@@ -93,8 +114,34 @@ public:
             }
         };
     };
+
+    juce::Font getFont(const FontStyle style, const FontSize size = PARAGRAPH) const;
+    const float getFontSizeInPixels(const FontSize size) const;
     
     Color getColor(ThemeColor color);
+
+private:
+    std::unordered_map<FontSize, float> _fontSizesToPixels {
+        {
+            { TITLE, 32.f },
+            { SUBTITLE, 16.f },
+            { HEADING, 14.f },
+            { CAPTION, 12.f },
+            { PARAGRAPH, 11.f },
+            { LABEL, 10.f },
+            { SMALL, 8.f }
+        }
+    };
+
+    std::unordered_map<FontStyle, juce::Font> _fontStyleToFont {
+        {
+            { BOLD, EmbeddedFonts::getBold() },
+            { MEDIUM, EmbeddedFonts::getMedium() },
+            { REGULAR, EmbeddedFonts::getRegular() },
+            { LIGHT, EmbeddedFonts::getLight() },
+            { THIN, EmbeddedFonts::getThin() }
+        }
+    };
 };
 
 }

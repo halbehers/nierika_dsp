@@ -78,6 +78,7 @@
 #include "include/gui/element/TimingComboBox.h"
 #include "include/gui/element/TimingDial.h"
 #include "include/gui/element/Tooltip.h"
+#include "include/gui/element/Title.h"
 #include "include/gui/laf/BoxToggle.h"
 #include "include/gui/laf/ComboBox.h"
 #include "include/gui/laf/Dial.h"

@@ -37,6 +37,12 @@ public:
         juce::Colour dropableOnZoneColor = Theme::getInstance().getColor(Theme::ThemeColor::WARNING).asJuce();
     };
     
+    enum Direction
+    {
+        HORIZONTAL,
+        VERTICAL
+    };
+
     GridLayout(juce::Component& component);
     GridLayout(juce::Component& component, std::vector<int> gridRows, std::vector<int> gridColumns);
     ~GridLayout();
@@ -96,13 +102,7 @@ public:
     void setMovable(const std::string& identifier, const bool isMovable, const int movableGroup = 1);
 
     struct ResizableLine
-    {
-        enum Direction
-        {
-            HORIZONTAL,
-            VERTICAL
-        };
-        
+    {   
         int position = 0;
         Direction direction = HORIZONTAL;
         float portOffsetRatio = .01f;

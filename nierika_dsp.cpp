@@ -46,6 +46,7 @@
 #include "source/gui/element/TimingComboBox.cpp"
 #include "source/gui/element/TimingDial.cpp"
 #include "source/gui/element/Tooltip.cpp"
+#include "source/gui/element/Title.cpp"
 #include "source/gui/laf/BoxToggle.cpp"
 #include "source/gui/laf/ComboBox.cpp"
 #include "source/gui/laf/Dial.cpp"

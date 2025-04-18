@@ -142,13 +142,13 @@ void GridLayout::paintResizableLines(juce::Graphics& g)
 {
     for (ResizableLine resizableLine : _resizableLines)
     {
-        const bool isHorizontal = resizableLine.direction == ResizableLine::HORIZONTAL;
+        const bool isHorizontal = resizableLine.direction == HORIZONTAL;
         const auto lines = isHorizontal ? getHorizontalLines(resizableLine.position) : getVerticalLines(resizableLine.position);
 
         for (auto line : lines)
         {
             paintResizableLine(g, line);
-            paintHandle(g, line, resizableLine.direction == ResizableLine::HORIZONTAL);
+            paintHandle(g, line, resizableLine.direction == HORIZONTAL);
         }
     }
 }
@@ -509,7 +509,7 @@ void GridLayout::setMovableConfiguration(MovableConfiguration configuration)
 
 void GridLayout::setResizableLine(ResizableLine resizableLine)
 {
-    const auto size = resizableLine.direction == ResizableLine::HORIZONTAL ? _gridRows.size() : _gridColumns.size();
+    const auto size = resizableLine.direction == HORIZONTAL ? _gridRows.size() : _gridColumns.size();
 
     if (resizableLine.position < 1 || resizableLine.position > size - 2) return;
 
@@ -642,7 +642,7 @@ void GridLayout::mouseMove(const juce::MouseEvent& event)
 {
     for (ResizableLine resizableLine : _resizableLines)
     {
-        const bool isHorizontal = resizableLine.direction == ResizableLine::HORIZONTAL;
+        const bool isHorizontal = resizableLine.direction == HORIZONTAL;
         const auto lines = isHorizontal ? getHorizontalLines(resizableLine.position) : getVerticalLines(resizableLine.position);
         const float padding = 5.f;
         for (auto line : lines)
@@ -692,7 +692,7 @@ void GridLayout::mouseDrag(const juce::MouseEvent& event)
 {
     if (!_currentResizable.isEmpty())
     {
-        const bool isHorizontal = _currentResizable.direction == ResizableLine::HORIZONTAL;
+        const bool isHorizontal = _currentResizable.direction == HORIZONTAL;
         
         const float position = static_cast<float>(isHorizontal ? event.position.getY() : event.position.getX());
         const float length = static_cast<float>(isHorizontal ? _component.getHeight() : _component.getWidth());
@@ -775,7 +775,7 @@ void GridLayout::mouseDoubleClick(const juce::MouseEvent& event)
 {
     if (_currentResizable.isEmpty()) return;
 
-    const bool isHorizontal = _currentResizable.direction == ResizableLine::HORIZONTAL;
+    const bool isHorizontal = _currentResizable.direction == HORIZONTAL;
     auto& storedRatio = isHorizontal ? _gridResizedRatioRows[_currentResizable.position] : _gridResizedRatioColumns[_currentResizable.position];
 
     storedRatio = isHorizontal ? _gridRatioRows[_currentResizable.position] : _gridRatioColumns[_currentResizable.position];
