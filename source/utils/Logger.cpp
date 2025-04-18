@@ -123,9 +123,11 @@ namespace nierika::utils
         _logs.push_back({ message, level, time, source });
         
     #ifndef NDEBUG
-        writeToFile(getLogAsString(level, time, message, source));
+        if (level >= getDebugEntryLevel())
+            writeToFile(getLogAsString(level, time, message, source));
     #else
-        if (level >= WARN_LEVEL) writeToFile(getLogAsString(level, time, message, source));
+        if (level >= getReleaseEntryLevel())
+            writeToFile(getLogAsString(level, time, message, source));
     #endif
     }
 
@@ -157,10 +159,10 @@ namespace nierika::utils
         juce::StringArray lines;
         lines.addLines(logFile.loadFileAsString());
     
-        if (lines.size() > _maxLatestLogFileLines)
+        if (lines.size() > getMaxLatestLogFileLines())
         {
             juce::StringArray trimmed;
-            trimmed.addArray(lines, lines.size() - _maxLatestLogFileLines, _maxLatestLogFileLines);
+            trimmed.addArray(lines, lines.size() - getMaxLatestLogFileLines(), getMaxLatestLogFileLines());
     
             logFile.replaceWithText(trimmed.joinIntoString("\n"));
         }
@@ -178,7 +180,7 @@ namespace nierika::utils
     
             auto modified = file.getLastModificationTime();
     
-            if (now.toMilliseconds() - modified.toMilliseconds() > _maxLogFileLifetime)
+            if (now.toMilliseconds() - modified.toMilliseconds() > getMaxLogFileLifetime())
             {
                 file.deleteFile();
             }
@@ -207,7 +209,7 @@ namespace nierika::utils
             file.create();
             return file;
         }
-        if (file.getSize() > _maxLogFileSize)
+        if (file.getSize() > getMaxLogFileSize())
         {
             return getTodaysLogFile(fileNumber + 1);
         }

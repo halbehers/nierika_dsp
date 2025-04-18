@@ -36,6 +36,12 @@ protected:
 
     virtual std::string getCompanyName() = 0;
 
+    virtual const int getMaxLatestLogFileLines() const { return _defaultMaxLatestLogFileLines; }
+    virtual const int getMaxLogFileSize() const { return _defaultMaxLogFileSize; }
+    virtual const long long getMaxLogFileLifetime() const { return _defaultMaxLogFileLifetime; }
+    virtual const Level getDebugEntryLevel() const { return DEBUG_LEVEL; }
+    virtual const Level getReleaseEntryLevel() const { return WARN_LEVEL; }
+
 private:
     struct Log
     {
@@ -46,9 +52,9 @@ private:
         
     };
 
-    static constexpr int _maxLatestLogFileLines = 10000;
-    static constexpr int _maxLogFileSize = 10 * 1024 * 1024; // 10 MB - Does not apply to "latest.log"
-    static constexpr long long _maxLogFileLifetime = 30LL * 24 * 60 * 60 * 1000; // 30 days
+    static constexpr int _defaultMaxLatestLogFileLines = 10000;
+    static constexpr int _defaultMaxLogFileSize = 10 * 1024 * 1024; // 10 MB - Does not apply to "latest.log"
+    static constexpr long long _defaultMaxLogFileLifetime = 30LL * 24 * 60 * 60 * 1000; // 30 days
 
     std::vector<Log> _logs;
 
