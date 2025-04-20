@@ -13,11 +13,11 @@ public:
     Title(const std::string& title, const bool withGlowEffect = true);
     ~Title() override;
     
-    void paint (juce::Graphics&) override;
+    void paint(juce::Graphics& g) override;
     void resized() override;
 
     std::string getTitle() const;
-    void setTitle(const std::string& title);
+    void setTitle(const std::string& title, const bool triggerRepaint = true);
 
 private:
     juce::Label _title;

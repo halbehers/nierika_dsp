@@ -89,6 +89,8 @@ void GridLayout::paint(juce::Graphics& g)
     
     paintItemDrawables(g);
     paintResizableLines(g);
+    
+    _component.resized();
 }
 
 void GridLayout::paintItemDrawables(juce::Graphics& g)
@@ -464,7 +466,7 @@ bool GridLayout::isRight(const int columnPosition, const int width) const
 }
 
 template<typename T>
-void GridLayout::setMargin(Margin<T> margin)
+void GridLayout::setMargin(Spacing<T> margin)
 {
     _margin = margin.toFloat();
 }
@@ -472,19 +474,19 @@ void GridLayout::setMargin(Margin<T> margin)
 template<typename T>
 void GridLayout::setMargin(const T marginLeft, const T marginTop, const T marginRight, const T marginBottom)
 {
-    _margin = Margin<T>(marginLeft, marginTop, marginRight, marginBottom).toFloat();
+    _margin = Spacing<T>(marginLeft, marginTop, marginRight, marginBottom).toFloat();
 }
 
 template<typename T>
 void GridLayout::setMargin(const T horizontalMargin, const T verticalMargin)
 {
-    _margin = Margin<T>(horizontalMargin, verticalMargin).toFloat();
+    _margin = Spacing<T>(horizontalMargin, verticalMargin).toFloat();
 }
 
 template<typename T>
 void GridLayout::setMargin(const T value)
 {
-    _margin = Margin<T>(value).toFloat();
+    _margin = Spacing<T>(value).toFloat();
 }
 
 void GridLayout::setGap(const float gap)
@@ -815,9 +817,9 @@ juce::Rectangle<float> GridLayout::getRectangleAtBottom(const float height, cons
     return juce::Rectangle<float>(getBottom(distanceFromBottom).getStartX(), getBottom(distanceFromBottom).getStartY(), getBottom(distanceFromBottom).getEndX() - getBottom(distanceFromBottom).getStartX() + 1.f, height);
 }
 
-template void GridLayout::setMargin(Margin<int> margin);
-template void GridLayout::setMargin(Margin<float> margin);
-template void GridLayout::setMargin(Margin<double> margin);
+template void GridLayout::setMargin(Spacing<int> margin);
+template void GridLayout::setMargin(Spacing<float> margin);
+template void GridLayout::setMargin(Spacing<double> margin);
 template void GridLayout::setMargin(const int marginLeft, const int marginTop, const int marginRight, const int marginBottom);
 template void GridLayout::setMargin(const float marginLeft, const float marginTop, const float marginRight, const float marginBottom);
 template void GridLayout::setMargin(const double marginLeft, const double marginTop, const double marginRight, const double marginBottom);

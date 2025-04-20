@@ -64,7 +64,7 @@ public:
         WARNING
     };
 
-    enum FontStyle
+    enum FontWeight
     {
         BOLD,
         MEDIUM,
@@ -115,7 +115,7 @@ public:
         };
     };
 
-    juce::Font getFont(const FontStyle style, const FontSize size = PARAGRAPH) const;
+    juce::Font getFont(const FontWeight weight, const FontSize size = PARAGRAPH) const;
     const float getFontSizeInPixels(const FontSize size) const;
     
     Color getColor(ThemeColor color);
@@ -133,7 +133,7 @@ private:
         }
     };
 
-    std::unordered_map<FontStyle, juce::Font> _fontStyleToFont {
+    std::unordered_map<FontWeight, juce::Font> _fontWeightToFont {
         {
             { BOLD, EmbeddedFonts::getBold() },
             { MEDIUM, EmbeddedFonts::getMedium() },

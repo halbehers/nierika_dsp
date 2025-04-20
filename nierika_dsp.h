@@ -79,6 +79,8 @@
 #include "include/gui/element/TimingDial.h"
 #include "include/gui/element/Tooltip.h"
 #include "include/gui/element/Title.h"
+#include "include/gui/element/Text.h"
+#include "include/gui/element/Value.h"
 #include "include/gui/laf/BoxToggle.h"
 #include "include/gui/laf/ComboBox.h"
 #include "include/gui/laf/Dial.h"
@@ -87,8 +89,8 @@
 #include "include/gui/laf/SVGToggle.h"
 #include "include/gui/layout/GridLayout.h"
 #include "include/gui/layout/GridLayoutItem.h"
-#include "include/gui/layout/Margin.h"
-#include "include/gui/layout/Border.h"
+#include "include/gui/Spacing.h"
+#include "include/gui/Border.h"
 
 // Utilities
 #include "include/utils/Singleton.h"

@@ -1,4 +1,4 @@
-#include "../../../include/gui/layout/Border.h"
+#include "../../include/gui/Border.h"
 
 namespace nierika::gui::layout
 {

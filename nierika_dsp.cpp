@@ -47,6 +47,8 @@
 #include "source/gui/element/TimingDial.cpp"
 #include "source/gui/element/Tooltip.cpp"
 #include "source/gui/element/Title.cpp"
+#include "source/gui/element/Text.cpp"
+#include "source/gui/element/Value.cpp"
 #include "source/gui/laf/BoxToggle.cpp"
 #include "source/gui/laf/ComboBox.cpp"
 #include "source/gui/laf/Dial.cpp"
@@ -55,8 +57,8 @@
 #include "source/gui/laf/SVGToggle.cpp"
 #include "source/gui/layout/GridLayout.cpp"
 #include "source/gui/layout/GridLayoutItem.cpp"
-#include "source/gui/layout/Margin.cpp"
-#include "source/gui/layout/Border.cpp"
+#include "source/gui/Spacing.cpp"
+#include "source/gui/Border.cpp"
 
 // Utilities
 #include "source/utils/Logger.cpp"

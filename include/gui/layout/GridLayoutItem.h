@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Border.h"
+#include "../Border.h"
 
 namespace nierika::gui::layout
 {

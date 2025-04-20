@@ -4,7 +4,7 @@
 #include <string>
 #include <unordered_map>
 
-#include "Margin.h"
+#include "../Spacing.h"
 #include "GridLayoutItem.h"
 
 namespace nierika::gui::layout
@@ -52,7 +52,7 @@ public:
     juce::Rectangle<float> operator()(const int row, const int column, const int width, const int height) const;
     
     template<typename T>
-    void setMargin(Margin<T> margins);
+    void setMargin(Spacing<T> margins);
     template<typename T>
     void setMargin(const T marginLeft, const T marginTop, const T marginRight, const T marginBottom);
     template<typename T>
@@ -128,8 +128,8 @@ public:
     bool keyPressed(const juce::KeyPress& key,
                     juce::Component* originatingComponent) override;
 
-    juce::Line<float> getBottom(const float distanceFromBottom = 0);
-    juce::Rectangle<float> getRectangleAtBottom(const float height, const float distanceFromBottom = 0);
+    juce::Line<float> getBottom(const float distanceFromBottom = 0.f);
+    juce::Rectangle<float> getRectangleAtBottom(const float height, const float distanceFromBottom = 0.f);
 
 protected:
     juce::Component& _component;
@@ -148,7 +148,7 @@ protected:
     ResizableLineConfiguration _resizableLineConfiguration;
     MovableConfiguration _movableConfiguration;
     
-    Margin<float> _margin { 0.f, 0.f, 0.f, 0.f };
+    Spacing<float> _margin { 0.f, 0.f, 0.f, 0.f };
     bool _displayGrid = false;
     float _gap = 0;
 

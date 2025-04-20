@@ -78,6 +78,25 @@ std::string Formatter::formatBPM(double bpm)
     return oss.str();
 }
 
+std::string Formatter::formatFloat(const float value, const int precision)
+{
+    std::ostringstream oss;
+
+    oss << std::fixed << std::setprecision(precision) << value;
+
+    return oss.str();
+}
+
+
+std::string Formatter::formatDouble(const double value, const int precision)
+{
+    std::ostringstream oss;
+
+    oss << std::fixed << std::setprecision(precision) << value;
+
+    return oss.str();
+}
+
 std::string Formatter::joinWithNewline(const std::vector<std::string>& lines)
 {
     std::ostringstream oss;

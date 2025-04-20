@@ -9,6 +9,7 @@ Section::Section(std::string identifier, juce::AudioProcessorValueTreeState& tre
     _sectionEnabledParameterID(sectionEnabledParameterID),
     _sectionFXSequencerActivationParameterID(sectionFXSequencerActivationParameterID)
 {
+    setComponentID(identifier);
     init();
 }
 
@@ -116,12 +117,12 @@ void Section::resized()
     if (_isBypassable)
     {
         int size = 14;
-        _enabledButton.setBounds(getWidth() - ((int) SECTION_MARGIN) - size, ((int) SECTION_MARGIN) - size / 2 + 1, size + 1, size);
+        _enabledButton.setBounds(getWidth() - ((int) 16.f) - size, ((int) 16.f) - size / 2 + 1, size + 1, size);
     }
     if (_isFXSequencerActivable)
     {
         int size = 13;
-        _fxSequencerButton.setBounds(getWidth() - ((int) SECTION_MARGIN) - (size * 2 + 4), ((int) SECTION_MARGIN) - size / 2 + 1, size + 1, size);
+        _fxSequencerButton.setBounds(getWidth() - ((int) 16.f) - (size * 2 + 4), ((int) 16.f) - size / 2 + 1, size + 1, size);
     }
     if (_nameLabel.getText() != "")
     {

@@ -40,9 +40,9 @@ Theme::Color Theme::getColor(ThemeColor color)
     return Color(color);
 }
 
-juce::Font Theme::getFont(FontStyle style, FontSize size) const
+juce::Font Theme::getFont(FontWeight style, FontSize size) const
 {
-    return _fontStyleToFont.at(style).withHeight(_fontSizesToPixels.at(size));
+    return _fontWeightToFont.at(style).withHeight(_fontSizesToPixels.at(size));
 }
 
 const float Theme::getFontSizeInPixels(const FontSize size) const
