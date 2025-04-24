@@ -88,12 +88,15 @@ void Component::displayBorder(Theme::ThemeColor color, float lineThickness, floa
 
 void Component::displayBorder(juce::Colour color, float lineThickness, float radius)
 {
-    _border = { true, color, lineThickness, radius };
+    _border.display = true;
+    _border.color = color;
+    _border.lineThickness = lineThickness;
+    _border.radius = radius;
 }
 
 void Component::hideBorder()
 {
-    _border = { false };
+    _border.display = false;
 }
 
 void Component::displayBackground(Theme::ThemeColor color, float radius, float alpha)
@@ -105,17 +108,23 @@ void Component::displayBackground(Theme::ThemeColor color, float radius, float a
 
 void Component::displayBackground(juce::Colour color, float radius)
 {
-    _background = { true, color, radius, juce::ColourGradient(), false };
+    _background.display = true;
+    _background.color = color;
+    _background.radius = radius;
+    _background.isGradient = false;
 }
 
 void Component::displayBackground(juce::ColourGradient gradient, float radius)
 {
-    _background = { false };
+    _background.display = true;
+    _background.gradient = gradient;
+    _background.radius = radius;
+    _background.isGradient = true;
 }
 
 void Component::hideBackground()
 {
-    _background = { false };
+    _background.display = false;
 }
 
 template<typename T>

@@ -4,6 +4,29 @@
 namespace nierika::gui::element
 {
 
+SpectrumAnalyzer::SpectrumAnalyzer(const std::string& identifier, juce::AudioProcessor& audioProcessor, SpectrumAnalyzer::FIFOType* leftChannelFifo, SpectrumAnalyzer::FIFOType* rightChannelFifo, bool isMono):
+    Component(identifier),
+    _audioProcessor(audioProcessor),
+    _leftChannelFifo(leftChannelFifo),
+    _rightChannelFifo(rightChannelFifo),
+    _isMono(isMono)
+{
+    _leftChannelFFTDataGenerator.changeOrder(dsp::FFTOrder::order2048);
+    _monoBuffer.setSize(1, _leftChannelFFTDataGenerator.getFFTSize());
+
+    startTimerHz(24);
+}
+
+SpectrumAnalyzer::SpectrumAnalyzer(const std::string& identifier, juce::AudioProcessor& audioProcessor, SpectrumAnalyzer::FIFOType* monoChannelFifo):
+    Component(identifier),
+    _audioProcessor(audioProcessor),
+    _leftChannelFifo(monoChannelFifo),
+    _rightChannelFifo(nullptr),
+    _isMono(true)
+{
+    startTimerHz(24);
+}
+
 SpectrumAnalyzer::SpectrumAnalyzer(juce::AudioProcessor& audioProcessor, SpectrumAnalyzer::FIFOType* leftChannelFifo, SpectrumAnalyzer::FIFOType* rightChannelFifo, bool isMono):
     _audioProcessor(audioProcessor),
     _leftChannelFifo(leftChannelFifo),
@@ -100,11 +123,37 @@ void SpectrumAnalyzer::fillPath(juce::Path* path, dsp::FFTDataGenerator<std::vec
 
 void SpectrumAnalyzer::paint(juce::Graphics& g)
 {
-    g.setColour(Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce().withAlpha(0.10f));
-    g.strokePath(_leftChannelFFTPath, juce::PathStrokeType(1.f));
+    juce::Path filledPath = _leftChannelFFTPath;
+    float startX = 0.f, startY = 0.f;
+    float endX = 0.f, endY = 0.f;
 
-    g.setGradientFill(juce::ColourGradient(Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce().withAlpha(0.05f), getWidth() / 2, 0.0, Theme::getInstance().getColor(Theme::ThemeColor::TRANSPARENT).asJuce(), getWidth() / 2, getHeight(), false));
-    g.fillPath(_leftChannelFFTPath);
+    juce::Path::Iterator it(_leftChannelFFTPath);
+
+    bool firstPointFound = false;
+    while (it.next())
+    {
+        if (!firstPointFound)
+        {
+            startX = it.x1;
+            startY = it.y1;
+            firstPointFound = true;
+        }
+
+        endX = it.x2;
+        endY = it.y2;
+    }
+
+    auto bottom = static_cast<float>(getHeight());
+
+    filledPath.lineTo(endX, bottom);
+    filledPath.lineTo(startX, bottom);
+    filledPath.closeSubPath();
+
+    g.setGradientFill(juce::ColourGradient(Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce().withAlpha(0.2f), getWidth() / 2, 0.0, Theme::getInstance().getColor(Theme::ThemeColor::TRANSPARENT).asJuce(), getWidth() / 2, getHeight(), false));
+    g.fillPath(filledPath);
+
+    g.setColour(Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce().withAlpha(0.5f));
+    g.strokePath(_leftChannelFFTPath, juce::PathStrokeType(1.f));
 }
 
 }

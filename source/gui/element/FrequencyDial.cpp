@@ -3,8 +3,8 @@
 
 namespace nierika::gui::element
 {
-FrequencyDial::FrequencyDial(const juce::String& label, float minValue, float maxValue, float defaultValue, Size size):
-    Dial(label, minValue, maxValue, defaultValue, "", size)
+FrequencyDial::FrequencyDial(const std::string& identifier, const juce::String& label, float minValue, float maxValue, float defaultValue, Size size):
+    Dial(identifier, label, minValue, maxValue, defaultValue, "", size)
 {
 }
 

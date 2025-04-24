@@ -3,18 +3,29 @@
 namespace nierika::gui::layout
 {
 
-GridLayoutItem::GridLayoutItem(std::string identifier,
+GridLayoutItem::GridLayoutItem(const std::string& identifier,
                                const int rowPosition,
                                const int columnPosition,
                                const int width,
-                               const int height
+                               const int height,
+                               const Alignment alignment
                                ):
     _identifier(identifier),
     _rowPosition(rowPosition),
     _columnPosition(columnPosition),
     _width(width),
-    _height(height)
+    _height(height),
+    _alignment(alignment)
 {
+}
+
+void GridLayoutItem::setAlignment(Alignment alignment)
+{
+    _alignment = alignment;
+}
+Alignment GridLayoutItem::getAlignment() const
+{
+    return _alignment;
 }
 
 void GridLayoutItem::setLeftBorder(juce::Colour color, float thickness)

@@ -6,10 +6,12 @@
 
 #include "../Spacing.h"
 #include "GridLayoutItem.h"
+#include "Alignment.h"
 
 namespace nierika::gui::layout
 {
 
+template<class T>
 class GridLayout : juce::MouseListener, juce::KeyListener
 {
 public:
@@ -43,22 +45,19 @@ public:
         VERTICAL
     };
 
-    GridLayout(juce::Component& component);
-    GridLayout(juce::Component& component, std::vector<int> gridRows, std::vector<int> gridColumns);
+    GridLayout(T& component);
+    GridLayout(T& component, std::vector<int> gridRows, std::vector<int> gridColumns);
+    
     ~GridLayout();
 
     void init(std::vector<int> gridRows, std::vector<int> gridColumns);
 
     juce::Rectangle<float> operator()(const int row, const int column, const int width, const int height) const;
-    
-    template<typename T>
-    void setMargin(Spacing<T> margins);
-    template<typename T>
-    void setMargin(const T marginLeft, const T marginTop, const T marginRight, const T marginBottom);
-    template<typename T>
-    void setMargin(const T horizontalMargin, const T verticalMargin);
-    template<typename T>
-    void setMargin(const T value);
+
+    void setMargin(Spacing<float> margins);
+    void setMargin(const float marginLeft, const float marginTop, const float marginRight, const float marginBottom);
+    void setMargin(const float horizontalMargin, const float verticalMargin);
+    void setMargin(const float value);
 
     void setGap(const float gap);
     
@@ -69,8 +68,7 @@ public:
     void paint(juce::Graphics& g);
     void resized() noexcept;
 
-    void addComponent(const std::string& identifier, juce::Component& component, const int rowPosition, const int columnPosition, const int width, const int height);
-    void place(const std::string& label, const int xPosition, const int yPosition, const int width, const int height);
+    void addComponent(const std::string& identifier, juce::Component& component, const int rowPosition, const int columnPosition, const int width, const int height, const Alignment alignment = Alignment::TOP_LEFT);
     void replace(const std::string& identifier);
     
     float getColumn(int position) const;
@@ -132,7 +130,7 @@ public:
     juce::Rectangle<float> getRectangleAtBottom(const float height, const float distanceFromBottom = 0.f);
 
 protected:
-    juce::Component& _component;
+    T& _component;
 
     std::vector<float> _gridRatioRows, _gridRatioColumns;
     std::vector<float> _gridRows, _gridColumns;

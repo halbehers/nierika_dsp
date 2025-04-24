@@ -2,34 +2,33 @@
 
 #include "Slider.h"
 #include "../laf/Dial.h"
+#include "../Component.h"
 
 namespace nierika::gui::element
 {
 
-class Dial: public Slider
+class Dial: public Component
 {
 public:
     enum Size
     {
         SMALL,
         MEDIUM,
-        LARGE
+        LARGE 
     };
     
-    Dial(const juce::String& label, float minValue, float maxValue, float defaultValue, const juce::String& valueSuffix);
-    Dial(const juce::String& label, float minValue, float maxValue, float defaultValue, const juce::String& valueSuffix, Size size);
+    Dial(const std::string& identifier, const juce::String& label, float minValue, float maxValue, float defaultValue, const juce::String& valueSuffix, Size size = Size::MEDIUM);
     ~Dial() override;
-    
-    void init();
-    void paint (juce::Graphics&) override;
+
     void resized() override;
     void setSize(Size size);
     void setShortLabel(const juce::String& shortLabel);
+    void setEnabled(bool isEnabled);
     
-private:
+protected:
+    juce::Slider _slider;
     laf::Dial _lookAndFeel;
     Size _size;
-    juce::String _label;
     std::unordered_map<Size, float> _sizeToPx {
         {
             { SMALL, 32.0 },

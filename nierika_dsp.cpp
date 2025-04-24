@@ -19,6 +19,7 @@
 #include "source/dsp/filter/HighPassFilter.cpp"
 #include "source/dsp/filter/LowPassFilter.cpp"
 #include "source/dsp/sequencer/FXSequencer.cpp"
+#include "source/dsp/RMSProcessor.cpp"
 
 // GUI
 #include "source/gui/EmbeddedFonts.cpp"
@@ -36,6 +37,7 @@
 #include "source/gui/element/IncrementalButton.cpp"
 #include "source/gui/element/IncrementalButtons.cpp"
 #include "source/gui/element/Level.cpp"
+#include "source/gui/element/Levels.cpp"
 #include "source/gui/element/PercentageDial.cpp"
 #include "source/gui/element/SpectrumAnalyzer.cpp"
 #include "source/gui/element/Slider.cpp"

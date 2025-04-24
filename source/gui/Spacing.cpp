@@ -30,6 +30,12 @@ Spacing<T>::Spacing(T spacing)
     this->bottom = spacing;
 }
 
+
+template<typename T>
+Spacing<T>::Spacing()
+{
+}
+
 template<typename T>
 Spacing<T> Spacing<T>::operator=(const Spacing<T>& other)
 {
@@ -299,6 +305,9 @@ template Spacing<double>::Spacing(double horizontal, double vertical);
 template Spacing<int>::Spacing(int Spacing);
 template Spacing<float>::Spacing(float Spacing);
 template Spacing<double>::Spacing(double Spacing);
+template Spacing<int>::Spacing();
+template Spacing<float>::Spacing();
+template Spacing<double>::Spacing();
 
 template Spacing<int> Spacing<int>::operator=(const Spacing<int>& other);
 template Spacing<float> Spacing<float>::operator=(const Spacing<float>& other);

@@ -8,10 +8,10 @@ namespace nierika::gui::element
 class TimeInMsDial: public Dial
 {
 public:
-    TimeInMsDial(const juce::String& label, float minValue, float maxValue, float defaultValue = 375, Size size = MEDIUM);
+    TimeInMsDial(const std::string& identifier, const juce::String& label, float minValue, float maxValue, float defaultValue = 375, Size size = MEDIUM);
     ~TimeInMsDial() override;
     
-    juce::String getTextFromValue(double value) override;
+    juce::String getTextFromValue(double value);
 };
 
 }

@@ -3,9 +3,10 @@
 
 namespace nierika::gui::element
 {
-PercentageDial::PercentageDial(const juce::String& label, float minValue, float maxValue, float defaultValue, Size size):
-    Dial(label, minValue, maxValue, defaultValue, "", size)
+PercentageDial::PercentageDial(const std::string& identifier, const juce::String& label, float minValue, float maxValue, float defaultValue, Size size):
+    Dial(identifier, label, minValue, maxValue, defaultValue, "", size)
 {
+    _slider.textFromValueFunction = [this](double value) { return getTextFromValue(value); };
 }
 
 PercentageDial::~PercentageDial()

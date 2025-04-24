@@ -84,4 +84,10 @@ private:
     std::string getLogAsString(const Log& log) const;
 };
 
+struct AppLogger
+{
+    static Logger& get();
+};
+
 }
+

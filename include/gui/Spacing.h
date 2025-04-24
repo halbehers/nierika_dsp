@@ -8,6 +8,7 @@ struct Spacing {
     Spacing(T left, T top, T right, T bottom);
     Spacing(T horizontal, T vertical);
     Spacing(T spacing);
+    Spacing();
 
     Spacing<T> operator=(const Spacing<T>& other);
     Spacing<T> operator+(T value);
@@ -53,7 +54,7 @@ struct Spacing {
 
     void attachComponent(juce::Component* component) { _component = component; }
     
-    T left, top, right, bottom;
+    T left, top, right, bottom = 0;
 
     enum Type
     {

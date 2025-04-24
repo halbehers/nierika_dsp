@@ -5,15 +5,18 @@
 #include "../AnalyzerPathGenerator.h"
 #include "../../dsp/SingleChannelSampleFIFO.h"
 #include "../../dsp/FFTDataGenerator.h"
+#include "../Component.h"
 
 namespace nierika::gui::element
 {
 
-class SpectrumAnalyzer: public juce::Component, juce::Timer
+class SpectrumAnalyzer: public Component, juce::Timer
 {
 public:
     using FIFOType = dsp::SingleChannelSampleFIFO<juce::AudioBuffer<float>>;
 
+    SpectrumAnalyzer(const std::string& identifier, juce::AudioProcessor& audioProcessor, FIFOType* leftChannelFifo, FIFOType* rightChannelFifo, bool isMono = false);
+    SpectrumAnalyzer(const std::string& identifier, juce::AudioProcessor& audioProcessor, FIFOType* monoChannelFifo);
     SpectrumAnalyzer(juce::AudioProcessor& audioProcessor, FIFOType* leftChannelFifo, FIFOType* rightChannelFifo, bool isMono = false);
     SpectrumAnalyzer(juce::AudioProcessor& audioProcessor, FIFOType* monoChannelFifo);
     ~SpectrumAnalyzer() override;

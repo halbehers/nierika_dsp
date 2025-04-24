@@ -20,7 +20,7 @@ void Dial::setShortLabel(const juce::String& shortLabel)
 
 void Dial::drawRotarySlider
 (
- juce::Graphics &g,
+    juce::Graphics &g,
     int x,
     int y,
     int width,
@@ -28,7 +28,7 @@ void Dial::drawRotarySlider
     float sliderPos,
     float rotaryStartAngle,
     float rotaryEndAngle,
- juce::Slider &slider
+    juce::Slider &slider
 )
 {
     _sliderName = slider.getName();
@@ -224,8 +224,6 @@ void Dial::drawLabel (juce::Graphics& g, juce::Label& label)
     {
         g.setColour(transparentColor);
     }
-
-    //g.drawRect(label.getLocalBounds());
 }
 
 

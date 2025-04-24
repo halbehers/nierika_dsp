@@ -48,6 +48,7 @@
 #include "include/dsp/filter/HighPassFilter.h"
 #include "include/dsp/filter/LowPassFilter.h"
 #include "include/dsp/sequencer/FXSequencer.h"
+#include "include/dsp/RMSProcessor.h"
 
 // GUI
 #include "include/gui/AnalyzerPathGenerator.h"
@@ -68,6 +69,7 @@
 #include "include/gui/element/IncrementalButton.h"
 #include "include/gui/element/IncrementalButtons.h"
 #include "include/gui/element/Level.h"
+#include "include/gui/element/Levels.h"
 #include "include/gui/element/PercentageDial.h"
 #include "include/gui/element/SpectrumAnalyzer.h"
 #include "include/gui/element/Slider.h"
@@ -95,6 +97,7 @@
 // Utilities
 #include "include/utils/Singleton.h"
 #include "include/utils/Logger.h"
+#include "include/utils/UID.h"
 
 namespace nui = nierika::gui;
 namespace nelement = nierika::gui::element;

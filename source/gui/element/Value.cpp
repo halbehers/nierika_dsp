@@ -19,9 +19,6 @@ Value::Value(const std::string& identifier, const std::string& name, const std::
         addAndMakeVisible(_unit);
         _unit.setText(unit, false);
     }
-
-    // _value.displayBackground(juce::Colours::red);
-    // _unit.displayBackground(juce::Colours::yellow);
 }
 
 Value::~Value()

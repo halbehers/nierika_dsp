@@ -8,10 +8,10 @@ namespace nierika::gui::element
 class FrequencyDial: public Dial
 {
 public:
-    FrequencyDial(const juce::String& label, float minValue, float maxValue, float defaultValue, const Size size = MEDIUM);
+    FrequencyDial(const std::string& identifier, const juce::String& label, float minValue, float maxValue, float defaultValue, const Size size = MEDIUM);
     ~FrequencyDial() override;
     
-    juce::String getTextFromValue(double value) override;
+    juce::String getTextFromValue(double value);
 };
 
 }

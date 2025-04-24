@@ -3,6 +3,7 @@
 #include <string>
 
 #include "Spacing.h"
+#include "../utils/UID.h"
 
 namespace nierika::gui
 {
@@ -10,7 +11,7 @@ namespace nierika::gui
 class Component : public juce::Component
 {
 public:
-    Component(const std::string& identifier, const std::string& name = "");
+    Component(const std::string& identifier = utils::UID::generate_v4(), const std::string& name = "");
     ~Component();
 
     void paint(juce::Graphics& g) override;

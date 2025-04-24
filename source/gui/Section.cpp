@@ -4,18 +4,43 @@ namespace nierika::gui
 {
 
 Section::Section(std::string identifier, juce::AudioProcessorValueTreeState& treeState, std::string sectionEnabledParameterID, std::string sectionFXSequencerActivationParameterID):
+    Component(identifier),
     _treeState(treeState),
-    _identifier(identifier),
+    _layout(*this),
     _sectionEnabledParameterID(sectionEnabledParameterID),
     _sectionFXSequencerActivationParameterID(sectionFXSequencerActivationParameterID)
 {
-    setComponentID(identifier);
-    init();
+    setPadding(0.f, 16.f, 0.f, 0.f);
+
+    addChildComponent(_enabledButton, 100);
+    _enabledButton.onClick = [this]()
+    {
+        setBypass(!_enabledButton.getToggleState());
+    };
+    _enabledButton.setHelpText("Bypass section");
+    if (_sectionEnabledParameterID != "")
+    {
+        _enabledAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(_treeState, _sectionEnabledParameterID, _enabledButton);
+    }
+
+    if (_fxSequencer == nullptr) return;
+
+    addChildComponent(_fxSequencerButton, 100);
+    _fxSequencer->registerSection(getComponentID().toStdString());
+    _fxSequencerButton.onClick = [this]()
+    {
+        _fxSequencer->setSectionActivation(getComponentID().toStdString(), _fxSequencerButton.getToggleState());
+    };
+    _fxSequencerButton.setHelpText("Connect to FX Sequencer");
+    if (_sectionFXSequencerActivationParameterID != "")
+    {
+        _fxSequencerAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(_treeState, _sectionFXSequencerActivationParameterID, _fxSequencerButton);
+    }
 }
 
 Section::~Section()
 {
-    if (_fxSequencer != nullptr) _fxSequencer->unregisterSection(getID());
+    if (_fxSequencer != nullptr) _fxSequencer->unregisterSection(getComponentID().toStdString());
 }
 
 void Section::setBypassable(bool isBypassable)
@@ -54,61 +79,25 @@ void Section::setFXSequencer(dsp::FXSequencer* fxSequencer)
     _fxSequencer = fxSequencer;
 }
 
-void Section::init()
+void Section::displayBorder()
 {
-    addChildComponent(_enabledButton, 100);
-    _enabledButton.onClick = [this]()
-    {
-        setBypass(!_enabledButton.getToggleState());
-    };
-    _enabledButton.setHelpText("Bypass section");
-    if (_sectionEnabledParameterID != "")
-    {
-        _enabledAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(_treeState, _sectionEnabledParameterID, _enabledButton);
-    }
-
-    if (_fxSequencer == nullptr) return;
-
-    addChildComponent(_fxSequencerButton, 100);
-    _fxSequencer->registerSection(getID());
-    _fxSequencerButton.onClick = [this]()
-    {
-        _fxSequencer->setSectionActivation(getID(), _fxSequencerButton.getToggleState());
-    };
-    _fxSequencerButton.setHelpText("Connect to FX Sequencer");
-    if (_sectionFXSequencerActivationParameterID != "")
-    {
-        _fxSequencerAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(_treeState, _sectionFXSequencerActivationParameterID, _fxSequencerButton);
-    }
+    Component::displayBorder(Theme::ThemeColor::EMPTY_SHADE, 1.f, 17.f, 0.2f);
 }
 
-void Section::withDisplayBorder(bool displayBorder)
+void Section::displayBackground()
 {
-    _displayBorder = displayBorder;
-}
+    juce::Colour whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
+    juce::Colour grayColor = Theme::getInstance().getColor(Theme::ThemeColor::LIGHTER_SHADE).asJuce();
 
-void Section::withDisplayBackground(bool displayBackground)
-{
-    _displayBackground = displayBackground;
+    Component::displayBackground(juce::ColourGradient(whiteColor.withAlpha(0.1f), getWidth() / 2, 0.0, grayColor.withAlpha(0.1f), getWidth() / 2, getHeight(), false), 17.f);
 }
 
 void Section::paint (juce::Graphics& g)
 {
-    juce::Colour whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
-    if (_displayBackground)
-    {
-        juce::Colour grayColor = Theme::getInstance().getColor(Theme::ThemeColor::LIGHTER_SHADE).asJuce();
-        g.setGradientFill(juce::ColourGradient(whiteColor.withAlpha(0.1f), getWidth() / 2, 0.0, grayColor.withAlpha(0.1f), getWidth() / 2, getHeight(), false));
-        g.fillRoundedRectangle(0.0, 0.0, getWidth(), getHeight(), 17.0);
-    }
-    
-    if (_displayBorder)
-    {
-        g.setColour(whiteColor.withAlpha(0.20f));
-        g.drawRoundedRectangle(0.0, 0.0, getWidth(), getHeight(), 16.0, 1.0);
-    }
-    
-    g.setColour(whiteColor);
+    Component::paint(g);
+    _layout.paint(g);
+
+    g.setColour(Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce());
     g.setFont(juce::FontOptions (14.0f));
 }
 
@@ -128,23 +117,13 @@ void Section::resized()
     {
         _nameLabel.setBounds(0, 12, getWidth(), 8);
     }
-}
 
-juce::Rectangle<int> Section::getLocalBounds()
-{
-    if (_nameLabel.getText() != "") {
-        return juce::Component::getLocalBounds().withTop(14);
-    }
-    return juce::Component::getLocalBounds();
+    _layout.resized();
 }
 
 int Section::getHeaderHeight()
 {
     return _nameLabel.getText() != "" ? 10 : 0;
-}
-
-std::string Section::getID() const {
-    return _identifier;
 }
 
 }

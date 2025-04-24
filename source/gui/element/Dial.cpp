@@ -4,32 +4,37 @@
 namespace nierika::gui::element
 {
 
-Dial::Dial(const juce::String& label, float minValue, float maxValue, float defaultValue, const juce::String& valueSuffix):
-    Slider(label, minValue, maxValue, defaultValue, valueSuffix),
-    _size(MEDIUM),
-    _label(label)
+Dial::Dial(const std::string& identifier, const juce::String& label, float minValue, float maxValue, float defaultValue, const juce::String& valueSuffix, Size size):
+    Component(identifier),
+    _size(size)
 {
-    init();
+    setComponentID(identifier);
+    addAndMakeVisible(_slider);
     
-}
+    _slider.setName(label);
+    _slider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalDrag);
+    _slider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 100, 10);
+    _slider.setRange(minValue, maxValue);
+    _slider. setValue(defaultValue);
+    auto transparentColor = Theme::getInstance().getColor(Theme::ThemeColor::TRANSPARENT).asJuce();
+    auto whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
+    auto accentColor = Theme::getInstance().getColor(Theme::ThemeColor::ACCENT).asJuce();
+    _slider.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, accentColor);
+    _slider.setColour(juce::Slider::ColourIds::trackColourId, accentColor);
+    _slider.setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, transparentColor);
+    _slider.setColour(juce::Slider::ColourIds::thumbColourId, whiteColor);
+    _slider.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, transparentColor);
 
-Dial::Dial(const juce::String& label, float minValue, float maxValue, float defaultValue, const juce::String& valueSuffix, Size size):
-    Slider(label, minValue, maxValue, defaultValue, valueSuffix),
-    _size(size),
-    _label(label)
-{
-    init();
+    if (!valueSuffix.isEmpty()) {
+        _slider.setTextValueSuffix(" " + valueSuffix);
+    }
+    _slider.setDoubleClickReturnValue(true, defaultValue);
+    _slider.setLookAndFeel(&_lookAndFeel);
+    _slider.setComponentID(identifier);
 }
 
 Dial::~Dial()
 {
-}
-
-void Dial::init()
-{
-    setName(_label);
-    setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalDrag);
-    setLookAndFeel(&_lookAndFeel);
 }
 
 void Dial::setSize(Size size)
@@ -42,17 +47,15 @@ void Dial::setShortLabel(const juce::String& shortLabel)
     _lookAndFeel.setShortLabel(shortLabel);
 }
 
-void Dial::paint (juce::Graphics& g)
-{
-    Slider::paint(g);
-}
-
 void Dial::resized()
 {
-    Slider::resized();
-    float width = _sizeToPx[_size];
-    float height = width + 26;
-    setBounds(getX(), getY(), (int) height, (int) width);
+    Component::resized();
+    _slider.setBounds(getLocalBounds());
+}
+
+void Dial::setEnabled(bool isEnabled)
+{
+    _slider.setEnabled(isEnabled);
 }
 
 }

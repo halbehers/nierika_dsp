@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Border.h"
+#include "Alignment.h"
 
 namespace nierika::gui::layout
 {
@@ -8,13 +9,16 @@ namespace nierika::gui::layout
 class GridLayoutItem
 {
 public:
-    GridLayoutItem(std::string identifier,
+    GridLayoutItem(const std::string& identifier,
                    const int rowPosition,
                    const int columnPosition,
                    const int width,
-                   const int height
+                   const int height,
+                   const Alignment alignment
                    );
     
+    void setAlignment(const Alignment alignment);
+    Alignment getAlignment() const;
     void setLeftBorder(juce::Colour color, float thickness = 1.f);
     void setTopBorder(juce::Colour color, float thickness = 1.f);
     void setRightBorder(juce::Colour color, float thickness = 1.f);
@@ -64,6 +68,7 @@ private:
     int _columnPosition;
     int _width;
     int _height;
+    Alignment _alignment;
     Border _leftBorder;
     Border _topBorder;
     Border _rightBorder;

@@ -30,7 +30,7 @@ void TooltipManager::setupComponent(juce::Component& component)
 {
     if (_registeredComponents.find(&component) == _registeredComponents.end())
     {
-        component.addMouseListener(this, false);
+        component.addMouseListener(this, true);
         _registeredComponents.insert(&component);
     }
 }
