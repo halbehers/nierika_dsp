@@ -139,7 +139,7 @@ template<typename T>
 void GridLayout<T>::paintItemMovableZones(juce::Graphics& g, const GridLayoutItem& item)
 {
     if (!item.isMovable()) return;
-    
+
     g.setColour(_movableConfiguration.handleColor.withAlpha(_movableConfiguration.handleAlpha));
     paintItemMovableZones(g, item.getMovableZone(_movableConfiguration.movableZoneHeight));
 }
@@ -147,7 +147,16 @@ void GridLayout<T>::paintItemMovableZones(juce::Graphics& g, const GridLayoutIte
 template<typename T>
 void GridLayout<T>::paintItemMovableZones(juce::Graphics& g, const juce::Rectangle<float>& bounds)
 {
-    paintHandle(g, bounds.getCentre(), _movableConfiguration.handleDotSize);
+    if (!_movableConfiguration.displayHandle) return;
+    if (!_movableConfiguration.splitHandles)
+    {
+        paintHandle(g, bounds.getCentre());
+        return;
+    }
+
+    const auto lines = splitLine(juce::Line<float>(bounds.getX(), bounds.getY() + bounds.getHeight() / 2, bounds.getX() + bounds.getWidth(), bounds.getY() + bounds.getHeight() / 2));
+    paintHandle(g, getLineCenter(std::get<0>(lines)));
+    paintHandle(g, getLineCenter(std::get<1>(lines)));
 }
 
 template<typename T>
@@ -204,7 +213,7 @@ void GridLayout<T>::paintHandle(juce::Graphics& g, juce::Line<float> line, bool 
 template<typename T>
 void GridLayout<T>::paintHandle(juce::Graphics& g, juce::Point<float> center, float dotSize, bool isHorizontal)
 {
-    for (int x = -1; x <= 1; ++x)
+    for (int x = -3; x <= 3; ++x)
     {
         for (int y = -1; y <= 1; y += 2)
         {
@@ -573,6 +582,16 @@ template<typename T>
 juce::Point<float> GridLayout<T>::getLineCenter(juce::Line<float> line, float offset)
 {
     return line.getPointAlongLine(line.getLength() / 2 + offset);
+}
+
+template<typename T>
+std::tuple<juce::Line<float>, juce::Line<float>> GridLayout<T>::splitLine(juce::Line<float> line, float offset)
+{
+    const auto center = getLineCenter(line, offset);
+    const auto firstHalf = juce::Line<float>(line.getStart(), center);
+    const auto secondHalf = juce::Line<float>(center, line.getEnd());
+
+    return std::make_tuple(firstHalf, secondHalf);
 }
 
 template<typename T>
@@ -979,7 +998,6 @@ template void GridLayout<Component>::mouseUp(const juce::MouseEvent& event);
 template void GridLayout<juce::Component>::mouseDoubleClick(const juce::MouseEvent& event);
 template void GridLayout<Component>::mouseDoubleClick(const juce::MouseEvent& event);
 template bool GridLayout<juce::Component>::keyPressed(const juce::KeyPress& key, juce::Component* originatingComponent);
-template bool GridLayout<Component>::keyPressed(const juce::KeyPress& key, juce::Component* originatingComponent);
 template juce::Line<float> GridLayout<juce::Component>::getBottom(const float distanceFromBottom);
 template juce::Line<float> GridLayout<Component>::getBottom(const float distanceFromBottom);
 template juce::Rectangle<float> GridLayout<juce::Component>::getRectangleAtBottom(const float height, const float distanceFromBottom);
@@ -1009,8 +1027,10 @@ template void GridLayout<juce::Component>::paintDropableZone(juce::Graphics& g, 
 template void GridLayout<Component>::paintDropableZone(juce::Graphics& g, const GridLayoutItem& item);
 template void GridLayout<juce::Component>::paintDropableZone(juce::Graphics& g, const juce::Rectangle<float>& bounds, float borderAlpha, float fillAlpha);
 template void GridLayout<Component>::paintDropableZone(juce::Graphics& g, const juce::Rectangle<float>& bounds, float borderAlpha, float fillAlpha);
-template juce::Point<float> GridLayout<juce::Component>::getLineCenter(juce::Line<float> line, float offset = 0.f);
-template juce::Point<float> GridLayout<Component>::getLineCenter(juce::Line<float> line, float offset = 0.f);
+template juce::Point<float> GridLayout<juce::Component>::getLineCenter(juce::Line<float> line, float offset);
+template juce::Point<float> GridLayout<Component>::getLineCenter(juce::Line<float> line, float offset);
+template std::tuple<juce::Line<float>, juce::Line<float>> GridLayout<juce::Component>::splitLine(juce::Line<float> line, float offset);
+template std::tuple<juce::Line<float>, juce::Line<float>> GridLayout<Component>::splitLine(juce::Line<float> line, float offset);
 template juce::Line<float> GridLayout<juce::Component>::getLineWithStartOffset(juce::Line<float> line, float offset);
 template juce::Line<float> GridLayout<Component>::getLineWithStartOffset(juce::Line<float> line, float offset);
 template juce::Line<float> GridLayout<juce::Component>::getLineWithEndOffset(juce::Line<float> line, float offset);

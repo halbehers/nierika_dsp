@@ -28,7 +28,7 @@ public:
     void setFXSequencerActivable(bool isFXSequencerActivable);
     void setBypass(bool isBypassed);
 
-    void setSectionName(std::string name);
+    void setSectionName(const std::string& name);
 
     void setFXSequencer(dsp::FXSequencer* fxSequencer);
 

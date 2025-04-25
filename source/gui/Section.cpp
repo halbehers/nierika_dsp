@@ -62,7 +62,7 @@ void Section::setFXSequencerActivable(bool isFXSequencerActivable)
     _fxSequencerButton.setVisible(_isFXSequencerActivable);
 }
 
-void Section::setSectionName(std::string name)
+void Section::setSectionName(const std::string& name)
 {
     _nameLabel.setText(Formatter::toUpper(name), juce::NotificationType::dontSendNotification);
     if (name != "")
@@ -115,7 +115,7 @@ void Section::resized()
     }
     if (_nameLabel.getText() != "")
     {
-        _nameLabel.setBounds(0, 12, getWidth(), 8);
+        _nameLabel.setBounds(0, 6, getWidth(), 8);
     }
 
     _layout.resized();

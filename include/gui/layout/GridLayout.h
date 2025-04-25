@@ -34,6 +34,7 @@ public:
         float handleDotSize = 2.f;
         float movableZoneHeight = 20.f;
         float dropableZoneRadius = 17.f;
+        bool splitHandles = false;
         juce::Colour handleColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
         juce::Colour dropableZoneColor = Theme::getInstance().getColor(Theme::ThemeColor::ACCENT).asJuce();
         juce::Colour dropableOnZoneColor = Theme::getInstance().getColor(Theme::ThemeColor::WARNING).asJuce();
@@ -64,6 +65,7 @@ public:
     void setDisplayGrid(bool displayGrid);
     void setResizableLineConfiguration(ResizableLineConfiguration configuration);
     void setMovableConfiguration(MovableConfiguration configuration);
+    MovableConfiguration getMovableConfiguration() { return _movableConfiguration; }
 
     void paint(juce::Graphics& g);
     void resized() noexcept;
@@ -172,6 +174,7 @@ protected:
     void paintDropableZone(juce::Graphics& g, const GridLayoutItem& item);
     void paintDropableZone(juce::Graphics& g, const juce::Rectangle<float>& bounds, float borderAlpha = .7f, float fillAlpha = .2f);
     juce::Point<float> getLineCenter(juce::Line<float> line, float offset = 0.f);
+    std::tuple<juce::Line<float>, juce::Line<float>> splitLine(juce::Line<float> line, float offset = 0.f);
     juce::Line<float> getLineWithStartOffset(juce::Line<float> line, float offset);
     juce::Line<float> getLineWithEndOffset(juce::Line<float> line, float offset);
     juce::Line<float> getLineWithOffset(juce::Line<float> line, float offset);
