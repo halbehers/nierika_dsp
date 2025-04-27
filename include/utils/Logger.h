@@ -22,6 +22,7 @@ public:
     };
 
     Logger();
+    virtual ~Logger() = 0;
     
     std::vector<std::string> getLogs(const int limit = 5, const Level minLevel = DEBUG_LEVEL) const;
 

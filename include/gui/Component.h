@@ -11,8 +11,10 @@ namespace nierika::gui
 class Component : public juce::Component
 {
 public:
-    Component(const std::string& identifier = utils::UID::generate_v4(), const std::string& name = "");
+    Component(const std::string& identifier = utils::UID::generate_v4(), const std::string& name = "", const std::string& tooltip = "");
     ~Component();
+
+    std::string getID() const { return getComponentID().toStdString(); }
 
     void paint(juce::Graphics& g) override;
 

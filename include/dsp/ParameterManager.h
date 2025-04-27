@@ -1,0 +1,49 @@
+#pragma once
+
+#include "Parameter.h"
+
+namespace nierika::dsp
+{
+
+class ParameterManager: public juce::AudioProcessorValueTreeState::Listener
+{
+public:
+    ParameterManager(juce::AudioProcessor &processorToConnectTo, std::function<juce::AudioProcessorValueTreeState::ParameterLayout()> layoutBuilder);
+    ~ParameterManager();
+
+    template<typename T>
+    void registerParameter(std::unique_ptr<juce::RangedAudioParameter> parameter, const T defaultValue, const T minValue, const T maxValue, std::function<void(T)> onChange, const std::string& sectionID = "general");
+    void registerParameter(const std::string& id, const std::string& name, const bool defaultValue, std::function<void(bool)> onChange, const std::string& sectionID = "general");
+    void registerParameter(const std::string& id, const std::string& name, const float defaultValue, const float minValue, const float maxValue, std::function<void(float)> onChange, const std::string& sectionID = "general");
+    void registerParameter(const std::string& id, const std::string& name, const int defaultValue, const int minValue, const int maxValue, std::function<void(int)> onChange, const std::string& sectionID = "general");
+
+    void clear();
+
+    void parameterChanged(const juce::String& parameterID, float newValue) override;
+    void setStateInformation (const void* data, int sizeInBytes);
+
+    void getStateInformation(juce::MemoryBlock& destData);
+
+    juce::AudioProcessorValueTreeState& getState() { return _treeState; }
+    
+    std::string getParameterName(const std::string& identifier) const;
+    std::string getParameterTooltip(const std::string& identifier) const;
+    template<typename T>
+    T getParameterDefaultValue(const std::string& identifier) const;
+    template<typename T>
+    T getParameterMinValue(const std::string& identifier) const;
+    template<typename T>
+    T getParameterMaxValue(const std::string& identifier) const;
+
+protected:
+    juce::AudioProcessorValueTreeState::ParameterLayout buildParameterLayout();
+
+private:
+    std::unordered_map<std::string, std::shared_ptr<IParameter>> _parameterByID;
+    std::vector<std::unique_ptr<juce::RangedAudioParameter>> _parameters;
+    juce::AudioProcessorValueTreeState _treeState;
+
+    std::shared_ptr<IParameter> getParameter(const std::string& identifier) const;
+};
+
+}

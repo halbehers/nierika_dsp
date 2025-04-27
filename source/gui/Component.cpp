@@ -4,7 +4,7 @@
 namespace nierika::gui
 {
 
-Component::Component(const std::string& identifier, const std::string& name):
+Component::Component(const std::string& identifier, const std::string& name, const std::string& tooltip):
     juce::Component()
 {
     setComponentID(identifier);
@@ -12,6 +12,8 @@ Component::Component(const std::string& identifier, const std::string& name):
 
     _margin.attachComponent(this);
     _margin.setAsMargin();
+
+    setTooltip(tooltip);
 }
 
 Component::~Component()
@@ -23,7 +25,6 @@ void Component::paint(juce::Graphics& g)
 {
     if (_background.display)
     {
-        const auto reducedValue = _border.display ? _border.lineThickness : 0.f;
         const auto backgroundBounds = getOuterLocalBounds().toFloat();
         
         if (_background.isGradient)
@@ -57,7 +58,7 @@ juce::Rectangle<int> Component::getLocalBounds()
 void Component::setTooltip(const std::string& text)
 {
     _tooltip = text;
-    if (!_tooltipEnabled) setTooltipEnabled(true);
+    if (!_tooltipEnabled && text != "") setTooltipEnabled(true);
 }
 
 const std::string& Component::getTooltip() const

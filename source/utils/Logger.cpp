@@ -7,6 +7,11 @@ namespace nierika::utils
 
     Logger::Logger()
     {
+        setup();
+    }
+
+    Logger::~Logger()
+    {
     }
 
     std::vector<std::string> Logger::getLogs(const int limit, const Level minLevel) const
@@ -14,7 +19,7 @@ namespace nierika::utils
         std::vector<std::string> result;
         int count = 0;
         const int logsSize = static_cast<int>(_logs.size());
-    
+
         for (int i = logsSize - 1; i >= 0 && count < limit; --i)
             {
                 const auto log = _logs[i];
@@ -24,8 +29,8 @@ namespace nierika::utils
                     ++count;
                 }
             }
-    
-            return result;
+
+        return result;
     }
 
     void Logger::debug(const std::string& log, const std::string& source)
@@ -117,11 +122,11 @@ namespace nierika::utils
 
     void Logger::addLog(Level level, const std::string& message, const std::string& source)
     {
-        setup();
-    
+        cleanupOldLogs();
+
         const auto time = getCurrentDateAndTime();
         _logs.push_back({ message, level, time, source });
-        
+
     #ifndef NDEBUG
         if (level >= getDebugEntryLevel())
             writeToFile(getLogAsString(level, time, message, source));
@@ -145,11 +150,11 @@ namespace nierika::utils
     void Logger::writeToFile(const std::string& logEntry)
     {
         auto latestLogFile = getLatestLogFile();
-        
+
         writeToFile(logEntry, latestLogFile);
-    
+
         maintainLogFileSize(latestLogFile);
-        
+
         auto todaysLogFile = getTodaysLogFile();
         writeToFile(logEntry, todaysLogFile);
     }
@@ -158,12 +163,12 @@ namespace nierika::utils
     {
         juce::StringArray lines;
         lines.addLines(logFile.loadFileAsString());
-    
+
         if (lines.size() > getMaxLatestLogFileLines())
         {
             juce::StringArray trimmed;
             trimmed.addArray(lines, lines.size() - getMaxLatestLogFileLines(), getMaxLatestLogFileLines());
-    
+
             logFile.replaceWithText(trimmed.joinIntoString("\n"));
         }
     }
@@ -171,15 +176,15 @@ namespace nierika::utils
     void Logger::cleanupOldLogs()
     {
         auto files = _logDir.findChildFiles(juce::File::findFiles, false, "*.log");
-    
+
         auto now = juce::Time::getCurrentTime();
-    
+
         for (auto& file : files)
         {
             if (file.getFileName() == "latest.log") continue;
-    
+
             auto modified = file.getLastModificationTime();
-    
+
             if (now.toMilliseconds() - modified.toMilliseconds() > getMaxLogFileLifetime())
             {
                 file.deleteFile();
@@ -202,7 +207,7 @@ namespace nierika::utils
             [](unsigned char c){ return std::tolower(c); });
         std::ostringstream oss;
         oss << appName << "_" << currentDate << (fileNumber > 1 ? "_" + std::to_string(fileNumber) : "") << ".log";
-        
+
         auto file = _logDir.getChildFile(oss.str());
         if (!file.existsAsFile())
         {

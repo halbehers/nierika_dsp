@@ -8,7 +8,6 @@ Text::Text(const std::string& identifier, const std::string& name, const std::st
     Component(identifier, name)
 {
     addAndMakeVisible(_text);
-    const auto textColor = Theme::getInstance().getColor(Theme::TEXT).asJuce();
     _text.setText(text, juce::dontSendNotification);
     setColor(Theme::TEXT);
     setJustificationType(juce::Justification::centred);

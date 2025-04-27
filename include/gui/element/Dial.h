@@ -3,6 +3,8 @@
 #include "Slider.h"
 #include "../laf/Dial.h"
 #include "../Component.h"
+#include "../../dsp/ParameterManager.h"
+#include "../../dsp/Parameter.h"
 
 namespace nierika::gui::element
 {
@@ -14,10 +16,11 @@ public:
     {
         SMALL,
         MEDIUM,
-        LARGE 
+        LARGE
     };
     
-    Dial(const std::string& identifier, const juce::String& label, float minValue, float maxValue, float defaultValue, const juce::String& valueSuffix, Size size = Size::MEDIUM);
+    Dial(const std::string& identifier, const std::string& label, float minValue, float maxValue, float defaultValue, const std::string& valueSuffix = "", Size size = Size::MEDIUM);
+    Dial(const dsp::ParameterManager& parameterManager, const std::string& parameterID, const std::string& valueSuffix = "", Size size = Size::MEDIUM);
     ~Dial() override;
 
     void resized() override;
@@ -26,6 +29,11 @@ public:
     void setEnabled(bool isEnabled);
     
 protected:
+    float _minValue;
+    float _maxValue;
+    float _defaultValue;
+    std::string _valueSuffix;
+
     juce::Slider _slider;
     laf::Dial _lookAndFeel;
     Size _size;
@@ -36,6 +44,8 @@ protected:
             { LARGE, 55.0 }
         }
     };
+
+    void setup();
 };
 
 }

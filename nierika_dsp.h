@@ -9,7 +9,7 @@
   description:        Classes for GUI creation and DSP processing.
   website:            http://www.juce.com/juce
   license:            MIT
-  minimumCppStandard: 17
+  minimumCppStandard: 20
 
   dependencies:       juce_core juce_data_structures juce_events juce_dsp juce_graphics juce_gui_basics juce_gui_extra juce_audio_basics juce_audio_formats juce_audio_utils juce_audio_processors
 
@@ -49,6 +49,8 @@
 #include "include/dsp/filter/LowPassFilter.h"
 #include "include/dsp/sequencer/FXSequencer.h"
 #include "include/dsp/RMSProcessor.h"
+#include "include/dsp/ParameterManager.h"
+#include "include/dsp/Parameter.h"
 
 // GUI
 #include "include/gui/AnalyzerPathGenerator.h"
@@ -91,6 +93,7 @@
 #include "include/gui/laf/SVGToggle.h"
 #include "include/gui/layout/GridLayout.h"
 #include "include/gui/layout/GridLayoutItem.h"
+#include "include/gui/layout/AppLayout.h"
 #include "include/gui/Spacing.h"
 #include "include/gui/Border.h"
 
