@@ -54,6 +54,7 @@ public:
 
     virtual std::string getID() const = 0;
     virtual std::string getName() const = 0;
+    virtual std::string getDisplayName() const = 0;
     virtual std::string getTooltip() const = 0;
     virtual ParameterValueHolder getDefaultValue() const = 0;
     virtual ParameterValueHolder getMinValue() const = 0;
@@ -65,9 +66,19 @@ template<typename T>
 class Parameter : public IParameter
 {
 public:
-    Parameter(const std::string& id, const std::string& name, const std::string& tooltip, T defaultValue, T minValue, T maxValue, std::function<void(T)> onChange):
+    Parameter(
+        const std::string& id,
+        const std::string& name,
+        const std::string& displayName,
+        const std::string& tooltip,
+        T defaultValue,
+        T minValue,
+        T maxValue,
+        std::function<void(T)> onChange
+    ):
         _id(id),
         _name(name),
+        _displayName(displayName),
         _tooltip(tooltip),
         _defaultValue(defaultValue),
         _minValue(minValue),
@@ -85,6 +96,10 @@ public:
     std::string getName() const override
     {
         return _name;
+    }
+    std::string getDisplayName() const override
+    {
+        return _displayName;
     }
     std::string getTooltip() const override
     {
@@ -117,6 +132,7 @@ public:
 private:
     std::string _id;
     std::string _name;
+    std::string _displayName;
     std::string _tooltip;
     T _defaultValue;
     T _minValue;

@@ -125,7 +125,7 @@ void Section::resized()
     }
     if (_nameLabel.getText() != "")
     {
-        _nameLabel.setBounds(0, 6, getWidth(), 8);
+        _nameLabel.setBounds(0, 10, getWidth(), 8);
     }
 
     _layout.resized();
@@ -134,13 +134,13 @@ void Section::resized()
 juce::Rectangle<int> Section::getBypassButtonBounds()
 {
     int size = 14;
-    return juce::Rectangle<int>(getWidth() - 16 - size, 4, size + 1, size);
+    return juce::Rectangle<int>(getWidth() - 16 - size, 8, size + 1, size);
 }
 
 juce::Rectangle<int> Section::getFXSequencerButtonBounds()
 {
     int size = 13;
-    return juce::Rectangle<int>(getWidth() - 16 - (size * 2 + 4), 4, size + 1, size);
+    return juce::Rectangle<int>(getWidth() - 16 - (size * 2 + 4), 8, size + 1, size);
 }
 
 int Section::getHeaderHeight()
@@ -203,7 +203,7 @@ void Section::initLayout(const int maxNbColumns, const int maxNbRows)
 void Section::setHasHeader(bool hasHeader)
 {
     _hasHeader = hasHeader;
-    if (_hasHeader) setPadding(0.f, 16.f, 0.f, 0.f);
+    if (_hasHeader) setPadding(0.f, 30.f, 0.f, 0.f);
     else setPadding(0.f);
 }
 

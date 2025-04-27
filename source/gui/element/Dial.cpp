@@ -16,7 +16,7 @@ Dial::Dial(const std::string& identifier, const std::string& label, float minVal
 }
 
 Dial::Dial(const dsp::ParameterManager& parameterManager, const std::string& parameterID, const std::string& valueSuffix, Size size):
-    Component(parameterID, parameterManager.getParameterName(parameterID), parameterManager.getParameterTooltip(parameterID)),
+    Component(parameterID, parameterManager.getParameterDisplayName(parameterID), parameterManager.getParameterTooltip(parameterID)),
     _minValue(parameterManager.getParameterMinValue<float>(parameterID)),
     _maxValue(parameterManager.getParameterMaxValue<float>(parameterID)),
     _defaultValue(parameterManager.getParameterDefaultValue<float>(parameterID)),
@@ -54,6 +54,8 @@ void Dial::setup()
     _slider.setDoubleClickReturnValue(true, _defaultValue);
     _slider.setLookAndFeel(&_lookAndFeel);
     _slider.setComponentID(getComponentID());
+
+    //displayBorder(Theme::ThemeColor::EMPTY_SHADE);
 }
 
 void Dial::setSize(Size size)
