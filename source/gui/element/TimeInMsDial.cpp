@@ -3,14 +3,14 @@
 
 namespace nierika::gui::element
 {
-TimeInMsDial::TimeInMsDial(const std::string& identifier, const std::string& label, float minValue, float maxValue, float defaultValue, Size size):
-    Dial(identifier, label, minValue, maxValue, defaultValue, "", size)
+TimeInMsDial::TimeInMsDial(const std::string& identifier, const std::string& label, float minValue, float maxValue, float defaultValue):
+    Dial(identifier, label, minValue, maxValue, defaultValue, "")
 {
     setup();
 }
 
-TimeInMsDial::TimeInMsDial(const dsp::ParameterManager& parameterManager, const std::string& parameterID, Size size):
-    Dial(parameterManager, parameterID, "", size)
+TimeInMsDial::TimeInMsDial(dsp::ParameterManager& parameterManager, const std::string& parameterID):
+    Dial(parameterManager, parameterID, "")
 {
     setup();
 }

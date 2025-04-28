@@ -11,7 +11,7 @@ namespace nierika::dsp
 class ParameterValueHolder
 {
 public:
-    using ParameterValue = std::variant<float, int, bool, std::string>;
+    using ParameterValue = std::variant<float, int, bool>;
 
     ParameterValueHolder(ParameterValue value) : _value(std::move(value)) {}
 
@@ -51,8 +51,15 @@ class IParameter
 {
 public:
     virtual ~IParameter() = default;
+    enum Type
+    {
+        TYPE_FLOAT,
+        TYPE_INT,
+        TYPE_BOOL
+    };
 
     virtual std::string getID() const = 0;
+    virtual Type getType() const = 0;
     virtual std::string getName() const = 0;
     virtual std::string getDisplayName() const = 0;
     virtual std::string getTooltip() const = 0;
@@ -68,6 +75,7 @@ class Parameter : public IParameter
 public:
     Parameter(
         const std::string& id,
+        Type type,
         const std::string& name,
         const std::string& displayName,
         const std::string& tooltip,
@@ -77,6 +85,7 @@ public:
         std::function<void(T)> onChange
     ):
         _id(id),
+        _type(type),
         _name(name),
         _displayName(displayName),
         _tooltip(tooltip),
@@ -92,6 +101,11 @@ public:
     std::string getID() const override
     {
         return _id;
+    }
+
+    Type getType() const override
+    {
+        return _type;
     }
     std::string getName() const override
     {
@@ -125,12 +139,12 @@ public:
         else
         {
             utils::AppLogger::get().error("Type mismatch for parameter " + _id, "Parameter::onChangeFromVariant");
-            throw std::bad_variant_access();
         }
     }
 
 private:
     std::string _id;
+    Type _type;
     std::string _name;
     std::string _displayName;
     std::string _tooltip;

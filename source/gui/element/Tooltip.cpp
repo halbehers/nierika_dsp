@@ -39,7 +39,7 @@ void Tooltip::paint (juce::Graphics& g)
     if (_tooltip != "")
     {
         const int iconSize = 8;
-        helpers::drawFromSVG(g, Icons::getInstance().getInfo(), whiteColor.asHexString(), 12, getHeight() / 2 - iconSize / 2 + 1, iconSize, iconSize, juce::AffineTransform());
+        helpers::drawFromSVG(g, Icons::getInfo(), whiteColor.asHexString(), 12, getHeight() / 2 - iconSize / 2 + 1, iconSize, iconSize, juce::AffineTransform());
     }
     
 }

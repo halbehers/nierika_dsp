@@ -13,7 +13,7 @@
 namespace nierika::gui
 {
 
-class Section : public Component
+class Section : public Component, public element::SVGToggle::OnValueChangedListener
 {
 public:
     Section(std::string identifier, dsp::ParameterManager& parameterManager, std::string sectionEnabledParameterID = "", std::string sectionFXSequencerActivationParameterID = "");
@@ -37,14 +37,15 @@ public:
     void setHasHeader(bool hasHeader);
     bool hasHeader() const;
 
+    void onToggleValueChanged(const std::string componentID, bool isOn) override;
+
 protected:
     dsp::FXSequencer* _fxSequencer =  nullptr;
     dsp::ParameterManager& _parameterManager;
-    nierika::gui::element::SVGToggle _enabledButton { Icons::getInstance().getPowerOff() };
     juce::Label _nameLabel;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> _enabledAttachment;
-    nierika::gui::element::SVGToggle _fxSequencerButton { Icons::getInstance().getBoxes() };
-    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> _fxSequencerAttachment;
+    
+    element::SVGToggle _enabledButton;
+    element::SVGToggle _fxSequencerButton;
     bool _hasHeader = false;
 
     int getHeaderHeight();

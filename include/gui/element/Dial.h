@@ -1,10 +1,8 @@
 #pragma once
 
-#include "Slider.h"
 #include "../laf/Dial.h"
 #include "../Component.h"
 #include "../../dsp/ParameterManager.h"
-#include "../../dsp/Parameter.h"
 
 namespace nierika::gui::element
 {
@@ -19,12 +17,11 @@ public:
         LARGE
     };
     
-    Dial(const std::string& identifier, const std::string& label, float minValue, float maxValue, float defaultValue, const std::string& valueSuffix = "", Size size = Size::MEDIUM);
-    Dial(const dsp::ParameterManager& parameterManager, const std::string& parameterID, const std::string& valueSuffix = "", Size size = Size::MEDIUM);
+    Dial(const std::string& identifier, const std::string& label, float minValue, float maxValue, float defaultValue, const std::string& valueSuffix = "");
+    Dial(dsp::ParameterManager& parameterManager, const std::string& parameterID, const std::string& valueSuffix = "");
     ~Dial() override;
 
     void resized() override;
-    void setSize(Size size);
     void setShortLabel(const juce::String& shortLabel);
     void setEnabled(bool isEnabled);
     
@@ -36,14 +33,8 @@ protected:
 
     juce::Slider _slider;
     laf::Dial _lookAndFeel;
-    Size _size;
-    std::unordered_map<Size, float> _sizeToPx {
-        {
-            { SMALL, 32.0 },
-            { MEDIUM, 42.0 },
-            { LARGE, 55.0 }
-        }
-    };
+
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> _attachment;
 
     void setup();
 };

@@ -8,7 +8,7 @@ namespace nierika::gui::layout
 class AppLayout : public Section
 {
 public:
-    AppLayout(dsp::ParameterManager& parameterManager);
+    AppLayout(dsp::ParameterManager& parameterManager, const std::string& pluginEnabledParameterID = "");
     ~AppLayout() override;
 
     void paint(juce::Graphics&) override;

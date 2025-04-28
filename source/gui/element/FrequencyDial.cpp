@@ -3,14 +3,14 @@
 
 namespace nierika::gui::element
 {
-FrequencyDial::FrequencyDial(const std::string& identifier, const std::string& label, float minValue, float maxValue, float defaultValue, Size size):
-    Dial(identifier, label, minValue, maxValue, defaultValue, "", size)
+FrequencyDial::FrequencyDial(const std::string& identifier, const std::string& label, float minValue, float maxValue, float defaultValue):
+    Dial(identifier, label, minValue, maxValue, defaultValue, "")
 {
     setup();
 }
 
-FrequencyDial::FrequencyDial(const dsp::ParameterManager& parameterManager, const std::string& parameterID, Size size):
-    Dial(parameterManager, parameterID, "", size)
+FrequencyDial::FrequencyDial(dsp::ParameterManager& parameterManager, const std::string& parameterID):
+    Dial(parameterManager, parameterID, "")
 {
     setup();
 }

@@ -4,26 +4,25 @@
 namespace nierika::gui::element
 {
 
-Dial::Dial(const std::string& identifier, const std::string& label, float minValue, float maxValue, float defaultValue, const std::string& valueSuffix, Size size):
+Dial::Dial(const std::string& identifier, const std::string& label, float minValue, float maxValue, float defaultValue, const std::string& valueSuffix):
     Component(identifier, label),
     _minValue(minValue),
     _maxValue(maxValue),
     _defaultValue(defaultValue),
-    _valueSuffix(valueSuffix),
-    _size(size)
+    _valueSuffix(valueSuffix)
 {
     setup();
 }
 
-Dial::Dial(const dsp::ParameterManager& parameterManager, const std::string& parameterID, const std::string& valueSuffix, Size size):
+Dial::Dial(dsp::ParameterManager& parameterManager, const std::string& parameterID, const std::string& valueSuffix):
     Component(parameterID, parameterManager.getParameterDisplayName(parameterID), parameterManager.getParameterTooltip(parameterID)),
-    _minValue(parameterManager.getParameterMinValue<float>(parameterID)),
-    _maxValue(parameterManager.getParameterMaxValue<float>(parameterID)),
-    _defaultValue(parameterManager.getParameterDefaultValue<float>(parameterID)),
-    _valueSuffix(valueSuffix),
-    _size(size)
+    _minValue(parameterManager.getParameterMinValue<float>(parameterID, 0.f)),
+    _maxValue(parameterManager.getParameterMaxValue<float>(parameterID, 0.f)),
+    _defaultValue(parameterManager.getParameterDefaultValue<float>(parameterID, 0.f)),
+    _valueSuffix(valueSuffix)
 {
     setup();
+    _attachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(parameterManager.getState(), parameterID, _slider);
 }
 
 Dial::~Dial()
@@ -54,13 +53,6 @@ void Dial::setup()
     _slider.setDoubleClickReturnValue(true, _defaultValue);
     _slider.setLookAndFeel(&_lookAndFeel);
     _slider.setComponentID(getComponentID());
-
-    //displayBorder(Theme::ThemeColor::EMPTY_SHADE);
-}
-
-void Dial::setSize(Size size)
-{
-    _size = size;
 }
 
 void Dial::setShortLabel(const juce::String& shortLabel)

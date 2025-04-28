@@ -3,10 +3,12 @@
 namespace nierika::gui::layout
 {
 
-AppLayout::AppLayout(dsp::ParameterManager& parameterManager):
-    Section("app-layout", parameterManager)
+AppLayout::AppLayout(dsp::ParameterManager& parameterManager, const std::string& pluginEnabledParameterID):
+    Section("app-layout", parameterManager, pluginEnabledParameterID)
 {
     addChildComponent(_tooltip);
+    if (pluginEnabledParameterID != "")
+        setBypassable(true);
 }
 
 AppLayout::~AppLayout()

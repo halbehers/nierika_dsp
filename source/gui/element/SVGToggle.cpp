@@ -6,47 +6,74 @@
 namespace nierika::gui::element
 {
 
-SVGToggle::SVGToggle(const char* svgBinary):
-    juce::ToggleButton(),
+SVGToggle::SVGToggle(const std::string& identifier, const char* svgBinary):
+    Component(identifier),
     _lookAndFeel(svgBinary)
 {
-    init();
+    setup();
 }
 
-SVGToggle::SVGToggle(const char* svgBinary, int width, int height):
-    juce::ToggleButton(),
-    _lookAndFeel(svgBinary),
-    _width(width),
-    _height(height)
+SVGToggle::SVGToggle(dsp::ParameterManager& parameterManager, const std::string& parameterID, const char* svgBinary):
+    Component(parameterID, parameterManager.getParameterDisplayName(parameterID), parameterManager.getParameterTooltip(parameterID)),
+    _lookAndFeel(svgBinary)
 {
-    init();
-}
+    setup();
 
+    _button.setToggleState(parameterManager.getParameterDefaultValue(parameterID, true), juce::NotificationType::dontSendNotification);
+
+    if (parameterID != "")
+        _attachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(parameterManager.getState(), parameterID, _button);
+    
+    _button.onClick = [this]()
+    {
+        for (auto listener : _listeners)
+            listener->onToggleValueChanged(getID(), _button.getToggleState());
+    };
+}
 
 SVGToggle::~SVGToggle()
 {
 }
 
-void SVGToggle::init()
+void SVGToggle::setup()
 {
-    setLookAndFeel(&_lookAndFeel);
-    setToggleState(true, juce::NotificationType::dontSendNotification);
-    
-    if (_width != -1 && _height != -1) setSize(_width, _height);
-}
+    addAndMakeVisible(_button);
 
-void SVGToggle::paint (juce::Graphics& g)
-{
-    juce::ToggleButton::paint(g);
+    _button.setLookAndFeel(&_lookAndFeel);
+    _button.setToggleState(true, juce::NotificationType::dontSendNotification);
 }
 
 void SVGToggle::resized()
 {
-    juce::ToggleButton::resized();
-    if (_width != -1 && _height != -1)
-    {
-        setBounds(getX(), getY(), _width, _height);
-    }
+    Component::resized();
+    _button.setBounds(getLocalBounds());
+}
+
+void SVGToggle::paint(juce::Graphics& g)
+{
+}
+
+bool SVGToggle::getToggleState() const
+{
+    return _button.getToggleState();
+}
+
+void SVGToggle::setHelpText(const std::string& helpText)
+{
+    return _button.setHelpText(helpText);
+}
+
+void SVGToggle::addOnValueChangedListener(OnValueChangedListener* listener)
+{
+    _listeners.push_back(listener);
+}
+
+void SVGToggle::removeListener(OnValueChangedListener* listener)
+{
+    _listeners.erase(
+        std::remove(_listeners.begin(), _listeners.end(), listener),
+        _listeners.end()
+    );
 }
 
 }

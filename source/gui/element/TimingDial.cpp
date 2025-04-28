@@ -3,14 +3,14 @@
 
 namespace nierika::gui::element
 {
-TimingDial::TimingDial(const std::string& identifier, const std::string& label, dsp::Timing::NoteTiming defaultValue, Size size):
-    Dial(identifier, label, dsp::Timing::NoteTiming::NOTE_32, dsp::Timing::NoteTiming::NOTE_FOUR_STEP, defaultValue, "", size)
+TimingDial::TimingDial(const std::string& identifier, const std::string& label, dsp::Timing::NoteTiming defaultValue):
+    Dial(identifier, label, dsp::Timing::NoteTiming::NOTE_32, dsp::Timing::NoteTiming::NOTE_FOUR_STEP, defaultValue, "")
 {
     setup();
 }
 
-TimingDial::TimingDial(const dsp::ParameterManager& parameterManager, const std::string& parameterID, Size size):
-    Dial(parameterManager, parameterID, "", size)
+TimingDial::TimingDial(dsp::ParameterManager& parameterManager, const std::string& parameterID):
+    Dial(parameterManager, parameterID, "")
 {
     setup();
 }

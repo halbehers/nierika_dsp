@@ -10,6 +10,8 @@ namespace nierika::gui
 Section::Section(std::string identifier, dsp::ParameterManager& parameterManager, std::string sectionEnabledParameterID, std::string sectionFXSequencerActivationParameterID):
     Component(identifier),
     _parameterManager(parameterManager),
+    _enabledButton(parameterManager, sectionEnabledParameterID, Icons::getPowerOff()),
+    _fxSequencerButton(parameterManager, sectionFXSequencerActivationParameterID, Icons::getBoxes()),
     _layout(*this),
     _sectionEnabledParameterID(sectionEnabledParameterID),
     _sectionFXSequencerActivationParameterID(sectionFXSequencerActivationParameterID)
@@ -17,34 +19,35 @@ Section::Section(std::string identifier, dsp::ParameterManager& parameterManager
     getLayout().setGap(16.f);
 
     addChildComponent(_enabledButton, 100);
-    _enabledButton.onClick = [this]()
-    {
-        setBypass(!_enabledButton.getToggleState());
-    };
-    _enabledButton.setHelpText("Bypass section");
-    if (_sectionEnabledParameterID != "")
-    {
-        _enabledAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(_parameterManager.getState(), _sectionEnabledParameterID, _enabledButton);
-    }
+    _enabledButton.addOnValueChangedListener(this);
+
+    if (sectionEnabledParameterID != "") setBypassable(true);
 
     if (_fxSequencer == nullptr) return;
 
     addChildComponent(_fxSequencerButton, 100);
     _fxSequencer->registerSection(getComponentID().toStdString());
-    _fxSequencerButton.onClick = [this]()
-    {
-        _fxSequencer->setSectionActivation(getComponentID().toStdString(), _fxSequencerButton.getToggleState());
-    };
-    _fxSequencerButton.setHelpText("Connect to FX Sequencer");
-    if (_sectionFXSequencerActivationParameterID != "")
-    {
-        _fxSequencerAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(_parameterManager.getState(), _sectionFXSequencerActivationParameterID, _fxSequencerButton);
-    }
+    _fxSequencerButton.addOnValueChangedListener(this);
 }
 
 Section::~Section()
 {
-    if (_fxSequencer != nullptr) _fxSequencer->unregisterSection(getComponentID().toStdString());
+    _enabledButton.removeListener(this);
+    if (_fxSequencer != nullptr) {
+        _fxSequencer->unregisterSection(getComponentID().toStdString());
+        _fxSequencerButton.removeListener(this);
+    }
+
+}
+
+void Section::onToggleValueChanged(const std::string componentID, bool isOn)
+{
+    if (componentID == _sectionEnabledParameterID)
+        setBypass(!isOn);
+    else if (componentID == _sectionFXSequencerActivationParameterID)
+    {
+        _fxSequencer->setSectionActivation(getComponentID().toStdString(), isOn);
+    }
 }
 
 void Section::setBypassable(bool isBypassable)

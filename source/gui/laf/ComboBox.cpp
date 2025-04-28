@@ -43,7 +43,7 @@ void ComboBox::drawComboBox
     
     int arrowSize = 16;
     
-    helpers::drawFromSVG(g, Icons::getInstance().getArrowDown(), color.asHexString(), width - arrowSize / 2 - 12, height / 2 - arrowSize / 2, arrowSize, arrowSize, juce::AffineTransform());
+    helpers::drawFromSVG(g, Icons::getArrowDown(), color.asHexString(), width - arrowSize / 2 - 12, height / 2 - arrowSize / 2, arrowSize, arrowSize, juce::AffineTransform());
 }
 
 void ComboBox::drawPopupMenuItem

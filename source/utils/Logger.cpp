@@ -5,7 +5,8 @@
 namespace nierika::utils
 {
 
-    Logger::Logger()
+    Logger::Logger(const std::string& companyName):
+        _companyName(companyName)
     {
         setup();
     }
@@ -73,7 +74,7 @@ namespace nierika::utils
     void Logger::setup()
     {
         _logDir = juce::File::getSpecialLocation(juce::File::userApplicationDataDirectory)
-                        .getChildFile(getCompanyName()).getChildFile(getAppName()).getChildFile("logs");
+                        .getChildFile(_companyName).getChildFile(getAppName()).getChildFile("logs");
                         
         _logDir.createDirectory();
         cleanupOldLogs();

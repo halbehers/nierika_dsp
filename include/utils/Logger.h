@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Singleton.h"
+
 #include <string>
 #include <vector>
 #include <chrono>
@@ -10,7 +12,7 @@
 namespace nierika::utils
 {
 
-class Logger
+class Logger: public Singleton<Logger>
 {
 public:
     enum Level
@@ -21,8 +23,8 @@ public:
         ERROR_LEVEL
     };
 
-    Logger();
-    virtual ~Logger() = 0;
+    Logger(const std::string& companyName);
+    ~Logger();
     
     std::vector<std::string> getLogs(const int limit = 5, const Level minLevel = DEBUG_LEVEL) const;
 
@@ -34,8 +36,6 @@ public:
 protected:
     std::string getDefaultAppName();
     std::string getAppName();
-
-    virtual std::string getCompanyName() = 0;
 
     virtual const int getMaxLatestLogFileLines() const { return _defaultMaxLatestLogFileLines; }
     virtual const int getMaxLogFileSize() const { return _defaultMaxLogFileSize; }
@@ -59,6 +59,7 @@ private:
 
     std::vector<Log> _logs;
 
+    std::string _companyName;
     juce::File _logDir;
     juce::File currentLogFile;
     juce::String currentDate;

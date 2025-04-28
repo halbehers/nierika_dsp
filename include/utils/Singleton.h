@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <mutex>
+#include <utility>
 
 namespace nierika::utils
 {
@@ -10,10 +11,11 @@ namespace nierika::utils
     class Singleton
     {
     public:
-        static T& getInstance()
+        template <typename... Args>
+        static T& getInstance(Args&&... args)
         {
-            std::call_once(initFlag, []() {
-                instance.reset(new T());
+            std::call_once(initFlag, [&]() {
+                instance.reset(new T(std::forward<Args>(args)...));
             });
             return *instance;
         }

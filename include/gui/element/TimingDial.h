@@ -9,8 +9,8 @@ namespace nierika::gui::element
 class TimingDial: public Dial
 {
 public:
-    TimingDial(const std::string& identifier, const std::string& label, dsp::Timing::NoteTiming defaultValue, Size size = MEDIUM);
-    TimingDial(const dsp::ParameterManager& parameterManager, const std::string& parameterID, Size size = Size::MEDIUM);
+    TimingDial(const std::string& identifier, const std::string& label, dsp::Timing::NoteTiming defaultValue);
+    TimingDial(dsp::ParameterManager& parameterManager, const std::string& parameterID);
     ~TimingDial() override;
 
     juce::String getTextFromValue(double value);
