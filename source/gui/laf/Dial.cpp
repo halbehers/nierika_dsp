@@ -42,7 +42,7 @@ void Dial::drawRotarySlider
 
     auto dialBounds = juce::Rectangle<int>(x, y, width, height).toFloat();
     auto centre = dialBounds.getCentre();
-    float sizeScalar = 0.6f;
+    float sizeScalar = 0.7f;
     auto fullRadius = juce::jmin(dialBounds.getWidth() * sizeScalar, dialBounds.getHeight() * sizeScalar);
     
     /** Dot color*/
@@ -71,7 +71,7 @@ void Dial::drawRotarySlider
     
     float lineWidthMultiplier = width * 0.015f;
     auto lineWidth = std::max(juce::jmin(lineWidthMultiplier, fullRadius * 0.5f), 1.f);
-    auto dialRadius = std:: max(fullRadius - 4.0f * lineWidth, 10.0f);
+    auto dialRadius = std:: max(fullRadius - 4.0f * lineWidth, 9.0f);
 
     {
         juce::Graphics::ScopedSaveState saved (g);
@@ -179,7 +179,7 @@ void Dial::drawLabel (juce::Graphics& g, juce::Label& label)
     {
         auto labelColor = label.isEnabled() ? label.findColour (juce::Label::textColourId) : disabledColor;
         const juce::Font font(EmbeddedFonts::getRegular()
-                              .withHeight((float) (juce::jmax(label.getWidth() * 0.18, label.getHeight() * 0.375)))
+                              .withHeight(std::min((float) (juce::jmax(label.getWidth() * 0.18, label.getHeight() * 0.375)), 15.f))
                               );
 
         g.setColour(labelColor);
