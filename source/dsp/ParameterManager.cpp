@@ -14,7 +14,7 @@ ParameterManager::ParameterManager(juce::AudioProcessor &processorToConnectTo, s
 
 ParameterManager::~ParameterManager()
 {
-    clear();
+    clearParameters();
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout ParameterManager::buildParameterLayout()
@@ -70,7 +70,7 @@ void ParameterManager::registerParameter(const std::string& id, const std::strin
     registerParameter<int>(std::make_unique<juce::AudioParameterInt>(juce::ParameterID { id, 1 }, name, minValue, maxValue, defaultValue), IParameter::TYPE_INT, displayName, defaultValue, minValue, maxValue, onChange, tooltip);
 }
 
-void ParameterManager::clear()
+void ParameterManager::clearParameters()
 {
     for (auto parameter : _parameterByID)
         _treeState.removeParameterListener(parameter.first, this);

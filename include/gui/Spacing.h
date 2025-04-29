@@ -26,6 +26,11 @@ struct Spacing {
     void addTop(T value);
     void addRight(T value);
     void addBottom(T value);
+
+    void withLeft(T value);
+    void withTop(T value);
+    void withRight(T value);
+    void withBottom(T value);
     
     void substractLeft(T value);
     void substractTop(T value);

@@ -13,7 +13,7 @@ class Value: public Component
 public:
     Value(const std::string& identifier, const std::string& name = "", const std::string& unit = "");
     ~Value() override;
-    
+
     void paint(juce::Graphics& g) override;
     void resized() override;
 
@@ -26,6 +26,8 @@ private:
     Text _value = { "value" };
     Text _unit = { "unit" };
     float _gap = 0.f;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Value)
 };
 
 }

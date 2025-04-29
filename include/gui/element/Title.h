@@ -22,6 +22,8 @@ public:
 private:
     juce::Label _title;
     juce::GlowEffect _glowEffect;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Title)
 };
 
 }

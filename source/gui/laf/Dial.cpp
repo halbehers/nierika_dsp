@@ -69,29 +69,10 @@ void Dial::drawRotarySlider
 
     auto toAngle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
     
-    /** Track thickness*/
     float lineWidthMultiplier = width * 0.015f;
-    auto lineWidth = juce::jmin(lineWidthMultiplier, fullRadius * 0.5f);
-    auto arcRadius  = fullRadius - lineWidth * 2.25;
-
-    juce::Path backgroundArc;
-    backgroundArc.addCentredArc
-    (
-        dialBounds.getCentreX(),
-        dialBounds.getCentreY(),
-        arcRadius,
-        arcRadius,
-        0.0f,
-        rotaryStartAngle,
-        rotaryEndAngle,
-        true
-     );
-
-    /** Dial fill track color*/
-    g.setColour(outlineColor);
-    g.strokePath(backgroundArc, juce::PathStrokeType(lineWidth, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
-
+    auto lineWidth = std::max(juce::jmin(lineWidthMultiplier, fullRadius * 0.5f), 1.f);
     auto dialRadius = std:: max(fullRadius - 4.0f * lineWidth, 10.0f);
+
     {
         juce::Graphics::ScopedSaveState saved (g);
         if (slider.isEnabled())
@@ -113,13 +94,31 @@ void Dial::drawRotarySlider
         
         g.fillEllipse(centre.getX() - dialRadius, centre.getY() - dialRadius, dialRadius * 2.0f, dialRadius * 2.0f);
     }
-    
     //dialRadius = std:: max (dialRadius - 4.0f, 10.0f);
+
+    /** Track thickness*/
+    auto scale = 2.0f;
+    auto arcRadius = dialRadius + lineWidth * scale;//fullRadius - lineWidth * 2.25;
+
+    juce::Path backgroundArc;
+    backgroundArc.addCentredArc
+    (
+        centre.getX(),
+        centre.getY(),
+        arcRadius,
+        arcRadius,
+        0.0f,
+        rotaryStartAngle,
+        rotaryEndAngle,
+        true
+     );
+
+    /** Dial fill track color*/
+    g.setColour(outlineColor);
+    g.strokePath(backgroundArc, juce::PathStrokeType(lineWidth, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
     
     /** Dial outline color*/
     g.setColour(slider.isEnabled() ? whiteColor : disabledColor);
-    
-    auto scale = 2.0f;
     
     /** Dial outline thickness*/
     g.drawEllipse(centre.getX() - dialRadius, centre.getY() - dialRadius, dialRadius * scale, dialRadius * scale, 1.0f);
@@ -134,13 +133,13 @@ void Dial::drawRotarySlider
         g.setFont(font);
         g.drawText(_shortLabel, centre.getX() - 5, centre.getY() - 6, 10, 12, juce::Justification::centred);
     }
-            
+
     /** Fill Math*/
     juce::Path dialValueTrack;
     dialValueTrack.addCentredArc
     (
-        dialBounds.getCentreX(),
-        dialBounds.getCentreY(),
+        centre.getX(),
+        centre.getY(),
         arcRadius,
         arcRadius,
         0.0f,
@@ -180,14 +179,14 @@ void Dial::drawLabel (juce::Graphics& g, juce::Label& label)
     {
         auto labelColor = label.isEnabled() ? label.findColour (juce::Label::textColourId) : disabledColor;
         const juce::Font font(EmbeddedFonts::getRegular()
-                              .withHeight((float) (juce::jmax(label.getWidth() * 0.18, label.getHeight() * 0.375)) + 2.0)
+                              .withHeight((float) (juce::jmax(label.getWidth() * 0.18, label.getHeight() * 0.375)))
                               );
 
         g.setColour(labelColor);
         g.setFont(font);
 
         auto textArea = getLabelBorderSize(label).subtractedFrom(label.getLocalBounds());
-        
+
         juce::String labelText;
         if (auto* parentComponent = label.getParentComponent())
         {
@@ -214,8 +213,7 @@ void Dial::drawLabel (juce::Graphics& g, juce::Label& label)
         }
         
         g.drawFittedText(labelText, textArea, label.getJustificationType(),
-                          juce::jmax (1, (int) ((float) textArea.getHeight() / font.getHeight())),
-                          label.getMinimumHorizontalScale());
+                          juce::jmax (1, (int) ((float) textArea.getHeight() / font.getHeight())), label.getMinimumHorizontalScale());
 
         g.setColour(labelColor);
     }

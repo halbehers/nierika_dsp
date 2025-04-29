@@ -153,6 +153,30 @@ void Component::setMargin(const T value)
 }
 
 template<typename T>
+void Component::withTopMargin(const T value)
+{
+    _margin.withTop(value);
+}
+
+template<typename T>
+void Component::withLeftMargin(const T value)
+{
+    _margin.withLeft(value);
+}
+
+template<typename T>
+void Component::withRightMargin(const T value)
+{
+    _margin.withRight(value);
+}
+
+template<typename T>
+void Component::withBottomMargin(const T value)
+{
+    _margin.withBottom(value);
+}
+
+template<typename T>
 void Component::setPadding(layout::Spacing<T> padding)
 {
     _padding = padding.toFloat();
@@ -176,6 +200,30 @@ void Component::setPadding(const T value)
     _padding = layout::Spacing<T>(value).toFloat();
 }
 
+template<typename T>
+void Component::withTopPadding(const T value)
+{
+    _padding.withTop(value);
+}
+
+template<typename T>
+void Component::withLeftPadding(const T value)
+{
+    _padding.withLeft(value);
+}
+
+template<typename T>
+void Component::withRightPadding(const T value)
+{
+    _padding.withRight(value);
+}
+
+template<typename T>
+void Component::withBottomPadding(const T value)
+{
+    _padding.withBottom(value);
+}
+
 template void Component::setMargin(layout::Spacing<int> margin);
 template void Component::setMargin(layout::Spacing<float> margin);
 template void Component::setMargin(layout::Spacing<double> margin);
@@ -188,6 +236,18 @@ template void Component::setMargin(const double horizontalMargin, const double v
 template void Component::setMargin(const int value);
 template void Component::setMargin(const float value);
 template void Component::setMargin(const double value);
+template void Component::withTopMargin(const int value);
+template void Component::withTopMargin(const float value);
+template void Component::withTopMargin(const double value);
+template void Component::withLeftMargin(const int value);
+template void Component::withLeftMargin(const float value);
+template void Component::withLeftMargin(const double value);
+template void Component::withRightMargin(const int value);
+template void Component::withRightMargin(const float value);
+template void Component::withRightMargin(const double value);
+template void Component::withBottomMargin(const int value);
+template void Component::withBottomMargin(const float value);
+template void Component::withBottomMargin(const double value);
 
 template void Component::setPadding(layout::Spacing<int> padding);
 template void Component::setPadding(layout::Spacing<float> padding);
@@ -201,5 +261,17 @@ template void Component::setPadding(const double horizontalPadding, const double
 template void Component::setPadding(const int value);
 template void Component::setPadding(const float value);
 template void Component::setPadding(const double value);
+template void Component::withTopPadding(const int value);
+template void Component::withTopPadding(const float value);
+template void Component::withTopPadding(const double value);
+template void Component::withLeftPadding(const int value);
+template void Component::withLeftPadding(const float value);
+template void Component::withLeftPadding(const double value);
+template void Component::withRightPadding(const int value);
+template void Component::withRightPadding(const float value);
+template void Component::withRightPadding(const double value);
+template void Component::withBottomPadding(const int value);
+template void Component::withBottomPadding(const float value);
+template void Component::withBottomPadding(const double value);
 
 }

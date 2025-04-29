@@ -22,7 +22,7 @@ public:
     void registerParameter(const std::string& id, const std::string& parameterName, const int defaultValue, const int minValue, const int maxValue, std::function<void(int)> onChange, const std::string& tooltip = "");
     void registerParameter(const std::string& id, const std::string& parameterName, const std::string& displayName, const int defaultValue, const int minValue, const int maxValue, std::function<void(int)> onChange, const std::string& tooltip = "");
 
-    void clear();
+    void clearParameters();
 
     void parameterChanged(const juce::String& parameterID, float newValue) override;
     void parameterChanged(const std::shared_ptr<IParameter> parameter);

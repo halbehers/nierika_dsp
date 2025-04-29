@@ -35,7 +35,7 @@ void Dial::setup()
     
     _slider.setName(getName());
     _slider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalDrag);
-    _slider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 100, 10);
+    _slider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 100, 17);
     _slider.setRange(_minValue, _maxValue);
     _slider.setValue(_defaultValue);
     auto transparentColor = Theme::getInstance().getColor(Theme::ThemeColor::TRANSPARENT).asJuce();

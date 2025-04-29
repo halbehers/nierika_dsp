@@ -37,6 +37,8 @@ protected:
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> _attachment;
 
     void setup();
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Dial)
 };
 
 }

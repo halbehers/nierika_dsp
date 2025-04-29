@@ -131,6 +131,11 @@ public:
     juce::Line<float> getBottom(const float distanceFromBottom = 0.f);
     juce::Rectangle<float> getRectangleAtBottom(const float height, const float distanceFromBottom = 0.f);
 
+    void reset();
+
+    void setVisible(const bool isVisible);
+    bool isVisible() const { return _isVisible; }
+
 protected:
     T& _component;
 
@@ -151,6 +156,8 @@ protected:
     Spacing<float> _margin { 0.f, 0.f, 0.f, 0.f };
     bool _displayGrid = false;
     float _gap = 0;
+
+    bool _isVisible = true;
 
     ResizableLine _currentResizable;
 

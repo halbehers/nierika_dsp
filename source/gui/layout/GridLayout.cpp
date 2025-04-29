@@ -33,6 +33,7 @@ GridLayout<T>::~GridLayout()
 template<typename T>
 void GridLayout<T>::init(std::vector<int> gridRows, std::vector<int> gridColumns)
 {
+    reset();
     _gridRatioRows.reserve(gridRows.size());
     _gridRatioColumns.reserve(gridColumns.size());
     
@@ -64,6 +65,19 @@ void GridLayout<T>::init(std::vector<int> gridRows, std::vector<int> gridColumns
 }
 
 template<typename T>
+void GridLayout<T>::reset()
+{
+    _gridRatioRows.clear();
+    _gridRatioColumns.clear();
+    
+    _gridRows.clear();
+    _gridColumns.clear();
+    
+    _gridResizedRatioRows.clear();
+    _gridResizedRatioColumns.clear();
+}
+
+template<typename T>
 void GridLayout<T>::resized() noexcept
 {
     const juce::Rectangle<float> bounds = _margin.computeBounds(_component.getLocalBounds().toFloat());
@@ -82,6 +96,8 @@ void GridLayout<T>::resized() noexcept
 template<typename T>
 void GridLayout<T>::paint(juce::Graphics& g)
 {
+    if (!isVisible()) return;
+
     if (_displayGrid)
     {
         g.setColour(Theme::getInstance().getColor(Theme::ThemeColor::ACCENT).asJuce());
@@ -905,6 +921,16 @@ juce::Rectangle<float> GridLayout<T>::getRectangleAtBottom(const float height, c
     return juce::Rectangle<float>(getBottom(distanceFromBottom).getStartX(), getBottom(distanceFromBottom).getStartY(), getBottom(distanceFromBottom).getEndX() - getBottom(distanceFromBottom).getStartX() + 1.f, height);
 }
 
+template<typename T>
+void GridLayout<T>::setVisible(const bool isVisible)
+{
+    _isVisible = isVisible;
+    for (auto& component : _componentsById)
+    {
+        component.second.setVisible(isVisible);
+    }
+}
+
 template GridLayout<juce::Component>::GridLayout(juce::Component& component);
 template GridLayout<Component>::GridLayout(Component& component);
 template GridLayout<juce::Component>::GridLayout(juce::Component& component, std::vector<int> gridRows, std::vector<int> gridColumns);
@@ -1053,5 +1079,8 @@ template std::vector<GridLayoutItem> GridLayout<juce::Component>::getStarboardIt
 template std::vector<GridLayoutItem> GridLayout<Component>::getStarboardItemsImpactedByResize(int position, bool isHorizontal);
 template bool GridLayout<juce::Component>::canBeMovedInto(const GridLayoutItem& itemToMove, const GridLayoutItem& itemToMoveInto);
 template bool GridLayout<Component>::canBeMovedInto(const GridLayoutItem& itemToMove, const GridLayoutItem& itemToMoveInto);
+
+template void GridLayout<juce::Component>::reset();
+template void GridLayout<Component>::reset();
 
 }

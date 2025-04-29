@@ -18,6 +18,8 @@ public:
 private:
     const std::unordered_map<dsp::Timing::NoteTiming, std::string> _timingToNames = dsp::Timing::getNoteTimingToNames();
     void setup();
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TimingDial)
 };
 
 }

@@ -5,8 +5,9 @@
 namespace nierika::gui::laf
 {
 
-struct ComboBox : public juce::LookAndFeel_V4
+class ComboBox : public juce::LookAndFeel_V4
 {
+public:
     ComboBox();
     ~ComboBox() override;
 
@@ -39,6 +40,9 @@ struct ComboBox : public juce::LookAndFeel_V4
     ) override;
     
     juce::Font getComboBoxFont(juce::ComboBox &) override;
+
+private:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ComboBox)
 };
 
 }

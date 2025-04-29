@@ -32,6 +32,8 @@ private:
     bool isReversed = false;
     juce::String _sliderName = "";
     juce::String _shortLabel = "";
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Dial)
 };
 
 }

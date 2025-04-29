@@ -23,12 +23,6 @@ SVGToggle::SVGToggle(dsp::ParameterManager& parameterManager, const std::string&
 
     if (parameterID != "")
         _attachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(parameterManager.getState(), parameterID, _button);
-    
-    _button.onClick = [this]()
-    {
-        for (auto listener : _listeners)
-            listener->onToggleValueChanged(getID(), _button.getToggleState());
-    };
 }
 
 SVGToggle::~SVGToggle()
@@ -41,6 +35,12 @@ void SVGToggle::setup()
 
     _button.setLookAndFeel(&_lookAndFeel);
     _button.setToggleState(true, juce::NotificationType::dontSendNotification);
+
+    _button.onClick = [this]()
+    {
+        for (auto listener : _listeners)
+            listener->onToggleValueChanged(getID(), _button.getToggleState());
+    };
 }
 
 void SVGToggle::resized()

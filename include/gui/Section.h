@@ -7,13 +7,17 @@
 #include "../dsp/sequencer/FXSequencer.h"
 #include "./Icons.h"
 #include "./element/SVGToggle.h"
+#include "./element/Tabs.h"
 #include "./layout/GridLayout.h"
+#include "./Spacing.h"
 #include "./Component.h"
 
 namespace nierika::gui
 {
 
-class Section : public Component, public element::SVGToggle::OnValueChangedListener
+#define MAIN_PANEL_ID "main"
+
+class Section : public Component, public element::SVGToggle::OnValueChangedListener, public element::Tabs::OnTabChangedListener
 {
 public:
     Section(std::string identifier, dsp::ParameterManager& parameterManager, std::string sectionEnabledParameterID = "", std::string sectionFXSequencerActivationParameterID = "");
@@ -31,13 +35,39 @@ public:
     void setSectionName(const std::string& name);
 
     void setFXSequencer(dsp::FXSequencer* fxSequencer);
-    void registerComponent(Component& component);
+    void registerComponent(Component& component, const std::string& panelID = MAIN_PANEL_ID);
+    void initLayout(const int maxNbColumns, const int maxNbRows, const std::string& panelID = MAIN_PANEL_ID);
+    void initLayout(const std::string& panelID, const int maxNbColumns = 2, const int maxNbRows = 10);
     void initLayout(const int maxNbColumns = 2, const int maxNbRows = 10);
-    
+    layout::GridLayout<Component>& getLayout(const std::string& panelID = MAIN_PANEL_ID) { return *_panelLayoutsByID[panelID]; }
+    layout::GridLayout<Component>& getActiveLayout() { return *_panelLayoutsByID[_selectedPanelID]; }
+
+    void setLayoutMargin(layout::Spacing<float> margins);
+    void setLayoutMargin(const float marginLeft, const float marginTop, const float marginRight, const float marginBottom);
+    void setLayoutMargin(const float horizontalMargin, const float verticalMargin);
+    void setLayoutMargin(const float value);
+
+    void setLayoutDisplayGrid(bool displayGrid);
+    void setLayoutResizableLineConfiguration(layout::GridLayout<Component>::ResizableLineConfiguration configuration);
+    void setLayoutMovableConfiguration(layout::GridLayout<Component>::MovableConfiguration configuration);
+
     void setHasHeader(bool hasHeader);
     bool hasHeader() const;
 
+    void setHasFooter(bool hasFooter);
+    bool hasFooter() const;
+
     void onToggleValueChanged(const std::string componentID, bool isOn) override;
+    
+    void addPanel(const std::string& panelID, const std::string &name);
+    void setPanelName(const std::string& panelID, const std::string& name);
+    void removePanel(const std::string& panelID);
+    std::string getPanelName(const std::string& panelID) const;
+    std::string getActivePanelName() const;
+    
+    void switchPanel(const std::string& panelID);
+
+    void onTabChanged(const std::string& newSelectedTabID) override;
 
 protected:
     dsp::FXSequencer* _fxSequencer =  nullptr;
@@ -46,30 +76,37 @@ protected:
     
     element::SVGToggle _enabledButton;
     element::SVGToggle _fxSequencerButton;
-    bool _hasHeader = false;
 
-    int getHeaderHeight();
+    static constexpr float HEADER_HEIGHT = 30.f;
+    static constexpr float FOOTER_HEIGHT = 32.f;
+
+    bool _hasHeader = false;
+    bool _hasFooter = false;
+
     virtual void bypassComponents(bool isBypassed) {};
 
-    layout::GridLayout<Component>& getLayout() { return _layout; }
+    void setGap(const float gap);
+    const std::vector<std::reference_wrapper<Component>>& getRegisteredComponents(const std::string& panelID = MAIN_PANEL_ID) const;
+    const std::vector<std::reference_wrapper<Component>>& getActiveRegisteredComponents() const;
 
-protected:
     virtual juce::Rectangle<int> getBypassButtonBounds();
     virtual juce::Rectangle<int> getFXSequencerButtonBounds();
 
 private:
-    layout::GridLayout<Component> _layout;
+    std::unordered_map<std::string, std::unique_ptr<layout::GridLayout<Component>>> _panelLayoutsByID;
+    element::Tabs _tabs;
+    std::string _selectedPanelID = MAIN_PANEL_ID;
 
     std::string _sectionEnabledParameterID = "";
     std::string _sectionFXSequencerActivationParameterID = "";
 
     bool _isBypassable = false;
     bool _isFXSequencerActivable = false;
-    
-    std::vector<std::reference_wrapper<Component>> _registeredComponents;
-    
-    int computeNbOfColumns(const int maxNbColumns) const;
-    int computeNbOfRows(const int maxNbRows, const int nbOfColumns) const;
+
+    std::unordered_map<std::string, std::vector<std::reference_wrapper<Component>>> _registeredComponentsByPanelID;
+
+    int computeNbOfColumns(const int maxNbColumns, const std::string& panelID = MAIN_PANEL_ID) const;
+    int computeNbOfRows(const int maxNbRows, const int nbOfColumns, const std::string& panelID = MAIN_PANEL_ID) const;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Section)
 };

@@ -21,6 +21,8 @@ private:
     int _height = -1;
 
     void init();
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SVGButton)
 };
 
 }

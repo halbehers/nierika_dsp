@@ -173,6 +173,30 @@ void Spacing<T>::addBottom(T value)
 }
 
 template<typename T>
+void Spacing<T>::withLeft(T value)
+{
+    left = value;
+}
+
+template<typename T>
+void Spacing<T>::withTop(T value)
+{
+    top = value;
+}
+
+template<typename T>
+void Spacing<T>::withRight(T value)
+{
+    right = value;
+}
+
+template<typename T>
+void Spacing<T>::withBottom(T value)
+{
+    bottom = value;
+}
+
+template<typename T>
 void Spacing<T>::substractLeft(T value)
 {
     left -= value;
@@ -355,6 +379,19 @@ template void Spacing<double>::addRight(double value);
 template void Spacing<int>::addBottom(int value);
 template void Spacing<float>::addBottom(float value);
 template void Spacing<double>::addBottom(double value);
+
+template void Spacing<int>::withLeft(int value);
+template void Spacing<float>::withLeft(float value);
+template void Spacing<double>::withLeft(double value);
+template void Spacing<int>::withTop(int value);
+template void Spacing<float>::withTop(float value);
+template void Spacing<double>::withTop(double value);
+template void Spacing<int>::withRight(int value);
+template void Spacing<float>::withRight(float value);
+template void Spacing<double>::withRight(double value);
+template void Spacing<int>::withBottom(int value);
+template void Spacing<float>::withBottom(float value);
+template void Spacing<double>::withBottom(double value);
 
 template void Spacing<int>::substractLeft(int value);
 template void Spacing<float>::substractLeft(float value);

@@ -23,6 +23,7 @@ public:
 private:
     const char* _svgBinary;
 
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SVGButton)
 };
 
 }

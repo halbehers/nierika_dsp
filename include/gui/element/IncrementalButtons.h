@@ -8,15 +8,17 @@ namespace nierika::gui::element
 
 class IncrementalButtons: public Slider
 {
-    public:
+public:
     IncrementalButtons(float minValue, float maxValue, float defaultValue);
     ~IncrementalButtons() override;
-    
+
     void paint (juce::Graphics&) override;
     void resized() override;
-    
-    private:
+
+private:
     laf::IncrementalButtons _lookAndFeel;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(IncrementalButtons)
 };
 
 }

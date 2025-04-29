@@ -42,6 +42,15 @@ public:
     void setMargin(const T horizontalMargin, const T verticalMargin);
     template<typename T>
     void setMargin(const T value);
+    template<typename T>
+    void withTopMargin(const T value);
+    template<typename T>
+    void withLeftMargin(const T value);
+    template<typename T>
+    void withRightMargin(const T value);
+    template<typename T>
+    void withBottomMargin(const T value);
+    layout::Spacing<float> getMargin() const { return _margin; }
 
     template<typename T>
     void setPadding(layout::Spacing<T> paddings);
@@ -51,6 +60,15 @@ public:
     void setPadding(const T horizontalPadding, const T verticalPadding);
     template<typename T>
     void setPadding(const T value);
+    template<typename T>
+    void withTopPadding(const T value);
+    template<typename T>
+    void withLeftPadding(const T value);
+    template<typename T>
+    void withRightPadding(const T value);
+    template<typename T>
+    void withBottomPadding(const T value);
+    layout::Spacing<float> getPadding() const { return _margin; }
 
     juce::Rectangle<int> getLocalBounds();
     juce::Rectangle<int> getOuterLocalBounds();

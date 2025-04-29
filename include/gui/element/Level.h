@@ -14,6 +14,7 @@ public:
     void paint(juce::Graphics&) override;
 
     void setDbLevel(float dbLevel);
+
 private:
     float _dbLevel = -60.f;
     enum State
@@ -30,6 +31,8 @@ private:
     };
     
     State computeState(float dbLevel);
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Level)
 };
 
 }

@@ -5,8 +5,9 @@
 namespace nierika::gui::laf
 {
 
-struct BoxToggle : public juce::LookAndFeel_V4
+class BoxToggle : public juce::LookAndFeel_V4
 {
+public:
     BoxToggle();
     ~BoxToggle() override;
 
@@ -23,6 +24,9 @@ struct BoxToggle : public juce::LookAndFeel_V4
         bool shouldDrawButtonAsHighlighted,
         bool shouldDrawButtonAsDown
      ) override;
+
+private:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BoxToggle)
 };
 
 }

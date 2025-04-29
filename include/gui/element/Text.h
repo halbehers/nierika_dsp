@@ -32,6 +32,8 @@ private:
     juce::Label _text;
     Theme::FontSize _fontSize = Theme::PARAGRAPH;
     Theme::FontWeight _fontWeight = Theme::REGULAR;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Text)
 };
 
 }
