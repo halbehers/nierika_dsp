@@ -6,17 +6,13 @@ namespace nierika::gui::element
 PercentageDial::PercentageDial(const std::string& identifier, const std::string& label, float minValue, float maxValue, float defaultValue):
     Dial(identifier, label, minValue, maxValue, defaultValue, "")
 {
-    setup();
+    PercentageDial::setup();
 }
 
 PercentageDial::PercentageDial(dsp::ParameterManager& parameterManager, const std::string& parameterID):
     Dial(parameterManager, parameterID, "")
 {
-    setup();
-}
-
-PercentageDial::~PercentageDial()
-{
+    PercentageDial::setup();
 }
 
 void PercentageDial::setup()

@@ -87,12 +87,12 @@ public:
     class Color
     {
     public:
-        Color(const ThemeColor color);
-        ~Color();
+        explicit Color(ThemeColor color);
+        ~Color() = default;
 
-        juce::uint32 asHex() const;
-        juce::Colour asJuce() const;
-        std::string asHexString() const;
+        [[nodiscard]] juce::uint32 asHex() const;
+        [[nodiscard]] juce::Colour asJuce() const;
+        [[nodiscard]] std::string asHexString() const;
         
     private:
         ThemeColor _color;
@@ -115,8 +115,8 @@ public:
         };
     };
 
-    juce::Font getFont(const FontWeight weight, const FontSize size = PARAGRAPH) const;
-    const float getFontSizeInPixels(const FontSize size) const;
+    [[nodiscard]] juce::Font getFont(FontWeight weight, FontSize size = PARAGRAPH) const;
+    [[nodiscard]] const float getFontSizeInPixels(FontSize size) const;
     
     Color getColor(ThemeColor color);
 

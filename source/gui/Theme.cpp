@@ -13,10 +13,6 @@ Theme::Color::Color(const ThemeColor color):
 {
 }
 
-Theme::Color::~Color()
-{
-}
-
 juce::uint32 Theme::Color::asHex() const
 {
     return _themeColorToHex.at(_color);

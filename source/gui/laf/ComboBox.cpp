@@ -7,14 +7,6 @@
 namespace nierika::gui::laf
 {
 
-ComboBox::ComboBox()
-{
-}
-
-ComboBox::~ComboBox()
-{
-}
-
 void ComboBox::drawComboBox
 (
     juce::Graphics &g,

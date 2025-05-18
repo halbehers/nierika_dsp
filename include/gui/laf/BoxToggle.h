@@ -1,15 +1,13 @@
 #pragma once
 
-#include "../Theme.h"
-
 namespace nierika::gui::laf
 {
 
 class BoxToggle : public juce::LookAndFeel_V4
 {
 public:
-    BoxToggle();
-    ~BoxToggle() override;
+    BoxToggle() = default;
+    ~BoxToggle() override = default;
 
     void drawTickBox
     (

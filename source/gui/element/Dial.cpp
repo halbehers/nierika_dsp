@@ -11,7 +11,7 @@ Dial::Dial(const std::string& identifier, const std::string& label, float minVal
     _defaultValue(defaultValue),
     _valueSuffix(valueSuffix)
 {
-    setup();
+    Dial::setup();
 }
 
 Dial::Dial(dsp::ParameterManager& parameterManager, const std::string& parameterID, const std::string& valueSuffix):
@@ -21,7 +21,7 @@ Dial::Dial(dsp::ParameterManager& parameterManager, const std::string& parameter
     _defaultValue(parameterManager.getParameterDefaultValue<float>(parameterID, 0.f)),
     _valueSuffix(valueSuffix)
 {
-    setup();
+    Dial::setup();
     _attachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(parameterManager.getState(), parameterID, _slider);
 }
 

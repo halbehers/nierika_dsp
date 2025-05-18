@@ -1,6 +1,5 @@
 #include "../../../include/gui/element/Slider.h"
 #include "../../../include/gui/Theme.h"
-#include "../../../include/gui/EmbeddedFonts.h"
 
 namespace nierika::gui::element
 {
@@ -36,10 +35,6 @@ Slider::Slider(const juce::String& label, float minValue, float maxValue, float 
      */
 }
 
-Slider::~Slider()
-{
-}
-
 void Slider::setEnabled(bool isEnabled)
 {
     juce::Slider::setEnabled(isEnabled);
@@ -48,7 +43,7 @@ void Slider::setEnabled(bool isEnabled)
     _labelComponent.setColour(juce::Label::ColourIds::textColourId, isEnabled ? whiteColor : disabledColor);
 }
 
-void Slider::paint (juce::Graphics& g)
+void Slider::paint(juce::Graphics& g)
 {
     juce::Slider::paint(g);
 }

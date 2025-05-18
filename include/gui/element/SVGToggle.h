@@ -13,12 +13,12 @@ public:
     struct OnValueChangedListener
     {
         virtual ~OnValueChangedListener() = default;
-        virtual void onToggleValueChanged(const std::string componentID, bool isOn) = 0;
+        virtual void onToggleValueChanged(const std::string& componentID, bool isOn) = 0;
     };
 
     SVGToggle(const std::string& identifier, const char* svgBinary);
     SVGToggle(dsp::ParameterManager& parameterManager, const std::string& parameterID, const char* svgBinary);
-    ~SVGToggle() override;
+    ~SVGToggle() override = default;
 
     void paint(juce::Graphics& g) override;
     void resized() override;
@@ -31,9 +31,9 @@ public:
 
 private:
     laf::SVGToggle _lookAndFeel;
-    juce::ToggleButton _button;
+    juce::ToggleButton _button {};
 
-    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> _attachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> _attachment {};
 
     std::vector<OnValueChangedListener*> _listeners;
 

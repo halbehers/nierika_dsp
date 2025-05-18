@@ -13,13 +13,13 @@ public:
     static std::string formatPercentage(int percentage);
     static std::string formatTimeInMs(float timeInMs);
     static std::string formatBPM(double bpm);
-    static std::string formatFloat(const float value, const int precision = 1);
-    static std::string formatDouble(const double value, const int precision = 1);
+    static std::string formatFloat(float value, int precision = 1);
+    static std::string formatDouble(double value, int precision = 1);
     static std::string joinWithNewline(const std::vector<std::string>& lines);
 
 private:
-    Formatter();
-    ~Formatter();
+    Formatter() = default;
+    ~Formatter() = default;
 };
 
 }

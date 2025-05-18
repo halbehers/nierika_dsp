@@ -35,7 +35,7 @@ public:
     void addListener(Listener* listener);
     void removeListener(Listener* listener);
     
-    std::string getCurrentTooltip() const;
+    [[nodiscard]] std::string getCurrentTooltip() const;
     void setDefaultTooltip(const std::string& tooltip);
 
 private:

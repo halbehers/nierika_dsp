@@ -7,10 +7,10 @@ template<typename T>
 struct Spacing {
     Spacing(T left, T top, T right, T bottom);
     Spacing(T horizontal, T vertical);
-    Spacing(T spacing);
-    Spacing();
+    explicit Spacing(T spacing);
+    Spacing() = default;
 
-    Spacing<T> operator=(const Spacing<T>& other);
+    Spacing<T>& operator=(const Spacing<T>& other);
     Spacing<T> operator+(T value);
     Spacing<T> operator+(const Spacing<T>& other);
     Spacing<T> operator-(T value);

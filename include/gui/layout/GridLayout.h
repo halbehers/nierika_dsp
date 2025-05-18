@@ -12,8 +12,7 @@ namespace nierika::gui::layout
 {
 
 template<class T>
-class GridLayout : juce::MouseListener, juce::KeyListener
-{
+class GridLayout : juce::MouseListener, juce::KeyListener {
 public:
     struct ResizableLineConfiguration
     {
@@ -46,21 +45,21 @@ public:
         VERTICAL
     };
 
-    GridLayout(T& component);
-    GridLayout(T& component, std::vector<int> gridRows, std::vector<int> gridColumns);
+    explicit GridLayout(T& component);
+    GridLayout(T& component, const std::vector<int> &gridRows, const std::vector<int> &gridColumns);
     
-    ~GridLayout();
+    ~GridLayout() override;
 
-    void init(std::vector<int> gridRows, std::vector<int> gridColumns);
+    void init(const std::vector<int>& gridRows, const std::vector<int>& gridColumns);
 
-    juce::Rectangle<float> operator()(const int row, const int column, const int width, const int height) const;
+    juce::Rectangle<float> operator()(int row, int column, int width, int height) const;
 
-    void setMargin(Spacing<float> margins);
-    void setMargin(const float marginLeft, const float marginTop, const float marginRight, const float marginBottom);
-    void setMargin(const float horizontalMargin, const float verticalMargin);
-    void setMargin(const float value);
+    void setMargin(Spacing<float> margin);
+    void setMargin(float marginLeft, float marginTop, float marginRight, float marginBottom);
+    void setMargin(float horizontalMargin, float verticalMargin);
+    void setMargin(float value);
 
-    void setGap(const float gap);
+    void setGap(float gap);
     
     void setDisplayGrid(bool displayGrid);
     void setResizableLineConfiguration(ResizableLineConfiguration configuration);
@@ -70,23 +69,23 @@ public:
     void paint(juce::Graphics& g);
     void resized() noexcept;
 
-    void addComponent(const std::string& identifier, juce::Component& component, const int rowPosition, const int columnPosition, const int width, const int height, const Alignment alignment = Alignment::TOP_LEFT);
+    void addComponent(const std::string& identifier, juce::Component& component, int rowPosition, int columnPosition, int width, int height, Alignment alignment = Alignment::TOP_LEFT);
     void replace(const std::string& identifier);
     
-    float getColumn(int position) const;
-    float getRow(int position) const;
+    [[nodiscard]] float getColumn(int position) const;
+    [[nodiscard]] float getRow(int position) const;
     
-    bool isTop(const int rowPosition) const;
-    bool isBottom(const int rowPosition, const int height) const;
-    bool isLeft(const int columnPosition) const;
-    bool isRight(const int columnPosition, const int width) const;
+    [[nodiscard]] bool isTop(int rowPosition) const;
+    [[nodiscard]] bool isBottom(int rowPosition, int height) const;
+    [[nodiscard]] bool isLeft(int columnPosition) const;
+    [[nodiscard]] bool isRight(int columnPosition, int width) const;
 
-    juce::Rectangle<float> getBounds(const std::string& identifier);
+    [[nodiscard]] juce::Rectangle<float> getBounds(const std::string& identifier) const;
     
-    juce::Line<float> getLeft(const std::string& identifier);
-    juce::Line<float> getTop(const std::string& identifier);
-    juce::Line<float> getRight(const std::string& identifier);
-    juce::Line<float> getBottom(const std::string& identifier);
+    [[nodiscard]] juce::Line<float> getLeft(const std::string& identifier) const;
+    [[nodiscard]] juce::Line<float> getTop(const std::string& identifier) const;
+    [[nodiscard]] juce::Line<float> getRight(const std::string& identifier) const;
+    [[nodiscard]] juce::Line<float> getBottom(const std::string& identifier) const;
 
     void setLeftBorder(const std::string& identifier, juce::Colour color, float thickness = 1.f);
     void setTopBorder(const std::string& identifier, juce::Colour color, float thickness = 1.f);
@@ -94,12 +93,12 @@ public:
     void setBottomBorder(const std::string& identifier, juce::Colour color, float thickness = 1.f);
     void setBorder(const std::string& identifier, juce::Colour color, float thickness = 1.f);
     
-    void setMinResizableHeight(const std::string& identifier, const float minHeight);
-    void setMinResizableWidth(const std::string& identifier, const float minWidth);
-    void setMaxResizableHeight(const std::string& identifier, const float minHeight);
-    void setMaxResizableWidth(const std::string& identifier, const float minWidth);
+    void setMinResizableHeight(const std::string& identifier, float minHeight);
+    void setMinResizableWidth(const std::string& identifier, float minWidth);
+    void setMaxResizableHeight(const std::string& identifier, float minHeight);
+    void setMaxResizableWidth(const std::string& identifier, float minWidth);
     
-    void setMovable(const std::string& identifier, const bool isMovable, const int movableGroup = 1);
+    void setMovable(const std::string& identifier, bool isMovable, int movableGroup = 1);
 
     struct ResizableLine
     {   
@@ -109,16 +108,16 @@ public:
         float starboardOffsetRatio = .1f;
         
         void clear() { position = 0; }
-        bool isEmpty() const { return position == 0; }
+        [[nodiscard]] bool isEmpty() const { return position == 0; }
     };
     
     
     void setResizableLine(ResizableLine resizableLine);
     
-    juce::Line<float> getHorizontalLine(const int position);
-    std::vector<juce::Line<float>> getHorizontalLines(const int position);
-    juce::Line<float> getVerticalLine(const int position);
-    std::vector<juce::Line<float>> getVerticalLines(const int position);
+    juce::Line<float> getHorizontalLine(int position);
+    std::vector<juce::Line<float>> getHorizontalLines(int position);
+    juce::Line<float> getVerticalLine(int position);
+    std::vector<juce::Line<float>> getVerticalLines(int position);
     
     void mouseMove(const juce::MouseEvent& event) override;
     void mouseDrag(const juce::MouseEvent& event) override;
@@ -128,13 +127,13 @@ public:
     bool keyPressed(const juce::KeyPress& key,
                     juce::Component* originatingComponent) override;
 
-    juce::Line<float> getBottom(const float distanceFromBottom = 0.f);
-    juce::Rectangle<float> getRectangleAtBottom(const float height, const float distanceFromBottom = 0.f);
+    juce::Line<float> getBottom(float distanceFromBottom = 0.f);
+    juce::Rectangle<float> getRectangleAtBottom(float height, float distanceFromBottom = 0.f);
 
     void reset();
 
-    void setVisible(const bool isVisible);
-    bool isVisible() const { return _isVisible; }
+    void setVisible(bool isVisible);
+    [[nodiscard]] bool isVisible() const { return _isVisible; }
 
 protected:
     T& _component;
@@ -145,13 +144,13 @@ protected:
     
     std::vector<ResizableLine> _resizableLines;
 
-    int _columnSum, _rowSum;
-    float _width, _height;
+    int _columnSum = 1, _rowSum = 1;
+    float _width = 0.f, _height = 0.f;
     float _rowsRatio = 0.f;
     float _columnsRatio = 0.f;
     
-    ResizableLineConfiguration _resizableLineConfiguration;
-    MovableConfiguration _movableConfiguration;
+    ResizableLineConfiguration _resizableLineConfiguration {};
+    MovableConfiguration _movableConfiguration {};
     
     Spacing<float> _margin { 0.f, 0.f, 0.f, 0.f };
     bool _displayGrid = false;
@@ -159,14 +158,14 @@ protected:
 
     bool _isVisible = true;
 
-    ResizableLine _currentResizable;
+    ResizableLine _currentResizable {};
 
     bool _paintDropableZones = false;
-    juce::Point<float> _dropableModeMousePosition;
-    std::string _currentMovableItemId = "";
+    juce::Point<float> _dropableModeMousePosition {};
+    std::string _currentMovableItemId;
     
     std::unordered_map<std::string, GridLayoutItem> _itemsById;
-    std::unordered_map<std::string, juce::Component&> _componentsById;
+    std::unordered_map<std::string, juce::Component&> _componentsById {};
     
     void replace(GridLayoutItem& item);
     void replaceAll();

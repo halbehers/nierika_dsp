@@ -1,15 +1,13 @@
 #pragma once
 
-#include "../Theme.h"
-
 namespace nierika::gui::laf
 {
 
 class ComboBox : public juce::LookAndFeel_V4
 {
 public:
-    ComboBox();
-    ~ComboBox() override;
+    ComboBox() = default;
+    ~ComboBox() override = default;
 
     void drawComboBox
     (

@@ -7,7 +7,7 @@
 namespace nierika::gui
 {
 
-Section::Section(std::string identifier, dsp::ParameterManager& parameterManager, std::string sectionEnabledParameterID, std::string sectionFXSequencerActivationParameterID):
+Section::Section(const std::string& identifier, dsp::ParameterManager& parameterManager, const std::string& sectionEnabledParameterID, const std::string& sectionFXSequencerActivationParameterID):
     Component(identifier),
     _parameterManager(parameterManager),
     _enabledButton(parameterManager, sectionEnabledParameterID, Icons::getPowerOff()),
@@ -27,7 +27,7 @@ Section::Section(std::string identifier, dsp::ParameterManager& parameterManager
     addChildComponent(_enabledButton, 100);
     _enabledButton.addOnValueChangedListener(this);
 
-    if (sectionEnabledParameterID != "") setBypassable(true);
+    if (!sectionEnabledParameterID.empty()) setBypassable(true);
 
     if (_fxSequencer == nullptr) return;
 
@@ -47,7 +47,7 @@ Section::~Section()
     }
 }
 
-void Section::onToggleValueChanged(const std::string componentID, bool isOn)
+void Section::onToggleValueChanged(const std::string& componentID, bool isOn)
 {
     if (componentID == _sectionEnabledParameterID)
         setBypass(!isOn);
@@ -69,8 +69,9 @@ void Section::setBypass(bool isBypassed)
     _fxSequencerButton.setEnabled(!isBypassed);
     _nameLabel.setEnabled(!isBypassed);
 
-    for (auto & component : getActiveRegisteredComponents())
-        component.get().setEnabled(!isBypassed);
+    for (auto& componentByPanelID : _registeredComponentsByPanelID)
+        for (auto& component : componentByPanelID.second)
+            component.get().setEnabled(!isBypassed);
 
     bypassComponents(isBypassed);
 }
@@ -85,7 +86,7 @@ void Section::setFXSequencerActivable(bool isFXSequencerActivable)
 void Section::setSectionName(const std::string& name)
 {
     _nameLabel.setText(Formatter::toUpper(name), juce::NotificationType::dontSendNotification);
-    if (name != "")
+    if (!name.empty())
     {
         addAndMakeVisible(_nameLabel);
         _nameLabel.setFont(EmbeddedFonts::getLight().withHeight(16.0f));
@@ -102,8 +103,8 @@ void Section::setFXSequencer(dsp::FXSequencer* fxSequencer)
 
 void Section::setGap(const float gap)
 {
-    for (auto& layout : _panelLayoutsByID)
-        layout.second->setGap(gap);
+    for (auto&[_, layout] : _panelLayoutsByID)
+        layout->setGap(gap);
 }
 
 void Section::displayBorder()
@@ -113,8 +114,8 @@ void Section::displayBorder()
 
 void Section::displayBackground()
 {
-    juce::Colour whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
-    juce::Colour grayColor = Theme::getInstance().getColor(Theme::ThemeColor::LIGHTER_SHADE).asJuce();
+    const juce::Colour whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
+    const juce::Colour grayColor = Theme::getInstance().getColor(Theme::ThemeColor::LIGHTER_SHADE).asJuce();
 
     Component::displayBackground(juce::ColourGradient(whiteColor.withAlpha(0.1f), getWidth() / 2, 0.0, grayColor.withAlpha(0.1f), getWidth() / 2, getHeight(), false), 17.f);
 }
@@ -147,19 +148,19 @@ void Section::resized()
 
     if (_tabs.count() > 1)
     {
-        _tabs.setBounds(0, getY() + getHeight() - static_cast<int>(FOOTER_HEIGHT), getWidth(), static_cast<int>(FOOTER_HEIGHT));
+        _tabs.setBounds(0, getHeight() - static_cast<int>(FOOTER_HEIGHT), getWidth(), static_cast<int>(FOOTER_HEIGHT));
     }
 }
 
 juce::Rectangle<int> Section::getBypassButtonBounds()
 {
-    int size = 14;
+    constexpr int size = 14;
     return juce::Rectangle<int>(getWidth() - 16 - size, 8, size + 1, size);
 }
 
 juce::Rectangle<int> Section::getFXSequencerButtonBounds()
 {
-    int size = 13;
+    constexpr int size = 13;
     return juce::Rectangle<int>(getWidth() - 16 - (size * 2 + 4), 8, size + 1, size);
 }
 
@@ -214,7 +215,7 @@ std::string Section::getActivePanelName() const
 void Section::switchPanel(const std::string& panelID)
 {
     if (panelID == _selectedPanelID) return;
-    if (_panelLayoutsByID.find(panelID) == _panelLayoutsByID.end())
+    if (!_panelLayoutsByID.contains(panelID))
     {
         utils::AppLogger::get().warn("Panel ID not found: " + panelID, "Section::switchPanel");
         return;
@@ -239,7 +240,7 @@ int Section::computeNbOfColumns(const int maxNbColumns, const std::string& panel
 {
     const auto& registeredComponents = getRegisteredComponents(panelID);
 
-    if (registeredComponents.size() == 0)
+    if (registeredComponents.empty())
     {
         utils::AppLogger::get().warn("Call to initLayout() without any registered components.", "Section");
         return 0;
@@ -252,13 +253,13 @@ int Section::computeNbOfRows(const int maxNbRows, const int nbOfColumns, const s
 {
     const auto& registeredComponents = getRegisteredComponents(panelID);
 
-    if (registeredComponents.size() == 0)
+    if (registeredComponents.empty())
     {
         utils::AppLogger::get().warn("Call to initLayout() without any registered components.", "Section");
         return 0;
     }
 
-    return std::min(static_cast<int>(std::ceil(registeredComponents.size() / static_cast<float>(nbOfColumns))), maxNbRows);
+    return std::min(static_cast<int>(std::ceil(static_cast<float>(registeredComponents.size()) / static_cast<float>(nbOfColumns))), maxNbRows);
 }
 
 void Section::initLayout(const int maxNbColumns, const int maxNbRows, const std::string& panelID)
@@ -297,50 +298,50 @@ void Section::initLayout(const std::string& panelID, const int maxNbColumns, con
 
 void Section::initLayout(const int maxNbColumns, const int maxNbRows)
 {
-    for (auto& layout : _panelLayoutsByID)
-        initLayout(maxNbColumns, maxNbRows, layout.first);
+    for (auto&[id, _] : _panelLayoutsByID)
+        initLayout(maxNbColumns, maxNbRows, id);
 }
 
 void Section::setLayoutMargin(layout::Spacing<float> margins)
 {
-    for (auto& layout : _panelLayoutsByID)
-        layout.second->setMargin(margins);
+    for (auto&[_, layout] : _panelLayoutsByID)
+        layout->setMargin(margins);
 }
 
 void Section::setLayoutMargin(const float marginLeft, const float marginTop, const float marginRight, const float marginBottom)
 {
-    for (auto& layout : _panelLayoutsByID)
-        layout.second->setMargin(marginLeft, marginTop, marginRight, marginBottom);
+    for (auto&[_, layout] : _panelLayoutsByID)
+        layout->setMargin(marginLeft, marginTop, marginRight, marginBottom);
 }
 
 void Section::setLayoutMargin(const float horizontalMargin, const float verticalMargin)
 {
-    for (auto& layout : _panelLayoutsByID)
-        layout.second->setMargin(horizontalMargin, verticalMargin);
+    for (auto&[_, layout] : _panelLayoutsByID)
+        layout->setMargin(horizontalMargin, verticalMargin);
 }
 
 void Section::setLayoutMargin(const float value)
 {
-    for (auto& layout : _panelLayoutsByID)
-        layout.second->setMargin(value);
+    for (auto&[_, layout] : _panelLayoutsByID)
+        layout->setMargin(value);
 }
 
 void Section::setLayoutDisplayGrid(bool displayGrid)
 {
-    for (auto& layout : _panelLayoutsByID)
-        layout.second->setDisplayGrid(displayGrid);
+    for (auto&[_, layout] : _panelLayoutsByID)
+        layout->setDisplayGrid(displayGrid);
 }
 
 void Section::setLayoutResizableLineConfiguration(layout::GridLayout<Component>::ResizableLineConfiguration configuration)
 {
-    for (auto& layout : _panelLayoutsByID)
-        layout.second->setResizableLineConfiguration(configuration);
+    for (auto&[_, layout] : _panelLayoutsByID)
+        layout->setResizableLineConfiguration(configuration);
 }
 
 void Section::setLayoutMovableConfiguration(layout::GridLayout<Component>::MovableConfiguration configuration)
 {
-    for (auto& layout : _panelLayoutsByID)
-        layout.second->setMovableConfiguration(configuration);
+    for (auto&[_, layout] : _panelLayoutsByID)
+        layout->setMovableConfiguration(configuration);
 }
 
 const std::vector<std::reference_wrapper<Component>>& Section::getRegisteredComponents(const std::string& panelID) const

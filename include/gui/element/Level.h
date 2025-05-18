@@ -8,8 +8,8 @@ namespace nierika::gui::element
 class Level: public juce::Component
 {
 public:
-    Level();
-    ~Level() override;
+    Level() = default;
+    ~Level() override = default;
     
     void paint(juce::Graphics&) override;
 
@@ -30,7 +30,7 @@ private:
         { DEFAULT, Theme::getInstance().getColor(Theme::ThemeColor::ACCENT).asJuce() }
     };
     
-    State computeState(float dbLevel);
+    static State computeState(float dbLevel);
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Level)
 };

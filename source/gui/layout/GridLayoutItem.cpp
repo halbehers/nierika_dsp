@@ -91,7 +91,7 @@ void GridLayoutItem::setBounds(juce::Rectangle<float> bounds)
     _bounds.setBounds(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
 }
 
-const int GridLayoutItem::getRowPosition() const
+int GridLayoutItem::getRowPosition() const
 {
     return _rowPosition;
 }
@@ -101,7 +101,7 @@ void GridLayoutItem::setRowPosition(const int rowPosition)
     _rowPosition = rowPosition;
 }
 
-const int GridLayoutItem::getColumnPosition() const
+int GridLayoutItem::getColumnPosition() const
 {
     return _columnPosition;
 }
@@ -111,7 +111,7 @@ void GridLayoutItem::setColumnPosition(const int columnPosition)
     _columnPosition = columnPosition;
 }
 
-const int GridLayoutItem::getWidth() const
+int GridLayoutItem::getWidth() const
 {
     return _width;
 }
@@ -121,7 +121,7 @@ void GridLayoutItem::setWidth(const int width)
     _width = width;
 }
 
-const int GridLayoutItem::getHeight() const
+int GridLayoutItem::getHeight() const
 {
     return _height;
 }
@@ -131,22 +131,22 @@ void GridLayoutItem::setHeight(const int height)
     _height = height;
 }
 
-const Border GridLayoutItem::getLeftBorder() const
+Border GridLayoutItem::getLeftBorder() const
 {
     return _leftBorder;
 }
 
-const Border GridLayoutItem::getTopBorder() const
+Border GridLayoutItem::getTopBorder() const
 {
     return _topBorder;
 }
 
-const Border GridLayoutItem::getRightBorder() const
+Border GridLayoutItem::getRightBorder() const
 {
     return _rightBorder;
 }
 
-const Border GridLayoutItem::getBottomBorder() const
+Border GridLayoutItem::getBottomBorder() const
 {
     return _bottomBorder;
 }
@@ -156,7 +156,7 @@ bool GridLayoutItem::hasBorders() const
     return !_leftBorder.isEmpty() || !_topBorder.isEmpty() || !_rightBorder.isEmpty() || !_bottomBorder.isEmpty();
 }
 
-const float GridLayoutItem::getMinResizableHeight() const
+float GridLayoutItem::getMinResizableHeight() const
 {
     return _minResizableHeight;
 }
@@ -166,7 +166,7 @@ void GridLayoutItem::setMinResizableHeight(const float minHeight)
     _minResizableHeight = minHeight;
 }
 
-const float GridLayoutItem::getMinResizableWidth() const
+float GridLayoutItem::getMinResizableWidth() const
 {
     return _minResizableWidth;
 }
@@ -176,7 +176,7 @@ void GridLayoutItem::setMinResizableWidth(const float minWidth)
     _minResizableWidth = minWidth;
 }
 
-const float GridLayoutItem::getMaxResizableHeight() const
+float GridLayoutItem::getMaxResizableHeight() const
 {
     return _maxResizableHeight;
 }
@@ -186,7 +186,7 @@ void GridLayoutItem::setMaxResizableHeight(const float maxHeight)
     _maxResizableHeight = maxHeight;
 }
 
-const float GridLayoutItem::getMaxResizableWidth() const
+float GridLayoutItem::getMaxResizableWidth() const
 {
     return _maxResizableWidth;
 }
@@ -207,7 +207,7 @@ bool GridLayoutItem::isMovable() const
     return _isMovable;
 }
 
-const int GridLayoutItem::getMovableGroup() const
+int GridLayoutItem::getMovableGroup() const
 {
     return _movableGroup;
 }

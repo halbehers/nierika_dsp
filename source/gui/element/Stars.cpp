@@ -16,10 +16,6 @@ Stars::Stars(int maxWidth, int maxHeight):
     computeLargeStars();
 }
 
-Stars::~Stars()
-{
-}
-
 void Stars::computeSmallStars()
 {
     int density = 48;

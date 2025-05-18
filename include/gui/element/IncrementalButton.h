@@ -15,7 +15,7 @@ public:
     };
 
     IncrementalButton(const juce::String& buttonName, Type type);
-    IncrementalButton(Type type);
+    explicit IncrementalButton(Type type);
     ~IncrementalButton() override;
 
     void paintButton(juce::Graphics& g, bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown) override;

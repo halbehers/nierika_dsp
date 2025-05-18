@@ -14,10 +14,6 @@ Text::Text(const std::string& identifier, const std::string& name, const std::st
     setFont();
 }
 
-Text::~Text()
-{
-}
-
 std::string Text::getText() const
 {
     return _text.getText().toStdString();

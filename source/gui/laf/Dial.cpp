@@ -5,14 +5,6 @@
 namespace nierika::gui::laf
 {
 
-Dial::Dial()
-{
-}
-
-Dial::~Dial()
-{
-}
-
 void Dial::setShortLabel(const juce::String& shortLabel)
 {
     _shortLabel = shortLabel;
@@ -46,7 +38,7 @@ void Dial::drawRotarySlider
     auto fullRadius = juce::jmin(dialBounds.getWidth() * sizeScalar, dialBounds.getHeight() * sizeScalar);
     
     /** Dot color*/
-    g.setColour(whiteColor);
+    g.setColour(slider.isEnabled() ? whiteColor : transparentColor);
     centre = dialBounds.getCentre();
 
     /** Draw dots */
@@ -153,7 +145,7 @@ void Dial::drawRotarySlider
     g.strokePath(dialValueTrack, juce::PathStrokeType(lineWidth, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
     
     /** Dial tick color*/
-    g.setColour(whiteColor);
+    g.setColour(slider.isEnabled() ? whiteColor : disabledColor);
     juce::Path dialTick;
     dialTick.startNewSubPath(centre.getPointOnCircumference(dialRadius - lineWidth, toAngle));
     

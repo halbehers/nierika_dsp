@@ -15,7 +15,7 @@ public:
     juce::String getTextFromValue(double value);
 
 private:
-    void setup();
+    void setup() override;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(FrequencyDial)
 };

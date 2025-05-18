@@ -25,10 +25,6 @@ SVGToggle::SVGToggle(dsp::ParameterManager& parameterManager, const std::string&
         _attachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(parameterManager.getState(), parameterID, _button);
 }
 
-SVGToggle::~SVGToggle()
-{
-}
-
 void SVGToggle::setup()
 {
     addAndMakeVisible(_button);

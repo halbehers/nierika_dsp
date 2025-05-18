@@ -26,7 +26,7 @@ public:
     void timerCallback() override;
     
     void setMono(bool isMono);
-    bool isMono();
+    bool isMono() const;
 
 private:
     juce::AudioProcessor& _audioProcessor;
@@ -34,12 +34,12 @@ private:
     dsp::SingleChannelSampleFIFO<juce::AudioBuffer<float>>* _rightChannelFifo;
     bool _isMono = false;
     
-    juce::AudioBuffer<float> _monoBuffer;
-    dsp::FFTDataGenerator<std::vector<float>> _leftChannelFFTDataGenerator;
-    dsp::FFTDataGenerator<std::vector<float>> _rightChannelFFTDataGenerator;
-    AnalyzerPathGenerator<juce::Path> _pathGenerator;
-    juce::Path _leftChannelFFTPath;
-    juce::Path _rightChannelFFTPath;
+    juce::AudioBuffer<float> _monoBuffer {};
+    dsp::FFTDataGenerator<std::vector<float>> _leftChannelFFTDataGenerator {};
+    dsp::FFTDataGenerator<std::vector<float>> _rightChannelFFTDataGenerator {};
+    AnalyzerPathGenerator<juce::Path> _pathGenerator {};
+    juce::Path _leftChannelFFTPath {};
+    juce::Path _rightChannelFFTPath {};
     
     void fillFFTDataGenerator(dsp::FFTDataGenerator<std::vector<float>>* fftDataGenerator, dsp::SingleChannelSampleFIFO<juce::AudioBuffer<float>>* fifo);
     void fillPath(juce::Path* path, dsp::FFTDataGenerator<std::vector<float>>* fftDataGenerator);

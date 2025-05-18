@@ -6,17 +6,13 @@ namespace nierika::gui::element
 TimeInMsDial::TimeInMsDial(const std::string& identifier, const std::string& label, float minValue, float maxValue, float defaultValue):
     Dial(identifier, label, minValue, maxValue, defaultValue, "")
 {
-    setup();
+    TimeInMsDial::setup();
 }
 
 TimeInMsDial::TimeInMsDial(dsp::ParameterManager& parameterManager, const std::string& parameterID):
     Dial(parameterManager, parameterID, "")
 {
-    setup();
-}
-
-TimeInMsDial::~TimeInMsDial()
-{
+    TimeInMsDial::setup();
 }
 
 void TimeInMsDial::setup()

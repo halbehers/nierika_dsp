@@ -1,7 +1,7 @@
 #pragma once
 
+#include <utility>
 #include <variant>
-#include <stdexcept>
 
 #include "../utils/Logger.h"
 
@@ -13,7 +13,7 @@ class ParameterValueHolder
 public:
     using ParameterValue = std::variant<float, int, bool>;
 
-    ParameterValueHolder(ParameterValue value) : _value(std::move(value)) {}
+    explicit ParameterValueHolder(ParameterValue value) : _value(value) {}
 
     template<typename T>
     T get() const
@@ -35,12 +35,12 @@ public:
     }
 
     template<typename T>
-    bool is() const
+    [[nodiscard]] bool is() const
     {
         return std::holds_alternative<T>(_value);
     }
 
-    const ParameterValue& raw() const { return _value; }
+    [[nodiscard]] const ParameterValue& raw() const { return _value; }
 
 private:
     ParameterValue _value;
@@ -51,6 +51,7 @@ class IParameter
 {
 public:
     virtual ~IParameter() = default;
+
     enum Type
     {
         TYPE_FLOAT,
@@ -58,37 +59,37 @@ public:
         TYPE_BOOL
     };
 
-    virtual std::string getID() const = 0;
-    virtual Type getType() const = 0;
-    virtual std::string getName() const = 0;
-    virtual std::string getDisplayName() const = 0;
-    virtual std::string getTooltip() const = 0;
-    virtual ParameterValueHolder getDefaultValue() const = 0;
-    virtual ParameterValueHolder getMinValue() const = 0;
-    virtual ParameterValueHolder getMaxValue() const = 0;
+    [[nodiscard]] virtual std::string getID() const = 0;
+    [[nodiscard]] virtual Type getType() const = 0;
+    [[nodiscard]] virtual std::string getName() const = 0;
+    [[nodiscard]] virtual std::string getDisplayName() const = 0;
+    [[nodiscard]] virtual std::string getTooltip() const = 0;
+    [[nodiscard]] virtual ParameterValueHolder getDefaultValue() const = 0;
+    [[nodiscard]] virtual ParameterValueHolder getMinValue() const = 0;
+    [[nodiscard]] virtual ParameterValueHolder getMaxValue() const = 0;
     virtual void onChangeFromVariant(ParameterValueHolder& newValue) = 0;
 };
 
 template<typename T>
-class Parameter : public IParameter
+class Parameter final : public IParameter
 {
 public:
     Parameter(
-        const std::string& id,
-        Type type,
-        const std::string& name,
-        const std::string& displayName,
-        const std::string& tooltip,
+        std::string id,
+        const Type type,
+        std::string  name,
+        std::string  displayName,
+        std::string  tooltip,
         T defaultValue,
         T minValue,
         T maxValue,
         std::function<void(T)> onChange
     ):
-        _id(id),
+        _id(std::move(id)),
         _type(type),
-        _name(name),
-        _displayName(displayName),
-        _tooltip(tooltip),
+        _name(std::move(name)),
+        _displayName(std::move(displayName)),
+        _tooltip(std::move(tooltip)),
         _defaultValue(defaultValue),
         _minValue(minValue),
         _maxValue(maxValue),
@@ -96,38 +97,38 @@ public:
     {
     }
 
-    ~Parameter() = default;
+    ~Parameter() override = default;
 
-    std::string getID() const override
+    [[nodiscard]] std::string getID() const override
     {
         return _id;
     }
 
-    Type getType() const override
+    [[nodiscard]] Type getType() const override
     {
         return _type;
     }
-    std::string getName() const override
+    [[nodiscard]] std::string getName() const override
     {
         return _name;
     }
-    std::string getDisplayName() const override
+    [[nodiscard]] std::string getDisplayName() const override
     {
         return _displayName;
     }
-    std::string getTooltip() const override
+    [[nodiscard]] std::string getTooltip() const override
     {
         return _tooltip;
     }
-    ParameterValueHolder getDefaultValue() const override
+    [[nodiscard]] ParameterValueHolder getDefaultValue() const override
     {
         return ParameterValueHolder(_defaultValue);
     }
-    ParameterValueHolder getMinValue() const override
+    [[nodiscard]] ParameterValueHolder getMinValue() const override
     {
         return ParameterValueHolder(_minValue);
     }
-    ParameterValueHolder getMaxValue() const override
+    [[nodiscard]] ParameterValueHolder getMaxValue() const override
     {
         return ParameterValueHolder(_maxValue);
     }

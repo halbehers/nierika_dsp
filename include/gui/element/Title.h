@@ -10,18 +10,18 @@ namespace nierika::gui::element
 class Title: public Component
 {
 public:
-    Title(const std::string& title, const bool withGlowEffect = true);
-    ~Title() override;
+    explicit Title(const std::string& title, bool withGlowEffect = true);
+    ~Title() override = default;
     
     void paint(juce::Graphics& g) override;
     void resized() override;
 
     std::string getTitle() const;
-    void setTitle(const std::string& title, const bool triggerRepaint = true);
+    void setTitle(const std::string& title, bool triggerRepaint = true);
 
 private:
-    juce::Label _title;
-    juce::GlowEffect _glowEffect;
+    juce::Label _title {};
+    juce::GlowEffect _glowEffect {};
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Title)
 };

@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Slider.h"
-
 namespace nierika::gui::element
 {
 
@@ -9,9 +7,9 @@ class Stars: public juce::Slider
 {
 public:
     Stars(int maxWidth, int maxHeight);
-    ~Stars() override;
+    ~Stars() override = default;
 
-    void paint (juce::Graphics&) override;
+    void paint(juce::Graphics&) override;
     void resized() override;
 
 private:
@@ -22,7 +20,7 @@ private:
     std::vector<juce::Point<float>> _mediumStarPositions;
     std::vector<juce::Point<float>> _largeStarPositions;
 
-    juce::GlowEffect _glowEffect;
+    juce::GlowEffect _glowEffect {};
 
     void computeSmallStars();
     void computeMediumStars();

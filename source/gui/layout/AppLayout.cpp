@@ -7,12 +7,8 @@ AppLayout::AppLayout(dsp::ParameterManager& parameterManager, const std::string&
     Section("app-layout", parameterManager, pluginEnabledParameterID)
 {
     addChildComponent(_tooltip);
-    if (pluginEnabledParameterID != "")
+    if (!pluginEnabledParameterID.empty())
         setBypassable(true);
-}
-
-AppLayout::~AppLayout()
-{
 }
 
 void AppLayout::displayTooltip()

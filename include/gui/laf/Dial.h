@@ -6,8 +6,8 @@ namespace nierika::gui::laf
 class Dial : public juce::LookAndFeel_V4
 {
 public:
-    Dial();
-    ~Dial() override;
+    Dial() = default;
+    ~Dial() override = default;
     
     void drawRotarySlider
     (
@@ -27,7 +27,7 @@ public:
     void setShortLabel(const juce::String& shortLabel);
     
 private:
-    float _sliderWidth;
+    float _sliderWidth = 0.f;
     bool sliderIsDial = true;
     bool isReversed = false;
     juce::String _sliderName = "";

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../NierikaDSPBinaryData.h"
-#include "../utils/Singleton.h"
 
 namespace nierika::gui
 {

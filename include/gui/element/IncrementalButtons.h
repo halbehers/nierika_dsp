@@ -10,7 +10,7 @@ class IncrementalButtons: public Slider
 {
 public:
     IncrementalButtons(float minValue, float maxValue, float defaultValue);
-    ~IncrementalButtons() override;
+    ~IncrementalButtons() override = default;
 
     void paint (juce::Graphics&) override;
     void resized() override;

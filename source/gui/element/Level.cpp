@@ -4,14 +4,6 @@
 namespace nierika::gui::element
 {
 
-Level::Level()
-{
-}
-
-Level::~Level()
-{
-}
-
 void Level::paint(juce::Graphics& g)
 {
     auto bounds = getLocalBounds().toFloat();

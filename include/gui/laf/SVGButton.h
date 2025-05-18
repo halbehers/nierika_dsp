@@ -1,16 +1,14 @@
 #pragma once
 
-#include "../Theme.h"
-
 namespace nierika::gui::laf
 {
 
 class SVGButton : public juce::LookAndFeel_V4
 {
 public:
-    SVGButton();
-    SVGButton(const char* svgBinary);
-    ~SVGButton() override;
+    SVGButton() = default;
+    explicit SVGButton(const char* svgBinary);
+    ~SVGButton() override = default;
 
     void drawDrawableButton
     (

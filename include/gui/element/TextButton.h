@@ -16,7 +16,7 @@ public:
     };
 
     TextButton(const std::string& identifier, const std::string& text);
-    ~TextButton() override;
+    ~TextButton() override = default;
 
     void resized() override;
 
@@ -33,7 +33,7 @@ public:
     void setColour(int colourID, Theme::ThemeColor color);
 
 private:
-    juce::TextButton _button;
+    juce::TextButton _button {};
     laf::TextButton _lookAndFeel;
     bool _isSelected = true;
 

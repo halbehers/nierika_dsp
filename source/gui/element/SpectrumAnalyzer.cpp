@@ -58,7 +58,7 @@ void SpectrumAnalyzer::setMono(bool isMono)
     _isMono = isMono;
 }
 
-bool SpectrumAnalyzer::isMono()
+bool SpectrumAnalyzer::isMono() const
 {
     return _isMono;
 }

@@ -9,7 +9,7 @@ namespace nierika::gui::element
 class Levels : public Component, public juce::Timer
 {
 public:
-    Levels(const dsp::RMSProcessor& rmsProcessor);
+    explicit Levels(const dsp::RMSProcessor& rmsProcessor);
     Levels(const std::string& identifier, const dsp::RMSProcessor& rmsProcessor);
     ~Levels() override;
     
@@ -20,8 +20,8 @@ public:
     
 private:
     const dsp::RMSProcessor& _rmsProcessor;
-    nierika::gui::element::Level _levelMeterLeft;
-    nierika::gui::element::Level _levelMeterRight;
+    Level _levelMeterLeft;
+    Level _levelMeterRight;
 
     void init();
     

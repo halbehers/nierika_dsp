@@ -5,30 +5,27 @@ namespace nierika::gui::helpers
 
 void changeColor(std::unique_ptr<juce::XmlElement>& xml, juce::String color_hex)
 {
-    for (auto xmlnode : xml->getChildIterator())
+    for (const auto xmlNode : xml->getChildIterator())
     {
-        juce::String fill = xmlnode->getStringAttribute(ATTRIBUTE_FILL);
-        if (fill.isNotEmpty())
+        if (juce::String fill = xmlNode->getStringAttribute(ATTRIBUTE_FILL); fill.isNotEmpty())
         {
             fill = fill.replace(SVG_DEFAULT_COLOR, color_hex, true);
-            xmlnode->setAttribute(ATTRIBUTE_FILL, fill);
+            xmlNode->setAttribute(ATTRIBUTE_FILL, fill);
         }
-        for (auto xmlouterdefs : xmlnode->getChildIterator())
+        for (const auto xmlOuterDefs : xmlNode->getChildIterator())
         {
-            juce::String fill = xmlouterdefs->getStringAttribute(ATTRIBUTE_FILL);
-            if (fill.isNotEmpty())
+            if (juce::String fill = xmlOuterDefs->getStringAttribute(ATTRIBUTE_FILL); fill.isNotEmpty())
             {
                 fill = fill.replace(SVG_DEFAULT_COLOR, color_hex, true);
-                xmlouterdefs->setAttribute(ATTRIBUTE_FILL, fill);
+                xmlOuterDefs->setAttribute(ATTRIBUTE_FILL, fill);
             }
 
-            for (auto xmldefs : xmlouterdefs->getChildIterator())
+            for (const auto xmlDefs : xmlOuterDefs->getChildIterator())
             {
-                juce::String fill = xmldefs->getStringAttribute(ATTRIBUTE_FILL);
-                if (fill.isNotEmpty())
+                if (juce::String fill = xmlDefs->getStringAttribute(ATTRIBUTE_FILL); fill.isNotEmpty())
                 {
                     fill = fill.replace(SVG_DEFAULT_COLOR, color_hex, true);
-                    xmldefs->setAttribute(ATTRIBUTE_FILL, fill);
+                    xmlDefs->setAttribute(ATTRIBUTE_FILL, fill);
                 }
             }
         }

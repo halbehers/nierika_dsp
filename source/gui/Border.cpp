@@ -2,11 +2,6 @@
 
 namespace nierika::gui::layout
 {
-
-Border::Border()
-{
-}
-
 Border::Border(juce::Colour color, float thickness):
     _color(color),
     _thickness(thickness)

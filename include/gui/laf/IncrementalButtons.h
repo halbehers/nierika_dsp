@@ -1,15 +1,13 @@
 #pragma once
 
-#include "../element/SVGButton.h"
-
 namespace nierika::gui::laf
 {
 
 class IncrementalButtons : public juce::LookAndFeel_V4
 {
 public:
-    IncrementalButtons();
-    ~IncrementalButtons() override;
+    IncrementalButtons() = default;
+    ~IncrementalButtons() override = default;
     
     juce::Button* createSliderButton(juce::Slider& slider, bool isIncrement) override;
 

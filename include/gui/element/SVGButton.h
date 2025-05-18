@@ -8,9 +8,9 @@ namespace nierika::gui::element
 class SVGButton: public juce::DrawableButton
 {
 public:
-    SVGButton(const char* svgBinary);
+    explicit SVGButton(const char* svgBinary);
     SVGButton(const char* svgBinary, int width, int height);
-    ~SVGButton() override;
+    ~SVGButton() override = default;
 
     void paint (juce::Graphics&) override;
     void resized() override;

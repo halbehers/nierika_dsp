@@ -1,12 +1,14 @@
+#include <utility>
+
 #include "../../../include/gui/element/Tooltip.h"
 #include "../../../include/gui/TooltipManager.h"
 
 namespace nierika::gui::element
 {
 
-Tooltip::Tooltip(const std::string& defaultTooltip):
+Tooltip::Tooltip(std::string  defaultTooltip):
     Component("tooltip"),
-    _tooltip(defaultTooltip)
+    _tooltip(std::move(defaultTooltip))
 {
     TooltipManager::getInstance().setDefaultTooltip(_tooltip);
     TooltipManager::getInstance().addListener(this);
@@ -36,9 +38,9 @@ void Tooltip::paint (juce::Graphics& g)
     g.setGradientFill(juce::ColourGradient(whiteColor.asJuce().withAlpha(0.05f), getWidth() / 2, 0.0, grayColor.asJuce().withAlpha(0.05f), getWidth() / 2, getHeight(), false));
     g.fillRoundedRectangle(0.f, 0.f, getWidth(), getHeight(), 8.f);
 
-    if (_tooltip != "")
+    if (!_tooltip.empty())
     {
-        const int iconSize = 8;
+        constexpr int iconSize = 8;
         helpers::drawFromSVG(g, Icons::getInfo(), whiteColor.asHexString(), 12, getHeight() / 2 - iconSize / 2 + 1, iconSize, iconSize, juce::AffineTransform());
     }
     

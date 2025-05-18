@@ -14,8 +14,4 @@ TimingComboBox::TimingComboBox(const juce::String& name):
     setSelectedId(dsp::Timing::NoteTiming::NOTE_4);
 }
 
-TimingComboBox::~TimingComboBox()
-{
-}
-
 }

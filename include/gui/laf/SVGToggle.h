@@ -10,9 +10,9 @@ namespace nierika::gui::laf
 class SVGToggle : public juce::LookAndFeel_V4
 {
 public:
-    SVGToggle();
-    SVGToggle(const char* svgBinary);
-    ~SVGToggle() override;
+    SVGToggle() = default;
+    explicit SVGToggle(const char* svgBinary);
+    ~SVGToggle() override = default;
     
     enum State
     {

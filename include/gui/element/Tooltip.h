@@ -11,7 +11,7 @@ namespace nierika::gui::element
 class Tooltip : public Component, public TooltipManager::Listener
 {
 public:
-    Tooltip(const std::string& defaultTooltip = "");
+    explicit Tooltip(std::string defaultTooltip = "");
     ~Tooltip() override;
 
     void paint(juce::Graphics&) override;

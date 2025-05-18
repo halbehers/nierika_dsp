@@ -17,8 +17,8 @@ public:
     };
 
     Tabs();
-    Tabs(const std::string& identifier);
-    ~Tabs() override;
+    explicit Tabs(const std::string& identifier);
+    ~Tabs() override = default;
 
     void paint(juce::Graphics& g) override;
     void resized() override;

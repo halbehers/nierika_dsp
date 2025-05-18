@@ -12,10 +12,9 @@ public:
     CircularAudioBuffer();
     ~CircularAudioBuffer();
     
-    void setCapacity(const int capacity);
-    int getCapacity();
+    void setCapacity(int capacity);
     void init();
-    void setTimeInMs(const float timeInMs);
+    void setTimeInMs(float timeInMs);
     
     bool isEmpty();
     void clear();
@@ -24,8 +23,8 @@ public:
     void process(juce::AudioBuffer<float>& buffer);
     
 protected:
-    int _capacity;
-    double _sampleRate;
+    int _capacity = 0;
+    double _sampleRate = 44100.f;
     float _timeInMs = 14;
     std::array<std::vector<float>, 2> _buffer;
     std::vector<int> _writeHeadBuffer;

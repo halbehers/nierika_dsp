@@ -6,8 +6,8 @@ namespace nierika::dsp
 class Filter
 {
 public:
-    Filter();
-    Filter(float defaultCutoffFrequency);
+    Filter() = default;
+    explicit Filter(float defaultCutoffFrequency);
     virtual ~Filter();
 
     void setCutoffFrequency(float cutoffFrequency);
@@ -21,7 +21,7 @@ public:
 
 protected:
     float _cutoffFrequency = 20.0;
-    float _sampleRate;
+    float _sampleRate = 44100;
     float _resonance = 1.0;
     bool _isEnabled = true;
 

@@ -10,10 +10,6 @@ IncrementalButtons::IncrementalButtons(float minValue, float maxValue, float def
     setLookAndFeel(&_lookAndFeel);
 }
 
-IncrementalButtons::~IncrementalButtons()
-{
-}
-
 void IncrementalButtons::paint(juce::Graphics& g)
 {
     Slider::paint(g);

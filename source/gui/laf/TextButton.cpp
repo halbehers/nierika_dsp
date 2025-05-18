@@ -1,18 +1,8 @@
 #include "../../../include/gui/laf/TextButton.h"
 #include "../../../include/gui/Theme.h"
-#include "../../../include/gui/Helpers.h"
-#include "../../../include/gui/EmbeddedFonts.h"
 
 namespace nierika::gui::laf
 {
-
-TextButton::TextButton()
-{
-}
-
-TextButton::~TextButton()
-{
-}
 
 juce::Font TextButton::getTextButtonFont(juce::TextButton& button, int buttonHeight)
 {

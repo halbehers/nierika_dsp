@@ -6,13 +6,13 @@ namespace nierika::gui::element
 FrequencyDial::FrequencyDial(const std::string& identifier, const std::string& label, float minValue, float maxValue, float defaultValue):
     Dial(identifier, label, minValue, maxValue, defaultValue, "")
 {
-    setup();
+    FrequencyDial::setup();
 }
 
 FrequencyDial::FrequencyDial(dsp::ParameterManager& parameterManager, const std::string& parameterID):
     Dial(parameterManager, parameterID, "")
 {
-    setup();
+    FrequencyDial::setup();
 }
 
 FrequencyDial::~FrequencyDial()

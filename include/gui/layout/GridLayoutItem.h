@@ -10,60 +10,60 @@ class GridLayoutItem
 {
 public:
     GridLayoutItem(const std::string& identifier,
-                   const int rowPosition,
-                   const int columnPosition,
-                   const int width,
-                   const int height,
-                   const Alignment alignment
+                   int rowPosition,
+                   int columnPosition,
+                   int width,
+                   int height,
+                   Alignment alignment
                    );
     
-    void setAlignment(const Alignment alignment);
-    Alignment getAlignment() const;
+    void setAlignment(Alignment alignment);
+    [[nodiscard]] Alignment getAlignment() const;
     void setLeftBorder(juce::Colour color, float thickness = 1.f);
     void setTopBorder(juce::Colour color, float thickness = 1.f);
     void setRightBorder(juce::Colour color, float thickness = 1.f);
     void setBottomBorder(juce::Colour color, float thickness = 1.f);
     void setBorder(juce::Colour color, float thickness = 1.f);
-    juce::Line<float> getLeft() const;
-    juce::Line<float> getTop() const;
-    juce::Line<float> getRight() const;
-    juce::Line<float> getBottom() const;
+    [[nodiscard]] juce::Line<float> getLeft() const;
+    [[nodiscard]] juce::Line<float> getTop() const;
+    [[nodiscard]] juce::Line<float> getRight() const;
+    [[nodiscard]] juce::Line<float> getBottom() const;
     
-    std::string getID() const;
-    juce::Rectangle<float> getBounds() const;
+    [[nodiscard]] std::string getID() const;
+    [[nodiscard]] juce::Rectangle<float> getBounds() const;
     void setBounds(juce::Rectangle<float> bounds);
-    const int getRowPosition() const;
-    void setRowPosition(const int rowPosition);
-    const int getColumnPosition() const;
-    void setColumnPosition(const int columnPosition);
-    const int getWidth() const;
-    void setWidth(const int width);
-    const int getHeight() const;
-    void setHeight(const int height);
-    const Border getLeftBorder() const;
-    const Border getTopBorder() const;
-    const Border getRightBorder() const;
-    const Border getBottomBorder() const;
-    bool hasBorders() const;
-    const float getMinResizableHeight() const;
-    void setMinResizableHeight(const float minHeight);
-    const float getMinResizableWidth() const;
-    void setMinResizableWidth(const float minWidth);
-    const float getMaxResizableHeight() const;
-    void setMaxResizableHeight(const float minHeight);
-    const float getMaxResizableWidth() const;
-    void setMaxResizableWidth(const float minWidth);
+    [[nodiscard]] int getRowPosition() const;
+    void setRowPosition(int rowPosition);
+    [[nodiscard]] int getColumnPosition() const;
+    void setColumnPosition(int columnPosition);
+    [[nodiscard]] int getWidth() const;
+    void setWidth(int width);
+    [[nodiscard]] int getHeight() const;
+    void setHeight(int height);
+    [[nodiscard]] Border getLeftBorder() const;
+    [[nodiscard]] Border getTopBorder() const;
+    [[nodiscard]] Border getRightBorder() const;
+    [[nodiscard]] Border getBottomBorder() const;
+    [[nodiscard]] bool hasBorders() const;
+    [[nodiscard]] float getMinResizableHeight() const;
+    void setMinResizableHeight(float minHeight);
+    [[nodiscard]] float getMinResizableWidth() const;
+    void setMinResizableWidth(float minWidth);
+    [[nodiscard]] float getMaxResizableHeight() const;
+    void setMaxResizableHeight(float minHeight);
+    [[nodiscard]] float getMaxResizableWidth() const;
+    void setMaxResizableWidth(float minWidth);
     
-    void setMovable(const bool isMovable, const int movableGroup = 1);
-    bool isMovable() const;
-    const int getMovableGroup() const;
-    juce::Rectangle<float> getMovableZone(const float height = 20.f) const;
+    void setMovable(bool isMovable, int movableGroup = 1);
+    [[nodiscard]] bool isMovable() const;
+    [[nodiscard]] int getMovableGroup() const;
+    [[nodiscard]] juce::Rectangle<float> getMovableZone(float height = 20.f) const;
     
     bool operator==(const GridLayoutItem& other) const;
 
 private:
     std::string _identifier;
-    juce::Rectangle<float> _bounds;
+    juce::Rectangle<float> _bounds {};
     int _rowPosition;
     int _columnPosition;
     int _width;

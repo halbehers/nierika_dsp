@@ -20,10 +20,6 @@ Title::Title(const std::string& title, const bool withGlowEffect):
     _title.setComponentEffect(&_glowEffect);
 }
 
-Title::~Title()
-{
-}
-
 void Title::setTitle(const std::string& title, const bool triggerRepaint)
 {
     _title.setText(title, juce::dontSendNotification);

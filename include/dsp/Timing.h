@@ -46,11 +46,11 @@ public:
     Timing();
     ~Timing();
     
-    static int getBeatPosition(const double ppqPosition, const NoteTiming timing);
-    static int getBeatPosition(const double ppqPosition, const NoteTiming timing, const int nbOfSteps);
+    static int getBeatPosition(double ppqPosition, NoteTiming timing);
+    static int getBeatPosition(double ppqPosition, NoteTiming timing, int nbOfSteps);
     static std::vector<std::pair<NoteTiming, std::string>> getAvailableNoteTimings();
     static const std::unordered_map<NoteTiming, std::string> getNoteTimingToNames();
-    static float getTimeInMs(const double bpm, const Timing::NoteTiming timing);
+    static float getTimeInMs(double bpm, Timing::NoteTiming timing);
 };
 
 }

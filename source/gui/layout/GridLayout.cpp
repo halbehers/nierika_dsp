@@ -1,7 +1,5 @@
 #include "../../../include/gui/layout/GridLayout.h"
 
-#include <cmath>
-
 namespace nierika::gui::layout
 {
 
@@ -15,7 +13,7 @@ GridLayout<T>::GridLayout(T& component):
 }
 
 template<typename T>
-GridLayout<T>::GridLayout(T& component, std::vector<int> gridRows, std::vector<int> gridColumns):
+GridLayout<T>::GridLayout(T& component, const std::vector<int> &gridRows, const std::vector<int> &gridColumns):
     _component(component)
 {
     component.addMouseListener(this, true);
@@ -31,7 +29,7 @@ GridLayout<T>::~GridLayout()
 }
 
 template<typename T>
-void GridLayout<T>::init(std::vector<int> gridRows, std::vector<int> gridColumns)
+void GridLayout<T>::init(const std::vector<int>& gridRows, const std::vector<int>& gridColumns)
 {
     reset();
     _gridRatioRows.reserve(gridRows.size());
@@ -41,13 +39,13 @@ void GridLayout<T>::init(std::vector<int> gridRows, std::vector<int> gridColumns
     _gridRatioColumns.push_back(0.f);
     
     { // Rows
-        const float sum = static_cast<float>(std::reduce(gridRows.begin(), gridRows.end()));
+        const auto sum = static_cast<float>(std::reduce(gridRows.begin(), gridRows.end()));
         const float ratio = 1.f / sum;
         for (auto& size : gridRows)
             _gridRatioRows.push_back(static_cast<float>(size) * ratio);
     }
     { // Columns
-        const float sum = static_cast<float>(std::reduce(gridColumns.begin(), gridColumns.end()));
+        const auto sum = static_cast<float>(std::reduce(gridColumns.begin(), gridColumns.end()));
         const float ratio = 1.f / sum;
         for (auto& size : gridColumns)
             _gridRatioColumns.push_back(static_cast<float>(size) * ratio);
@@ -101,10 +99,10 @@ void GridLayout<T>::paint(juce::Graphics& g)
     if (_displayGrid)
     {
         g.setColour(Theme::getInstance().getColor(Theme::ThemeColor::ACCENT).asJuce());
-        for (int i = 0; i < _gridRows.size(); ++i)
-            g.drawHorizontalLine(static_cast<int>(_gridRows[i]), _gridColumns[0], _gridColumns[0] + _width);
-        for (int i = 0; i < _gridColumns.size(); ++i)
-            g.drawVerticalLine(static_cast<int>(_gridColumns[i]), _gridRows[0], _gridRows[0] + _height);
+        for (const float gridRow : _gridRows)
+            g.drawHorizontalLine(static_cast<int>(gridRow), _gridColumns[0], _gridColumns[0] + _width);
+        for (const float gridColumn : _gridColumns)
+            g.drawVerticalLine(static_cast<int>(gridColumn), _gridRows[0], _gridRows[0] + _height);
         
         g.drawRect(_component.getLocalBounds());
     }
@@ -118,7 +116,7 @@ void GridLayout<T>::paint(juce::Graphics& g)
 template<typename T>
 void GridLayout<T>::paintItemDrawables(juce::Graphics& g)
 {
-    for (auto itemKV : _itemsById)
+    for (const auto& itemKV : _itemsById)
     {
         const auto item = itemKV.second;
         
@@ -397,32 +395,27 @@ float GridLayout<T>::getRow(int position) const
 }
 
 template<typename T>
-juce::Rectangle<float> GridLayout<T>::getBounds(const std::string& identifier)
-{
+juce::Rectangle<float> GridLayout<T>::getBounds(const std::string& identifier) const {
     return _itemsById.at(identifier).getBounds();
 }
 
 template<typename T>
-juce::Line<float> GridLayout<T>::getLeft(const std::string& identifier)
-{
+juce::Line<float> GridLayout<T>::getLeft(const std::string& identifier) const {
     return _itemsById.at(identifier).getLeft();
 }
 
 template<typename T>
-juce::Line<float> GridLayout<T>::getTop(const std::string& identifier)
-{
+juce::Line<float> GridLayout<T>::getTop(const std::string& identifier) const {
     return _itemsById.at(identifier).getTop();
 }
 
 template<typename T>
-juce::Line<float> GridLayout<T>::getRight(const std::string& identifier)
-{
+juce::Line<float> GridLayout<T>::getRight(const std::string& identifier) const {
     return _itemsById.at(identifier).getRight();
 }
 
 template<typename T>
-juce::Line<float> GridLayout<T>::getBottom(const std::string& identifier)
-{
+juce::Line<float> GridLayout<T>::getBottom(const std::string& identifier) const {
     return _itemsById.at(identifier).getBottom();
 }
 
@@ -633,10 +626,8 @@ std::vector<GridLayoutItem> GridLayout<T>::getItemsBelowLine(int position)
 {
     std::vector<GridLayoutItem> result;
 
-    for (auto itemKV : _itemsById)
+    for (const auto&[_, item] : _itemsById)
     {
-        const auto item = itemKV.second;
-        
         if (item.getRowPosition() == position)
             result.push_back(item);
     }
@@ -648,10 +639,8 @@ std::vector<GridLayoutItem> GridLayout<T>::getItemsAboveLine(int position)
 {
     std::vector<GridLayoutItem> result;
 
-    for (auto itemKV : _itemsById)
+    for (const auto&[_, item] : _itemsById)
     {
-        const auto item = itemKV.second;
-        
         if (item.getRowPosition() + item.getHeight() == position)
             result.push_back(item);
     }
@@ -663,10 +652,8 @@ std::vector<GridLayoutItem> GridLayout<T>::getItemsRightOfLine(int position)
 {
     std::vector<GridLayoutItem> result;
 
-    for (auto itemKV : _itemsById)
+    for (const auto&[_, item] : _itemsById)
     {
-        const auto item = itemKV.second;
-        
         if (item.getColumnPosition() == position)
             result.push_back(item);
     }
@@ -678,10 +665,8 @@ std::vector<GridLayoutItem> GridLayout<T>::getItemsLeftOfLine(int position)
 {
     std::vector<GridLayoutItem> result;
 
-    for (auto itemKV : _itemsById)
+    for (const auto&[_, item] : _itemsById)
     {
-        const auto item = itemKV.second;
-        
         if (item.getColumnPosition() + item.getWidth() == position)
             result.push_back(item);
     }
@@ -695,10 +680,8 @@ std::vector<GridLayoutItem> GridLayout<T>::getItemsAcrossLine(int position, bool
 
     results.reserve(_itemsById.size());
 
-    for (auto itemKV : _itemsById)
+    for (const auto&[_, item] : _itemsById)
     {
-        auto item = itemKV.second;
-
         const auto itemStartPosition = isHorizontal ? item.getRowPosition() : item.getColumnPosition();
         const auto itemEndPosition = isHorizontal ? item.getRowPosition() + item.getHeight() : item.getColumnPosition() + item.getWidth();
 
@@ -743,15 +726,14 @@ void GridLayout<T>::mouseMove(const juce::MouseEvent& event)
     {
         const bool isHorizontal = resizableLine.direction == HORIZONTAL;
         const auto lines = isHorizontal ? getHorizontalLines(resizableLine.position) : getVerticalLines(resizableLine.position);
-        const float padding = 5.f;
+        constexpr float padding = 5.f;
         for (auto line : lines)
         {
             const auto width = isHorizontal ? line.getLength() : padding * 2.f;
             const auto height = isHorizontal ? padding * 2.f : line.getLength();
-            
-            const auto hoverZone = juce::Rectangle<float>(line.getStartX() - padding, line.getStartY() - padding, width, height);
-            
-            if (hoverZone.contains(event.position)) {
+
+            if (const auto hoverZone = juce::Rectangle<float>(line.getStartX() - padding, line.getStartY() - padding, width, height);
+                hoverZone.contains(event.position)) {
                 _currentResizable = resizableLine;
                 return;
             }
@@ -762,9 +744,8 @@ void GridLayout<T>::mouseMove(const juce::MouseEvent& event)
 
     if (event.mouseWasDraggedSinceMouseDown()) return;
 
-    for (auto itemKV : _itemsById) {
-        const auto item = itemKV.second;
-
+    for (const auto&[_, item] : _itemsById)
+    {
         if (!item.isMovable()) continue;
         
         const auto movableZone = item.getMovableZone(_movableConfiguration.movableZoneHeight);
@@ -794,17 +775,16 @@ void GridLayout<T>::mouseDrag(const juce::MouseEvent& event)
     {
         const bool isHorizontal = _currentResizable.direction == HORIZONTAL;
         
-        const float position = static_cast<float>(isHorizontal ? event.position.getY() : event.position.getX());
-        const float length = static_cast<float>(isHorizontal ? _component.getHeight() : _component.getWidth());
+        const auto position = static_cast<float>(isHorizontal ? event.position.getY() : event.position.getX());
+        const auto length = static_cast<float>(isHorizontal ? _component.getHeight() : _component.getWidth());
         const float ratio = 1.f / (length / position);
         auto& storedRatio = isHorizontal ? _gridResizedRatioRows[_currentResizable.position] : _gridResizedRatioColumns[_currentResizable.position];
         const auto previousRatio = isHorizontal ? _gridResizedRatioRows[_currentResizable.position - 1] : _gridResizedRatioColumns[_currentResizable.position - 1];
         const auto nextRatio = isHorizontal ? _gridResizedRatioRows[_currentResizable.position + 1] : _gridResizedRatioColumns[_currentResizable.position + 1];
         
         const float delta = storedRatio - ratio;
-        const float absDelta = std::abs(delta);
-        
-        if (absDelta > .005f && ratio > previousRatio && ratio < nextRatio)
+
+        if (const float absDelta = std::abs(delta); absDelta > .005f && ratio > previousRatio && ratio < nextRatio)
         {
             storedRatio = ratio;
             _component.resized();
@@ -812,7 +792,7 @@ void GridLayout<T>::mouseDrag(const juce::MouseEvent& event)
         }
     }
 
-    if (_currentMovableItemId != "")
+    if (!_currentMovableItemId.empty())
     {
         _paintDropableZones = true;
         const auto relativeMousePosition = juce::Point<float>(event.getScreenPosition().x - _component.getScreenX(), event.getScreenPosition().y - _component.getScreenY());
@@ -830,16 +810,14 @@ void GridLayout<T>::mouseDrag(const juce::MouseEvent& event)
 template<typename T>
 void GridLayout<T>::mouseUp(const juce::MouseEvent& event)
 {
-    if (_currentMovableItemId != "")
+    if (!_currentMovableItemId.empty())
     {
-        for (auto itemKV : _itemsById) {
-            const auto item = itemKV.second;
-            
+        for (const auto&[_, item] : _itemsById)
+        {
             if (!item.isMovable() || item.getID() == _currentMovableItemId) continue;
-            
-            const auto relativeMovableZone = juce::Rectangle<float>(item.getBounds().getX() - _margin.left, item.getBounds().getY() - _margin.top, item.getBounds().getWidth(), item.getBounds().getHeight());
-            
-            if (relativeMovableZone.contains(_dropableModeMousePosition))
+
+            if (const auto relativeMovableZone = juce::Rectangle<float>(item.getBounds().getX() - _margin.left, item.getBounds().getY() - _margin.top, item.getBounds().getWidth(), item.getBounds().getHeight());
+                relativeMovableZone.contains(_dropableModeMousePosition))
             {
                 auto& itemToSwap = _itemsById.at(item.getID());
                 auto& itemToSwapWith = _itemsById.at(_currentMovableItemId);
@@ -856,10 +834,10 @@ void GridLayout<T>::mouseUp(const juce::MouseEvent& event)
                 itemToSwapWith.setWidth(itemToSwap.getWidth());
                 itemToSwapWith.setHeight(itemToSwap.getHeight());
 
-                itemToSwap.setRowPosition(newItemRowPosition);
-                itemToSwap.setColumnPosition(newItemColumnPosition);
-                itemToSwap.setWidth(newItemWidth);
-                itemToSwap.setHeight(newItemHeight);
+                itemToSwap.setRowPosition(static_cast<int>(newItemRowPosition));
+                itemToSwap.setColumnPosition(static_cast<int>(newItemColumnPosition));
+                itemToSwap.setWidth(static_cast<int>(newItemWidth));
+                itemToSwap.setHeight(static_cast<int>(newItemHeight));
                 _component.resized();
                 break;
             }
@@ -933,24 +911,24 @@ void GridLayout<T>::setVisible(const bool isVisible)
 
 template GridLayout<juce::Component>::GridLayout(juce::Component& component);
 template GridLayout<Component>::GridLayout(Component& component);
-template GridLayout<juce::Component>::GridLayout(juce::Component& component, std::vector<int> gridRows, std::vector<int> gridColumns);
-template GridLayout<Component>::GridLayout(Component& component, std::vector<int> gridRows, std::vector<int> gridColumns);
+template GridLayout<juce::Component>::GridLayout(juce::Component& component, const std::vector<int> &gridRows, const std::vector<int> &gridColumns);
+template GridLayout<Component>::GridLayout(Component& component, const std::vector<int> &gridRows, const std::vector<int> &gridColumns);
 
-template void GridLayout<juce::Component>::init(std::vector<int> gridRows, std::vector<int> gridColumns);
-template void GridLayout<Component>::init(std::vector<int> gridRows, std::vector<int> gridColumns);
-template juce::Rectangle<float> GridLayout<juce::Component>::operator()(const int row, const int column, const int width, const int height) const;
-template juce::Rectangle<float> GridLayout<Component>::operator()(const int row, const int column, const int width, const int height) const;
-template void GridLayout<juce::Component>::setMargin(Spacing<float> margins);
-template void GridLayout<Component>::setMargin(Spacing<float> margins);
-template void GridLayout<juce::Component>::setMargin(const float marginLeft, const float marginTop, const float marginRight, const float marginBottom);
-template void GridLayout<Component>::setMargin(const float marginLeft, const float marginTop, const float marginRight, const float marginBottom);
+template void GridLayout<juce::Component>::init(const std::vector<int>& gridRows, const std::vector<int>& gridColumns);
+template void GridLayout<Component>::init(const std::vector<int>& gridRows, const std::vector<int>& gridColumns);
+template juce::Rectangle<float> GridLayout<juce::Component>::operator()(int row, int column, int width, int height) const;
+template juce::Rectangle<float> GridLayout<Component>::operator()(int row, int column, int width, int height) const;
+template void GridLayout<juce::Component>::setMargin(Spacing<float> margin);
+template void GridLayout<Component>::setMargin(Spacing<float> margin);
+template void GridLayout<juce::Component>::setMargin(float marginLeft, float marginTop, float marginRight, float marginBottom);
+template void GridLayout<Component>::setMargin(float marginLeft, float marginTop, float marginRight, float marginBottom);
 
-template void GridLayout<juce::Component>::setMargin(const float horizontalMargin, const float verticalMargin);
-template void GridLayout<Component>::setMargin(const float horizontalMargin, const float verticalMargin);
-template void GridLayout<juce::Component>::setMargin(const float value);
-template void GridLayout<Component>::setMargin(const float value);
-template void GridLayout<juce::Component>::setGap(const float gap);
-template void GridLayout<Component>::setGap(const float gap);
+template void GridLayout<juce::Component>::setMargin(float horizontalMargin, float verticalMargin);
+template void GridLayout<Component>::setMargin(float horizontalMargin, float verticalMargin);
+template void GridLayout<juce::Component>::setMargin(float value);
+template void GridLayout<Component>::setMargin(float value);
+template void GridLayout<juce::Component>::setGap(float gap);
+template void GridLayout<Component>::setGap(float gap);
 template void GridLayout<juce::Component>::setDisplayGrid(bool displayGrid);
 template void GridLayout<Component>::setDisplayGrid(bool displayGrid);
 template void GridLayout<juce::Component>::setResizableLineConfiguration(ResizableLineConfiguration configuration);
@@ -961,32 +939,32 @@ template void GridLayout<juce::Component>::paint(juce::Graphics& g);
 template void GridLayout<Component>::paint(juce::Graphics& g);
 template void GridLayout<juce::Component>::resized() noexcept;
 template void GridLayout<Component>::resized() noexcept;
-template void GridLayout<juce::Component>::addComponent(const std::string& identifier, juce::Component& component, const int rowPosition, const int columnPosition, const int width, const int height, const Alignment alignment);
-template void GridLayout<Component>::addComponent(const std::string& identifier, juce::Component& component, const int rowPosition, const int columnPosition, const int width, const int height, const Alignment alignment);
+template void GridLayout<juce::Component>::addComponent(const std::string& identifier, juce::Component& component, int rowPosition, int columnPosition, int width, int height, Alignment alignment);
+template void GridLayout<Component>::addComponent(const std::string& identifier, juce::Component& component, int rowPosition, int columnPosition, int width, int height, Alignment alignment);
 template void GridLayout<juce::Component>::replace(const std::string& identifier);
 template void GridLayout<Component>::replace(const std::string& identifier);
 template float GridLayout<juce::Component>::getColumn(int position) const;
 template float GridLayout<Component>::getColumn(int position) const;
 template float GridLayout<juce::Component>::getRow(int position) const;
 template float GridLayout<Component>::getRow(int position) const;
-template bool GridLayout<juce::Component>::isTop(const int rowPosition) const;
-template bool GridLayout<Component>::isTop(const int rowPosition) const;
-template bool GridLayout<juce::Component>::isBottom(const int rowPosition, const int height) const;
-template bool GridLayout<Component>::isBottom(const int rowPosition, const int height) const;
-template bool GridLayout<juce::Component>::isLeft(const int columnPosition) const;
-template bool GridLayout<Component>::isLeft(const int columnPosition) const;
-template bool GridLayout<juce::Component>::isRight(const int columnPosition, const int width) const;
-template bool GridLayout<Component>::isRight(const int columnPosition, const int width) const;
-template juce::Rectangle<float> GridLayout<juce::Component>::getBounds(const std::string& identifier);
-template juce::Rectangle<float> GridLayout<Component>::getBounds(const std::string& identifier);
-template juce::Line<float> GridLayout<juce::Component>::getLeft(const std::string& identifier);
-template juce::Line<float> GridLayout<Component>::getLeft(const std::string& identifier);
-template juce::Line<float> GridLayout<juce::Component>::getTop(const std::string& identifier);
-template juce::Line<float> GridLayout<Component>::getTop(const std::string& identifier);
-template juce::Line<float> GridLayout<juce::Component>::getRight(const std::string& identifier);
-template juce::Line<float> GridLayout<Component>::getRight(const std::string& identifier);
-template juce::Line<float> GridLayout<juce::Component>::getBottom(const std::string& identifier);
-template juce::Line<float> GridLayout<Component>::getBottom(const std::string& identifier);
+template bool GridLayout<juce::Component>::isTop(int rowPosition) const;
+template bool GridLayout<Component>::isTop(int rowPosition) const;
+template bool GridLayout<juce::Component>::isBottom(int rowPosition, int height) const;
+template bool GridLayout<Component>::isBottom(int rowPosition, int height) const;
+template bool GridLayout<juce::Component>::isLeft(int columnPosition) const;
+template bool GridLayout<Component>::isLeft(int columnPosition) const;
+template bool GridLayout<juce::Component>::isRight(int columnPosition, int width) const;
+template bool GridLayout<Component>::isRight(int columnPosition, int width) const;
+template juce::Rectangle<float> GridLayout<juce::Component>::getBounds(const std::string& identifier) const;
+template juce::Rectangle<float> GridLayout<Component>::getBounds(const std::string& identifier) const;
+template juce::Line<float> GridLayout<juce::Component>::getLeft(const std::string& identifier) const;
+template juce::Line<float> GridLayout<Component>::getLeft(const std::string& identifier) const;
+template juce::Line<float> GridLayout<juce::Component>::getTop(const std::string& identifier) const;
+template juce::Line<float> GridLayout<Component>::getTop(const std::string& identifier) const;
+template juce::Line<float> GridLayout<juce::Component>::getRight(const std::string& identifier) const;
+template juce::Line<float> GridLayout<Component>::getRight(const std::string& identifier) const;
+template juce::Line<float> GridLayout<juce::Component>::getBottom(const std::string& identifier) const;
+template juce::Line<float> GridLayout<Component>::getBottom(const std::string& identifier) const;
 template void GridLayout<juce::Component>::setLeftBorder(const std::string& identifier, juce::Colour color, float thickness);
 template void GridLayout<Component>::setLeftBorder(const std::string& identifier, juce::Colour color, float thickness);
 template void GridLayout<juce::Component>::setTopBorder(const std::string& identifier, juce::Colour color, float thickness);
@@ -997,23 +975,23 @@ template void GridLayout<juce::Component>::setBottomBorder(const std::string& id
 template void GridLayout<Component>::setBottomBorder(const std::string& identifier, juce::Colour color, float thickness);
 template void GridLayout<juce::Component>::setBorder(const std::string& identifier, juce::Colour color, float thickness);
 template void GridLayout<Component>::setBorder(const std::string& identifier, juce::Colour color, float thickness);
-template void GridLayout<juce::Component>::setMinResizableHeight(const std::string& identifier, const float minHeight);
-template void GridLayout<Component>::setMinResizableHeight(const std::string& identifier, const float minHeight);
-template void GridLayout<juce::Component>::setMinResizableWidth(const std::string& identifier, const float minWidth);
-template void GridLayout<Component>::setMinResizableWidth(const std::string& identifier, const float minWidth);
-template void GridLayout<juce::Component>::setMaxResizableHeight(const std::string& identifier, const float maxHeight);
-template void GridLayout<Component>::setMaxResizableHeight(const std::string& identifier, const float maxHeight);
-template void GridLayout<juce::Component>::setMaxResizableWidth(const std::string& identifier, const float maxWidth);
-template void GridLayout<Component>::setMaxResizableWidth(const std::string& identifier, const float maxWidth);
-template void GridLayout<juce::Component>::setMovable(const std::string& identifier, const bool isMovable, const int movableGroup);
-template void GridLayout<Component>::setMovable(const std::string& identifier, const bool isMovable, const int movableGroup);
+template void GridLayout<juce::Component>::setMinResizableHeight(const std::string& identifier, float minHeight);
+template void GridLayout<Component>::setMinResizableHeight(const std::string& identifier, float minHeight);
+template void GridLayout<juce::Component>::setMinResizableWidth(const std::string& identifier, float minWidth);
+template void GridLayout<Component>::setMinResizableWidth(const std::string& identifier, float minWidth);
+template void GridLayout<juce::Component>::setMaxResizableHeight(const std::string& identifier, float maxHeight);
+template void GridLayout<Component>::setMaxResizableHeight(const std::string& identifier, float maxHeight);
+template void GridLayout<juce::Component>::setMaxResizableWidth(const std::string& identifier, float maxWidth);
+template void GridLayout<Component>::setMaxResizableWidth(const std::string& identifier, float maxWidth);
+template void GridLayout<juce::Component>::setMovable(const std::string& identifier, bool isMovable, int movableGroup);
+template void GridLayout<Component>::setMovable(const std::string& identifier, bool isMovable, int movableGroup);
 
 template void GridLayout<juce::Component>::setResizableLine(ResizableLine resizableLine);
 template void GridLayout<Component>::setResizableLine(ResizableLine resizableLine);
-template juce::Line<float> GridLayout<juce::Component>::getHorizontalLine(const int position);
-template juce::Line<float> GridLayout<Component>::getHorizontalLine(const int position);
-template juce::Line<float> GridLayout<juce::Component>::getVerticalLine(const int position);
-template juce::Line<float> GridLayout<Component>::getVerticalLine(const int position);
+template juce::Line<float> GridLayout<juce::Component>::getHorizontalLine(int position);
+template juce::Line<float> GridLayout<Component>::getHorizontalLine(int position);
+template juce::Line<float> GridLayout<juce::Component>::getVerticalLine(int position);
+template juce::Line<float> GridLayout<Component>::getVerticalLine(int position);
 
 template void GridLayout<juce::Component>::mouseMove(const juce::MouseEvent& event);
 template void GridLayout<Component>::mouseMove(const juce::MouseEvent& event);
@@ -1024,10 +1002,10 @@ template void GridLayout<Component>::mouseUp(const juce::MouseEvent& event);
 template void GridLayout<juce::Component>::mouseDoubleClick(const juce::MouseEvent& event);
 template void GridLayout<Component>::mouseDoubleClick(const juce::MouseEvent& event);
 template bool GridLayout<juce::Component>::keyPressed(const juce::KeyPress& key, juce::Component* originatingComponent);
-template juce::Line<float> GridLayout<juce::Component>::getBottom(const float distanceFromBottom);
-template juce::Line<float> GridLayout<Component>::getBottom(const float distanceFromBottom);
-template juce::Rectangle<float> GridLayout<juce::Component>::getRectangleAtBottom(const float height, const float distanceFromBottom);
-template juce::Rectangle<float> GridLayout<Component>::getRectangleAtBottom(const float height, const float distanceFromBottom);
+template juce::Line<float> GridLayout<juce::Component>::getBottom(float distanceFromBottom);
+template juce::Line<float> GridLayout<Component>::getBottom(float distanceFromBottom);
+template juce::Rectangle<float> GridLayout<juce::Component>::getRectangleAtBottom(float height, float distanceFromBottom);
+template juce::Rectangle<float> GridLayout<Component>::getRectangleAtBottom(float height, float distanceFromBottom);
 
 template void GridLayout<juce::Component>::replace(GridLayoutItem& item);
 template void GridLayout<Component>::replace(GridLayoutItem& item);

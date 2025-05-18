@@ -1,7 +1,5 @@
 #include "../../../include/gui/element/TextButton.h"
 #include "../../../include/gui/Theme.h"
-#include "../../../include/gui/EmbeddedFonts.h"
-#include "../../../include/gui/Helpers.h"
 
 namespace nierika::gui::element
 {
@@ -10,10 +8,6 @@ TextButton::TextButton(const std::string& identifier, const std::string& text):
     Component(identifier, text)
 {
     setup();
-}
-
-TextButton::~TextButton()
-{
 }
 
 void TextButton::setup()

@@ -1,7 +1,5 @@
 #include "../../../include/gui/element/Tabs.h"
 
-#include <cmath>
-
 namespace nierika::gui::element
 {
 
@@ -17,10 +15,6 @@ Tabs::Tabs():
     _layout(*this)
 {
     setup();
-}
-
-Tabs::~Tabs()
-{
 }
 
 void Tabs::setup()

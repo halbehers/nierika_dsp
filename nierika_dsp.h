@@ -43,7 +43,6 @@
 #include "include/dsp/FIFO.h"
 #include "include/dsp/SingleChannelSampleFIFO.h"
 #include "include/dsp/Timing.h"
-#include "include/dsp/delay/SimpleDelay.h"
 #include "include/dsp/filter/Filter.h"
 #include "include/dsp/filter/HighPassFilter.h"
 #include "include/dsp/filter/LowPassFilter.h"

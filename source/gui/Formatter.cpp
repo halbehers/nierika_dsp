@@ -1,4 +1,3 @@
-#include <iostream>
 #include <sstream>
 #include <iomanip>
 #include <vector>
@@ -8,14 +7,6 @@
 
 namespace nierika::gui
 {
-
-Formatter::Formatter()
-{
-}
-
-Formatter::~Formatter()
-{
-}
 
 std::string Formatter::formatFrequency(float frequency)
 {
@@ -43,18 +34,18 @@ std::string Formatter::formatPercentage(float percentage)
     else if (percentage < 0.0) finalPercentage = 0.0;
 
     std::ostringstream oss;
-    oss << std::fixed << std::setprecision(1) << " %";
+    oss << std::fixed << std::setprecision(1) << finalPercentage << " %";
     return oss.str();
 }
 
 std::string Formatter::formatPercentage(int percentage)
 {
-    float finalPercentage = percentage;
+    int finalPercentage = percentage;
     if (percentage > 100) finalPercentage = 100;
     else if (percentage < 0) finalPercentage = 0;
     
     std::ostringstream oss;
-    oss << percentage << " %";
+    oss << finalPercentage << " %";
     return oss.str();
 }
 

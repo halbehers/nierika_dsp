@@ -10,7 +10,7 @@ template<typename BlockType>
 class SingleChannelSampleFIFO
 {
 public:
-    SingleChannelSampleFIFO(Channel channel):
+    explicit SingleChannelSampleFIFO(Channel channel):
         _channel(channel)
     {
         _prepared.set(false);

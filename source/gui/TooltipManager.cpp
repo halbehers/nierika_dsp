@@ -35,6 +35,11 @@ void TooltipManager::setupComponent(juce::Component& component)
     }
 }
 
+void TooltipManager::clearCurrentTooltip()
+{
+    _currentTooltip = _defaultTooltip;
+}
+
 void TooltipManager::mouseEnter(const juce::MouseEvent& event)
 {
     const std::string id = event.eventComponent->getComponentID().toStdString();
@@ -60,7 +65,7 @@ std::string TooltipManager::getCurrentTooltip() const
 void TooltipManager::setDefaultTooltip(const std::string& tooltip)
 {
     _defaultTooltip = tooltip;
-    if (_currentTooltip == "")
+    if (_currentTooltip.empty())
         _currentTooltip = _defaultTooltip;
 }
 

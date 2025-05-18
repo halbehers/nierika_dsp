@@ -25,7 +25,7 @@ public:
         std::copy(readIndex, readIndex + fftSize, _fftData.begin());
         
         // Apply windowing function to the data.
-        _window->multiplyWithWindowingTable(_fftData.data(), fftSize);
+        _window->multiplyWithWindowingTable(_fftData.data(), static_cast<std::size_t>(fftSize));
         // Render FFt Data.
         _forwardFFT->performFrequencyOnlyForwardTransform(_fftData.data());
         
@@ -34,13 +34,13 @@ public:
         // Normalize FFT values.
         for (int i  = 0; i < numBins; ++i)
         {
-            _fftData[i] /= static_cast<float>(numBins);
+            _fftData[static_cast<std::size_t>(i)] /= static_cast<float>(numBins);
         }
         
         // Convert to decibels.
         for (int i  = 0; i < numBins; ++i)
         {
-            _fftData[i] = juce::Decibels::gainToDecibels(_fftData[i], negativeInfinity);
+            _fftData[static_cast<std::size_t>(i)] = juce::Decibels::gainToDecibels(static_cast<float>(_fftData[static_cast<std::size_t>(i)]), negativeInfinity);
         }
         
         _fftDataFifo.push(_fftData);
@@ -55,17 +55,17 @@ public:
         _window = std::make_unique<juce::dsp::WindowingFunction<float>>(fftSize, juce::dsp::WindowingFunction<float>::blackmanHarris);
         
         _fftData.clear();
-        _fftData.resize(fftSize * 2, 0);
+        _fftData.resize(static_cast<std::size_t>(fftSize * 2), 0);
         
         _fftDataFifo.prepare(_fftData.size());
     }
     
-    int getFFTSize() const
+    [[nodiscard]] int getFFTSize() const
     {
         return 1 << _order;
     }
     
-    int getNumAvailableFFTDataBlocks() const
+    [[nodiscard]] int getNumAvailableFFTDataBlocks() const
     {
         return _fftDataFifo.getNumAvailableForReading();
     }
@@ -76,7 +76,7 @@ public:
     }
 
 private:
-    FFTOrder _order;
+    FFTOrder _order = order2048;
     BlockType _fftData;
     std::unique_ptr<juce::dsp::FFT> _forwardFFT;
     std::unique_ptr<juce::dsp::WindowingFunction<float>> _window;

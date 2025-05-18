@@ -30,14 +30,8 @@ Spacing<T>::Spacing(T spacing)
     this->bottom = spacing;
 }
 
-
 template<typename T>
-Spacing<T>::Spacing()
-{
-}
-
-template<typename T>
-Spacing<T> Spacing<T>::operator=(const Spacing<T>& other)
+Spacing<T>& Spacing<T>::operator=(const Spacing<T>& other)
 {
     left = other.left;
     top = other.top;
@@ -271,19 +265,19 @@ void Spacing<T>::divideBottom(T value)
 template<typename T>
 Spacing<int> Spacing<T>::toInt()
 {
-    return Spacing<int>(static_cast<int>(left), static_cast<int>(top), static_cast<int>(right), static_cast<int>(bottom));
+    return {static_cast<int>(left), static_cast<int>(top), static_cast<int>(right), static_cast<int>(bottom)};
 }
 
 template<typename T>
 Spacing<float> Spacing<T>::toFloat()
 {
-    return Spacing<float>(static_cast<float>(left), static_cast<float>(top), static_cast<float>(right), static_cast<float>(bottom));
+    return {static_cast<float>(left), static_cast<float>(top), static_cast<float>(right), static_cast<float>(bottom)};
 }
 
 template<typename T>
 Spacing<double> Spacing<T>::toDouble()
 {
-    return Spacing<double>(static_cast<double>(left), static_cast<double>(top), static_cast<double>(right), static_cast<double>(bottom));
+    return {static_cast<double>(left), static_cast<double>(top), static_cast<double>(right), static_cast<double>(bottom)};
 }
 
 template<typename T>
@@ -329,13 +323,10 @@ template Spacing<double>::Spacing(double horizontal, double vertical);
 template Spacing<int>::Spacing(int Spacing);
 template Spacing<float>::Spacing(float Spacing);
 template Spacing<double>::Spacing(double Spacing);
-template Spacing<int>::Spacing();
-template Spacing<float>::Spacing();
-template Spacing<double>::Spacing();
 
-template Spacing<int> Spacing<int>::operator=(const Spacing<int>& other);
-template Spacing<float> Spacing<float>::operator=(const Spacing<float>& other);
-template Spacing<double> Spacing<double>::operator=(const Spacing<double>& other);
+template Spacing<int>& Spacing<int>::operator=(const Spacing<int>& other);
+template Spacing<float>& Spacing<float>::operator=(const Spacing<float>& other);
+template Spacing<double>& Spacing<double>::operator=(const Spacing<double>& other);
 template Spacing<int> Spacing<int>::operator+(int value);
 template Spacing<float> Spacing<float>::operator+(float value);
 template Spacing<double> Spacing<double>::operator+(double value);

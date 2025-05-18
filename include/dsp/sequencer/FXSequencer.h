@@ -8,14 +8,13 @@ namespace nierika::dsp
 class FXSequencer
 {
 public:
-    FXSequencer();
+    FXSequencer() = default;
     FXSequencer(int defaultNbOfSteps, Timing::NoteTiming defaultNoteTiming);
     ~FXSequencer();
 
     void setNbOfSteps(int nbOfSteps);
     void setNoteTiming(Timing::NoteTiming noteTiming);
     int getNbOfSteps();
-    Timing::NoteTiming getNoteTiming();
 
     std::optional<int> getCurrentStepIndex(juce::Optional<juce::AudioPlayHead::PositionInfo> position);
     int getCurrentStepIndex(double ppqPosition);

@@ -34,10 +34,9 @@ public:
 
     bool push(const T& t)
     {
-        auto write = _fifo.write(1);
-        if (write.blockSize1 > 0)
+        if (const auto write = _fifo.write(1); write.blockSize1 > 0)
         {
-            _buffers[write.startIndex1] = t;
+            _buffers[static_cast<std::size_t>(write.startIndex1)] = t;
             return true;
         }
 
@@ -46,10 +45,9 @@ public:
 
     bool pull(T& t)
     {
-        auto read = _fifo.read(1);
-        if (read.blockSize1 > 0)
+        if (const auto read = _fifo.read(1); read.blockSize1 > 0)
         {
-            t = _buffers[read.startIndex1];
+            t = _buffers[static_cast<std::size_t>(read.startIndex1)];
             return true;
         }
         

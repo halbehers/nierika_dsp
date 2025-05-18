@@ -1,24 +1,14 @@
 #include "../../../include/gui/laf/SVGButton.h"
 #include "../../../include/gui/Theme.h"
 #include "../../../include/gui/Helpers.h"
-#include "../../../include/gui/EmbeddedFonts.h"
 
 namespace nierika::gui::laf
 {
-
-SVGButton::SVGButton()
-{
-}
 
 SVGButton::SVGButton(const char* svgBinary)
 {
     _svgBinary = svgBinary;
 }
-
-SVGButton::~SVGButton()
-{
-}
-
 
 void SVGButton::drawDrawableButton
 (

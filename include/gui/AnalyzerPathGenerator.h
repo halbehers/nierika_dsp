@@ -34,18 +34,18 @@ public:
         jassert(!std::isnan(y) && !std::isinf(y));
         
         p.startNewSubPath(0, y);
-        
-        const int pathResolution = 1;
+
+        constexpr int pathResolution = 1;
         
         for (int binNum = 1; binNum < numBins; binNum += pathResolution)
         {
-            y = map(renderData[binNum]);
+            y = map(renderData[static_cast<std::size_t>(binNum)]);
             
             if (!std::isnan(y) && !std::isinf(y))
             {
-                auto binFreq = binNum * binWidth;
-                auto normalizedBinX = juce::mapFromLog10(binFreq, 1.f, 20000.f);
-                int binX = std::floor(normalizedBinX * width);
+                const auto binFreq = static_cast<float>(binNum) * binWidth;
+                const auto normalizedBinX = juce::mapFromLog10(binFreq, 1.f, 20000.f);
+                int binX = static_cast<int>(std::floor(normalizedBinX * width));
                 p.lineTo(binX, y);
             }
         }
@@ -53,7 +53,7 @@ public:
         _pathFifo.push(p);
     }
     
-    int getNumPathsAvailable() const
+    [[nodiscard]] int getNumPathsAvailable() const
     {
         return _pathFifo.getNumAvailableForReading();
     }

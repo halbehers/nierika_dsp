@@ -1,19 +1,9 @@
 #include "../../../include/gui/laf/BoxToggle.h"
 #include "../../../include/gui/Theme.h"
-#include "../../../include/gui/Helpers.h"
-#include "../../../include/gui/EmbeddedFonts.h"
 #include "../../../include/gui/element/BoxToggle.h"
 
 namespace nierika::gui::laf
 {
-
-BoxToggle::BoxToggle()
-{
-}
-
-BoxToggle::~BoxToggle()
-{
-}
 
 void BoxToggle::drawTickBox
 (

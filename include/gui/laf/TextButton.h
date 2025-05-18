@@ -1,15 +1,13 @@
 #pragma once
 
-#include "../Theme.h"
-
 namespace nierika::gui::laf
 {
 
 class TextButton : public juce::LookAndFeel_V4
 {
 public:
-    TextButton();
-    ~TextButton() override;
+    TextButton() = default;
+    ~TextButton() override = default;
 
     juce::Font getTextButtonFont(juce::TextButton& button, int buttonHeight) override;
     void drawButtonBackground(juce::Graphics& g, juce::Button& button, const juce::Colour& backgroundColour, bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown) override;

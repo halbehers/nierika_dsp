@@ -1,7 +1,4 @@
 #include "../../../include/gui/element/SVGButton.h"
-#include "../../../include/gui/Theme.h"
-#include "../../../include/gui/EmbeddedFonts.h"
-#include "../../../include/gui/Helpers.h"
 
 namespace nierika::gui::element
 {
@@ -22,17 +19,12 @@ SVGButton::SVGButton(const char* svgBinary, int width, int height):
     init();
 }
 
-
-SVGButton::~SVGButton()
-{
-}
-
 void SVGButton::init()
 {
     setLookAndFeel(&_lookAndFeel);
 }
 
-void SVGButton::paint (juce::Graphics& g)
+void SVGButton::paint(juce::Graphics& g)
 {
     juce::DrawableButton::paint(g);
 }

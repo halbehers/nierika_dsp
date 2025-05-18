@@ -11,9 +11,9 @@ public:
     RMSProcessor();
     ~RMSProcessor();
 
-    void prepare(const double sampleRate, const double rampLengthInSeconds);
+    void prepare(double sampleRate, double rampLengthInSeconds);
     void process(const juce::AudioBuffer<float>& buffer);
-    float getRMSLevel(const Channel channel) const;
+    [[nodiscard]] float getRMSLevel(Channel channel) const;
 
 private:
     juce::LinearSmoothedValue<float> _rmsLevelLeft, _rmsLevelRight = -60.f;

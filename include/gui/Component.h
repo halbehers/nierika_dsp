@@ -12,8 +12,8 @@ namespace nierika::gui
 class Component : public juce::Component
 {
 public:
-    Component(const std::string& identifier = utils::UID::generate_v4(), const std::string& name = "", const std::string& tooltip = "");
-    ~Component();
+    explicit Component(const std::string& identifier = utils::UID::generate_v4(), const std::string& name = "", const std::string& tooltip = "");
+    ~Component() override;
 
     std::string getID() const { return getComponentID().toStdString(); }
 
@@ -37,37 +37,37 @@ public:
     template<typename T>
     void setMargin(layout::Spacing<T> margins);
     template<typename T>
-    void setMargin(const T marginLeft, const T marginTop, const T marginRight, const T marginBottom);
+    void setMargin(T marginLeft, T marginTop, T marginRight, T marginBottom);
     template<typename T>
-    void setMargin(const T horizontalMargin, const T verticalMargin);
+    void setMargin(T horizontalMargin, T verticalMargin);
     template<typename T>
-    void setMargin(const T value);
+    void setMargin(T value);
     template<typename T>
-    void withTopMargin(const T value);
+    void withTopMargin(T value);
     template<typename T>
-    void withLeftMargin(const T value);
+    void withLeftMargin(T value);
     template<typename T>
-    void withRightMargin(const T value);
+    void withRightMargin(T value);
     template<typename T>
-    void withBottomMargin(const T value);
+    void withBottomMargin(T value);
     layout::Spacing<float> getMargin() const { return _margin; }
 
     template<typename T>
     void setPadding(layout::Spacing<T> paddings);
     template<typename T>
-    void setPadding(const T paddingLeft, const T paddingTop, const T paddingRight, const T paddingBottom);
+    void setPadding(T paddingLeft, T paddingTop, T paddingRight, T paddingBottom);
     template<typename T>
-    void setPadding(const T horizontalPadding, const T verticalPadding);
+    void setPadding(T horizontalPadding, T verticalPadding);
     template<typename T>
-    void setPadding(const T value);
+    void setPadding(T value);
     template<typename T>
-    void withTopPadding(const T value);
+    void withTopPadding(T value);
     template<typename T>
-    void withLeftPadding(const T value);
+    void withLeftPadding(T value);
     template<typename T>
-    void withRightPadding(const T value);
+    void withRightPadding(T value);
     template<typename T>
-    void withBottomPadding(const T value);
+    void withBottomPadding(T value);
     layout::Spacing<float> getPadding() const { return _margin; }
 
     juce::Rectangle<int> getLocalBounds();
