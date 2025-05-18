@@ -14,9 +14,6 @@
 // DSP
 #include "source/dsp/CircularAudioBuffer.cpp"
 #include "source/dsp/Timing.cpp"
-#include "source/dsp/filter/Filter.cpp"
-#include "source/dsp/filter/HighPassFilter.cpp"
-#include "source/dsp/filter/LowPassFilter.cpp"
 #include "source/dsp/sequencer/FXSequencer.cpp"
 #include "source/dsp/RMSProcessor.cpp"
 #include "source/dsp/ParameterManager.cpp"
