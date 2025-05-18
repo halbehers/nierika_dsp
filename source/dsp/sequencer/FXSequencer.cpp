@@ -18,7 +18,7 @@ FXSequencer::FXSequencer(int defaultNbOfSteps, Timing::NoteTiming defaultNoteTim
 
 void FXSequencer::setNbOfSteps(int nbOfSteps)
 {
-    for (int i = 0; i < nbOfSteps; ++i)
+    for (std::size_t i = 0; static_cast<int>(i) < nbOfSteps; ++i)
     {
         if (i < _activeSteps.size()) continue;
         

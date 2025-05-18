@@ -1,5 +1,9 @@
 #include "../../include/gui/Spacing.h"
 
+#include <cmath>
+#include <type_traits>
+#include <limits>
+
 namespace nierika::gui::layout
 {
 
@@ -310,7 +314,18 @@ Spacing<double> Spacing<T>::toDouble()
 template<typename T>
 bool Spacing<T>::isEmpty()
 {
-    return left == 0 && top == 0 && right == 0 && bottom == 0;
+    if constexpr (std::is_floating_point<T>::value)
+    {
+        const T epsilon = std::numeric_limits<T>::epsilon() * 100;
+        return std::fabs(left) < epsilon &&
+               std::fabs(top) < epsilon &&
+               std::fabs(right) < epsilon &&
+               std::fabs(bottom) < epsilon;
+    }
+    else
+    {
+        return left == 0 && top == 0 && right == 0 && bottom == 0;
+    }
 }
 
 template<typename T>

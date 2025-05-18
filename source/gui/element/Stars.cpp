@@ -60,7 +60,7 @@ void Stars::computeLargeStars()
     auto xCount = _width / density;
     auto yCount = _height / density;
     
-    _largeStarPositions.resize(xCount * yCount);
+    _largeStarPositions.resize(static_cast<std::size_t>(xCount * yCount));
     
     for (int x = 0; x < xCount; ++x)
     {

@@ -52,7 +52,7 @@ private:
 
     // MouseListener overrides
     void mouseEnter(const juce::MouseEvent& event) override;
-    void mouseExit(const juce::MouseEvent& _event) override;
+    void mouseExit(const juce::MouseEvent& event) override;
 
     void notifyListeners();
 };

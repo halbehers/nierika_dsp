@@ -64,12 +64,12 @@ std::vector<std::pair<Timing::NoteTiming, std::string>> Timing::getAvailableNote
 {
     const std::unordered_map<NoteTiming, std::string> timingToName = getNoteTimingToNames();
     std::vector<std::pair<Timing::NoteTiming, std::string>> noteTimings;
-    int nbOfAvailableNoteTimings = sizeof(Timing::AvailableNoteTimings) / sizeof(int);
-    noteTimings.reserve(nbOfAvailableNoteTimings);
+    constexpr int nbOfAvailableNoteTimings = sizeof(Timing::AvailableNoteTimings) / sizeof(int);
+    noteTimings.reserve(static_cast<std::size_t>(nbOfAvailableNoteTimings));
 
     for (auto noteTiming : Timing::AvailableNoteTimings)
     {
-        noteTimings.push_back(std::make_pair(noteTiming, timingToName.at(noteTiming)));
+        noteTimings.emplace_back(noteTiming, timingToName.at(noteTiming));
     }
 
     return noteTimings;

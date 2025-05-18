@@ -48,7 +48,7 @@ void Tabs::initLayout()
     _layout.init({ 1 }, columns);
 
     for (std::size_t i = 0; i < _tabs.size(); ++i)
-        _layout.addComponent(_tabs[i]->getName().toStdString(), *_tabs[i], 0, i, 1, 1);
+        _layout.addComponent(_tabs[i]->getName().toStdString(), *_tabs[i], 0, static_cast<int>(i), 1, 1);
 }
 
 void Tabs::setSelectedTabID(const std::string& id)

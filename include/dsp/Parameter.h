@@ -50,6 +50,9 @@ class IParameter
 {
 public:
     virtual ~IParameter() = default;
+    IParameter() = default;
+    IParameter(const IParameter& other) = default;
+    IParameter& operator=(const IParameter& other) = default;
 
     enum Type
     {
@@ -83,7 +86,8 @@ public:
         T minValue,
         T maxValue,
         std::function<void(T)> onChange
-    ): _id(std::move(id)),
+    ): IParameter(),
+        _id(std::move(id)),
        _type(type),
        _name(std::move(name)),
        _displayName(std::move(displayName)),
