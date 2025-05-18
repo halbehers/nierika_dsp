@@ -5,10 +5,11 @@ namespace nierika::gui::layout
 
 template<typename T>
 struct Spacing {
-    Spacing(T left, T top, T right, T bottom);
+    Spacing(T _left, T _top, T _right, T _bottom);
     Spacing(T horizontal, T vertical);
     explicit Spacing(T spacing);
     Spacing() = default;
+    Spacing(const Spacing& other);
 
     Spacing<T>& operator=(const Spacing<T>& other);
     Spacing<T> operator+(T value);
@@ -54,7 +55,7 @@ struct Spacing {
     bool isEmpty();
     
     juce::Rectangle<T> computeBounds(juce::Rectangle<T> bounds);
-    juce::Rectangle<T> computeBounds(juce::Component& component);
+    juce::Rectangle<T> computeBounds(const juce::Component& component);
     juce::Rectangle<T> computeBounds();
 
     void attachComponent(juce::Component* component) { _component = component; }

@@ -6,10 +6,7 @@ namespace nierika::gui::element
 ComboBox::ComboBox(const juce::String& name)
 {
     setLookAndFeel(&_lookAndFeel);
-}
-
-ComboBox::~ComboBox()
-{
+    juce::ComboBox::setName(name);
 }
 
 void ComboBox::paint (juce::Graphics& g)

@@ -7,17 +7,13 @@ FXSequencer::FXSequencer(int defaultNbOfSteps, Timing::NoteTiming defaultNoteTim
     _nbOfSteps(defaultNbOfSteps),
     _noteTiming(defaultNoteTiming)
 {
-    _activeSteps.reserve(_nbOfSteps);
+    _activeSteps.reserve(static_cast<std::size_t>(_nbOfSteps));
     for (int i = 0; i < _nbOfSteps; ++i)
     {
-        if (i < _activeSteps.size()) continue;
+        if (static_cast<std::size_t>(i) < _activeSteps.size()) continue;
         
         _activeSteps.push_back(true);
     }
-}
-
-FXSequencer::~FXSequencer()
-{
 }
 
 void FXSequencer::setNbOfSteps(int nbOfSteps)
@@ -30,12 +26,12 @@ void FXSequencer::setNbOfSteps(int nbOfSteps)
     }
     if (nbOfSteps < _nbOfSteps)
     {
-        _activeSteps.erase(_activeSteps.begin() + nbOfSteps - 1, _activeSteps.begin() + _activeSteps.size() - 1);
+        _activeSteps.erase(_activeSteps.begin() + nbOfSteps - 1, _activeSteps.begin() + static_cast<int>(_activeSteps.size()) - 1);
     }
     _nbOfSteps = nbOfSteps;
 }
 
-int FXSequencer::getNbOfSteps()
+int FXSequencer::getNbOfSteps() const
 {
     return _nbOfSteps;
 }
@@ -63,26 +59,24 @@ std::optional<int> FXSequencer::getCurrentStepIndex(juce::Optional<juce::AudioPl
 
 int FXSequencer::getCurrentStepIndex(double ppqPosition)
 {
-    return _timing.getBeatPosition(ppqPosition, _noteTiming, _nbOfSteps);
+    return nierika::dsp::Timing::getBeatPosition(ppqPosition, _noteTiming, _nbOfSteps);
 }
 
-bool FXSequencer::shouldProcess(juce::Optional<juce::AudioPlayHead::PositionInfo> position)
+bool FXSequencer::shouldProcess(const juce::Optional<juce::AudioPlayHead::PositionInfo>& position)
 {
     if (!_isEnabled) return true;
 
-    std::optional<int> currentStep = getCurrentStepIndex(position);
-
-    if (currentStep.has_value()) return _activeSteps[currentStep.value()];
+    if (const std::optional<int> currentStep = getCurrentStepIndex(position); currentStep.has_value())
+        return _activeSteps[static_cast<std::size_t>(currentStep.value())];
 
     return true;
 }
-
 
 bool FXSequencer::shouldProcess(double ppqPosition)
 {
     if (!_isEnabled) return true;
 
-    return _activeSteps[getCurrentStepIndex(ppqPosition)];
+    return _activeSteps[static_cast<std::size_t>(getCurrentStepIndex(ppqPosition))];
 }
 
 void FXSequencer::setEnabled(bool isEnabled)
@@ -92,52 +86,52 @@ void FXSequencer::setEnabled(bool isEnabled)
 
 void FXSequencer::toggleStep(int index)
 {
-    if (index >= _activeSteps.size() || index < 0) return;
+    if (static_cast<std::size_t>(index) >= _activeSteps.size() || index < 0) return;
 
-    _activeSteps[index] = !_activeSteps[index];
+    _activeSteps[static_cast<std::size_t>(index)] = !_activeSteps[static_cast<std::size_t>(index)];
 }
 
 void FXSequencer::setStepValue(int index, bool isActive)
 {
-    if (index >= _activeSteps.size() || index < 0) return;
+    if (static_cast<std::size_t>(index) >= _activeSteps.size() || index < 0) return;
     
-    _activeSteps[index] = isActive;
+    _activeSteps[static_cast<std::size_t>(index)] = isActive;
 }
 
-void FXSequencer::registerSection(std::string ID, bool isActivated)
+void FXSequencer::registerSection(const std::string& identifier, bool isActivated)
 {
-    _sectionActivations[ID] = isActivated;
+    _sectionActivations[identifier] = isActivated;
 }
 
-void FXSequencer::unregisterSection(std::string ID)
+void FXSequencer::unregisterSection(const std::string& identifier)
 {
-    _sectionActivations.erase(ID);
+    _sectionActivations.erase(identifier);
 }
 
-void FXSequencer::toggleSectionActivation(std::string ID)
+void FXSequencer::toggleSectionActivation(const std::string& identifier)
 {
-    if (!isSectionRegistered(ID)) return;
+    if (!isSectionRegistered(identifier)) return;
     
-    setSectionActivation(ID, !_sectionActivations[ID]);
+    setSectionActivation(identifier, !_sectionActivations[identifier]);
 }
 
-void FXSequencer::setSectionActivation(std::string ID, bool isActivated)
+void FXSequencer::setSectionActivation(const std::string& identifier, bool isActivated)
 {
-    if (!isSectionRegistered(ID)) return;
+    if (!isSectionRegistered(identifier)) return;
 
-    _sectionActivations[ID] = isActivated;
+    _sectionActivations[identifier] = isActivated;
 }
 
-bool FXSequencer::isSectionRegistered(std::string ID)
+bool FXSequencer::isSectionRegistered(const std::string& identifier) const
 {
-    return _sectionActivations.count(ID) != 0;
+    return _sectionActivations.contains(identifier);
 }
 
-bool FXSequencer::isSectionActivated(std::string ID)
+bool FXSequencer::isSectionActivated(const std::string& identifier)
 {
-    if (!isSectionRegistered(ID)) return false;
+    if (!isSectionRegistered(identifier)) return false;
     
-    return _sectionActivations[ID];
+    return _sectionActivations[identifier];
 }
 
 }

@@ -155,25 +155,25 @@ void Component::setMargin(const T value)
 template<typename T>
 void Component::withTopMargin(const T value)
 {
-    _margin.withTop(value);
+    _margin.withTop(static_cast<float>(value));
 }
 
 template<typename T>
 void Component::withLeftMargin(const T value)
 {
-    _margin.withLeft(value);
+    _margin.withLeft(static_cast<float>(value));
 }
 
 template<typename T>
 void Component::withRightMargin(const T value)
 {
-    _margin.withRight(value);
+    _margin.withRight(static_cast<float>(value));
 }
 
 template<typename T>
 void Component::withBottomMargin(const T value)
 {
-    _margin.withBottom(value);
+    _margin.withBottom(static_cast<float>(value));
 }
 
 template<typename T>
@@ -203,25 +203,25 @@ void Component::setPadding(const T value)
 template<typename T>
 void Component::withTopPadding(const T value)
 {
-    _padding.withTop(value);
+    _padding.withTop(static_cast<float>(value));
 }
 
 template<typename T>
 void Component::withLeftPadding(const T value)
 {
-    _padding.withLeft(value);
+    _padding.withLeft(static_cast<float>(value));
 }
 
 template<typename T>
 void Component::withRightPadding(const T value)
 {
-    _padding.withRight(value);
+    _padding.withRight(static_cast<float>(value));
 }
 
 template<typename T>
 void Component::withBottomPadding(const T value)
 {
-    _padding.withBottom(value);
+    _padding.withBottom(static_cast<float>(value));
 }
 
 template void Component::setMargin(layout::Spacing<int> margin);

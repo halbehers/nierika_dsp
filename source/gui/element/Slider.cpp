@@ -10,6 +10,7 @@ Slider::Slider(const juce::String& label, float minValue, float maxValue, float 
     setTextBoxStyle(juce::Slider::TextBoxBelow, true, 100, 10);
     setRange(minValue, maxValue);
     setValue(defaultValue);
+    juce::Slider::setName(label);
     auto transparentColor = Theme::getInstance().getColor(Theme::ThemeColor::TRANSPARENT).asJuce();
     auto whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
     auto accentColor = Theme::getInstance().getColor(Theme::ThemeColor::ACCENT).asJuce();

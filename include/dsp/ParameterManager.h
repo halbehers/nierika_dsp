@@ -25,7 +25,8 @@ public:
     void clearParameters();
 
     void parameterChanged(const juce::String& parameterID, float newValue) override;
-    void parameterChanged(std::shared_ptr<IParameter> parameter);
+    static void parameterChanged(const std::shared_ptr<IParameter>& parameter, float newValue);
+    void parameterChanged(const std::shared_ptr<IParameter>& parameter);
 
     virtual void setStateInformation (const void* data, int sizeInBytes);
 
@@ -33,9 +34,9 @@ public:
 
     juce::AudioProcessorValueTreeState& getState() { return _treeState; }
     
-    std::string getParameterName(const std::string& identifier, std::string orValue = "") const;
-    std::string getParameterDisplayName(const std::string& identifier, std::string orValue = "") const;
-    std::string getParameterTooltip(const std::string& identifier, std::string orValue = "") const;
+    std::string getParameterName(const std::string& identifier, const std::string& orValue = "") const;
+    std::string getParameterDisplayName(const std::string& identifier, const std::string& orValue = "") const;
+    std::string getParameterTooltip(const std::string& identifier, const std::string& orValue = "") const;
     template<typename T>
     T getParameterDefaultValue(const std::string& identifier, T orValue) const;
     template<typename T>

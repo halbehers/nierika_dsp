@@ -9,7 +9,7 @@ class ComboBox: public juce::ComboBox
 {
 public:
     explicit ComboBox(const juce::String& name);
-    ~ComboBox() override;
+    ~ComboBox() override = default;
     
     void paint (juce::Graphics&) override;
     void resized() override;

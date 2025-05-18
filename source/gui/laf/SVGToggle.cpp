@@ -43,10 +43,10 @@ void SVGToggle::drawTickBox
         return;
     }
 
-    auto themeColor = _stateToThemeColors[getState(ticked, isEnabled, shouldDrawButtonAsHighlighted, shouldDrawButtonAsDown)];
-    auto color = Theme::getInstance().getColor(themeColor).asHexString();
+    const Theme::ThemeColor themeColor = _stateToThemeColors[getState(ticked, isEnabled, shouldDrawButtonAsHighlighted, shouldDrawButtonAsDown)];
+    const std::string color = Theme::getInstance().getColor(themeColor).asHexString();
 
-    helpers::drawFromSVG(g, _svgBinary, color, x, y, w, h, juce::AffineTransform());
+    helpers::drawFromSVG(g, _svgBinary, color, static_cast<int>(x), static_cast<int>(y), static_cast<int>(w), static_cast<int>(h), juce::AffineTransform());
 }
 
 }

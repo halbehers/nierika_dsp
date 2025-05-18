@@ -266,12 +266,12 @@ void Section::initLayout(const int maxNbColumns, const int maxNbRows, const std:
 {
     const int nbColumns = computeNbOfColumns(maxNbColumns, panelID);
     std::vector<int> columns;
-    columns.reserve(nbColumns);
+    columns.reserve(static_cast<std::size_t>(nbColumns));
     for (int i = 0; i < nbColumns; ++i)
         columns.push_back(1);
     const int nbRows = computeNbOfRows(maxNbRows, nbColumns, panelID);
     std::vector<int> rows;
-    rows.reserve(nbRows);
+    rows.reserve(static_cast<std::size_t>(nbRows));
     for (int i = 0; i < nbRows; ++i)
         rows.push_back(1);
 
@@ -281,12 +281,12 @@ void Section::initLayout(const int maxNbColumns, const int maxNbRows, const std:
 
     const auto& registeredComponents = getRegisteredComponents(panelID);
     
-    for (int i = 0; i < registeredComponents.size(); ++i)
+    for (std::size_t i = 0; i < registeredComponents.size(); ++i)
     {
-        if (i >= nbColumns * nbRows) break;
+        if (static_cast<int>(i) >= nbColumns * nbRows) break;
 
-        const int rowPosition = i / nbColumns;
-        const int columnPosition = i % nbColumns;
+        const int rowPosition = static_cast<int>(i) / nbColumns;
+        const int columnPosition = static_cast<int>(i) % nbColumns;
         layout.addComponent(registeredComponents[i].get().getID(), registeredComponents[i].get(), rowPosition, columnPosition, 1, 1);
     }
 }

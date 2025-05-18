@@ -19,6 +19,7 @@ void BoxToggle::drawTickBox
     bool shouldDrawButtonAsDown
 )
 {
+    (void) shouldDrawButtonAsDown;
     auto whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
     auto disabledColor = Theme::getInstance().getColor(Theme::ThemeColor::DISABLED).asJuce();
     auto accentColor = Theme::getInstance().getColor(Theme::ThemeColor::ACCENT).asJuce();

@@ -13,7 +13,7 @@ class ParameterValueHolder
 public:
     using ParameterValue = std::variant<float, int, bool>;
 
-    explicit ParameterValueHolder(ParameterValue value) : _value(value) {}
+    explicit ParameterValueHolder(const ParameterValue value) : _value(value) {}
 
     template<typename T>
     T get() const
@@ -24,7 +24,6 @@ public:
         return std::get<T>(_value);
     }
 
-    // Optionally, a non-throwing version:
     template<typename T>
     T getOr(const T& fallback) const
     {
@@ -84,18 +83,19 @@ public:
         T minValue,
         T maxValue,
         std::function<void(T)> onChange
-    ):
-        _id(std::move(id)),
-        _type(type),
-        _name(std::move(name)),
-        _displayName(std::move(displayName)),
-        _tooltip(std::move(tooltip)),
-        _defaultValue(defaultValue),
-        _minValue(minValue),
-        _maxValue(maxValue),
-        _onChange(onChange)
-    {
+    ): _id(std::move(id)),
+       _type(type),
+       _name(std::move(name)),
+       _displayName(std::move(displayName)),
+       _tooltip(std::move(tooltip)),
+       _defaultValue(defaultValue),
+       _minValue(minValue),
+       _maxValue(maxValue),
+       _onChange(onChange) {
     }
+
+    Parameter(const Parameter& other) = default;
+    Parameter& operator=(const Parameter& other) = default;
 
     ~Parameter() override = default;
 

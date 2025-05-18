@@ -51,7 +51,7 @@ void TooltipManager::mouseEnter(const juce::MouseEvent& event)
     }
 }
 
-void TooltipManager::mouseExit(const juce::MouseEvent& event)
+void TooltipManager::mouseExit(const juce::MouseEvent& _event)
 {
     _currentTooltip = _defaultTooltip;
     notifyListeners();

@@ -47,7 +47,7 @@ namespace nierika::dsp
     {
         if (!_isEnabled) return;
 
-        setSampleRate(spec.sampleRate);
+        setSampleRate(static_cast<float>(spec.sampleRate));
 
         _stateVariableFilter.reset();
         _stateVariableFilter.prepare(spec);

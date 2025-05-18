@@ -80,18 +80,15 @@ void ParameterManager::clearParameters()
 
 void ParameterManager::parameterChanged(const juce::String& parameterID, float newValue)
 {
-    auto it = _parameterByID.find(parameterID.toStdString());
-    if (it != _parameterByID.end())
+    if (const auto it = _parameterByID.find(parameterID.toStdString()); it != _parameterByID.end())
     {
-        auto parameter = it->second;
-        parameterChanged(parameter);
+        const auto parameter = it->second;
+        parameterChanged(parameter, newValue);
     }
 }
 
-void ParameterManager::parameterChanged(const std::shared_ptr<IParameter> parameter)
+void ParameterManager::parameterChanged(const std::shared_ptr<IParameter>& parameter, float newValue)
 {
-    float newValue = _treeState.getRawParameterValue(parameter->getID())->load();
-
     if (parameter->getType() == IParameter::TYPE_BOOL)
     {
         auto holder = ParameterValueHolder(static_cast<bool>(newValue));
@@ -113,16 +110,20 @@ void ParameterManager::parameterChanged(const std::shared_ptr<IParameter> parame
     }
 }
 
+void ParameterManager::parameterChanged(const std::shared_ptr<IParameter>& parameter)
+{
+    const float newValue = _treeState.getRawParameterValue(parameter->getID())->load();
+
+    parameterChanged(parameter, newValue);
+}
+
 void ParameterManager::setStateInformation(const void* data, int sizeInBytes)
 {
-    auto tree = juce::ValueTree::readFromData(data, size_t(sizeInBytes));
-    
-    if (tree.isValid())
+    if (const auto tree = juce::ValueTree::readFromData(data, static_cast<std::size_t>(sizeInBytes)); tree.isValid())
     {
         _treeState.state = tree;
-        for (auto it : _parameterByID)
+        for (auto [_, parameter] : _parameterByID)
         {
-            auto parameter = it.second;
             parameterChanged(parameter);
         }
     }
@@ -136,8 +137,7 @@ void ParameterManager::getStateInformation(juce::MemoryBlock& destData)
 
 std::shared_ptr<IParameter> ParameterManager::getParameter(const std::string& identifier) const
 {
-    auto it = _parameterByID.find(identifier);
-    if (it != _parameterByID.end())
+    if (const auto it = _parameterByID.find(identifier); it != _parameterByID.end())
         return it->second;
     else
     {
@@ -148,10 +148,10 @@ std::shared_ptr<IParameter> ParameterManager::getParameter(const std::string& id
 
 bool ParameterManager::isParameter(const std::string& identifier) const
 {
-    return _parameterByID.find(identifier) != _parameterByID.end();
+    return _parameterByID.contains(identifier);
 }
 
-std::string ParameterManager::getParameterName(const std::string& identifier, const std::string orValue) const
+std::string ParameterManager::getParameterName(const std::string& identifier, const std::string& orValue) const
 {
     if (!isParameter(identifier))
         return orValue;
@@ -159,7 +159,7 @@ std::string ParameterManager::getParameterName(const std::string& identifier, co
     return getParameter(identifier)->getName();
 }
 
-std::string ParameterManager::getParameterDisplayName(const std::string& identifier, const std::string orValue) const
+std::string ParameterManager::getParameterDisplayName(const std::string& identifier, const std::string& orValue) const
 {
     if (!isParameter(identifier))
         return orValue;
@@ -167,7 +167,7 @@ std::string ParameterManager::getParameterDisplayName(const std::string& identif
     return getParameter(identifier)->getDisplayName();
 }
 
-std::string ParameterManager::getParameterTooltip(const std::string& identifier, const std::string orValue) const
+std::string ParameterManager::getParameterTooltip(const std::string& identifier, const std::string& orValue) const
 {
     if (!isParameter(identifier))
         return orValue;
@@ -202,19 +202,19 @@ T ParameterManager::getParameterMaxValue(const std::string& identifier, const T 
     return getParameter(identifier)->getMaxValue().getOr<T>(orValue);
 }
 
-template void ParameterManager::registerParameter(std::unique_ptr<juce::RangedAudioParameter> parameter, IParameter::Type type, const bool defaultValue, const bool minValue, const bool maxValue, std::function<void(bool)> onChange, const std::string& tooltip);
-template void ParameterManager::registerParameter(std::unique_ptr<juce::RangedAudioParameter> parameter, IParameter::Type type, const float defaultValue, const float minValue, const float maxValue, std::function<void(float)> onChange, const std::string& tooltip);
-template void ParameterManager::registerParameter(std::unique_ptr<juce::RangedAudioParameter> parameter, IParameter::Type type, const int defaultValue, const int minValue, const int maxValue, std::function<void(int)> onChange, const std::string& tooltip);
-template void ParameterManager::registerParameter(std::unique_ptr<juce::RangedAudioParameter> parameter, IParameter::Type type, const std::string& displayName, const bool defaultValue, const bool minValue, const bool maxValue, std::function<void(bool)> onChange, const std::string& tooltip);
-template void ParameterManager::registerParameter(std::unique_ptr<juce::RangedAudioParameter> parameter, IParameter::Type type, const std::string& displayName, const float defaultValue, const float minValue, const float maxValue, std::function<void(float)> onChange, const std::string& tooltip);
-template void ParameterManager::registerParameter(std::unique_ptr<juce::RangedAudioParameter> parameter, IParameter::Type type, const std::string& displayName, const int defaultValue, const int minValue, const int maxValue, std::function<void(int)> onChange, const std::string& tooltip);
+template void ParameterManager::registerParameter(std::unique_ptr<juce::RangedAudioParameter> parameter, IParameter::Type type, bool defaultValue, bool minValue, bool maxValue, std::function<void(bool)> onChange, const std::string& tooltip);
+template void ParameterManager::registerParameter(std::unique_ptr<juce::RangedAudioParameter> parameter, IParameter::Type type, float defaultValue, float minValue, float maxValue, std::function<void(float)> onChange, const std::string& tooltip);
+template void ParameterManager::registerParameter(std::unique_ptr<juce::RangedAudioParameter> parameter, IParameter::Type type, int defaultValue, int minValue, int maxValue, std::function<void(int)> onChange, const std::string& tooltip);
+template void ParameterManager::registerParameter(std::unique_ptr<juce::RangedAudioParameter> parameter, IParameter::Type type, const std::string& displayName, bool defaultValue, bool minValue, bool maxValue, std::function<void(bool)> onChange, const std::string& tooltip);
+template void ParameterManager::registerParameter(std::unique_ptr<juce::RangedAudioParameter> parameter, IParameter::Type type, const std::string& displayName, float defaultValue, float minValue, float maxValue, std::function<void(float)> onChange, const std::string& tooltip);
+template void ParameterManager::registerParameter(std::unique_ptr<juce::RangedAudioParameter> parameter, IParameter::Type type, const std::string& displayName, int defaultValue, int minValue, int maxValue, std::function<void(int)> onChange, const std::string& tooltip);
 
-template int ParameterManager::getParameterDefaultValue(const std::string& identifier, const int orValue) const;
-template float ParameterManager::getParameterDefaultValue(const std::string& identifier, const float orValue) const;
-template bool ParameterManager::getParameterDefaultValue(const std::string& identifier, const bool orValue) const;
-template int ParameterManager::getParameterMinValue(const std::string& identifier, const int orValue) const;
-template float ParameterManager::getParameterMinValue(const std::string& identifier, const float orValue) const;
-template int ParameterManager::getParameterMaxValue(const std::string& identifier, const int orValue) const;
-template float ParameterManager::getParameterMaxValue(const std::string& identifier, const float orValue) const;
+template int ParameterManager::getParameterDefaultValue(const std::string& identifier, int orValue) const;
+template float ParameterManager::getParameterDefaultValue(const std::string& identifier, float orValue) const;
+template bool ParameterManager::getParameterDefaultValue(const std::string& identifier, bool orValue) const;
+template int ParameterManager::getParameterMinValue(const std::string& identifier, int orValue) const;
+template float ParameterManager::getParameterMinValue(const std::string& identifier, float orValue) const;
+template int ParameterManager::getParameterMaxValue(const std::string& identifier, int orValue) const;
+template float ParameterManager::getParameterMaxValue(const std::string& identifier, float orValue) const;
 
 }

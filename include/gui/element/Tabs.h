@@ -37,7 +37,7 @@ public:
     void setTabName(const std::string& id, const std::string& name);
     std::string getTabName(const std::string& id) const;
     std::string getSelectedTabName() const;
-    void setTabTooltip(const std::string& id, const std::string& name);
+    void setTabTooltip(const std::string& id, const std::string& tooltip);
     std::string getTabTooltip(const std::string& id) const;
     std::string getSelectedTabTooltip() const;
 

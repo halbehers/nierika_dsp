@@ -51,9 +51,9 @@ void GridLayout<T>::init(const std::vector<int>& gridRows, const std::vector<int
             _gridRatioColumns.push_back(static_cast<float>(size) * ratio);
     }
 
-    for (auto x = 1; x < _gridRatioColumns.size(); ++x)
+    for (std::size_t x = 1; x < _gridRatioColumns.size(); ++x)
         _gridRatioColumns[x] += _gridRatioColumns[x - 1];
-    for (auto y = 1; y < _gridRatioRows.size(); ++y)
+    for (std::size_t y = 1; y < _gridRatioRows.size(); ++y)
         _gridRatioRows[y] += _gridRatioRows[y - 1];
     
     _gridRows = _gridRatioRows;
@@ -83,9 +83,9 @@ void GridLayout<T>::resized() noexcept
     _width = bounds.getWidth();
     _height = bounds.getHeight();
 
-    for (int i = 0; i < _gridRows.size(); ++i)
+    for (std::size_t i = 0; i < _gridRows.size(); ++i)
         _gridRows[i] = _gridResizedRatioRows[i] * bounds.getHeight() + bounds.getY();
-    for (int i = 0; i < _gridColumns.size(); ++i)
+    for (std::size_t i = 0; i < _gridColumns.size(); ++i)
         _gridColumns[i] = _gridResizedRatioColumns[i] * bounds.getWidth() + bounds.getX();
     
     replaceAll();
@@ -385,13 +385,13 @@ void GridLayout<T>::addComponent(const std::string& identifier, juce::Component&
 template<typename T>
 float GridLayout<T>::getColumn(int position) const
 {
-    return _gridColumns[position];
+    return _gridColumns[static_cast<std::size_t>(position)];
 }
 
 template<typename T>
 float GridLayout<T>::getRow(int position) const
 {
-    return _gridRows[position];
+    return _gridRows[static_cast<std::size_t>(position)];
 }
 
 template<typename T>
@@ -514,7 +514,7 @@ bool GridLayout<T>::isTop(const int rowPosition) const
 template<typename T>
 bool GridLayout<T>::isBottom(const int rowPosition, const int height) const
 {
-    return rowPosition + height >= _gridRows.size() - 1;
+    return rowPosition + height >= static_cast<int>(_gridRows.size()) - 1;
 }
 
 template<typename T>
@@ -526,7 +526,7 @@ bool GridLayout<T>::isLeft(const int columnPosition) const
 template<typename T>
 bool GridLayout<T>::isRight(const int columnPosition, const int width) const
 {
-    return columnPosition + width >= _gridColumns.size() - 1;
+    return columnPosition + width >= static_cast<int>(_gridColumns.size()) - 1;
 }
 
 template<typename T>
@@ -580,9 +580,7 @@ void GridLayout<T>::setMovableConfiguration(MovableConfiguration configuration)
 template<typename T>
 void GridLayout<T>::setResizableLine(ResizableLine resizableLine)
 {
-    const auto size = resizableLine.direction == HORIZONTAL ? _gridRows.size() : _gridColumns.size();
-
-    if (resizableLine.position < 1 || resizableLine.position > size - 2) return;
+    if (const auto size = static_cast<int>(resizableLine.direction == HORIZONTAL ? _gridRows.size() : _gridColumns.size()); resizableLine.position < 1 || resizableLine.position > size - 2) return;
 
     _resizableLines.push_back(resizableLine);
 }
@@ -778,9 +776,9 @@ void GridLayout<T>::mouseDrag(const juce::MouseEvent& event)
         const auto position = static_cast<float>(isHorizontal ? event.position.getY() : event.position.getX());
         const auto length = static_cast<float>(isHorizontal ? _component.getHeight() : _component.getWidth());
         const float ratio = 1.f / (length / position);
-        auto& storedRatio = isHorizontal ? _gridResizedRatioRows[_currentResizable.position] : _gridResizedRatioColumns[_currentResizable.position];
-        const auto previousRatio = isHorizontal ? _gridResizedRatioRows[_currentResizable.position - 1] : _gridResizedRatioColumns[_currentResizable.position - 1];
-        const auto nextRatio = isHorizontal ? _gridResizedRatioRows[_currentResizable.position + 1] : _gridResizedRatioColumns[_currentResizable.position + 1];
+        auto& storedRatio = isHorizontal ? _gridResizedRatioRows[static_cast<std::size_t>(_currentResizable.position)] : _gridResizedRatioColumns[static_cast<std::size_t>(_currentResizable.position)];
+        const auto previousRatio = isHorizontal ? _gridResizedRatioRows[static_cast<std::size_t>(_currentResizable.position - 1)] : _gridResizedRatioColumns[static_cast<std::size_t>(_currentResizable.position - 1)];
+        const auto nextRatio = isHorizontal ? _gridResizedRatioRows[static_cast<std::size_t>(_currentResizable.position + 1)] : _gridResizedRatioColumns[static_cast<std::size_t>(_currentResizable.position + 1)];
         
         const float delta = storedRatio - ratio;
 
@@ -810,6 +808,8 @@ void GridLayout<T>::mouseDrag(const juce::MouseEvent& event)
 template<typename T>
 void GridLayout<T>::mouseUp(const juce::MouseEvent& event)
 {
+    (void) event;
+
     if (!_currentMovableItemId.empty())
     {
         for (const auto&[_, item] : _itemsById)
@@ -853,12 +853,14 @@ void GridLayout<T>::mouseUp(const juce::MouseEvent& event)
 template<typename T>
 void GridLayout<T>::mouseDoubleClick(const juce::MouseEvent& event)
 {
+    (void) event;
+
     if (_currentResizable.isEmpty()) return;
 
     const bool isHorizontal = _currentResizable.direction == HORIZONTAL;
-    auto& storedRatio = isHorizontal ? _gridResizedRatioRows[_currentResizable.position] : _gridResizedRatioColumns[_currentResizable.position];
+    auto& storedRatio = isHorizontal ? _gridResizedRatioRows[static_cast<std::size_t>(_currentResizable.position)] : _gridResizedRatioColumns[static_cast<std::size_t>(_currentResizable.position)];
 
-    storedRatio = isHorizontal ? _gridRatioRows[_currentResizable.position] : _gridRatioColumns[_currentResizable.position];
+    storedRatio = isHorizontal ? _gridRatioRows[static_cast<std::size_t>(_currentResizable.position)] : _gridRatioColumns[static_cast<std::size_t>(_currentResizable.position)];
     _component.resized();
     _component.repaint();
 }
@@ -866,6 +868,8 @@ void GridLayout<T>::mouseDoubleClick(const juce::MouseEvent& event)
 template<typename T>
 bool GridLayout<T>::keyPressed(const juce::KeyPress &key, juce::Component *originatingComponent)
 {
+    (void) originatingComponent;
+
     if (key == juce::KeyPress::escapeKey)
     {
         _currentResizable.clear();
@@ -890,7 +894,7 @@ bool GridLayout<T>::canBeMovedInto(const GridLayoutItem& itemToMove, const GridL
 template<typename T>
 juce::Line<float> GridLayout<T>::getBottom(const float distanceFromBottom)
 {
-    return juce::Line<float>(getColumn(0), getRow(_gridRows.size() - 1) + distanceFromBottom, getColumn(_gridColumns.size() - 1), getRow(_gridRows.size() - 1));
+    return juce::Line<float>(getColumn(0), getRow(static_cast<int>(_gridRows.size()) - 1) + distanceFromBottom, getColumn(static_cast<int>(_gridColumns.size()) - 1), getRow(static_cast<int>(_gridRows.size()) - 1));
 }
 
 template<typename T>

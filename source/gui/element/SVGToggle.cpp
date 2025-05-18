@@ -45,7 +45,7 @@ void SVGToggle::resized()
     _button.setBounds(getLocalBounds());
 }
 
-void SVGToggle::paint(juce::Graphics& g)
+void SVGToggle::paint(juce::Graphics& _g)
 {
 }
 

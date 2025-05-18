@@ -45,9 +45,9 @@ void CircularAudioBuffer::prepare(double sampleRate, int blockSize)
     _sampleRate = sampleRate;
     const auto lengthInSamples = static_cast<int>(msToSamples(static_cast<float>(sampleRate), _timeInMs));
     for (auto& channel : _buffer)
-        channel.resize(lengthInSamples, 0.f);
+        channel.resize(static_cast<std::size_t>(lengthInSamples), 0.f);
     _delaySize = lengthInSamples;
-    _writeHeadBuffer.resize(blockSize);
+    _writeHeadBuffer.resize(static_cast<std::size_t>(blockSize));
     _writeHeadIndex = 0;
 }
 
@@ -56,17 +56,17 @@ void CircularAudioBuffer::process(juce::AudioBuffer<float>& buffer)
     for (auto sample = 0; sample < buffer.getNumSamples(); ++sample)
     {
         _writeHeadIndex = (_writeHeadIndex + 1) % _delaySize;
-        _writeHeadBuffer[sample] = _writeHeadIndex;
+        _writeHeadBuffer[static_cast<std::size_t>(sample)] = _writeHeadIndex;
     }
 
     for (auto channel = 0; channel < buffer.getNumChannels(); ++channel)
     {
         auto channelSamples = buffer.getWritePointer(channel);
-        auto channelBuffer = _buffer[channel].data();
+        auto channelBuffer = _buffer[static_cast<std::size_t>(channel)].data();
         for (auto sample = 0; sample < buffer.getNumSamples(); ++sample)
         {
-            const auto w = _writeHeadBuffer[sample];
-            channelBuffer[w] = channelSamples[sample];
+            const auto w = _writeHeadBuffer[static_cast<std::size_t>(sample)];
+            channelBuffer[w] = channelSamples[static_cast<std::size_t>(sample)];
             auto r = static_cast<float>(w) - _delayLength;
             if (r < 0.f) r+= _delaySize;
             channelSamples[sample] = channelBuffer[static_cast<int>(r)];

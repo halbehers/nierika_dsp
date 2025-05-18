@@ -17,12 +17,12 @@ TimeInMsDial::TimeInMsDial(dsp::ParameterManager& parameterManager, const std::s
 
 void TimeInMsDial::setup()
 {
-    _slider.textFromValueFunction = [this](double value) { return getTextFromValue(value); };
+    _slider.textFromValueFunction = [](double value) { return getTextFromValue(value); };
 }
 
 juce::String TimeInMsDial::getTextFromValue(double value)
 {
-    return Formatter::formatTimeInMs(value);
+    return Formatter::formatTimeInMs(static_cast<float>(value));
 }
 
 }

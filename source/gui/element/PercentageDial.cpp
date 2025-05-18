@@ -17,7 +17,7 @@ PercentageDial::PercentageDial(dsp::ParameterManager& parameterManager, const st
 
 void PercentageDial::setup()
 {
-    _slider.textFromValueFunction = [this](double value) { return getTextFromValue(value); };
+    _slider.textFromValueFunction = [](double value) { return getTextFromValue(value); };
 }
 
 juce::String PercentageDial::getTextFromValue(double value)

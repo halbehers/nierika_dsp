@@ -18,11 +18,11 @@ Stars::Stars(int maxWidth, int maxHeight):
 
 void Stars::computeSmallStars()
 {
-    int density = 48;
-    auto xCount = _width / density;
-    auto yCount = _height / density;
+    constexpr int density = 48;
+    const int xCount = _width / density;
+    const int yCount = _height / density;
     
-    _smallStarPositions.resize(xCount * yCount);
+    _smallStarPositions.resize(static_cast<std::size_t>(xCount * yCount));
     
     for (int x = 0; x < xCount; ++x)
     {
@@ -37,11 +37,11 @@ void Stars::computeSmallStars()
 
 void Stars::computeMediumStars()
 {
-    int density = 96;
-    auto xCount = _width / density;
-    auto yCount = _height / density;
+    constexpr int density = 96;
+    const int xCount = _width / density;
+    const int yCount = _height / density;
     
-    _mediumStarPositions.resize(xCount * yCount);
+    _mediumStarPositions.resize(static_cast<std::size_t>(xCount * yCount));
     
     for (int x = 0; x < xCount; ++x)
     {
@@ -78,20 +78,20 @@ void Stars::paint(juce::Graphics& g)
     g.setColour(Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce());
     
     juce::Path smallStars;
-    for (auto& position : _smallStarPositions) {
-        smallStars.addEllipse(position.x, position.y, 0.4, 0.4);
+    for (const auto& position : _smallStarPositions) {
+        smallStars.addEllipse(position.x, position.y, 0.4f, 0.4f);
     }
     g.fillPath(smallStars);
     
     juce::Path mediumStars;
-    for (auto& position : _mediumStarPositions) {
-        mediumStars.addEllipse(position.x, position.y, 0.7, 0.7);
+    for (const auto& position : _mediumStarPositions) {
+        mediumStars.addEllipse(position.x, position.y, 0.7f, 0.7f);
     }
     g.fillPath(mediumStars);
     
     juce::Path largeStars;
-    for (auto& position : _largeStarPositions) {
-        largeStars.addEllipse(position.x, position.y, 1.0, 1.0);
+    for (const auto& position : _largeStarPositions) {
+        largeStars.addEllipse(position.x, position.y, 1.0f, 1.0f);
     }
 
     g.fillPath(largeStars);

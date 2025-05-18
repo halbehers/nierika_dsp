@@ -52,10 +52,10 @@ void Value::setGap(const float gap)
 void Value::resized()
 {
     Component::resized();
-    const auto x = getLocalBounds().getX();
-    const auto width = getLocalBounds().getWidth();
-    _value.setBounds(getLocalBounds().withRight(x + (width - width / 2 - _gap / 2)));
-    _unit.setBounds(getLocalBounds().withLeft(x + (width - width / 2 + _gap / 2)));
+    const int x = getLocalBounds().getX();
+    const int width = getLocalBounds().getWidth();
+    _value.setBounds(getLocalBounds().withRight(static_cast<int>(x + (width - width / 2 - _gap / 2))));
+    _unit.setBounds(getLocalBounds().withLeft(static_cast<int>(x + (width - width / 2 + _gap / 2))));
 }
 
 }

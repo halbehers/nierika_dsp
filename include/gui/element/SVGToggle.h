@@ -20,7 +20,7 @@ public:
     SVGToggle(dsp::ParameterManager& parameterManager, const std::string& parameterID, const char* svgBinary);
     ~SVGToggle() override = default;
 
-    void paint(juce::Graphics& g) override;
+    void paint(juce::Graphics& _g) override;
     void resized() override;
 
     void addOnValueChangedListener(OnValueChangedListener* listener);

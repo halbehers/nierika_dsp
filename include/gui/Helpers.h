@@ -5,9 +5,8 @@
 
 namespace nierika::gui::helpers
 {
+void changeColor(const std::unique_ptr<juce::XmlElement>& xml, const juce::String& colorHex);
 
-void changeColor(juce::XmlElement* xml, juce::String color_hex);
-
-void drawFromSVG(juce::Graphics& g, const char* svgBinary, juce::String col_hex, int x, int y, int newWidth, int newHeight, juce::AffineTransform affine);
+void drawFromSVG(juce::Graphics& g, const char* svgBinary, const juce::String& colHex, int x, int y, int newWidth, int newHeight, juce::AffineTransform affine);
 
 }

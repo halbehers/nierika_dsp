@@ -97,7 +97,7 @@ void SpectrumAnalyzer::fillFFTDataGenerator( dsp::FFTDataGenerator<std::vector<f
             fftDataGenerator->produceFFTDataForRendering(_monoBuffer, -60.f);
         }
     }
-};
+}
 
 void SpectrumAnalyzer::fillPath(juce::Path* path, dsp::FFTDataGenerator<std::vector<float>>* fftDataGenerator)
 {
@@ -111,7 +111,7 @@ void SpectrumAnalyzer::fillPath(juce::Path* path, dsp::FFTDataGenerator<std::vec
         std::vector<float> fftData;
         if (fftDataGenerator->getFFTData(fftData))
         {
-            _pathGenerator.generatePath(fftData, fftBounds, fftSize, binWidth, -60.f);
+            _pathGenerator.generatePath(fftData, fftBounds, fftSize, static_cast<float>(binWidth), -60.f);
         }
     }
 
@@ -124,8 +124,8 @@ void SpectrumAnalyzer::fillPath(juce::Path* path, dsp::FFTDataGenerator<std::vec
 void SpectrumAnalyzer::paint(juce::Graphics& g)
 {
     juce::Path filledPath = _leftChannelFFTPath;
-    float startX = 0.f, startY = 0.f;
-    float endX = 0.f, endY = 0.f;
+    float startX = 0.f;
+    float endX = 0.f;
 
     juce::Path::Iterator it(_leftChannelFFTPath);
 
@@ -135,15 +135,13 @@ void SpectrumAnalyzer::paint(juce::Graphics& g)
         if (!firstPointFound)
         {
             startX = it.x1;
-            startY = it.y1;
             firstPointFound = true;
         }
 
         endX = it.x2;
-        endY = it.y2;
     }
 
-    auto bottom = static_cast<float>(getHeight());
+    const auto bottom = static_cast<float>(getHeight());
 
     filledPath.lineTo(endX, bottom);
     filledPath.lineTo(startX, bottom);

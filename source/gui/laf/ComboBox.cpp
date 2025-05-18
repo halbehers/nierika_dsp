@@ -20,10 +20,15 @@ void ComboBox::drawComboBox
     juce::ComboBox &comboBox
 )
 {
-    auto whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE);
-    auto disabledColor = Theme::getInstance().getColor(Theme::ThemeColor::DISABLED);
-    
-    auto color = comboBox.isEnabled() ? whiteColor : disabledColor;
+    (void) isButtonDown;
+    (void) buttonX;
+    (void) buttonY;
+    (void) buttonW;
+    (void) buttonH;
+    const auto whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE);
+    const auto disabledColor = Theme::getInstance().getColor(Theme::ThemeColor::DISABLED);
+
+    const auto color = comboBox.isEnabled() ? whiteColor : disabledColor;
 
     g.setColour(comboBox.isMouseOver() && comboBox.isEnabled() ? color.asJuce().withAlpha(0.1f) : color.asJuce().withAlpha(0.2f));
 
@@ -32,8 +37,8 @@ void ComboBox::drawComboBox
     g.setColour(color.asJuce().withAlpha(0.6f));
     g.setFont(EmbeddedFonts::getRegular().withHeight(14.0));
     g.drawRoundedRectangle(0.0, 0.0, width, height, 4.0, 1.0);
-    
-    int arrowSize = 16;
+
+    constexpr int arrowSize = 16;
     
     helpers::drawFromSVG(g, Icons::getArrowDown(), color.asHexString(), width - arrowSize / 2 - 12, height / 2 - arrowSize / 2, arrowSize, arrowSize, juce::AffineTransform());
 }
@@ -53,6 +58,14 @@ void ComboBox::drawPopupMenuItem
     const juce::Colour* textColour
 )
 {
+
+    (void) isSeparator;
+    (void) isActive;
+    (void) hasSubMenu;
+    (void) shortcutKeyText;
+    (void) icon;
+    (void) textColour;
+
     if (isTicked)
     {
         g.setColour(Theme::getInstance().getColor(Theme::ThemeColor::ACCENT).asJuce().darker().withAlpha(0.6f));
@@ -72,8 +85,9 @@ void ComboBox::drawPopupMenuItem
     g.drawFittedText(text, area.reduced(4.0), juce::Justification::left, 1);
 }
 
-juce::Font ComboBox::getComboBoxFont(juce::ComboBox &comboBox)
+juce::Font ComboBox::getComboBoxFont(juce::ComboBox& comboBox)
 {
+    (void) comboBox;
     return EmbeddedFonts::getRegular().withHeight(14.0);
 }
 

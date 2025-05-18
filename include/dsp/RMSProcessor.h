@@ -8,8 +8,8 @@ namespace nierika::dsp
 class RMSProcessor
 {
 public:
-    RMSProcessor();
-    ~RMSProcessor();
+    RMSProcessor() = default;
+    ~RMSProcessor() = default;
 
     void prepare(double sampleRate, double rampLengthInSeconds);
     void process(const juce::AudioBuffer<float>& buffer);

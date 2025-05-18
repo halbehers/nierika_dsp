@@ -4,40 +4,54 @@ namespace nierika::gui::layout
 {
 
 template<typename T>
-Spacing<T>::Spacing(T left, T top, T right, T bottom)
+Spacing<T>::Spacing(T _left, T _top, T _right, T _bottom):
+    left(_left),
+    top(_top),
+    right(_right),
+    bottom(_bottom)
 {
-    this->left = left;
-    this->top = top;
-    this->right = right;
-    this->bottom = bottom;
 }
 
 template<typename T>
-Spacing<T>::Spacing(T horizontal, T vertical)
+Spacing<T>::Spacing(T horizontal, T vertical):
+    left(horizontal),
+    top(vertical),
+    right(horizontal),
+    bottom(vertical)
 {
-    this->left = horizontal;
-    this->top = vertical;
-    this->right = horizontal;
-    this->bottom = vertical;
 }
 
 template<typename T>
-Spacing<T>::Spacing(T spacing)
+Spacing<T>::Spacing(T spacing):
+    left(spacing),
+    top(spacing),
+    right(spacing),
+    bottom(spacing)
 {
-    this->left = spacing;
-    this->top = spacing;
-    this->right = spacing;
-    this->bottom = spacing;
+}
+
+template<typename T>
+Spacing<T>::Spacing(const Spacing<T>& other):
+    left(other.left),
+    top(other.top),
+    right(other.right),
+    bottom(other.bottom)
+{
 }
 
 template<typename T>
 Spacing<T>& Spacing<T>::operator=(const Spacing<T>& other)
 {
+    if (this == &other)
+    {
+        return *this;
+    }
+
     left = other.left;
     top = other.top;
     right = other.right;
     bottom = other.bottom;
-    
+
     return *this;
 }
 
@@ -132,8 +146,21 @@ Spacing<T> Spacing<T>::operator/(const Spacing<T>& other)
 template<typename T>
 bool Spacing<T>::operator==(const Spacing<T>& other) const
 {
-    return left == other.left && top == other.top
-            && right == other.right && bottom == other.bottom;
+    if constexpr (std::is_floating_point_v<T>)
+    {
+        const T epsilon = std::numeric_limits<T>::epsilon() * 100;
+        return std::fabs(left - other.left) < epsilon &&
+               std::fabs(top - other.top) < epsilon &&
+               std::fabs(right - other.right) < epsilon &&
+               std::fabs(bottom - other.bottom) < epsilon;
+    }
+    else
+    {
+        return left == other.left
+                && top == other.top
+                && right == other.right
+                && bottom == other.bottom;
+    }
 }
 
 template<typename T>
@@ -298,7 +325,7 @@ juce::Rectangle<T> Spacing<T>::computeBounds(juce::Rectangle<T> bounds)
 }
 
 template<typename T>
-juce::Rectangle<T> Spacing<T>::computeBounds(juce::Component& component)
+juce::Rectangle<T> Spacing<T>::computeBounds(const juce::Component& component)
 {
     const auto bounds = component.getLocalBounds();
     const juce::Rectangle<T> typedBounds(static_cast<T>(bounds.getX()), static_cast<T>(bounds.getY()), static_cast<T>(bounds.getWidth()), static_cast<T>(bounds.getHeight()));
@@ -314,15 +341,18 @@ juce::Rectangle<T> Spacing<T>::computeBounds()
     return computeBounds(*_component);
 }
 
-template Spacing<int>::Spacing(int left, int top, int right, int bottom);
-template Spacing<float>::Spacing(float left, float top, float right, float bottom);
-template Spacing<double>::Spacing(double left, double top, double right, double bottom);
+template Spacing<int>::Spacing(int _left, int _top, int _right, int _bottom);
+template Spacing<float>::Spacing(float _left, float _top, float _right, float _bottom);
+template Spacing<double>::Spacing(double _left, double _top, double _right, double _bottom);
 template Spacing<int>::Spacing(int horizontal, int vertical);
 template Spacing<float>::Spacing(float horizontal, float vertical);
 template Spacing<double>::Spacing(double horizontal, double vertical);
 template Spacing<int>::Spacing(int Spacing);
 template Spacing<float>::Spacing(float Spacing);
 template Spacing<double>::Spacing(double Spacing);
+template Spacing<int>::Spacing(const Spacing<int>& other);
+template Spacing<float>::Spacing(const Spacing<float>& other);
+template Spacing<double>::Spacing(const Spacing<double>& other);
 
 template Spacing<int>& Spacing<int>::operator=(const Spacing<int>& other);
 template Spacing<float>& Spacing<float>::operator=(const Spacing<float>& other);
@@ -440,8 +470,8 @@ template bool Spacing<double>::isEmpty();
 template juce::Rectangle<int> Spacing<int>::computeBounds(juce::Rectangle<int> bounds);
 template juce::Rectangle<float> Spacing<float>::computeBounds(juce::Rectangle<float> bounds);
 template juce::Rectangle<double> Spacing<double>::computeBounds(juce::Rectangle<double> bounds);
-template juce::Rectangle<int> Spacing<int>::computeBounds(juce::Component& component);
-template juce::Rectangle<float> Spacing<float>::computeBounds(juce::Component& component);
-template juce::Rectangle<double> Spacing<double>::computeBounds(juce::Component& component);
+template juce::Rectangle<int> Spacing<int>::computeBounds(const juce::Component& component);
+template juce::Rectangle<float> Spacing<float>::computeBounds(const juce::Component& component);
+template juce::Rectangle<double> Spacing<double>::computeBounds(const juce::Component& component);
 
 }

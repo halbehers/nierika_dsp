@@ -82,7 +82,7 @@ protected:
     bool _hasHeader = false;
     bool _hasFooter = false;
 
-    virtual void bypassComponents(bool isBypassed) {};
+    virtual void bypassComponents(bool _isBypassed) {}
 
     void setGap(float gap);
     const std::vector<std::reference_wrapper<Component>>& getRegisteredComponents(const std::string& panelID = MAIN_PANEL_ID) const;

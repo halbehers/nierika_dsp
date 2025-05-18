@@ -39,15 +39,15 @@ void Tabs::initLayout()
 {
     std::vector<int> columns;
 
-    const auto nbOfColumns = std::max(static_cast<int>(_tabs.size()), 1);
+    const std::size_t nbOfColumns = std::max(_tabs.size(), static_cast<std::size_t>(1));
 
     columns.reserve(nbOfColumns);
-    for (int i = 0; i < nbOfColumns; ++i)
+    for (std::size_t i = 0; i < nbOfColumns; ++i)
         columns.push_back(1);
 
     _layout.init({ 1 }, columns);
 
-    for (int i = 0; i < _tabs.size(); ++i)
+    for (std::size_t i = 0; i < _tabs.size(); ++i)
         _layout.addComponent(_tabs[i]->getName().toStdString(), *_tabs[i], 0, i, 1, 1);
 }
 
@@ -59,13 +59,13 @@ void Tabs::setSelectedTabID(const std::string& id)
 
     reset();
 
-    for (auto listener : _listeners)
+    for (const auto listener : _listeners)
         listener->onTabChanged(id);
 }
 
 void Tabs::reset()
 {
-    for (auto& tab : _tabs)
+    for (const auto& tab : _tabs)
     {
         tab->setIsSelected(tab->getID() == _selectedTabID);
         tab->setEnabled(tab->getID() != _selectedTabID);
@@ -98,8 +98,7 @@ void Tabs::addTab(const std::string& id, const std::string& name, const std::str
 
 void Tabs::removeTab(const std::string& id)
 {
-    auto it = std::remove_if(_tabs.begin(), _tabs.end(), [&id](const auto& tab) { return tab->getID() == id; });
-    if (it != _tabs.end())
+    if (const auto it = std::remove_if(_tabs.begin(), _tabs.end(), [&id](const auto& tab) { return tab->getID() == id; }); it != _tabs.end())
     {
         _tabs.erase(it, _tabs.end());
         if (_selectedTabID == id) setSelectedTabID(_tabs.empty() ? "" : _tabs[0]->getID());
@@ -108,7 +107,7 @@ void Tabs::removeTab(const std::string& id)
 
 void Tabs::setTabName(const std::string& id, const std::string& name)
 {
-    for (auto& tab : _tabs)
+    for (const auto& tab : _tabs)
     {
         if (tab->getID() == id)
         {
@@ -118,6 +117,7 @@ void Tabs::setTabName(const std::string& id, const std::string& name)
         }
     }
 }
+
 std::string Tabs::getTabName(const std::string& id) const
 {
     for (const auto& tab : _tabs)
@@ -135,7 +135,7 @@ std::string Tabs::getSelectedTabName() const
 
 void Tabs::setTabTooltip(const std::string& id, const std::string& tooltip)
 {
-    for (auto& tab : _tabs)
+    for (const auto& tab : _tabs)
     {
         if (tab->getID() == id)
         {
@@ -167,11 +167,7 @@ void Tabs::addOnTabChangedListener(OnTabChangedListener* listener)
 
 void Tabs::removeListener(OnTabChangedListener* listener)
 {
-    _listeners.erase(
-        std::remove(_listeners.begin(), _listeners.end(), listener),
-        _listeners.end()
-    );
+    std::erase(_listeners, listener);
 }
-
 
 }

@@ -22,8 +22,11 @@ std::string Formatter::formatFrequency(float frequency)
 std::string Formatter::toUpper(const std::string& text)
 {
     std::string s(text);
-    for (int i = 0; i < s.length(); i++)
-            s[i] = toupper(s[i]);
+    for (std::size_t i = 0; i < s.length(); ++i)
+    {
+        const auto ch = static_cast<unsigned char>(s[i]);
+        s[i] = static_cast<char>(std::toupper(ch));
+    }
     return s;
 }
 
@@ -91,7 +94,7 @@ std::string Formatter::formatDouble(const double value, const int precision)
 std::string Formatter::joinWithNewline(const std::vector<std::string>& lines)
 {
     std::ostringstream oss;
-    for (auto i = 0; i < lines.size(); ++i) {
+    for (std::size_t i = 0; i < lines.size(); ++i) {
         oss << lines.at(i);
         if (i != lines.size() - 1) {
             oss << '\n';

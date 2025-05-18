@@ -53,7 +53,7 @@ public:
     layout::Spacing<float> getMargin() const { return _margin; }
 
     template<typename T>
-    void setPadding(layout::Spacing<T> paddings);
+    void setPadding(layout::Spacing<T> padding);
     template<typename T>
     void setPadding(T paddingLeft, T paddingTop, T paddingRight, T paddingBottom);
     template<typename T>

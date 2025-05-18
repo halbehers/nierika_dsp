@@ -57,11 +57,11 @@ void Dial::drawRotarySlider
 //        g.fillEllipse (point.getX() - 3, point.getY() - 3, dotSize, dotSize);
 //    }
         
-    fullRadius -= width / 14.5;
+    fullRadius -= static_cast<float>(width) / 14.5f;
 
     auto toAngle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
     
-    float lineWidthMultiplier = width * 0.015f;
+    float lineWidthMultiplier = static_cast<float>(width) * 0.015f;
     auto lineWidth = std::max(juce::jmin(lineWidthMultiplier, fullRadius * 0.5f), 1.f);
     auto dialRadius = std:: max(fullRadius - 4.0f * lineWidth, 9.0f);
 
@@ -123,7 +123,7 @@ void Dial::drawRotarySlider
 
         g.setColour(disabledColor);
         g.setFont(font);
-        g.drawText(_shortLabel, centre.getX() - 5, centre.getY() - 6, 10, 12, juce::Justification::centred);
+        g.drawText(_shortLabel, static_cast<int>(centre.getX()) - 5, static_cast<int>(centre.getY()) - 6, 10, 12, juce::Justification::centred);
     }
 
     /** Fill Math*/
@@ -153,7 +153,7 @@ void Dial::drawRotarySlider
     dialTick.lineTo(centre.getPointOnCircumference((dialRadius - lineWidth) * 0.6f, toAngle));
     
     /** Dial tick thickness*/
-    g.strokePath(dialTick, juce::PathStrokeType(lineWidth * 0.75, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
+    g.strokePath(dialTick, juce::PathStrokeType(lineWidth * 0.75f, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
     
     _sliderWidth = slider.getWidth();
 }
@@ -185,10 +185,10 @@ void Dial::drawLabel (juce::Graphics& g, juce::Label& label)
             if (auto* slider = dynamic_cast<juce::Slider*>(parentComponent))
             {
                 // Check if the mouse is over the slider
-                bool isMouseOver = slider->isMouseOver() || slider->isMouseButtonDown();
+                const bool isMouseOver = slider->isMouseOver() || slider->isMouseButtonDown();
                 
                 // Get the slider value and suffix
-                float value = slider->getValue();
+                const auto value = static_cast<float>(slider->getValue());
                 
                 juce::String suffix = slider->getTextValueSuffix();
                 

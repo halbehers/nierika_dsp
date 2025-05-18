@@ -90,6 +90,9 @@ public:
         explicit Color(ThemeColor color);
         ~Color() = default;
 
+        Color(const Color& other) = default;
+        Color& operator=(const Color& other) = default;
+
         [[nodiscard]] juce::uint32 asHex() const;
         [[nodiscard]] juce::Colour asJuce() const;
         [[nodiscard]] std::string asHexString() const;
