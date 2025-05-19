@@ -47,6 +47,7 @@
 #include "include/dsp/RMSProcessor.h"
 #include "include/dsp/ParameterManager.h"
 #include "include/dsp/Parameter.h"
+#include "include/dsp/DryWetUtils.h"
 
 // GUI
 #include "include/gui/AnalyzerPathGenerator.h"
