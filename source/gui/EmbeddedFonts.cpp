@@ -1,3 +1,5 @@
+#include "../../include/gui/EmbeddedFonts.h"
+
 juce::Font EmbeddedFonts::getBold(float fontSize)
 {
     return buildFont(NierikaDSPBinaryData::Brandon_bld_otf, NierikaDSPBinaryData::Brandon_bld_otfSize, fontSize);

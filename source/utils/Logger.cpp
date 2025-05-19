@@ -2,6 +2,8 @@
 
 #include <utility>
 
+#include "../../include/utils/Logger.h"
+
 namespace nierika::utils
 {
 

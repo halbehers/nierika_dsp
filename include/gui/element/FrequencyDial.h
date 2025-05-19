@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Dial.h"
+
 namespace nierika::gui::element
 {
 

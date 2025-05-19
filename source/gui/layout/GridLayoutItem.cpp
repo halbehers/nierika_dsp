@@ -1,3 +1,5 @@
+#include "../../../include/gui/layout/GridLayoutItem.h"
+
 namespace nierika::gui::layout
 {
 

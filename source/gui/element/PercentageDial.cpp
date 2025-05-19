@@ -1,3 +1,6 @@
+#include "../../../include/gui/element/PercentageDial.h"
+#include "../../../include/gui/Formatter.h"
+
 namespace nierika::gui::element
 {
 PercentageDial::PercentageDial(const std::string& identifier, const std::string& label, float minValue, float maxValue, float defaultValue):

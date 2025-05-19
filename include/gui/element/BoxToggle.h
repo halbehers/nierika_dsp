@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../laf/BoxToggle.h"
+
 namespace nierika::gui::element
 {
 

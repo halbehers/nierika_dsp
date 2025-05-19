@@ -2,6 +2,10 @@
 
 #include <string>
 
+#include "Theme.h"
+#include "Spacing.h"
+#include "../utils/UID.h"
+
 namespace nierika::gui
 {
 

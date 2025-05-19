@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../Section.h"
+
 namespace nierika::gui::layout
 {
 

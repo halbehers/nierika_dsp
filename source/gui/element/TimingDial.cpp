@@ -1,3 +1,6 @@
+#include "../../../include/gui/element/TimingDial.h"
+#include "../../../include/dsp/Timing.h"
+
 namespace nierika::gui::element
 {
 TimingDial::TimingDial(const std::string& identifier, const std::string& label, dsp::Timing::NoteTiming defaultValue):

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../laf/ComboBox.h"
+
 namespace nierika::gui::element
 {
 

@@ -1,5 +1,9 @@
 #pragma once
 
+#include "../laf/Dial.h"
+#include "../Component.h"
+#include "../../dsp/ParameterManager.h"
+
 namespace nierika::gui::element
 {
 

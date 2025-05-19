@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../dsp/FIFO.h"
+
 namespace nierika::gui
 {
 

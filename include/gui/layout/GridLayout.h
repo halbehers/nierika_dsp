@@ -4,6 +4,10 @@
 #include <string>
 #include <unordered_map>
 
+#include "../Spacing.h"
+#include "GridLayoutItem.h"
+#include "Alignment.h"
+
 namespace nierika::gui::layout
 {
 

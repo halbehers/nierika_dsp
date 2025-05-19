@@ -1,3 +1,8 @@
+#include "../../../include/gui/element/SVGToggle.h"
+#include "../../../include/gui/Theme.h"
+#include "../../../include/gui/EmbeddedFonts.h"
+#include "../../../include/gui/Helpers.h"
+
 namespace nierika::gui::element
 {
 

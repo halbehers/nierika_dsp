@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../NierikaDSPBinaryData.h"
+
 namespace nierika::gui
 {
 

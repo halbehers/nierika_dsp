@@ -2,6 +2,8 @@
 
 #include <unordered_map>
 
+#include "../Theme.h"
+
 namespace nierika::gui::laf
 {
 

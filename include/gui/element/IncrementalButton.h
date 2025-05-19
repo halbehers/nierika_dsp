@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../laf/SVGButton.h"
+
 namespace nierika::gui::element
 {
 

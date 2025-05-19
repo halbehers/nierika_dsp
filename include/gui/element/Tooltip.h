@@ -2,6 +2,9 @@
 
 #include <string>
 
+#include "../Component.h"
+#include "../TooltipManager.h"
+
 namespace nierika::gui::element
 {
 

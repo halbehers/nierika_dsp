@@ -1,3 +1,5 @@
+#include "../../../include/gui/element/IncrementalButtons.h"
+
 namespace nierika::gui::element
 {
 

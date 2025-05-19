@@ -1,5 +1,9 @@
 #pragma once
 
+#include "../Component.h"
+#include "../layout/GridLayout.h"
+#include "./TextButton.h"
+
 namespace nierika::gui::element
 {
 

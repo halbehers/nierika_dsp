@@ -1,3 +1,5 @@
+#include "../../../include/dsp/sequencer/FXSequencer.h"
+
 namespace nierika::dsp
 {
 

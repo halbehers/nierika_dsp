@@ -1,3 +1,9 @@
+#include "../../../include/gui/laf/ComboBox.h"
+#include "../../../include/gui/Theme.h"
+#include "../../../include/gui/Helpers.h"
+#include "../../../include/gui/EmbeddedFonts.h"
+#include "../../../include/gui/Icons.h"
+
 namespace nierika::gui::laf
 {
 

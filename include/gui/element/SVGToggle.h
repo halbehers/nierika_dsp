@@ -1,5 +1,9 @@
 #pragma once
 
+#include "../Component.h"
+#include "../laf/SVGToggle.h"
+#include "../../dsp/ParameterManager.h"
+
 namespace nierika::gui::element
 {
 

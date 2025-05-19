@@ -1,3 +1,7 @@
+#include "../../../include/gui/laf/SVGButton.h"
+#include "../../../include/gui/Theme.h"
+#include "../../../include/gui/Helpers.h"
+
 namespace nierika::gui::laf
 {
 

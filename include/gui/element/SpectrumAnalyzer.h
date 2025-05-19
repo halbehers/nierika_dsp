@@ -2,6 +2,11 @@
 
 #include <vector>
 
+#include "../AnalyzerPathGenerator.h"
+#include "../../dsp/SingleChannelSampleFIFO.h"
+#include "../../dsp/FFTDataGenerator.h"
+#include "../Component.h"
+
 namespace nierika::gui::element
 {
 

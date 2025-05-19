@@ -1,6 +1,9 @@
 #include <algorithm>
 #include <cmath>
 
+#include "../../include/utils/Logger.h"
+#include "../../include/gui/Section.h"
+
 namespace nierika::gui
 {
 

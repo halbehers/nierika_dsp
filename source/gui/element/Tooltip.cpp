@@ -1,5 +1,8 @@
 #include <utility>
 
+#include "../../../include/gui/element/Tooltip.h"
+#include "../../../include/gui/TooltipManager.h"
+
 namespace nierika::gui::element
 {
 

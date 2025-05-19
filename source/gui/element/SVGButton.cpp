@@ -1,3 +1,5 @@
+#include "../../../include/gui/element/SVGButton.h"
+
 namespace nierika::gui::element
 {
 

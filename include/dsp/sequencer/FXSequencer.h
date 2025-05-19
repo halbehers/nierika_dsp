@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../Timing.h"
+
 namespace nierika::dsp
 {
 

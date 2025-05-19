@@ -1,3 +1,5 @@
+#include "../../include/gui/Spacing.h"
+
 #include <cmath>
 #include <type_traits>
 #include <limits>

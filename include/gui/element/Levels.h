@@ -1,5 +1,8 @@
 #pragma once
 
+#include "../Component.h"
+#include "../../dsp/RMSProcessor.h"
+
 namespace nierika::gui::element
 {
 

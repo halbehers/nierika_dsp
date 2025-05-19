@@ -1,3 +1,5 @@
+#include "../../../include/gui/element/ComboBox.h"
+
 namespace nierika::gui::element
 {
 

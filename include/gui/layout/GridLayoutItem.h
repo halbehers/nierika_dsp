@@ -1,5 +1,8 @@
 #pragma once
 
+#include "../Border.h"
+#include "Alignment.h"
+
 namespace nierika::gui::layout
 {
 

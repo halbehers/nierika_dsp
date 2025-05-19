@@ -1,3 +1,6 @@
+#include "../../../include/gui/laf/IncrementalButtons.h"
+#include "../../../include/gui/element/IncrementalButton.h"
+
 namespace nierika::gui::laf
 {
 

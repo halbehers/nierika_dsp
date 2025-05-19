@@ -1,3 +1,5 @@
+#include "../../../include/gui/layout/AppLayout.h"
+
 namespace nierika::gui::layout
 {
 

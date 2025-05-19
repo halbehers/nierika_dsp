@@ -1,3 +1,5 @@
+#include "../../../include/gui/element/HorizontalSlider.h"
+
 namespace nierika::gui::element
 {
 

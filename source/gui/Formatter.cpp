@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 
+#include "../../include/gui/Formatter.h"
+
 namespace nierika::gui
 {
 

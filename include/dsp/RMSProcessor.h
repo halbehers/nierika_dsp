@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Channel.h"
+
 namespace nierika::dsp
 {
 

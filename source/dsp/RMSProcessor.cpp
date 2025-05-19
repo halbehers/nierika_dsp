@@ -1,3 +1,5 @@
+#include "../../include/dsp/RMSProcessor.h"
+
 namespace nierika::dsp
 {
 

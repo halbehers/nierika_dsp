@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Slider.h"
+
 namespace nierika::gui::element
 {
 

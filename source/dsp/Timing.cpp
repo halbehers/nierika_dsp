@@ -1,3 +1,5 @@
+#include "../../include/dsp/Timing.h"
+
 namespace nierika::dsp
 {
 

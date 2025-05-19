@@ -2,6 +2,9 @@
 
 #include <string>
 
+#include "../Component.h"
+#include "../Theme.h"
+
 namespace nierika::gui::element
 {
 

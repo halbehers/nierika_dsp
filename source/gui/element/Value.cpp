@@ -1,3 +1,5 @@
+#include "../../../include/gui/Theme.h"
+
 namespace nierika::gui::element
 {
 
