@@ -1,31 +1,32 @@
 #include "../../include/gui/EmbeddedFonts.h"
 
-juce::Font EmbeddedFonts::getBold()
+juce::Font EmbeddedFonts::getBold(float fontSize)
 {
-    static auto typeface = juce::Typeface::createSystemTypefaceFor(NierikaDSPBinaryData::Brandon_bld_otf, NierikaDSPBinaryData::Brandon_bld_otfSize);
-    return juce::Font(juce::FontOptions().withTypeface(typeface));
+    return buildFont(NierikaDSPBinaryData::Brandon_bld_otf, NierikaDSPBinaryData::Brandon_bld_otfSize, fontSize);
 }
 
-juce::Font EmbeddedFonts::getMedium()
+juce::Font EmbeddedFonts::getMedium(float fontSize)
 {
-    static auto typeface = juce::Typeface::createSystemTypefaceFor(NierikaDSPBinaryData::Brandon_med_otf, NierikaDSPBinaryData::Brandon_med_otfSize);
-    return juce::Font(juce::FontOptions().withTypeface(typeface));
+    return buildFont(NierikaDSPBinaryData::Brandon_med_otf, NierikaDSPBinaryData::Brandon_med_otfSize, fontSize);
 }
 
-juce::Font EmbeddedFonts::getRegular()
+juce::Font EmbeddedFonts::getRegular(float fontSize)
 {
-    static auto typeface = juce::Typeface::createSystemTypefaceFor(NierikaDSPBinaryData::Brandon_reg_otf, NierikaDSPBinaryData::Brandon_reg_otfSize);
-    return juce::Font(juce::FontOptions().withTypeface(typeface));
+    return buildFont(NierikaDSPBinaryData::Brandon_reg_otf, NierikaDSPBinaryData::Brandon_reg_otfSize, fontSize);
 }
 
-juce::Font EmbeddedFonts::getLight()
+juce::Font EmbeddedFonts::getLight(float fontSize)
 {
-    static auto typeface = juce::Typeface::createSystemTypefaceFor(NierikaDSPBinaryData::Brandon_light_otf, NierikaDSPBinaryData::Brandon_light_otfSize);
-    return juce::Font(juce::FontOptions().withTypeface(typeface));
+    return buildFont(NierikaDSPBinaryData::Brandon_light_otf, NierikaDSPBinaryData::Brandon_light_otfSize, fontSize);
 }
 
-juce::Font EmbeddedFonts::getThin()
+juce::Font EmbeddedFonts::getThin(float fontSize)
 {
-    static auto typeface = juce::Typeface::createSystemTypefaceFor(NierikaDSPBinaryData::Brandon_thin_otf, NierikaDSPBinaryData::Brandon_thin_otfSize);
-    return juce::Font(juce::FontOptions().withTypeface(typeface));
+    return buildFont(NierikaDSPBinaryData::Brandon_thin_otf, NierikaDSPBinaryData::Brandon_thin_otfSize, fontSize);
+}
+
+juce::Font EmbeddedFonts::buildFont(const void *fontFileData, std::size_t fontFileDataSize, float fontSize)
+{
+    const juce::Typeface::Ptr typeface = juce::Typeface::createSystemTypefaceFor(fontFileData, fontFileDataSize);
+    return juce::Font(juce::FontOptions(fontSize).withStyle("").withName("").withTypeface(typeface));
 }
