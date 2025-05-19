@@ -18,8 +18,8 @@ public:
         switch (mixingRule)
         {
             case juce::dsp::DryWetMixingRule::balanced:
-                dryValue = 2.f * juce::jmin (static_cast<T>(0.5), static_cast<T>(1.0) - mix);
-                wetValue = static_cast<T>(2.0) * jmin (static_cast<T>(0.5), mix);
+                dryValue = 2.f * juce::jmin(static_cast<T>(0.5), static_cast<T>(1.0) - mix);
+                wetValue = static_cast<T>(2.0) * juce::jmin(static_cast<T>(0.5), mix);
                 break;
 
             case juce::dsp::DryWetMixingRule::linear:
@@ -28,18 +28,18 @@ public:
                 break;
 
             case juce::dsp::DryWetMixingRule::sin3dB:
-                dryValue = static_cast<T>(std::sin (0.5 * MathConstants<double>::pi * (1.0 - mix)));
-                wetValue = static_cast<T>(std::sin (0.5 * MathConstants<double>::pi * mix));
+                dryValue = static_cast<T>(std::sin(0.5 * juce::MathConstants<double>::pi * (1.0 - mix)));
+                wetValue = static_cast<T>(std::sin(0.5 * juce::MathConstants<double>::pi * mix));
                 break;
 
             case juce::dsp::DryWetMixingRule::sin4p5dB:
-                dryValue = static_cast<T>(std::pow (std::sin (0.5 * MathConstants<double>::pi * (1.0 - mix)), 1.5));
-                wetValue = static_cast<T>(std::pow (std::sin (0.5 * MathConstants<double>::pi * mix), 1.5));
+                dryValue = static_cast<T>(std::pow(std::sin (0.5 * juce::MathConstants<double>::pi * (1.0 - mix)), 1.5));
+                wetValue = static_cast<T>(std::pow(std::sin (0.5 * juce::MathConstants<double>::pi * mix), 1.5));
                 break;
 
             case juce::dsp::DryWetMixingRule::sin6dB:
-                dryValue = static_cast<T>(std::pow (std::sin (0.5 * MathConstants<double>::pi * (1.0 - mix)), 2.0));
-                wetValue = static_cast<T>(std::pow (std::sin (0.5 * MathConstants<double>::pi * mix), 2.0));
+                dryValue = static_cast<T>(std::pow(std::sin (0.5 * juce::MathConstants<double>::pi * (1.0 - mix)), 2.0));
+                wetValue = static_cast<T>(std::pow(std::sin (0.5 * juce::MathConstants<double>::pi * mix), 2.0));
                 break;
 
             case juce::dsp::DryWetMixingRule::squareRoot3dB:
@@ -48,8 +48,8 @@ public:
                 break;
 
             case juce::dsp::DryWetMixingRule::squareRoot4p5dB:
-                dryValue = static_cast<T>(std::pow (std::sqrt (1.0 - mix), 1.5));
-                wetValue = static_cast<T>(std::pow (std::sqrt (mix), 1.5));
+                dryValue = static_cast<T>(std::pow(std::sqrt(1.0 - mix), 1.5));
+                wetValue = static_cast<T>(std::pow(std::sqrt(mix), 1.5));
                 break;
 
             default:
