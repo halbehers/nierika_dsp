@@ -1,6 +1,3 @@
-#include "../../../include/gui/laf/TextButton.h"
-#include "../../../include/gui/Theme.h"
-
 namespace nierika::gui::laf
 {
 

@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../Theme.h"
-
 namespace nierika::gui::element
 {
 

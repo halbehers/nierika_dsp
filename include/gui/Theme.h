@@ -3,9 +3,6 @@
 #include <unordered_map>
 #include <string>
 
-#include "EmbeddedFonts.h"
-#include "../utils/Singleton.h"
-
 #define COLOR_WHITE 0xFFFFF8F8
 
 #define COLOR_GRAY_50 0xFF808080

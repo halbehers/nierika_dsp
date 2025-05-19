@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Parameter.h"
-
 namespace nierika::dsp
 {
 

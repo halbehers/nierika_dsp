@@ -1,7 +1,5 @@
 #pragma once
 
-#include "FIFO.h"
-
 namespace nierika::dsp
 {
 

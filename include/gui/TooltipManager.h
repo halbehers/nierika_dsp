@@ -6,9 +6,6 @@
 #include <unordered_set>
 #include <algorithm>
 
-#include "../utils/Singleton.h"
-#include "Component.h"
-
 namespace nierika::gui
 {
 

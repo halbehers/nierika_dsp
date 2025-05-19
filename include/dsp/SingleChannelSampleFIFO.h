@@ -1,8 +1,5 @@
 #pragma once
 
-#include "Channel.h"
-#include "FIFO.h"
-
 namespace nierika::dsp
 {
 

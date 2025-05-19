@@ -1,6 +1,3 @@
-#include "../../../include/gui/element/TimeInMsDial.h"
-#include "../../../include/gui/Formatter.h"
-
 namespace nierika::gui::element
 {
 TimeInMsDial::TimeInMsDial(const std::string& identifier, const std::string& label, float minValue, float maxValue, float defaultValue):

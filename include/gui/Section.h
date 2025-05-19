@@ -4,13 +4,6 @@
 #include <memory>
 #include <vector>
 
-#include "../dsp/sequencer/FXSequencer.h"
-#include "./element/SVGToggle.h"
-#include "./element/Tabs.h"
-#include "./layout/GridLayout.h"
-#include "./Spacing.h"
-#include "./Component.h"
-
 namespace nierika::gui
 {
 

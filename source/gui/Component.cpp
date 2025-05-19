@@ -1,6 +1,3 @@
-#include "../../include/gui/Component.h"
-#include "../../include/gui/TooltipManager.h"
-
 namespace nierika::gui
 {
 

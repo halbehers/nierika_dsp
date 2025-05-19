@@ -1,7 +1,3 @@
-#include "../../../include/gui/laf/BoxToggle.h"
-#include "../../../include/gui/Theme.h"
-#include "../../../include/gui/element/BoxToggle.h"
-
 namespace nierika::gui::laf
 {
 

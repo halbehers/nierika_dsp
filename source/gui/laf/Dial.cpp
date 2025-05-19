@@ -1,7 +1,3 @@
-#include "../../../include/gui/laf/Dial.h"
-#include "../../../include/gui/Theme.h"
-#include "../../../include/gui/EmbeddedFonts.h"
-
 namespace nierika::gui::laf
 {
 

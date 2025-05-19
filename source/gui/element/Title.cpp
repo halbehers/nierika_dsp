@@ -1,6 +1,3 @@
-#include "../../../include/gui/element/Title.h"
-#include "../../../include/gui/Theme.h"
-
 namespace nierika::gui::element
 {
 

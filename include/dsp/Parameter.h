@@ -3,8 +3,6 @@
 #include <utility>
 #include <variant>
 
-#include "../utils/Logger.h"
-
 namespace nierika::dsp
 {
 

@@ -1,5 +1,3 @@
-#include "../../../include/gui/element/BoxToggle.h"
-
 namespace nierika::gui::element
 {
 

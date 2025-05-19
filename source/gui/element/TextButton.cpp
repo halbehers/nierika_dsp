@@ -1,6 +1,3 @@
-#include "../../../include/gui/element/TextButton.h"
-#include "../../../include/gui/Theme.h"
-
 namespace nierika::gui::element
 {
 

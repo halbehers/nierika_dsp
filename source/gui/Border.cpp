@@ -1,5 +1,3 @@
-#include "../../include/gui/Border.h"
-
 namespace nierika::gui::layout
 {
 Border::Border(juce::Colour color, float thickness):

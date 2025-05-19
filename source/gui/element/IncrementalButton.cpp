@@ -1,7 +1,3 @@
-#include "../../../include/gui/Helpers.h"
-#include "../../../include/gui/element/IncrementalButton.h"
-#include "../../../include/gui/Icons.h"
-
 namespace nierika::gui::element
 {
 

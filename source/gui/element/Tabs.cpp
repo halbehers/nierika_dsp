@@ -1,5 +1,3 @@
-#include "../../../include/gui/element/Tabs.h"
-
 namespace nierika::gui::element
 {
 

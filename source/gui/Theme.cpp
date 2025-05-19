@@ -3,8 +3,6 @@
 #include <iomanip>
 #include <string>
 
-#include "../../include/gui/Theme.h"
-
 namespace nierika::gui
 {
 

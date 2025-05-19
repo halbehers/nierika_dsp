@@ -1,8 +1,5 @@
 #pragma once
 
-#include "../Component.h"
-#include "../laf/TextButton.h"
-
 namespace nierika::gui::element
 {
 

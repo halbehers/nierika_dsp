@@ -1,7 +1,3 @@
-#include "../../../include/gui/laf/SVGToggle.h"
-#include "../../../include/gui/Theme.h"
-#include "../../../include/gui/Helpers.h"
-
 namespace nierika::gui::laf
 {
 

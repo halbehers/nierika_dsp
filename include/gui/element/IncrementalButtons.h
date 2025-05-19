@@ -1,8 +1,5 @@
 #pragma once
 
-#include "../laf/IncrementalButtons.h"
-#include "Slider.h"
-
 namespace nierika::gui::element
 {
 

@@ -1,8 +1,5 @@
 #pragma once
 
-#include "Dial.h"
-#include "../../dsp/Timing.h"
-
 namespace nierika::gui::element
 {
 

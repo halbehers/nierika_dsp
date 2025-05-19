@@ -1,5 +1,3 @@
-#include "../../include/gui/Helpers.h"
-
 namespace nierika::gui::helpers
 {
 
