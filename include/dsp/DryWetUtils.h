@@ -3,7 +3,7 @@
 namespace nierika::dsp
 {
 
-class DryWetConverter
+class DryWetUtils
 {
 public:
     template<typename T>
@@ -18,8 +18,8 @@ public:
         switch (mixingRule)
         {
             case juce::dsp::DryWetMixingRule::balanced:
-                dryValue = 2.f * juce::jmin(static_cast<T>(0.5), static_cast<T>(1.0) - mix);
-                wetValue = static_cast<T>(2.0) * juce::jmin(static_cast<T>(0.5), mix);
+                dryValue = juce::jmin(static_cast<T>(0.5), static_cast<T>(1.0) - mix);
+                wetValue = juce::jmin(static_cast<T>(0.5), mix);
                 break;
 
             case juce::dsp::DryWetMixingRule::linear:
@@ -53,12 +53,12 @@ public:
                 break;
 
             default:
-                dryValue = jmin(static_cast<T>(0.5), static_cast<T>(1.0) - mix);
-                wetValue = jmin(static_cast<T>(0.5), mix);
+                dryValue = juce::jmin(static_cast<T>(0.5), static_cast<T>(1.0) - mix);
+                wetValue = juce::jmin(static_cast<T>(0.5), mix);
                 break;
         }
 
-        return std::make_pair<T, T>(dryValue, wetValue);
+        return std::make_pair(dryValue, wetValue);
     }
 };
 
