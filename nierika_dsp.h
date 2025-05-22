@@ -101,6 +101,7 @@
 #include "include/utils/Singleton.h"
 #include "include/utils/Logger.h"
 #include "include/utils/UID.h"
+#include "include/utils/FloatingPointUtils.h"
 
 namespace nui = nierika::gui;
 namespace nelement = nierika::gui::element;

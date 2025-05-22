@@ -1,3 +1,4 @@
+#include "../../include/utils/FloatingPointUtils.h"
 #include "../../include/dsp/ParameterManager.h"
 #include "../../include/utils/Logger.h"
 
@@ -96,12 +97,12 @@ void ParameterManager::parameterChanged(const std::shared_ptr<IParameter>& param
     }
     else if (parameter->getType() == IParameter::TYPE_INT)
     {
-        auto holder = ParameterValueHolder(static_cast<int>(newValue));
+        auto holder = ParameterValueHolder(static_cast<int>(std::round(newValue)));
         parameter->onChangeFromVariant(holder);
     }
     else if (parameter->getType() == IParameter::TYPE_FLOAT)
     {
-        auto holder = ParameterValueHolder(static_cast<float>(newValue));
+        auto holder = ParameterValueHolder(nutils::FloatingPointUtils::round(newValue));
         parameter->onChangeFromVariant(holder);
     }
     else
