@@ -71,4 +71,9 @@ void Dial::setEnabled(bool isEnabled)
     _slider.setEnabled(isEnabled);
 }
 
+void Dial::setLabelVisibility(laf::Dial::LabelVisibility visibility)
+{
+    _lookAndFeel.setLabelVisibility(visibility);
+}
+
 }

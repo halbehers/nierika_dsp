@@ -35,38 +35,23 @@ void Dial::drawRotarySlider
     auto dialBounds = juce::Rectangle<int>(x, y, width, height).toFloat();
     auto centre = dialBounds.getCentre();
     float sizeScalar = 0.7f;
-    auto fullRadius = juce::jmin(dialBounds.getWidth() * sizeScalar, dialBounds.getHeight() * sizeScalar);
-    
+    float maxSize = std::min(dialBounds.getWidth() * sizeScalar, (dialBounds.getHeight() - _labelHeight - 9.f) * sizeScalar) ;
+
     /** Dot color*/
     g.setColour(slider.isEnabled() ? whiteColor : transparentColor);
     centre = dialBounds.getCentre();
 
-    /** Draw dots */
-    /** How many dots to draw, works well as num dial intervals + 1 for small ranges, e.g. [0 - 10]*/
-//    for (int i = 0; i < 11; ++i)
-//    {
-//        auto dotSize = width * 0.025;
-//
-//        /** IF you change the number of dots, do i / (num dots - 1) */
-//        const auto angle = juce::jmap (i / 10.0f, rotaryStartAngle, rotaryEndAngle);
-//
-//        /** Dot distance from slider center */
-//        const auto point = centre.getPointOnCircumference (fullRadius - width * 0.06f, angle);
-//
-//        /** Dot thickness*/
-//        g.fillEllipse (point.getX() - 3, point.getY() - 3, dotSize, dotSize);
-//    }
-        
-    fullRadius -= static_cast<float>(width) / 14.5f;
+    maxSize -= static_cast<float>(width) / 14.5f;
 
     auto toAngle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
     
-    float lineWidthMultiplier = static_cast<float>(width) * 0.015f;
-    auto lineWidth = std::max(juce::jmin(lineWidthMultiplier, fullRadius * 0.5f), 1.f);
-    auto dialRadius = std:: max(fullRadius - 4.0f * lineWidth, 9.0f);
+    //float lineWidthMultiplier = maxSize * 0.015f;
+    //auto lineWidth = std::max(juce::jmin(lineWidthMultiplier, maxSize * 0.5f), 1.f);
+    const float lineWidth = std::max(maxSize / 16.f, 2.f);//2.f;
+    auto dialRadius = std::max(maxSize - 4.0f * lineWidth, 9.0f);
 
     {
-        juce::Graphics::ScopedSaveState saved (g);
+        juce::Graphics::ScopedSaveState saved(g);
         if (slider.isEnabled())
         {
             juce::ColourGradient fillGradient
@@ -113,6 +98,7 @@ void Dial::drawRotarySlider
     g.setColour(slider.isEnabled() ? whiteColor : disabledColor);
     
     /** Dial outline thickness*/
+    dialRadius -= lineWidth;
     g.drawEllipse(centre.getX() - dialRadius, centre.getY() - dialRadius, dialRadius * scale, dialRadius * scale, 1.0f);
     
     bool isMouseOver = slider.isMouseOver() || slider.isMouseButtonDown();
@@ -160,27 +146,27 @@ void Dial::drawRotarySlider
 
 void Dial::drawLabel (juce::Graphics& g, juce::Label& label)
 {
+    if (_labelVisibility == HIDDEN) return;
+
     g.fillAll(label.findColour(juce::Label::backgroundColourId));
 
     label.setEditable(false);
-    
-    juce::Colour disabledColor = Theme::getInstance().getColor(Theme::ThemeColor::DISABLED).asJuce();
-    juce::Colour transparentColor = Theme::getInstance().getColor(Theme::ThemeColor::TRANSPARENT).asJuce();
+
+    const juce::Colour disabledColor = Theme::getInstance().getColor(Theme::ThemeColor::DISABLED).asJuce();
+    const juce::Colour transparentColor = Theme::getInstance().getColor(Theme::ThemeColor::TRANSPARENT).asJuce();
     
     if (! label.isBeingEdited())
     {
-        auto labelColor = label.isEnabled() ? label.findColour (juce::Label::textColourId) : disabledColor;
-        const juce::Font font(EmbeddedFonts::getRegular()
-                              .withHeight(std::min((float) (juce::jmax(label.getWidth() * 0.18, label.getHeight() * 0.375)), 15.f))
-                              );
+        const juce::Colour labelColor = label.isEnabled() ? label.findColour (juce::Label::textColourId) : disabledColor;
+        const juce::Font font(Theme::getInstance().getFont(Theme::REGULAR, _labelHeight));
 
         g.setColour(labelColor);
         g.setFont(font);
 
-        auto textArea = getLabelBorderSize(label).subtractedFrom(label.getLocalBounds());
+        const juce::Rectangle<int> textArea = getLabelBorderSize(label).subtractedFrom(label.getLocalBounds());
 
         juce::String labelText;
-        if (auto* parentComponent = label.getParentComponent())
+        if (juce::Component* parentComponent = label.getParentComponent())
         {
             if (auto* slider = dynamic_cast<juce::Slider*>(parentComponent))
             {
@@ -188,24 +174,31 @@ void Dial::drawLabel (juce::Graphics& g, juce::Label& label)
                 const bool isMouseOver = slider->isMouseOver() || slider->isMouseButtonDown();
                 
                 // Get the slider value and suffix
-                const auto value = static_cast<float>(slider->getValue());
+                const double value = slider->getValue();
                 
                 juce::String suffix = slider->getTextValueSuffix();
-                
-                // Determine the text to display based on the mouse over state
-                if (isMouseOver)
+
+                switch (_labelVisibility)
                 {
-                    labelText = slider->getTextFromValue(value);
-                }
-                else
-                {
-                    labelText = slider->getName();
+                    case HIDDEN:
+                        labelText = "";
+                        break;
+                    case LABEL_ONLY:
+                        labelText = slider->getName();
+                        break;
+                    case VALUE_ONLY:
+                        labelText = slider->getTextFromValue(value);
+                        break;
+                    case VISIBLE:
+                    default:
+                        labelText = isMouseOver ? slider->getTextFromValue(value) : slider->getName();
+                        break;
                 }
             }
         }
         
         g.drawFittedText(labelText, textArea, label.getJustificationType(),
-                          juce::jmax (1, (int) ((float) textArea.getHeight() / font.getHeight())), label.getMinimumHorizontalScale());
+                          juce::jmax (1, static_cast<int>(static_cast<float>(textArea.getHeight()) / font.getHeight())), label.getMinimumHorizontalScale());
 
         g.setColour(labelColor);
     }
@@ -216,5 +209,9 @@ void Dial::drawLabel (juce::Graphics& g, juce::Label& label)
     }
 }
 
+void Dial::setLabelVisibility(LabelVisibility visibility)
+{
+    _labelVisibility = visibility;
+}
 
 }

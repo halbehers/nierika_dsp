@@ -7,11 +7,11 @@ Value::Value(const std::string& identifier, const std::string& name, const std::
     Component(identifier, name)
 {
     addAndMakeVisible(_value);
-    _value.setFont(Theme::BOLD, Theme::HEADING);
+    _value.setFont(Theme::BOLD, Theme::SUBTITLE);
     _value.setJustificationType(juce::Justification::centredRight);
     _value.setText("-", false);
     
-    _unit.setFont(Theme::THIN, Theme::HEADING);
+    _unit.setFont(Theme::THIN, Theme::SUBTITLE);
     _unit.setColor(Theme::getInstance().getColor(Theme::TEXT).asJuce().withAlpha(0.7f));
     _unit.setJustificationType(juce::Justification::centredLeft);
     if (unit != "") {
@@ -34,9 +34,9 @@ std::string Value::getValue() const
     return _value.getText();
 }
 
-void Value::setUnit(const std::string& value)
+void Value::setUnit(const std::string& unit)
 {
-    _unit.setText(value);
+    _unit.setText(unit);
 }
 
 void Value::paint(juce::Graphics& g)
@@ -54,8 +54,10 @@ void Value::resized()
     Component::resized();
     const int x = getLocalBounds().getX();
     const int width = getLocalBounds().getWidth();
-    _value.setBounds(getLocalBounds().withRight(static_cast<int>(x + (width - width / 2 - _gap / 2))));
-    _unit.setBounds(getLocalBounds().withLeft(static_cast<int>(x + (width - width / 2 + _gap / 2))));
+    const float realGap = _gap - 4.f;
+
+    _value.setBounds(getLocalBounds().withRight(static_cast<int>(x + (width - width / 2 - realGap / 2))));
+    _unit.setBounds(getLocalBounds().withLeft(static_cast<int>(x + (width - width / 2 + realGap / 2))));
 }
 
 }

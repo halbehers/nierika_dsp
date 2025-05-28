@@ -5,7 +5,7 @@
 namespace nierika::gui::element
 {
 
-class IncrementalButton: public juce::ArrowButton
+class IncrementalButton final: public juce::ArrowButton
 {
 public:
     enum Type

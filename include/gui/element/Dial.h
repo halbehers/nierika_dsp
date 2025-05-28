@@ -24,6 +24,8 @@ public:
     void resized() override;
     void setShortLabel(const juce::String& shortLabel);
     void setEnabled(bool isEnabled);
+
+    void setLabelVisibility(laf::Dial::LabelVisibility visibility);
     
 protected:
     float _minValue;

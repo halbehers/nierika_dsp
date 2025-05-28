@@ -28,10 +28,10 @@ IncrementalButton::~IncrementalButton()
 
 void IncrementalButton::paintButton(juce::Graphics& g, bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown)
 {
-    auto whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asHexString();
-    auto highlightedColor = Theme::getInstance().getColor(Theme::ThemeColor::LIGHT_SHADE).asHexString();
-    auto downColor = Theme::getInstance().getColor(Theme::ThemeColor::MEDIUM_SHADE).asHexString();
-    auto disabledColor = Theme::getInstance().getColor(Theme::ThemeColor::DISABLED).asHexString();
+    const std::string whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asHexString();
+    const std::string highlightedColor = Theme::getInstance().getColor(Theme::ThemeColor::LIGHT_SHADE).asHexString();
+    const std::string downColor = Theme::getInstance().getColor(Theme::ThemeColor::MEDIUM_SHADE).asHexString();
+    const std::string disabledColor = Theme::getInstance().getColor(Theme::ThemeColor::DISABLED).asHexString();
     
     auto color = whiteColor;
     
@@ -47,8 +47,12 @@ void IncrementalButton::paintButton(juce::Graphics& g, bool shouldDrawButtonAsHi
     {
         color = downColor;
     }
-    
-    helpers::drawFromSVG(g, _svgBinary, color, 0, 0, 11, 11, juce::AffineTransform());
+
+    const int size = std::min(getWidth(), getHeight());
+
+    constexpr int padding = 16;
+
+    helpers::drawFromSVG(g, _svgBinary, color, padding, padding, size - padding * 2, size - padding * 2, juce::AffineTransform());
 }
 
 }
