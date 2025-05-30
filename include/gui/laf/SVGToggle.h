@@ -7,7 +7,7 @@
 namespace nierika::gui::laf
 {
 
-class SVGToggle : public juce::LookAndFeel_V4
+class SVGToggle final : public juce::LookAndFeel_V4
 {
 public:
     SVGToggle() = default;

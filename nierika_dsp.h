@@ -93,6 +93,7 @@
 #include "include/gui/laf/SVGButton.h"
 #include "include/gui/laf/SVGToggle.h"
 #include "include/gui/laf/TextButton.h"
+#include "include/gui/laf/PitchSlider.h"
 #include "include/gui/layout/GridLayout.h"
 #include "include/gui/layout/GridLayoutItem.h"
 #include "include/gui/layout/AppLayout.h"

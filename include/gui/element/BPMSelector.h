@@ -4,6 +4,7 @@
 #include "IncrementalButton.h"
 #include "Value.h"
 #include "../../dsp/ParameterManager.h"
+#include "nierika_dsp/include/gui/laf/PitchSlider.h"
 #include "nierika_dsp/include/gui/layout/GridLayout.h"
 
 namespace nierika::gui::element
@@ -32,6 +33,7 @@ protected:
 
     layout::GridLayout<Component> _gridLayout;
 
+    laf::PitchSlider _lookAndFeel;
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> _attachment;
 

@@ -3,7 +3,7 @@
 namespace nierika::gui::laf
 {
 
-class Dial : public juce::LookAndFeel_V4
+class Dial final : public juce::LookAndFeel_V4
 {
 public:
     enum LabelVisibility
@@ -30,7 +30,7 @@ public:
         juce::Slider &slider
     ) override;
 
-    void drawLabel (juce::Graphics& g, juce::Label& label) override;
+    void drawLabel(juce::Graphics& g, juce::Label& label) override;
 
     void setShortLabel(const juce::String& shortLabel);
 

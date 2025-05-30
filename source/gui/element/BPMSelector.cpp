@@ -26,10 +26,11 @@ BPMSelector::BPMSelector(dsp::ParameterManager& parameterManager, const std::str
 
 void BPMSelector::setup()
 {
-    _slider.setSliderStyle(juce::Slider::SliderStyle::IncDecButtons);
+    _slider.setSliderStyle(juce::Slider::SliderStyle::LinearBar);
     _slider.setRange(_minValue, _maxValue);
     _slider.setValue(_defaultValue);
     _slider.setComponentID(getComponentID());
+    _slider.setLookAndFeel(&_lookAndFeel);
     _slider.onValueChange = [this] { _bpmValue.setValue(Formatter::formatDouble(_slider.getValue())); };
     _minusButton.onClick = [this] { _slider.setValue(_slider.getValue() - 0.1); };
     _plusButton.onClick = [this] { _slider.setValue(_slider.getValue() + 0.1); };
@@ -37,6 +38,7 @@ void BPMSelector::setup()
     _gridLayout.init({ 1 }, { 1, 3, 1 });
     _gridLayout.addComponent("minus", _minusButton, 0, 0, 1, 1);
     _gridLayout.addComponent(_bpmValue, 0, 1, 1, 1);
+    _gridLayout.addComponent("slider", _slider, 0, 1, 1, 1, 10);
     _gridLayout.addComponent("plus", _plusButton, 0, 2, 1, 1);
 
     _gridLayout.setRightBorder("minus", Theme::getInstance().getColor(Theme::EMPTY_SHADE).asJuce().withAlpha(.3f), .5f);

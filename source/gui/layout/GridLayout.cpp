@@ -374,18 +374,18 @@ void GridLayout<T>::replaceAll()
 }
 
 template<typename T>
-void GridLayout<T>::addComponent(const std::string& identifier, juce::Component& component, const int rowPosition, const int columnPosition, const int width, const int height, const Alignment alignment)
+void GridLayout<T>::addComponent(const std::string& identifier, juce::Component& component, const int rowPosition, const int columnPosition, const int width, const int height, int zOrder, const Alignment alignment)
 {
-    _component.addAndMakeVisible(component, -1);
+    _component.addAndMakeVisible(component, zOrder);
 
     _componentsById.emplace(identifier, component);
     _itemsById.emplace(identifier, GridLayoutItem(identifier, rowPosition, columnPosition, width, height, alignment));
 }
 
 template<typename T>
-void GridLayout<T>::addComponent(Component& component, const int rowPosition, const int columnPosition, const int width, const int height, const Alignment alignment)
+void GridLayout<T>::addComponent(Component& component, const int rowPosition, const int columnPosition, const int width, const int height, int zOrder, const Alignment alignment)
 {
-    _component.addAndMakeVisible(component, -1);
+    _component.addAndMakeVisible(component, zOrder);
 
     _componentsById.emplace(component.getID(), component);
     _itemsById.emplace(component.getID(), GridLayoutItem(component.getID(), rowPosition, columnPosition, width, height, alignment));
@@ -952,10 +952,10 @@ template void GridLayout<juce::Component>::paint(juce::Graphics& g);
 template void GridLayout<Component>::paint(juce::Graphics& g);
 template void GridLayout<juce::Component>::resized() noexcept;
 template void GridLayout<Component>::resized() noexcept;
-template void GridLayout<juce::Component>::addComponent(const std::string& identifier, juce::Component& component, int rowPosition, int columnPosition, int width, int height, Alignment alignment);
-template void GridLayout<Component>::addComponent(const std::string& identifier, juce::Component& component, int rowPosition, int columnPosition, int width, int height, Alignment alignment);
-template void GridLayout<juce::Component>::addComponent(Component& component, int rowPosition, int columnPosition, int width, int height, Alignment alignment);
-template void GridLayout<Component>::addComponent(Component& component, int rowPosition, int columnPosition, int width, int height, Alignment alignment);
+template void GridLayout<juce::Component>::addComponent(const std::string& identifier, juce::Component& component, int rowPosition, int columnPosition, int width, int height, int zOrder, Alignment alignment);
+template void GridLayout<Component>::addComponent(const std::string& identifier, juce::Component& component, int rowPosition, int columnPosition, int width, int height, int zOrder, Alignment alignment);
+template void GridLayout<juce::Component>::addComponent(Component& component, int rowPosition, int columnPosition, int width, int height, int zOrder, Alignment alignment);
+template void GridLayout<Component>::addComponent(Component& component, int rowPosition, int columnPosition, int width, int height, int zOrder, Alignment alignment);
 template void GridLayout<juce::Component>::replace(const std::string& identifier);
 template void GridLayout<Component>::replace(const std::string& identifier);
 template float GridLayout<juce::Component>::getColumn(int position) const;

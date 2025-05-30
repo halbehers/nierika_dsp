@@ -26,6 +26,16 @@ IncrementalButton::~IncrementalButton()
 {
 }
 
+void IncrementalButton::setPadding(int padding)
+{
+    _padding = padding;
+}
+
+int IncrementalButton::getPadding() const
+{
+    return _padding;
+}
+
 void IncrementalButton::paintButton(juce::Graphics& g, bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown)
 {
     const std::string whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asHexString();
@@ -50,9 +60,10 @@ void IncrementalButton::paintButton(juce::Graphics& g, bool shouldDrawButtonAsHi
 
     const int size = std::min(getWidth(), getHeight());
 
-    constexpr int padding = 16;
+    const int baseX = std::max(0, getWidth() - size) / 2;
+    const int baseY = std::max(0, getHeight() - size) / 2;
 
-    helpers::drawFromSVG(g, _svgBinary, color, padding, padding, size - padding * 2, size - padding * 2, juce::AffineTransform());
+    helpers::drawFromSVG(g, _svgBinary, color, baseX + getPadding(), baseY + getPadding(), size - getPadding() * 2, size - getPadding() * 2, juce::AffineTransform());
 }
 
 }

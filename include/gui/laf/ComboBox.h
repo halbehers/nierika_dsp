@@ -3,7 +3,7 @@
 namespace nierika::gui::laf
 {
 
-class ComboBox : public juce::LookAndFeel_V4
+class ComboBox final : public juce::LookAndFeel_V4
 {
 public:
     ComboBox() = default;

@@ -3,7 +3,7 @@
 namespace nierika::gui::laf
 {
 
-class BoxToggle : public juce::LookAndFeel_V4
+class BoxToggle final : public juce::LookAndFeel_V4
 {
 public:
     BoxToggle() = default;

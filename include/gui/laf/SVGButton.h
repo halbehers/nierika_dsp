@@ -3,7 +3,7 @@
 namespace nierika::gui::laf
 {
 
-class SVGButton : public juce::LookAndFeel_V4
+class SVGButton final : public juce::LookAndFeel_V4
 {
 public:
     SVGButton() = default;

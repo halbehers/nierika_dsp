@@ -59,6 +59,7 @@
 #include "source/gui/laf/SVGButton.cpp"
 #include "source/gui/laf/SVGToggle.cpp"
 #include "source/gui/laf/TextButton.cpp"
+#include "source/gui/laf/PitchSlider.cpp"
 #include "source/gui/layout/GridLayout.cpp"
 #include "source/gui/layout/GridLayoutItem.cpp"
 #include "source/gui/layout/AppLayout.cpp"

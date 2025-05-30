@@ -3,7 +3,7 @@
 namespace nierika::gui::laf
 {
 
-class TextButton : public juce::LookAndFeel_V4
+class TextButton final : public juce::LookAndFeel_V4
 {
 public:
     TextButton() = default;

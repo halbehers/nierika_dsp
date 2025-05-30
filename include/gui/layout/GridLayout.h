@@ -69,8 +69,8 @@ public:
     void paint(juce::Graphics& g);
     void resized() noexcept;
 
-    void addComponent(const std::string& identifier, juce::Component& component, int rowPosition, int columnPosition, int width, int height, Alignment alignment = Alignment::TOP_LEFT);
-    void addComponent(Component& component, int rowPosition, int columnPosition, int width, int height, Alignment alignment = Alignment::TOP_LEFT);
+    void addComponent(const std::string& identifier, juce::Component& component, int rowPosition, int columnPosition, int width, int height, int zOrder = -1, Alignment alignment = Alignment::TOP_LEFT);
+    void addComponent(Component& component, int rowPosition, int columnPosition, int width, int height, int zOrder = -1, Alignment alignment = Alignment::TOP_LEFT);
     void replace(const std::string& identifier);
     
     [[nodiscard]] float getColumn(int position) const;

@@ -26,11 +26,11 @@ void Dial::drawRotarySlider
     _sliderName = slider.getName();
     
     /** Define color variables for customization. */
-    const auto outlineColor = slider.findColour (juce::Slider::rotarySliderOutlineColourId);
-    const auto fillColor = slider.findColour(juce::Slider::rotarySliderFillColourId);
-    const auto disabledColor = Theme::getInstance().getColor(Theme::ThemeColor::DISABLED).asJuce();
-    const auto transparentColor = Theme::getInstance().getColor(Theme::ThemeColor::TRANSPARENT).asJuce();
-    const auto whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
+    const juce::Colour outlineColor = slider.findColour (juce::Slider::rotarySliderOutlineColourId);
+    const juce::Colour fillColor = slider.findColour(juce::Slider::rotarySliderFillColourId);
+    const juce::Colour disabledColor = Theme::getInstance().getColor(Theme::ThemeColor::DISABLED).asJuce();
+    const juce::Colour transparentColor = Theme::getInstance().getColor(Theme::ThemeColor::TRANSPARENT).asJuce();
+    const juce::Colour whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
 
     auto dialBounds = juce::Rectangle<int>(x, y, width, height).toFloat();
     auto centre = dialBounds.getCentre();

@@ -3,7 +3,7 @@
 namespace nierika::gui::laf
 {
 
-class IncrementalButtons : public juce::LookAndFeel_V4
+class IncrementalButtons final : public juce::LookAndFeel_V4
 {
 public:
     IncrementalButtons() = default;
