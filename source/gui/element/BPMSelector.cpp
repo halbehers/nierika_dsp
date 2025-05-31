@@ -64,6 +64,7 @@ void BPMSelector::setEnabled(bool isEnabled)
     _minusButton.setEnabled(isEnabled);
     _bpmValue.setEnabled(isEnabled);
     _plusButton.setEnabled(isEnabled);
+    _slider.setEnabled(isEnabled);
 }
 
 }

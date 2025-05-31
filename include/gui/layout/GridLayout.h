@@ -38,6 +38,12 @@ public:
         juce::Colour dropableZoneColor = Theme::getInstance().getColor(Theme::ThemeColor::ACCENT).asJuce();
         juce::Colour dropableOnZoneColor = Theme::getInstance().getColor(Theme::ThemeColor::WARNING).asJuce();
     };
+
+    struct Listener
+    {
+        virtual ~Listener() = default;
+        virtual void onItemSwaped(const std::string& firstSwapedItemID, const std::string& secondSwapedItemID) = 0;
+    };
     
     enum Direction
     {
@@ -136,13 +142,16 @@ public:
     void setVisible(bool isVisible);
     [[nodiscard]] bool isVisible() const { return _isVisible; }
 
+    void addListener(Listener* listener);
+    void removeListener(Listener* listener);
+
 protected:
     T& _component;
 
     std::vector<float> _gridRatioRows, _gridRatioColumns;
     std::vector<float> _gridRows, _gridColumns;
     std::vector<float> _gridResizedRatioRows, _gridResizedRatioColumns;
-    
+
     std::vector<ResizableLine> _resizableLines;
 
     int _columnSum = 1, _rowSum = 1;
@@ -167,6 +176,8 @@ protected:
     
     std::unordered_map<std::string, GridLayoutItem> _itemsById;
     std::unordered_map<std::string, juce::Component&> _componentsById {};
+
+    std::vector<Listener*> _listeners;
     
     void replace(GridLayoutItem& item);
     void replaceAll();
@@ -193,6 +204,8 @@ protected:
     std::vector<GridLayoutItem> getPortItemsImpactedByResize(int position, bool isHorizontal);
     std::vector<GridLayoutItem> getStarboardItemsImpactedByResize(int position, bool isHorizontal);
     bool canBeMovedInto(const GridLayoutItem& itemToMove, const GridLayoutItem& itemToMoveInto);
+
+    void notifyListenersOnItemSwaped(const std::string& firstSwapedItemID, const std::string& secondSwapedItemID);
 };
 
 }

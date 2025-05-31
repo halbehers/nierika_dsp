@@ -33,7 +33,8 @@ void PitchSlider::drawLinearSlider(
     g.fillRect(x - 1, y - 1, static_cast<int>(sliderPos) - thumbSize / 2 + 1, height + 2);
 
     g.setColour(slider.isEnabled() ? thumbColor : disabledColor);
-    g.fillRect(x + static_cast<int>(sliderPos) - thumbSize / 2, y - 1, thumbSize, height + 2);
+    const int thumbX = std::min(x + static_cast<int>(sliderPos) - thumbSize / 2, x + width - thumbSize);
+    g.fillRect(thumbX, y - 1, thumbSize, height + 2);
 }
 
 void PitchSlider::drawLabel(juce::Graphics& g, juce::Label& label)
@@ -43,5 +44,3 @@ void PitchSlider::drawLabel(juce::Graphics& g, juce::Label& label)
 }
 
 }
-
-// min: 0, max: 200, value: 120 -> 120 - 0 = 120 / 200 = 0.6 * 100 = 60

@@ -73,6 +73,11 @@ public:
     juce::Rectangle<int> getLocalBounds();
     juce::Rectangle<int> getOuterLocalBounds();
 
+    int getOuterX();
+    int getOuterY();
+    int getOuterWidth();
+    int getOuterHeight();
+
 private:
     std::string _tooltip;
     bool _tooltipEnabled = false;

@@ -2,6 +2,7 @@
 
 #include "../Component.h"
 #include "../../dsp/RMSProcessor.h"
+#include "../layout/GridLayout.h"
 
 namespace nierika::gui::element
 {
@@ -22,6 +23,8 @@ private:
     const dsp::RMSProcessor& _rmsProcessor;
     Level _levelMeterLeft;
     Level _levelMeterRight;
+
+    layout::GridLayout<juce::Component> _layout;
 
     void init();
     

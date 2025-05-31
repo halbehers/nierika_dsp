@@ -2,14 +2,16 @@ namespace nierika::gui::element
 {
 
 Levels::Levels(const dsp::RMSProcessor& rmsProcessor):
-    _rmsProcessor(rmsProcessor)
+    _rmsProcessor(rmsProcessor),
+    _layout(*this)
 {
     init();
 }
 
 Levels::Levels(const std::string& identifier, const dsp::RMSProcessor& rmsProcessor):
     Component(identifier),
-    _rmsProcessor(rmsProcessor)
+    _rmsProcessor(rmsProcessor),
+    _layout(*this)
 {
     init();
 }
@@ -17,9 +19,12 @@ Levels::Levels(const std::string& identifier, const dsp::RMSProcessor& rmsProces
 void Levels::init()
 {
     setName("Levels");
-    addAndMakeVisible(_levelMeterLeft);
-    addAndMakeVisible(_levelMeterRight);
     startTimerHz(24);
+
+    _layout.init({ 1 }, { 1, 1, 1 });
+
+    _layout.addComponent("left", _levelMeterLeft, 0, 0, 1, 1);
+    _layout.addComponent("right", _levelMeterRight, 0, 2, 1, 1);
 }
 
 Levels::~Levels()
@@ -38,22 +43,14 @@ void Levels::timerCallback()
 void Levels::paint (juce::Graphics& g)
 {
     Component::paint(g);
+    _layout.paint(g);
 }
 
 void Levels::resized()
 {
-    juce::Grid grid;
-    
-    using Track = juce::Grid::TrackInfo;
-    using Fr = juce::Grid::Fr;
-    
-    grid.templateRows = { Track (Fr (1)) };
-    grid.templateColumns = { Track (Fr (1)), Track (Fr (1)) };
-    grid.setGap(juce::Grid::Px(4));
-    grid.items = { juce::GridItem(_levelMeterLeft), juce::GridItem(_levelMeterRight) };
-    
-    grid.performLayout(getLocalBounds());
     Component::resized();
+
+    _layout.resized();
 }
 
 }

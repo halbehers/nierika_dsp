@@ -50,6 +50,26 @@ juce::Rectangle<int> Component::getOuterLocalBounds()
     return _margin.computeBounds().toNearestInt();
 }
 
+int Component::getOuterX()
+{
+    return getOuterLocalBounds().getX();
+}
+
+int Component::getOuterY()
+{
+    return getOuterLocalBounds().getY();
+}
+
+int Component::getOuterWidth()
+{
+    return getOuterLocalBounds().getWidth();
+}
+
+int Component::getOuterHeight()
+{
+    return getOuterLocalBounds().getHeight();
+}
+
 juce::Rectangle<int> Component::getLocalBounds()
 {
     return _padding.computeBounds(getOuterLocalBounds().toFloat()).toNearestInt();

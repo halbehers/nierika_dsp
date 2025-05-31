@@ -848,7 +848,8 @@ void GridLayout<T>::mouseUp(const juce::MouseEvent& event)
                 itemToSwap.setWidth(static_cast<int>(newItemWidth));
                 itemToSwap.setHeight(static_cast<int>(newItemHeight));
                 _component.resized();
-                break;
+
+                notifyListenersOnItemSwaped(itemToSwap.getID(), itemToSwapWith.getID());
             }
         }
     }
@@ -919,6 +920,30 @@ void GridLayout<T>::setVisible(const bool isVisible)
     for (auto& component : _componentsById)
     {
         component.second.setVisible(isVisible);
+    }
+}
+
+template<typename T>
+void GridLayout<T>::addListener(Listener* listener)
+{
+    _listeners.push_back(listener);
+}
+
+template<typename T>
+void GridLayout<T>::removeListener(Listener* listener)
+{
+    _listeners.erase(
+        std::remove(_listeners.begin(), _listeners.end(), listener),
+        _listeners.end()
+    );
+}
+
+template<typename T>
+void GridLayout<T>::notifyListenersOnItemSwaped(const std::string& firstSwapedItemID, const std::string& secondSwapedItemID)
+{
+    for (auto* listener : _listeners)
+    {
+        listener->onItemSwaped(firstSwapedItemID, secondSwapedItemID);
     }
 }
 
@@ -1075,5 +1100,13 @@ template bool GridLayout<Component>::canBeMovedInto(const GridLayoutItem& itemTo
 
 template void GridLayout<juce::Component>::reset();
 template void GridLayout<Component>::reset();
+
+template void GridLayout<juce::Component>::notifyListenersOnItemSwaped(const std::string& firstSwapedItemID, const std::string& secondSwapedItemID);
+template void GridLayout<Component>::notifyListenersOnItemSwaped(const std::string& firstSwapedItemID, const std::string& secondSwapedItemID);
+
+template void GridLayout<juce::Component>::addListener(Listener* listener);
+template void GridLayout<Component>::addListener(Listener* listener);
+template void GridLayout<juce::Component>::removeListener(Listener* listener);
+template void GridLayout<Component>::removeListener(Listener* listener);
 
 }

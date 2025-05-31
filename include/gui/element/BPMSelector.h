@@ -21,7 +21,7 @@ public:
     void resized() override;
     void setEnabled(bool isEnabled);
 
-protected:
+private:
     float _minValue;
     float _maxValue;
     float _defaultValue;
@@ -37,7 +37,7 @@ protected:
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> _attachment;
 
-    virtual void setup();
+    void setup();
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BPMSelector)
 };
