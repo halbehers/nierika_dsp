@@ -23,11 +23,11 @@ std::unordered_map<Theme::FontSize, float> Theme::fontSizesToPixels = {
 
 std::unordered_map<Theme::FontWeight, juce::Font> Theme::fontWeightToFont = {
     {
-        { Theme::BOLD, EmbeddedFonts::getBold() },
-        { Theme::MEDIUM, EmbeddedFonts::getMedium() },
-        { Theme::REGULAR, EmbeddedFonts::getRegular() },
-        { Theme::LIGHT, EmbeddedFonts::getLight() },
-        { Theme::THIN, EmbeddedFonts::getThin() }
+        { BOLD, EmbeddedFonts::getBold() },
+        { MEDIUM, EmbeddedFonts::getMedium() },
+        { REGULAR, EmbeddedFonts::getRegular() },
+        { LIGHT, EmbeddedFonts::getLight() },
+        { THIN, EmbeddedFonts::getThin() }
     }
 };
 
