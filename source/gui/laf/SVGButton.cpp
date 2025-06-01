@@ -18,10 +18,10 @@ void SVGButton::drawDrawableButton
     bool shouldDrawButtonAsDown
 )
 {
-    auto whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asHexString();
-    auto highlightedColor = Theme::getInstance().getColor(Theme::ThemeColor::LIGHT_SHADE).asHexString();
-    auto downColor = Theme::getInstance().getColor(Theme::ThemeColor::MEDIUM_SHADE).asHexString();
-    auto disabledColor = Theme::getInstance().getColor(Theme::ThemeColor::DISABLED).asHexString();
+    const std::string whiteColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asHexString();
+    const std::string highlightedColor = Theme::newColor(Theme::ThemeColor::LIGHT_SHADE).asHexString();
+    const std::string downColor = Theme::newColor(Theme::ThemeColor::MEDIUM_SHADE).asHexString();
+    const std::string disabledColor = Theme::newColor(Theme::ThemeColor::DISABLED).asHexString();
     
     auto color = whiteColor;
     

@@ -8,7 +8,7 @@ Title::Title(const std::string& title, const bool withGlowEffect):
     Component("title")
 {
     addAndMakeVisible(_title);
-    const auto textColor = Theme::getInstance().getColor(Theme::TEXT).asJuce();
+    const auto textColor = Theme::newColor(Theme::TEXT).asJuce();
     if (withGlowEffect)
         _glowEffect.setGlowProperties(6.0, textColor.withAlpha(0.3f));
     else 
@@ -16,7 +16,7 @@ Title::Title(const std::string& title, const bool withGlowEffect):
     _title.setText(title, juce::dontSendNotification);
     _title.setColour(juce::Label::textColourId, textColor);
     _title.setJustificationType(juce::Justification::centred);
-    _title.setFont(Theme::getInstance().getFont(Theme::BOLD, Theme::TITLE));
+    _title.setFont(Theme::newFont(Theme::BOLD, Theme::TITLE));
     _title.setComponentEffect(&_glowEffect);
 }
 

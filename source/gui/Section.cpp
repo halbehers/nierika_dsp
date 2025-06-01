@@ -89,8 +89,8 @@ void Section::setSectionName(const std::string& name)
     if (!name.empty())
     {
         addAndMakeVisible(_nameLabel);
-        _nameLabel.setFont(EmbeddedFonts::getLight().withHeight(16.0f));
-        _nameLabel.setColour(juce::Label::ColourIds::textColourId, Theme::getInstance().getColor(Theme::ThemeColor::TEXT).asJuce());
+        _nameLabel.setFont(Theme::newFont(Theme::LIGHT, Theme::SUBTITLE));
+        _nameLabel.setColour(juce::Label::ColourIds::textColourId, Theme::newColor(Theme::ThemeColor::TEXT).asJuce());
         _nameLabel.setJustificationType(juce::Justification::centred);
         setHasHeader(true);
     }
@@ -114,8 +114,8 @@ void Section::displayBorder()
 
 void Section::displayBackground()
 {
-    const juce::Colour whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
-    const juce::Colour grayColor = Theme::getInstance().getColor(Theme::ThemeColor::LIGHTER_SHADE).asJuce();
+    const juce::Colour whiteColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
+    const juce::Colour grayColor = Theme::newColor(Theme::ThemeColor::LIGHTER_SHADE).asJuce();
 
     Component::displayBackground(juce::ColourGradient(whiteColor.withAlpha(0.1f), getWidth() / 2, 0.0, grayColor.withAlpha(0.1f), getWidth() / 2, getHeight(), false), 17.f);
 }
@@ -125,7 +125,7 @@ void Section::paint(juce::Graphics& g)
     Component::paint(g);
     getActiveLayout().paint(g);
 
-    g.setColour(Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce());
+    g.setColour(Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce());
     g.setFont(juce::FontOptions (14.0f));
 }
 
@@ -186,7 +186,7 @@ void Section::removePanel(const std::string& panelID)
     }
     else
     {
-        utils::AppLogger::get().warn("Panel ID not found: " + panelID, "Section::removePanel");
+        utils::AppLogger::warn("Panel ID not found: " + panelID, "Section::removePanel");
     }
 
     _tabs.removeTab(panelID);
@@ -217,7 +217,7 @@ void Section::switchPanel(const std::string& panelID)
     if (panelID == _selectedPanelID) return;
     if (!_panelLayoutsByID.contains(panelID))
     {
-        utils::AppLogger::get().warn("Panel ID not found: " + panelID, "Section::switchPanel");
+        utils::AppLogger::warn("Panel ID not found: " + panelID, "Section::switchPanel");
         return;
     }
     getActiveLayout().setVisible(false);
@@ -242,7 +242,7 @@ int Section::computeNbOfColumns(const int maxNbColumns, const std::string& panel
 
     if (registeredComponents.empty())
     {
-        utils::AppLogger::get().warn("Call to initLayout() without any registered components.", "Section");
+        utils::AppLogger::warn("Call to initLayout() without any registered components.", "Section");
         return 0;
     }
 
@@ -255,7 +255,7 @@ int Section::computeNbOfRows(const int maxNbRows, const int nbOfColumns, const s
 
     if (registeredComponents.empty())
     {
-        utils::AppLogger::get().warn("Call to initLayout() without any registered components.", "Section");
+        utils::AppLogger::warn("Call to initLayout() without any registered components.", "Section");
         return 0;
     }
 

@@ -6,7 +6,7 @@ namespace nierika::gui::element
 {
 
 IncrementalButton::IncrementalButton(const juce::String& buttonName, Type type):
-    juce::ArrowButton(buttonName, 0.0f, Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce()),
+    juce::ArrowButton(buttonName, 0.0f, Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce()),
     _type(type),
     _svgBinary(type == Type::PLUS ? Icons::getPlus() : Icons::getMinus())
 {
@@ -15,7 +15,7 @@ IncrementalButton::IncrementalButton(const juce::String& buttonName, Type type):
 
 
 IncrementalButton::IncrementalButton(Type type):
-    juce::ArrowButton(type == Type::PLUS ? "Plus" : "Minus", 0.0f, Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce()),
+    juce::ArrowButton(type == Type::PLUS ? "Plus" : "Minus", 0.0f, Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce()),
     _type(type),
     _svgBinary(type == Type::PLUS ? Icons::getPlus() : Icons::getMinus())
 {
@@ -38,10 +38,10 @@ int IncrementalButton::getPadding() const
 
 void IncrementalButton::paintButton(juce::Graphics& g, bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown)
 {
-    const std::string whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asHexString();
-    const std::string highlightedColor = Theme::getInstance().getColor(Theme::ThemeColor::LIGHT_SHADE).asHexString();
-    const std::string downColor = Theme::getInstance().getColor(Theme::ThemeColor::MEDIUM_SHADE).asHexString();
-    const std::string disabledColor = Theme::getInstance().getColor(Theme::ThemeColor::DISABLED).asHexString();
+    const std::string whiteColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asHexString();
+    const std::string highlightedColor = Theme::newColor(Theme::ThemeColor::LIGHT_SHADE).asHexString();
+    const std::string downColor = Theme::newColor(Theme::ThemeColor::MEDIUM_SHADE).asHexString();
+    const std::string disabledColor = Theme::newColor(Theme::ThemeColor::DISABLED).asHexString();
     
     auto color = whiteColor;
     

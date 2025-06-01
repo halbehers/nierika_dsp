@@ -4,9 +4,32 @@
 #include <string>
 
 #include "../../include/gui/Theme.h"
+#include "../../include/gui/EmbeddedFonts.h"
 
 namespace nierika::gui
 {
+
+std::unordered_map<Theme::FontSize, float> Theme::fontSizesToPixels = {
+    {
+        { TITLE, 32.f },
+        { SUBTITLE, 16.f },
+        { HEADING, 14.f },
+        { CAPTION, 12.f },
+        { PARAGRAPH, 11.f },
+        { LABEL, 10.f },
+        { SMALL, 8.f }
+    }
+};
+
+std::unordered_map<Theme::FontWeight, juce::Font> Theme::fontWeightToFont = {
+    {
+        { Theme::BOLD, EmbeddedFonts::getBold() },
+        { Theme::MEDIUM, EmbeddedFonts::getMedium() },
+        { Theme::REGULAR, EmbeddedFonts::getRegular() },
+        { Theme::LIGHT, EmbeddedFonts::getLight() },
+        { Theme::THIN, EmbeddedFonts::getThin() }
+    }
+};
 
 Theme::Color::Color(const ThemeColor color):
     _color(color)
@@ -31,19 +54,19 @@ std::string Theme::Color::asHexString() const
     return oss.str();
 }
 
-Theme::Color Theme::getColor(ThemeColor color)
+Theme::Color Theme::newColor(ThemeColor color)
 {
     return Color(color);
 }
 
-juce::Font Theme::getFont(FontWeight style, FontSize size) const
+juce::Font Theme::newFont(FontWeight style, FontSize size)
 {
-    return _fontWeightToFont.at(style).withHeight(_fontSizesToPixels.at(size));
+    return fontWeightToFont.at(style).withHeight(getFontSizeInPixels(size));
 }
 
-const float Theme::getFontSizeInPixels(const FontSize size) const
+float Theme::getFontSizeInPixels(const FontSize size)
 {
-    return _fontSizesToPixels.at(size);
+    return fontSizesToPixels.at(size);
 }
 
 }

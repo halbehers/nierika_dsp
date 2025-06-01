@@ -11,9 +11,9 @@ Slider::Slider(const juce::String& label, float minValue, float maxValue, float 
     setRange(minValue, maxValue);
     setValue(defaultValue);
     juce::Slider::setName(label);
-    auto transparentColor = Theme::getInstance().getColor(Theme::ThemeColor::TRANSPARENT).asJuce();
-    auto whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
-    auto accentColor = Theme::getInstance().getColor(Theme::ThemeColor::ACCENT).asJuce();
+    const juce::Colour transparentColor = Theme::newColor(Theme::ThemeColor::TRANSPARENT).asJuce();
+    const juce::Colour whiteColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
+    const juce::Colour accentColor = Theme::newColor(Theme::ThemeColor::ACCENT).asJuce();
     setColour(juce::Slider::ColourIds::rotarySliderFillColourId, accentColor);
     setColour(juce::Slider::ColourIds::trackColourId, accentColor);
     setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, transparentColor);
@@ -39,8 +39,8 @@ Slider::Slider(const juce::String& label, float minValue, float maxValue, float 
 void Slider::setEnabled(bool isEnabled)
 {
     juce::Slider::setEnabled(isEnabled);
-    auto whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
-    auto disabledColor = Theme::getInstance().getColor(Theme::ThemeColor::DISABLED).asJuce();
+    const juce::Colour whiteColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
+    const juce::Colour disabledColor = Theme::newColor(Theme::ThemeColor::DISABLED).asJuce();
     _labelComponent.setColour(juce::Label::ColourIds::textColourId, isEnabled ? whiteColor : disabledColor);
 }
 

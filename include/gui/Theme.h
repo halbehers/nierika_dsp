@@ -3,9 +3,6 @@
 #include <unordered_map>
 #include <string>
 
-#include "EmbeddedFonts.h"
-#include "../utils/Singleton.h"
-
 #define COLOR_WHITE 0xFFFFF8F8
 
 #define COLOR_GRAY_50 0xFF808080
@@ -44,7 +41,7 @@
 namespace nierika::gui
 {
 
-class Theme: public utils::Singleton<Theme>
+class Theme
 {
 public:    
     enum ThemeColor
@@ -118,33 +115,15 @@ public:
         };
     };
 
-    [[nodiscard]] juce::Font getFont(FontWeight weight, FontSize size = PARAGRAPH) const;
-    [[nodiscard]] const float getFontSizeInPixels(FontSize size) const;
-    
-    Color getColor(ThemeColor color);
+
+    static Color newColor(ThemeColor color);
+    [[nodiscard]] static juce::Font newFont(FontWeight weight, FontSize size = PARAGRAPH);
+    [[nodiscard]] static float getFontSizeInPixels(FontSize size);
 
 private:
-    std::unordered_map<FontSize, float> _fontSizesToPixels {
-        {
-            { TITLE, 32.f },
-            { SUBTITLE, 16.f },
-            { HEADING, 14.f },
-            { CAPTION, 12.f },
-            { PARAGRAPH, 11.f },
-            { LABEL, 10.f },
-            { SMALL, 8.f }
-        }
-    };
+    static std::unordered_map<FontSize, float> fontSizesToPixels;
+    static std::unordered_map<FontWeight, juce::Font> fontWeightToFont;
 
-    std::unordered_map<FontWeight, juce::Font> _fontWeightToFont {
-        {
-            { BOLD, EmbeddedFonts::getBold() },
-            { MEDIUM, EmbeddedFonts::getMedium() },
-            { REGULAR, EmbeddedFonts::getRegular() },
-            { LIGHT, EmbeddedFonts::getLight() },
-            { THIN, EmbeddedFonts::getThin() }
-        }
-    };
 };
 
 }

@@ -25,8 +25,8 @@ void ComboBox::drawComboBox
     (void) buttonY;
     (void) buttonW;
     (void) buttonH;
-    const auto whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE);
-    const auto disabledColor = Theme::getInstance().getColor(Theme::ThemeColor::DISABLED);
+    const auto whiteColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE);
+    const auto disabledColor = Theme::newColor(Theme::ThemeColor::DISABLED);
 
     const auto color = comboBox.isEnabled() ? whiteColor : disabledColor;
 
@@ -35,7 +35,7 @@ void ComboBox::drawComboBox
     g.fillRoundedRectangle(0.0, 0.0, width, height, 4.0);
     
     g.setColour(color.asJuce().withAlpha(0.6f));
-    g.setFont(EmbeddedFonts::getRegular().withHeight(14.0));
+    g.setFont(Theme::newFont(Theme::REGULAR, Theme::HEADING));
     g.drawRoundedRectangle(0.0, 0.0, width, height, 4.0, 1.0);
 
     constexpr int arrowSize = 16;
@@ -68,27 +68,27 @@ void ComboBox::drawPopupMenuItem
 
     if (isTicked)
     {
-        g.setColour(Theme::getInstance().getColor(Theme::ThemeColor::ACCENT).asJuce().darker().withAlpha(0.6f));
+        g.setColour(Theme::newColor(Theme::ThemeColor::ACCENT).asJuce().darker().withAlpha(0.6f));
     }
     else if (isHighlighted)
     {
-        g.setColour(Theme::getInstance().getColor(Theme::ThemeColor::ACCENT).asJuce().darker().withAlpha(0.6f));
+        g.setColour(Theme::newColor(Theme::ThemeColor::ACCENT).asJuce().darker().withAlpha(0.6f));
     }
     else
     {
-        g.setColour(Theme::getInstance().getColor(Theme::ThemeColor::PRIMARY).asJuce().darker().withAlpha(0.6f));
+        g.setColour(Theme::newColor(Theme::ThemeColor::PRIMARY).asJuce().darker().withAlpha(0.6f));
     }
     g.fillAll();
     
-    g.setColour(Theme::getInstance().getColor(Theme::ThemeColor::TEXT).asJuce());
-    g.setFont(EmbeddedFonts::getRegular().withHeight(13.0));
+    g.setColour(Theme::newColor(Theme::ThemeColor::TEXT).asJuce());
+    g.setFont(Theme::newFont(Theme::REGULAR, Theme::CAPTION));
     g.drawFittedText(text, area.reduced(4.0), juce::Justification::left, 1);
 }
 
 juce::Font ComboBox::getComboBoxFont(juce::ComboBox& comboBox)
 {
     (void) comboBox;
-    return EmbeddedFonts::getRegular().withHeight(14.0);
+    return Theme::newFont(Theme::REGULAR, Theme::HEADING);
 }
 
 }

@@ -72,7 +72,7 @@ protected:
     dsp::FXSequencer* _fxSequencer =  nullptr;
     dsp::ParameterManager& _parameterManager;
     juce::Label _nameLabel {};
-    
+
     element::SVGToggle _enabledButton;
     element::SVGToggle _fxSequencerButton;
 
@@ -90,6 +90,7 @@ protected:
 
     virtual juce::Rectangle<int> getBypassButtonBounds();
     virtual juce::Rectangle<int> getFXSequencerButtonBounds();
+
 
 private:
     std::unordered_map<std::string, std::unique_ptr<layout::GridLayout<Component>>> _panelLayoutsByID;

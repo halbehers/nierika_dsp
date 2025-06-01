@@ -23,9 +23,9 @@ void Crossfader::drawLinearSlider(
 
     slider.setTextBoxIsEditable(false);
 
-    const juce::Colour disabledColor = Theme::getInstance().getColor(Theme::ThemeColor::DISABLED).asJuce();
-    const juce::Colour trackColor = Theme::getInstance().getColor(Theme::ThemeColor::LIGHT_SHADE).asJuce().withAlpha(.2f);
-    const juce::Colour thumbColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
+    const juce::Colour disabledColor = Theme::newColor(Theme::ThemeColor::DISABLED).asJuce();
+    const juce::Colour trackColor = Theme::newColor(Theme::ThemeColor::LIGHT_SHADE).asJuce().withAlpha(.2f);
+    const juce::Colour thumbColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
     constexpr int trackSize = 2;
     constexpr int thumbSize = 10;
 

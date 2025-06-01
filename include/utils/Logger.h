@@ -60,8 +60,6 @@ private:
     juce::File currentLogFile {};
     juce::String currentDate {};
 
-    void setup();
-
     [[nodiscard]] std::tm getCurrentTimestamp() const;
     [[nodiscard]] std::string getCurrentDateAndTime() const;
     [[nodiscard]] std::string getCurrentDate() const;
@@ -81,9 +79,55 @@ private:
     [[nodiscard]] std::string getLogAsString(const Log& log) const;
 };
 
-struct AppLogger
+class AppLogger
 {
+public:
+    static void debug(const std::string& log, const std::string& source)
+    {
+        AppLogger::log(Logger::DEBUG_LEVEL, log, source);
+    }
+
+    static void info(const std::string& log, const std::string& source)
+    {
+        AppLogger::log(Logger::INFO_LEVEL, log, source);
+    }
+
+    static void warn(const std::string& log, const std::string& source)
+    {
+        AppLogger::log(Logger::WARN_LEVEL, log, source);
+    }
+
+    static void error(const std::string& log, const std::string& source)
+    {
+        AppLogger::log(Logger::ERROR_LEVEL, log, source);
+    }
+
+protected:
     static Logger& get();
+
+private:
+    static void log(const Logger::Level level, const std::string& log, const std::string& source)
+    {
+        return;
+        if (!Logger::isAlive()) return;
+
+        Logger& logger = get();
+        switch (level)
+        {
+            case Logger::DEBUG_LEVEL:
+                logger.debug(log, source);
+                break;
+            case Logger::INFO_LEVEL:
+                logger.info(log, source);
+                break;
+            case Logger::WARN_LEVEL:
+                logger.warn(log, source);
+                break;
+            case Logger::ERROR_LEVEL:
+                logger.error(log, source);
+                break;
+        }
+    }
 };
 
 }

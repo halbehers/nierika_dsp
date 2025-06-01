@@ -98,7 +98,7 @@ void GridLayout<T>::paint(juce::Graphics& g)
 
     if (_displayGrid)
     {
-        g.setColour(Theme::getInstance().getColor(Theme::ThemeColor::ACCENT).asJuce());
+        g.setColour(Theme::newColor(Theme::ThemeColor::ACCENT).asJuce());
         for (const float gridRow : _gridRows)
             g.drawHorizontalLine(static_cast<int>(gridRow), _gridColumns[0], _gridColumns[0] + _width);
         for (const float gridColumn : _gridColumns)

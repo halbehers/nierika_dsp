@@ -35,7 +35,7 @@ void Text::setFont(Theme::FontWeight weight, Theme::FontSize size)
 {
     _fontSize = size;
     _fontWeight = weight;
-    setFont(Theme::getInstance().getFont(weight, size));
+    setFont(Theme::newFont(weight, size));
 }
 
 void Text::resetFont()
@@ -57,7 +57,7 @@ void Text::setFontSize(Theme::FontSize size)
 
 void Text::setColor(Theme::ThemeColor color)
 {
-    _text.setColour(juce::Label::textColourId, Theme::getInstance().getColor(color).asJuce());
+    _text.setColour(juce::Label::textColourId, Theme::newColor(color).asJuce());
 }
 
 void Text::setColor(juce::Colour color)

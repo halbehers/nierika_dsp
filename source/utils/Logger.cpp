@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 
 #include <utility>
 
@@ -10,7 +10,11 @@ namespace nierika::utils
     Logger::Logger(std::string companyName):
         _companyName(std::move(companyName))
     {
-        setup();
+        _logDir = juce::File::getSpecialLocation(juce::File::userApplicationDataDirectory)
+                        .getChildFile(_companyName).getChildFile(getAppName()).getChildFile("logs");
+
+        (void) _logDir.createDirectory();
+        cleanupOldLogs();
     }
 
     std::vector<std::string> Logger::getLogs(const int limit, const Level minLevel) const
@@ -66,15 +70,6 @@ namespace nierika::utils
         if (pluginName != "") return pluginName;
     
         return getDefaultAppName();
-    }
-
-    void Logger::setup()
-    {
-        _logDir = juce::File::getSpecialLocation(juce::File::userApplicationDataDirectory)
-                        .getChildFile(_companyName).getChildFile(getAppName()).getChildFile("logs");
-                        
-        (void) _logDir.createDirectory();
-        cleanupOldLogs();
     }
 
     std::tm Logger::getCurrentTimestamp() const

@@ -6,7 +6,7 @@
 namespace nierika::gui::element
 {
 
-Tooltip::Tooltip(std::string  defaultTooltip):
+Tooltip::Tooltip(std::string defaultTooltip):
     Component("tooltip"),
     _tooltip(std::move(defaultTooltip))
 {
@@ -16,7 +16,8 @@ Tooltip::Tooltip(std::string  defaultTooltip):
 
 Tooltip::~Tooltip()
 {
-    TooltipManager::getInstance().removeListener(this);
+    if (TooltipManager::isAlive())
+        TooltipManager::getInstance().removeListener(this);
 }
 
 void Tooltip::tooltipChanged(const std::string& newTooltip)
@@ -27,14 +28,14 @@ void Tooltip::tooltipChanged(const std::string& newTooltip)
 
 void Tooltip::paint (juce::Graphics& g)
 {
-    const auto whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE);
+    const auto whiteColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE);
 
-    g.setFont(EmbeddedFonts::getLight().withHeight(getHeight() - getHeight() / 4));
+    g.setFont(Theme::newFont(Theme::LIGHT).withHeight(getHeight() - getHeight() / 4));
     g.setColour(whiteColor.asJuce());
 
     g.drawFittedText(_tooltip, 28, 0, getWidth(), getHeight(), juce::Justification::left, 1);
 
-    const auto grayColor = Theme::getInstance().getColor(Theme::ThemeColor::LIGHTER_SHADE);
+    const auto grayColor = Theme::newColor(Theme::ThemeColor::LIGHTER_SHADE);
     g.setGradientFill(juce::ColourGradient(whiteColor.asJuce().withAlpha(0.05f), getWidth() / 2, 0.0, grayColor.asJuce().withAlpha(0.05f), getWidth() / 2, getHeight(), false));
     g.fillRoundedRectangle(0.f, 0.f, getWidth(), getHeight(), 8.f);
 

@@ -143,7 +143,7 @@ public:
             _onChange(newValue.get<T>());
         else
         {
-            utils::AppLogger::get().error("Type mismatch for parameter " + _id, "Parameter::onChangeFromVariant");
+            utils::AppLogger::warn("Type mismatch for parameter " + _id, "Parameter::onChangeFromVariant");
         }
     }
 

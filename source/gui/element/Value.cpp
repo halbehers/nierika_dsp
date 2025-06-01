@@ -12,7 +12,7 @@ Value::Value(const std::string& identifier, const std::string& name, const std::
     _value.setText("-", false);
     
     _unit.setFont(Theme::THIN, Theme::SUBTITLE);
-    _unit.setColor(Theme::getInstance().getColor(Theme::TEXT).asJuce().withAlpha(0.7f));
+    _unit.setColor(Theme::newColor(Theme::TEXT).asJuce().withAlpha(0.7f));
     _unit.setJustificationType(juce::Justification::centredLeft);
     if (unit != "") {
         addAndMakeVisible(_unit);

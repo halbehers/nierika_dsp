@@ -20,15 +20,15 @@ void BoxToggle::drawTickBox
 )
 {
     (void) shouldDrawButtonAsDown;
-    auto whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
-    auto disabledColor = Theme::getInstance().getColor(Theme::ThemeColor::DISABLED).asJuce();
-    auto accentColor = Theme::getInstance().getColor(Theme::ThemeColor::ACCENT).asJuce();
+    const juce::Colour whiteColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
+    const juce::Colour disabledColor = Theme::newColor(Theme::ThemeColor::DISABLED).asJuce();
+    const juce::Colour accentColor = Theme::newColor(Theme::ThemeColor::ACCENT).asJuce();
 
     g.setColour(isEnabled ? whiteColor : disabledColor);
     
     if (shouldDrawButtonAsHighlighted)
     {
-        auto highlightedColor = Theme::getInstance().getColor(Theme::ThemeColor::LIGHT_SHADE).asJuce();
+        const juce::Colour highlightedColor = Theme::newColor(Theme::ThemeColor::LIGHT_SHADE).asJuce();
         g.setColour(highlightedColor);
     }
     

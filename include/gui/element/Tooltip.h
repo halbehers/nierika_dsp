@@ -8,7 +8,7 @@
 namespace nierika::gui::element
 {
 
-class Tooltip : public Component, public TooltipManager::Listener
+class Tooltip final : public Component, public TooltipManager::Listener
 {
 public:
     explicit Tooltip(std::string defaultTooltip = "");

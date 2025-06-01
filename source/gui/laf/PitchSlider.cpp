@@ -24,9 +24,9 @@ void PitchSlider::drawLinearSlider(
 
     slider.setTextBoxIsEditable(false);
 
-    const juce::Colour disabledColor = Theme::getInstance().getColor(Theme::ThemeColor::DISABLED).asJuce();
-    const juce::Colour thumbColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce().withAlpha(0.4f);
-    const juce::Colour trackColor = Theme::getInstance().getColor(Theme::ThemeColor::LIGHT_SHADE).asJuce().withAlpha(0.2f);
+    const juce::Colour disabledColor = Theme::newColor(Theme::ThemeColor::DISABLED).asJuce();
+    const juce::Colour thumbColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce().withAlpha(0.4f);
+    const juce::Colour trackColor = Theme::newColor(Theme::ThemeColor::LIGHT_SHADE).asJuce().withAlpha(0.2f);
     constexpr int thumbSize = 5;
 
     g.setColour(trackColor);

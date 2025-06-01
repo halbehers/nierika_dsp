@@ -24,11 +24,6 @@ private:
         DEFAULT
     };
     State _state = DEFAULT;
-    const std::unordered_map<State, juce::Colour> _stateToColor {
-        { DANGER, Theme::getInstance().getColor(Theme::ThemeColor::DANGER).asJuce() },
-        { WARNING, Theme::getInstance().getColor(Theme::ThemeColor::WARNING).asJuce() },
-        { DEFAULT, Theme::getInstance().getColor(Theme::ThemeColor::ACCENT).asJuce() }
-    };
     
     static State computeState(float dbLevel);
 

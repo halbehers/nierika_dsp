@@ -89,6 +89,9 @@ const std::string& Component::getTooltip() const
 void Component::setTooltipEnabled(bool enabled)
 {
     _tooltipEnabled = enabled;
+
+    if (!TooltipManager::isAlive()) return;
+
     if (enabled)
         TooltipManager::getInstance().registerComponent(*this);
     else
@@ -102,7 +105,7 @@ bool Component::isTooltipEnabled() const
 
 void Component::displayBorder(Theme::ThemeColor color, float lineThickness, float radius, float alpha)
 {
-    juce::Colour c = Theme::getInstance().getColor(color).asJuce();
+    juce::Colour c = Theme::newColor(color).asJuce();
     c = c.withAlpha(alpha);
     displayBorder(c, lineThickness, radius);
 }
@@ -122,8 +125,8 @@ void Component::hideBorder()
 
 void Component::displayBackground(Theme::ThemeColor color, float radius, float alpha)
 {
-    juce::Colour c = Theme::getInstance().getColor(color).asJuce();
-    c = c.withAlpha(alpha);
+    const juce::Colour c = Theme::newColor(color).asJuce().withAlpha(alpha);
+
     displayBackground(c, radius);
 }
 

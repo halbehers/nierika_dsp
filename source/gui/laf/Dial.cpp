@@ -28,9 +28,9 @@ void Dial::drawRotarySlider
     /** Define color variables for customization. */
     const juce::Colour outlineColor = slider.findColour (juce::Slider::rotarySliderOutlineColourId);
     const juce::Colour fillColor = slider.findColour(juce::Slider::rotarySliderFillColourId);
-    const juce::Colour disabledColor = Theme::getInstance().getColor(Theme::ThemeColor::DISABLED).asJuce();
-    const juce::Colour transparentColor = Theme::getInstance().getColor(Theme::ThemeColor::TRANSPARENT).asJuce();
-    const juce::Colour whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
+    const juce::Colour disabledColor = Theme::newColor(Theme::ThemeColor::DISABLED).asJuce();
+    const juce::Colour transparentColor = Theme::newColor(Theme::ThemeColor::TRANSPARENT).asJuce();
+    const juce::Colour whiteColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
 
     auto dialBounds = juce::Rectangle<int>(x, y, width, height).toFloat();
     auto centre = dialBounds.getCentre();
@@ -152,13 +152,13 @@ void Dial::drawLabel (juce::Graphics& g, juce::Label& label)
 
     label.setEditable(false);
 
-    const juce::Colour disabledColor = Theme::getInstance().getColor(Theme::ThemeColor::DISABLED).asJuce();
-    const juce::Colour transparentColor = Theme::getInstance().getColor(Theme::ThemeColor::TRANSPARENT).asJuce();
+    const juce::Colour disabledColor = Theme::newColor(Theme::ThemeColor::DISABLED).asJuce();
+    const juce::Colour transparentColor = Theme::newColor(Theme::ThemeColor::TRANSPARENT).asJuce();
     
     if (! label.isBeingEdited())
     {
         const juce::Colour labelColor = label.isEnabled() ? label.findColour (juce::Label::textColourId) : disabledColor;
-        const juce::Font font(Theme::getInstance().getFont(Theme::REGULAR, _labelHeight));
+        const juce::Font font(Theme::newFont(Theme::REGULAR, _labelHeight));
 
         g.setColour(labelColor);
         g.setFont(font);

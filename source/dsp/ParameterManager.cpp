@@ -107,7 +107,7 @@ void ParameterManager::parameterChanged(const std::shared_ptr<IParameter>& param
     }
     else
     {
-        utils::AppLogger::get().error("Unknown parameter type", "ParameterManager::parameterChanged");
+        utils::AppLogger::error("Unknown parameter type", "ParameterManager::parameterChanged");
     }
 }
 
@@ -142,7 +142,7 @@ std::shared_ptr<IParameter> ParameterManager::getParameter(const std::string& id
         return it->second;
     else
     {
-        utils::AppLogger::get().error("Parameter not found with id: " + identifier, "ParameterManager::getParameter");
+        utils::AppLogger::error("Parameter not found with id: " + identifier, "ParameterManager::getParameter");
         return nullptr;
     }
 }

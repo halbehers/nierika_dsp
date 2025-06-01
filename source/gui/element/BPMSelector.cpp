@@ -41,8 +41,8 @@ void BPMSelector::setup()
     _gridLayout.addComponent("slider", _slider, 0, 1, 1, 1, 10);
     _gridLayout.addComponent("plus", _plusButton, 0, 2, 1, 1);
 
-    _gridLayout.setRightBorder("minus", Theme::getInstance().getColor(Theme::EMPTY_SHADE).asJuce().withAlpha(.3f), .5f);
-    _gridLayout.setLeftBorder("plus", Theme::getInstance().getColor(Theme::EMPTY_SHADE).asJuce().withAlpha(.3f), .5f);
+    _gridLayout.setRightBorder("minus", Theme::newColor(Theme::EMPTY_SHADE).asJuce().withAlpha(.3f), .5f);
+    _gridLayout.setLeftBorder("plus", Theme::newColor(Theme::EMPTY_SHADE).asJuce().withAlpha(.3f), .5f);
 
     _gridLayout.setDisplayGrid(false);
 }

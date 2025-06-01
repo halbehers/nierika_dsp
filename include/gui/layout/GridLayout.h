@@ -23,7 +23,7 @@ public:
         float handleAlpha = 1.f;
         float handleDotSize = 2.f;
         float lineOffset = 10.f;
-        juce::Colour color = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
+        juce::Colour color = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
     };
     
     struct MovableConfiguration
@@ -34,9 +34,9 @@ public:
         float movableZoneHeight = 20.f;
         float dropableZoneRadius = 17.f;
         bool splitHandles = false;
-        juce::Colour handleColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
-        juce::Colour dropableZoneColor = Theme::getInstance().getColor(Theme::ThemeColor::ACCENT).asJuce();
-        juce::Colour dropableOnZoneColor = Theme::getInstance().getColor(Theme::ThemeColor::WARNING).asJuce();
+        juce::Colour handleColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
+        juce::Colour dropableZoneColor = Theme::newColor(Theme::ThemeColor::ACCENT).asJuce();
+        juce::Colour dropableOnZoneColor = Theme::newColor(Theme::ThemeColor::WARNING).asJuce();
     };
 
     struct Listener

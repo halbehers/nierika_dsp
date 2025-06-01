@@ -60,7 +60,7 @@ void TextButton::setColour(int colourID, juce::Colour newColour)
 
 void TextButton::setColour(int colourID, Theme::ThemeColor color)
 {
-    _button.setColour(colourID, Theme::getInstance().getColor(color).asJuce());
+    _button.setColour(colourID, Theme::newColor(color).asJuce());
 }
 
 }

@@ -38,9 +38,9 @@ void Dial::setup()
     _slider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 100, 17);
     _slider.setRange(_minValue, _maxValue);
     _slider.setValue(_defaultValue);
-    auto transparentColor = Theme::getInstance().getColor(Theme::ThemeColor::TRANSPARENT).asJuce();
-    auto whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
-    auto accentColor = Theme::getInstance().getColor(Theme::ThemeColor::ACCENT).asJuce();
+    const juce::Colour transparentColor = Theme::newColor(Theme::ThemeColor::TRANSPARENT).asJuce();
+    const juce::Colour whiteColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
+    const juce::Colour accentColor = Theme::newColor(Theme::ThemeColor::ACCENT).asJuce();
     _slider.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, accentColor);
     _slider.setColour(juce::Slider::ColourIds::trackColourId, accentColor);
     _slider.setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, transparentColor);

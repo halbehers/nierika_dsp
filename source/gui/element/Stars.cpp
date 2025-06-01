@@ -8,8 +8,7 @@ Stars::Stars(int maxWidth, int maxHeight):
     _width(maxWidth),
     _height(maxHeight)
 {
-    auto whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
-    _glowEffect.setGlowProperties(6.0, whiteColor.withAlpha(0.3f));
+    _glowEffect.setGlowProperties(6.0, Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce().withAlpha(0.3f));
     
     computeSmallStars();
     computeMediumStars();
@@ -75,7 +74,7 @@ void Stars::computeLargeStars()
 
 void Stars::paint(juce::Graphics& g)
 {
-    g.setColour(Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce());
+    g.setColour(Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce());
     
     juce::Path smallStars;
     for (const auto& position : _smallStarPositions) {

@@ -7,7 +7,7 @@ namespace nierika::gui::laf
 juce::Font TextButton::getTextButtonFont(juce::TextButton& button, int buttonHeight)
 {
     (void) button;
-    return Theme::getInstance().getFont(Theme::LIGHT, Theme::CAPTION).withHeight(static_cast<float>(buttonHeight) * 0.75f);
+    return Theme::newFont(Theme::LIGHT).withHeight(static_cast<float>(buttonHeight) * 0.75f);
 }
 
 void TextButton::drawButtonBackground(juce::Graphics& g, juce::Button& button, const juce::Colour& backgroundColour, bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown)

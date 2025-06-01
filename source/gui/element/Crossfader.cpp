@@ -34,13 +34,13 @@ void Crossfader::paint(juce::Graphics& g)
 {
     Component::paint(g);
 
-    const juce::Colour disabledColor = Theme::getInstance().getColor(Theme::ThemeColor::DISABLED).asJuce();
-    const juce::Colour whiteColor = Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
+    const juce::Colour disabledColor = Theme::newColor(Theme::ThemeColor::DISABLED).asJuce();
+    const juce::Colour whiteColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
     constexpr int horizontalPadding = 42;
     const juce::String emptyChar = juce::CharPointer_UTF8("\xC3\xB8");
 
     g.setColour(_slider.isEnabled() ? whiteColor : disabledColor);
-    g.setFont(Theme::getInstance().getFont(Theme::THIN, Theme::TITLE));
+    g.setFont(Theme::newFont(Theme::THIN, Theme::TITLE));
 
     g.drawFittedText(emptyChar, getOuterX(), getOuterY(), getOuterHeight(), horizontalPadding, juce::Justification::centred, 1);
     g.drawFittedText("~", getOuterX() + getOuterWidth() - horizontalPadding, getOuterY(), getOuterHeight(), horizontalPadding, juce::Justification::centred, 1);

@@ -147,10 +147,10 @@ void SpectrumAnalyzer::paint(juce::Graphics& g)
     filledPath.lineTo(startX, bottom);
     filledPath.closeSubPath();
 
-    g.setGradientFill(juce::ColourGradient(Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce().withAlpha(0.2f), getWidth() / 2, 0.0, Theme::getInstance().getColor(Theme::ThemeColor::TRANSPARENT).asJuce(), getWidth() / 2, getHeight(), false));
+    g.setGradientFill(juce::ColourGradient(Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce().withAlpha(0.2f), getWidth() / 2, 0.0, Theme::newColor(Theme::ThemeColor::TRANSPARENT).asJuce(), getWidth() / 2, getHeight(), false));
     g.fillPath(filledPath);
 
-    g.setColour(Theme::getInstance().getColor(Theme::ThemeColor::EMPTY_SHADE).asJuce().withAlpha(0.5f));
+    g.setColour(Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce().withAlpha(0.5f));
     g.strokePath(_leftChannelFFTPath, juce::PathStrokeType(1.f));
 }
 
