@@ -10,7 +10,7 @@ BPMSelector::BPMSelector(const std::string& identifier, float minValue, float ma
     _defaultValue(defaultValue),
     _gridLayout(*this)
 {
-    BPMSelector::setup();
+    setup();
 }
 
 BPMSelector::BPMSelector(dsp::ParameterManager& parameterManager, const std::string& parameterID):
@@ -20,7 +20,7 @@ BPMSelector::BPMSelector(dsp::ParameterManager& parameterManager, const std::str
     _defaultValue(parameterManager.getParameterDefaultValue<float>(parameterID, 0.f)),
     _gridLayout(*this)
 {
-    BPMSelector::setup();
+    setup();
     _attachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(parameterManager.getState(), parameterID, _slider);
 }
 
@@ -35,14 +35,13 @@ void BPMSelector::setup()
     _minusButton.onClick = [this] { _slider.setValue(_slider.getValue() - 0.1); };
     _plusButton.onClick = [this] { _slider.setValue(_slider.getValue() + 0.1); };
 
-    _gridLayout.init({ 1 }, { 1, 3, 1 });
-    _gridLayout.addComponent("minus", _minusButton, 0, 0, 1, 1);
-    _gridLayout.addComponent(_bpmValue, 0, 1, 1, 1);
-    _gridLayout.addComponent("slider", _slider, 0, 1, 1, 1, 10);
-    _gridLayout.addComponent("plus", _plusButton, 0, 2, 1, 1);
+    _bpmValue.setFontSize(Theme::CAPTION);
 
-    _gridLayout.setRightBorder("minus", Theme::newColor(Theme::EMPTY_SHADE).asJuce().withAlpha(.3f), .5f);
-    _gridLayout.setLeftBorder("plus", Theme::newColor(Theme::EMPTY_SHADE).asJuce().withAlpha(.3f), .5f);
+    _gridLayout.init({ 1, 1 }, { 2, 3, 3, 2 });
+    _gridLayout.addComponent("minus", _minusButton, 0, 0, 1, 2);
+    //_gridLayout.addComponent(_bpmValue, 1, 1, 1, 1);
+    _gridLayout.addComponent("slider", _slider, 0, 1, 2, 2, 10);
+    _gridLayout.addComponent("plus", _plusButton, 0, 3, 1, 2);
 
     _gridLayout.setDisplayGrid(false);
 }

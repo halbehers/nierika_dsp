@@ -69,8 +69,8 @@ void Section::setBypass(bool isBypassed)
     _fxSequencerButton.setEnabled(!isBypassed);
     _nameLabel.setEnabled(!isBypassed);
 
-    for (auto& componentByPanelID : _registeredComponentsByPanelID)
-        for (auto& component : componentByPanelID.second)
+    for (auto&[_, components] : _registeredComponentsByPanelID)
+        for (auto& component : components)
             component.get().setEnabled(!isBypassed);
 
     bypassComponents(isBypassed);
@@ -89,7 +89,7 @@ void Section::setSectionName(const std::string& name)
     if (!name.empty())
     {
         addAndMakeVisible(_nameLabel);
-        _nameLabel.setFont(Theme::newFont(Theme::LIGHT, Theme::SUBTITLE));
+        _nameLabel.setFont(Theme::newFont(Theme::MEDIUM, Theme::HEADING));
         _nameLabel.setColour(juce::Label::ColourIds::textColourId, Theme::newColor(Theme::ThemeColor::TEXT).asJuce());
         _nameLabel.setJustificationType(juce::Justification::centred);
         setHasHeader(true);
@@ -124,9 +124,6 @@ void Section::paint(juce::Graphics& g)
 {
     Component::paint(g);
     getActiveLayout().paint(g);
-
-    g.setColour(Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce());
-    g.setFont(juce::FontOptions (14.0f));
 }
 
 void Section::resized()

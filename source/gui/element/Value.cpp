@@ -60,4 +60,10 @@ void Value::resized()
     _unit.setBounds(getLocalBounds().withLeft(static_cast<int>(x + (width - width / 2 + realGap / 2))));
 }
 
+void Value::setFontSize(Theme::FontSize fontSize)
+{
+    _value.setFont(Theme::BOLD, fontSize);
+    _unit.setFont(Theme::THIN, fontSize);
+}
+
 }

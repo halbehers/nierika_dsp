@@ -2,7 +2,7 @@
 
 #include "../Component.h"
 #include "../../dsp/ParameterManager.h"
-#include "nierika_dsp/include/gui/laf/Crossfader.h"
+#include "nierika_dsp/include/gui/laf/HorizontalSlider.h"
 
 namespace nierika::gui::element
 {
@@ -22,7 +22,7 @@ private:
     float _defaultValue;
 
     juce::Slider _slider {};
-    laf::Crossfader _lookAndFeel;
+    laf::HorizontalSlider _lookAndFeel;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> _attachment {};
     float _aValueOpacity = 0.f;
     float _bValueOpacity = 0.f;

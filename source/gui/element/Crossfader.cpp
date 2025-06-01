@@ -70,7 +70,7 @@ void Crossfader::setEnabled(bool isEnabled)
 
 float Crossfader::computeOpacityFromValue(float value)
 {
-    return utils::FloatingPointUtils::mapRange(value, 0.f, 1.f, 0.4f, 1.f);
+    return utils::FloatingPointUtils::mapRange(value, 0.f, 1.f, 0.3f, 1.f);
 }
 
 }

@@ -21,6 +21,7 @@ public:
     void setValue(const std::string& value);
     void setUnit(const std::string& unit);
     void setGap(float gap);
+    void setFontSize(Theme::FontSize fontSize);
 
 private:
     Text _value = Text("value");

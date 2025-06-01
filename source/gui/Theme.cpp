@@ -12,8 +12,8 @@ namespace nierika::gui
 std::unordered_map<Theme::FontSize, float> Theme::fontSizesToPixels = {
     {
         { TITLE, 32.f },
-        { SUBTITLE, 16.f },
-        { HEADING, 14.f },
+        { SUBTITLE, 24.f },
+        { HEADING, 16.f },
         { CAPTION, 12.f },
         { PARAGRAPH, 11.f },
         { LABEL, 10.f },

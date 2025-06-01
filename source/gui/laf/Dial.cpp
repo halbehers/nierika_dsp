@@ -44,10 +44,9 @@ void Dial::drawRotarySlider
     maxSize -= static_cast<float>(width) / 14.5f;
 
     auto toAngle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
-    
-    //float lineWidthMultiplier = maxSize * 0.015f;
-    //auto lineWidth = std::max(juce::jmin(lineWidthMultiplier, maxSize * 0.5f), 1.f);
-    const float lineWidth = std::max(maxSize / 16.f, 2.f);//2.f;
+
+    const float baseLineWidth = maxSize / 16.f;
+    const float lineWidth = std::max(baseLineWidth, 2.f);//2.f;
     auto dialRadius = std::max(maxSize - 4.0f * lineWidth, 9.0f);
 
     {
@@ -99,7 +98,7 @@ void Dial::drawRotarySlider
     
     /** Dial outline thickness*/
     dialRadius -= lineWidth;
-    g.drawEllipse(centre.getX() - dialRadius, centre.getY() - dialRadius, dialRadius * scale, dialRadius * scale, 1.0f);
+    g.drawEllipse(centre.getX() - dialRadius, centre.getY() - dialRadius, dialRadius * scale, dialRadius * scale, std::max(baseLineWidth, 1.5f));
     
     bool isMouseOver = slider.isMouseOver() || slider.isMouseButtonDown();
     
