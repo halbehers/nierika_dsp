@@ -8,19 +8,19 @@ namespace nierika::dsp
 class ParameterManager: public juce::AudioProcessorValueTreeState::Listener
 {
 public:
-    ParameterManager(juce::AudioProcessor &processorToConnectTo, std::function<juce::AudioProcessorValueTreeState::ParameterLayout()> layoutBuilder);
+    ParameterManager(juce::AudioProcessor &processorToConnectTo, const std::function<juce::AudioProcessorValueTreeState::ParameterLayout()>& layoutBuilder);
     ~ParameterManager() override;
 
     template<typename T>
     void registerParameter(std::unique_ptr<juce::RangedAudioParameter> parameter, IParameter::Type type, T defaultValue, T minValue, T maxValue, std::function<void(T)> onChange, const std::string& tooltip = "");
     template<typename T>
     void registerParameter(std::unique_ptr<juce::RangedAudioParameter> parameter, IParameter::Type type, const std::string& displayName, T defaultValue, T minValue, T maxValue, std::function<void(T)> onChange, const std::string& tooltip = "");
-    void registerParameter(const std::string& id, const std::string& parameterName, bool defaultValue, std::function<void(bool)> onChange, const std::string& tooltip = "");
-    void registerParameter(const std::string& id, const std::string& parameterName, const std::string& displayName, bool defaultValue, std::function<void(bool)> onChange, const std::string& tooltip = "");
-    void registerParameter(const std::string& id, const std::string& parameterName, float defaultValue, float minValue, float maxValue, std::function<void(float)> onChange, const std::string& tooltip = "");
-    void registerParameter(const std::string& id, const std::string& parameterName, const std::string& displayName, float defaultValue, float minValue, float maxValue, std::function<void(float)> onChange, const std::string& tooltip = "");
-    void registerParameter(const std::string& id, const std::string& parameterName, int defaultValue, int minValue, int maxValue, std::function<void(int)> onChange, const std::string& tooltip = "");
-    void registerParameter(const std::string& id, const std::string& parameterName, const std::string& displayName, int defaultValue, int minValue, int maxValue, std::function<void(int)> onChange, const std::string& tooltip = "");
+    void registerParameter(const std::string& id, const std::string& parameterName, bool defaultValue, const std::function<void(bool)>& onChange, const std::string& tooltip = "");
+    void registerParameter(const std::string& id, const std::string& parameterName, const std::string& displayName, bool defaultValue, const std::function<void(bool)>& onChange, const std::string& tooltip = "");
+    void registerParameter(const std::string& id, const std::string& parameterName, float defaultValue, float minValue, float maxValue, const std::function<void(float)>& onChange, const std::string& tooltip = "");
+    void registerParameter(const std::string& id, const std::string& parameterName, const std::string& displayName, float defaultValue, float minValue, float maxValue, const std::function<void(float)>& onChange, const std::string& tooltip = "");
+    void registerParameter(const std::string& id, const std::string& parameterName, int defaultValue, int minValue, int maxValue, const std::function<void(int)>& onChange, const std::string& tooltip = "");
+    void registerParameter(const std::string& id, const std::string& parameterName, const std::string& displayName, int defaultValue, int minValue, int maxValue, const std::function<void(int)>& onChange, const std::string& tooltip = "");
 
     void clearParameters();
 
@@ -48,8 +48,8 @@ protected:
     juce::AudioProcessorValueTreeState::ParameterLayout buildParameterLayout();
 
 private:
-    std::unordered_map<std::string, std::shared_ptr<IParameter>> _parameterByID;
-    std::vector<std::unique_ptr<juce::RangedAudioParameter>> _parameters;
+    std::unordered_map<std::string, std::shared_ptr<IParameter>> _parameterByID {};
+    std::vector<std::unique_ptr<juce::RangedAudioParameter>> _parameters {};
     juce::AudioProcessorValueTreeState _treeState;
 
     std::shared_ptr<IParameter> getParameter(const std::string& identifier) const;

@@ -5,12 +5,12 @@
 namespace nierika::dsp
 {
 
-ParameterManager::ParameterManager(juce::AudioProcessor &processorToConnectTo, std::function<juce::AudioProcessorValueTreeState::ParameterLayout()> layoutBuilder):
+ParameterManager::ParameterManager(juce::AudioProcessor &processorToConnectTo, const std::function<juce::AudioProcessorValueTreeState::ParameterLayout()>& layoutBuilder):
     _treeState(processorToConnectTo, nullptr, "PARAMETERS", layoutBuilder())
 {
     
-    for (auto it : _parameterByID)
-        _treeState.addParameterListener(it.first, this);
+    for (auto [id, _] : _parameterByID)
+        _treeState.addParameterListener(id, this);
 }
 
 ParameterManager::~ParameterManager()
@@ -41,32 +41,32 @@ void ParameterManager::registerParameter(std::unique_ptr<juce::RangedAudioParame
     _parameters.push_back(std::move(rangeParameter));
 }
 
-void ParameterManager::registerParameter(const std::string& id, const std::string& name, const bool defaultValue, std::function<void(bool)> onChange, const std::string& tooltip)
+void ParameterManager::registerParameter(const std::string& id, const std::string& name, const bool defaultValue, const std::function<void(bool)>& onChange, const std::string& tooltip)
 {
     registerParameter<bool>(std::make_unique<juce::AudioParameterBool>(juce::ParameterID { id, 1 }, name, defaultValue), IParameter::TYPE_BOOL, defaultValue, false, true, onChange, tooltip);
 }
 
-void ParameterManager::registerParameter(const std::string& id, const std::string& name, const std::string& displayName, const bool defaultValue, std::function<void(bool)> onChange, const std::string& tooltip)
+void ParameterManager::registerParameter(const std::string& id, const std::string& name, const std::string& displayName, const bool defaultValue, const std::function<void(bool)>& onChange, const std::string& tooltip)
 {
     registerParameter<bool>(std::make_unique<juce::AudioParameterBool>(juce::ParameterID { id, 1 }, name, defaultValue), IParameter::TYPE_BOOL, displayName, defaultValue, false, true, onChange, tooltip);
 }
 
-void ParameterManager::registerParameter(const std::string& id, const std::string& name, const float defaultValue, const float minValue, const float maxValue, std::function<void(float)> onChange, const std::string& tooltip)
+void ParameterManager::registerParameter(const std::string& id, const std::string& name, const float defaultValue, const float minValue, const float maxValue, const std::function<void(float)>& onChange, const std::string& tooltip)
 {
     registerParameter<float>(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { id, 1 }, name, minValue, maxValue, defaultValue), IParameter::TYPE_FLOAT, defaultValue, minValue, maxValue, onChange, tooltip);
 }
 
-void ParameterManager::registerParameter(const std::string& id, const std::string& name, const std::string& displayName, const float defaultValue, const float minValue, const float maxValue, std::function<void(float)> onChange, const std::string& tooltip)
+void ParameterManager::registerParameter(const std::string& id, const std::string& name, const std::string& displayName, const float defaultValue, const float minValue, const float maxValue, const std::function<void(float)>& onChange, const std::string& tooltip)
 {
     registerParameter<float>(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { id, 1 }, name, minValue, maxValue, defaultValue), IParameter::TYPE_FLOAT, displayName, defaultValue, minValue, maxValue, onChange, tooltip);
 }
 
-void ParameterManager::registerParameter(const std::string& id, const std::string& name, const int defaultValue, const int minValue, const int maxValue, std::function<void(int)> onChange, const std::string& tooltip)
+void ParameterManager::registerParameter(const std::string& id, const std::string& name, const int defaultValue, const int minValue, const int maxValue, const std::function<void(int)>& onChange, const std::string& tooltip)
 {
     registerParameter<int>(std::make_unique<juce::AudioParameterInt>(juce::ParameterID { id, 1 }, name, minValue, maxValue, defaultValue), IParameter::TYPE_INT, defaultValue, minValue, maxValue, onChange, tooltip);
 }
 
-void ParameterManager::registerParameter(const std::string& id, const std::string& name, const std::string& displayName, const int defaultValue, const int minValue, const int maxValue, std::function<void(int)> onChange, const std::string& tooltip)
+void ParameterManager::registerParameter(const std::string& id, const std::string& name, const std::string& displayName, const int defaultValue, const int minValue, const int maxValue, const std::function<void(int)>& onChange, const std::string& tooltip)
 {
     registerParameter<int>(std::make_unique<juce::AudioParameterInt>(juce::ParameterID { id, 1 }, name, minValue, maxValue, defaultValue), IParameter::TYPE_INT, displayName, defaultValue, minValue, maxValue, onChange, tooltip);
 }
