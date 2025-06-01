@@ -23,9 +23,18 @@ void Crossfader::setup()
     addAndMakeVisible(_slider);
     _slider.setSliderStyle(juce::Slider::SliderStyle::LinearBar);
     _slider.setRange(0.f, 1.f);
-    _slider.setValue(_defaultValue);
     _slider.setComponentID(getComponentID());
     _slider.setLookAndFeel(&_lookAndFeel);
+
+    _aValueOpacity = computeOpacityFromValue(1.f - _defaultValue);
+    _bValueOpacity = computeOpacityFromValue(_defaultValue);
+
+    _slider.onValueChange = [this] {
+        _aValueOpacity = computeOpacityFromValue(1.f - static_cast<float>(_slider.getValue()));
+        _bValueOpacity = computeOpacityFromValue(static_cast<float>(_slider.getValue()));
+        repaint();
+    };
+    _slider.setValue(_defaultValue);
 
     setPadding(42.f, 0.f);
 }
@@ -39,10 +48,12 @@ void Crossfader::paint(juce::Graphics& g)
     constexpr int horizontalPadding = 42;
     const juce::String emptyChar = juce::CharPointer_UTF8("\xC3\xB8");
 
-    g.setColour(_slider.isEnabled() ? whiteColor : disabledColor);
-    g.setFont(Theme::newFont(Theme::THIN, Theme::TITLE));
+    g.setFont(Theme::newFont(Theme::REGULAR, Theme::TITLE));
 
+    g.setColour(_slider.isEnabled() ? whiteColor.withAlpha(_aValueOpacity) : disabledColor);
     g.drawFittedText(emptyChar, getOuterX(), getOuterY(), getOuterHeight(), horizontalPadding, juce::Justification::centred, 1);
+
+    g.setColour(_slider.isEnabled() ? whiteColor.withAlpha(_bValueOpacity) : disabledColor);
     g.drawFittedText("~", getOuterX() + getOuterWidth() - horizontalPadding, getOuterY(), getOuterHeight(), horizontalPadding, juce::Justification::centred, 1);
 }
 
@@ -55,6 +66,11 @@ void Crossfader::resized()
 void Crossfader::setEnabled(bool isEnabled)
 {
     _slider.setEnabled(isEnabled);
+}
+
+float Crossfader::computeOpacityFromValue(float value)
+{
+    return utils::FloatingPointUtils::mapRange(value, 0.f, 1.f, 0.4f, 1.f);
 }
 
 }

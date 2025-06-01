@@ -10,7 +10,7 @@ namespace nierika::gui::element
 class Crossfader final: public Component
 {
 public:
-    Crossfader(const std::string& identifier, float defaultValue = 0.f);
+    explicit Crossfader(const std::string& identifier, float defaultValue = 0.f);
     Crossfader(dsp::ParameterManager& parameterManager, const std::string& parameterID);
     ~Crossfader() override = default;
 
@@ -21,11 +21,15 @@ public:
 private:
     float _defaultValue;
 
-    juce::Slider _slider;
+    juce::Slider _slider {};
     laf::Crossfader _lookAndFeel;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> _attachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> _attachment {};
+    float _aValueOpacity = 0.f;
+    float _bValueOpacity = 0.f;
 
     void setup();
+
+    static float computeOpacityFromValue(float value);
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Crossfader)
 };
