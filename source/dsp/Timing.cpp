@@ -75,7 +75,7 @@ std::vector<std::pair<Timing::NoteTiming, std::string>> Timing::getAvailableNote
     return noteTimings;
 }
 
-float Timing::getTimeInMs(const double bpm, const Timing::NoteTiming timing)
+float Timing::getTimeInMs(const double bpm, const NoteTiming timing)
 {
     const float timeInMsQuarter = 60000.f / static_cast<float>(bpm);
     const std::unordered_map<NoteTiming, float> timingToMultiplicator {
@@ -98,6 +98,16 @@ float Timing::getTimeInMs(const double bpm, const Timing::NoteTiming timing)
    };
 
     return timeInMsQuarter * timingToMultiplicator.at(timing);
+}
+
+float Timing::getRate(const double bpm, const NoteTiming timing)
+{
+    const float timeInMs = getTimeInMs(bpm, timing);
+
+    if (timeInMs <= 0.f)
+        return 0.f;
+
+    return 1000.f / timeInMs;
 }
 
 }

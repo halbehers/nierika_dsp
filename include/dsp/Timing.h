@@ -51,6 +51,7 @@ public:
     static std::vector<std::pair<NoteTiming, std::string>> getAvailableNoteTimings();
     static const std::unordered_map<NoteTiming, std::string> getNoteTimingToNames();
     static float getTimeInMs(double bpm, Timing::NoteTiming timing);
+    static float getRate(double bpm, Timing::NoteTiming timing);
 };
 
 }
