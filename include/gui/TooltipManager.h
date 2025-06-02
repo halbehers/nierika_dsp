@@ -54,7 +54,7 @@ private:
     void mouseEnter(const juce::MouseEvent& event) override;
     void mouseExit(const juce::MouseEvent& event) override;
 
-    void notifyListeners();
+    void notifyListeners() const;
 };
 
 }

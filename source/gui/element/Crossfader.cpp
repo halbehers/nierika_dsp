@@ -25,6 +25,7 @@ void Crossfader::setup()
     _slider.setRange(0.f, 1.f);
     _slider.setComponentID(getComponentID());
     _slider.setLookAndFeel(&_lookAndFeel);
+    _slider.setMouseCursor(juce::MouseCursor::PointingHandCursor);
 
     _aValueOpacity = computeOpacityFromValue(1.f - _defaultValue);
     _bValueOpacity = computeOpacityFromValue(_defaultValue);

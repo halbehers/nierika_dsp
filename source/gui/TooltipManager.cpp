@@ -6,7 +6,7 @@ namespace nierika::gui
 void TooltipManager::registerComponent(juce::Component& component, const std::string& tooltipText)
 {
     const std::string id = component.getComponentID().toStdString();
-    Tooltip tooltip = { id, component.getName().toStdString(), tooltipText };
+    const Tooltip tooltip = { id, component.getName().toStdString(), tooltipText };
 
     _tooltipsByComponentID[id] = tooltip;
     setupComponent(component);
@@ -14,7 +14,7 @@ void TooltipManager::registerComponent(juce::Component& component, const std::st
 
 void TooltipManager::registerComponent(Component& component)
 {
-    registerComponent(static_cast<juce::Component&>(component), component.getTooltip());
+    registerComponent(component, component.getTooltip());
 }
 
 void TooltipManager::unregisterComponent(juce::Component& component)
@@ -28,7 +28,7 @@ void TooltipManager::unregisterComponent(juce::Component& component)
 
 void TooltipManager::setupComponent(juce::Component& component)
 {
-    if (_registeredComponents.find(&component) == _registeredComponents.end())
+    if (!_registeredComponents.contains(&component))
     {
         component.addMouseListener(this, true);
         _registeredComponents.insert(&component);
@@ -43,8 +43,7 @@ void TooltipManager::clearCurrentTooltip()
 void TooltipManager::mouseEnter(const juce::MouseEvent& event)
 {
     const std::string id = event.eventComponent->getComponentID().toStdString();
-    auto it = _tooltipsByComponentID.find(id);
-    if (it != _tooltipsByComponentID.end())
+    if (const auto it = _tooltipsByComponentID.find(id); it != _tooltipsByComponentID.end())
     {
         _currentTooltip = it->second.text;
         notifyListeners();
@@ -78,14 +77,10 @@ void TooltipManager::addListener(Listener* listener)
 
 void TooltipManager::removeListener(Listener* listener)
 {
-    _listeners.erase(
-        std::remove(_listeners.begin(), _listeners.end(), listener),
-        _listeners.end()
-    );
+    std::erase(_listeners, listener);
 }
 
-void TooltipManager::notifyListeners()
-{
+void TooltipManager::notifyListeners() const {
     for (auto* listener : _listeners)
     {
         listener->tooltipChanged(_currentTooltip);

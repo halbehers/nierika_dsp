@@ -31,16 +31,15 @@ void BPMSelector::setup()
     _slider.setValue(_defaultValue);
     _slider.setComponentID(getComponentID());
     _slider.setLookAndFeel(&_lookAndFeel);
-    _slider.onValueChange = [this] { _bpmValue.setValue(Formatter::formatDouble(_slider.getValue())); };
+    _slider.setMouseCursor(juce::MouseCursor::PointingHandCursor);
+    _minusButton.setMouseCursor(juce::MouseCursor::PointingHandCursor);
+    _plusButton.setMouseCursor(juce::MouseCursor::PointingHandCursor);
     _minusButton.onClick = [this] { _slider.setValue(_slider.getValue() - 0.1); };
     _plusButton.onClick = [this] { _slider.setValue(_slider.getValue() + 0.1); };
 
-    _bpmValue.setFontSize(Theme::CAPTION);
-
     _gridLayout.init({ 1, 1 }, { 2, 3, 3, 2 });
     _gridLayout.addComponent("minus", _minusButton, 0, 0, 1, 2);
-    //_gridLayout.addComponent(_bpmValue, 1, 1, 1, 1);
-    _gridLayout.addComponent("slider", _slider, 0, 1, 2, 2, 10);
+    _gridLayout.addComponent("slider", _slider, 0, 1, 2, 2);
     _gridLayout.addComponent("plus", _plusButton, 0, 3, 1, 2);
 
     _gridLayout.setDisplayGrid(false);
@@ -61,7 +60,6 @@ void BPMSelector::resized()
 void BPMSelector::setEnabled(bool isEnabled)
 {
     _minusButton.setEnabled(isEnabled);
-    _bpmValue.setEnabled(isEnabled);
     _plusButton.setEnabled(isEnabled);
     _slider.setEnabled(isEnabled);
 }

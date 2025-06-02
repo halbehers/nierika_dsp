@@ -43,7 +43,7 @@ private:
     juce::String _sliderName = "";
     juce::String _shortLabel = "";
     LabelVisibility _labelVisibility = VISIBLE;
-    const Theme::FontSize _labelHeight = Theme::HEADING;
+    const Theme::FontSize _labelHeight = Theme::CAPTION;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Dial)
 };

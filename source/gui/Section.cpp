@@ -89,7 +89,7 @@ void Section::setSectionName(const std::string& name)
     if (!name.empty())
     {
         addAndMakeVisible(_nameLabel);
-        _nameLabel.setFont(Theme::newFont(Theme::MEDIUM, Theme::HEADING));
+        _nameLabel.setFont(Theme::newFont(Theme::MEDIUM, Theme::CAPTION));
         _nameLabel.setColour(juce::Label::ColourIds::textColourId, Theme::newColor(Theme::ThemeColor::TEXT).asJuce());
         _nameLabel.setJustificationType(juce::Justification::centred);
         setHasHeader(true);

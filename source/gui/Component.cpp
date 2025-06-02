@@ -4,8 +4,7 @@
 namespace nierika::gui
 {
 
-Component::Component(const std::string& identifier, const std::string& name, const std::string& tooltip):
-    juce::Component()
+Component::Component(const std::string& identifier, const std::string& name, const std::string& tooltip)
 {
     setComponentID(identifier);
     setName(name);

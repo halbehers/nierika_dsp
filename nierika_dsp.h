@@ -99,8 +99,12 @@
 #include "include/gui/layout/GridLayout.h"
 #include "include/gui/layout/GridLayoutItem.h"
 #include "include/gui/layout/AppLayout.h"
+#include "include/gui/layout/WindowManager.h"
+#include "include/gui/layout/Dialog.h"
+#include "include/gui/layout/Window.h"
 #include "include/gui/Spacing.h"
 #include "include/gui/Border.h"
+#include "include/gui/Distance.h"
 
 // Utilities
 #include "include/utils/Singleton.h"

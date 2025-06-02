@@ -4,6 +4,7 @@ namespace nierika::gui::laf
 {
 
 FollowingValueHorizontalSlider::FollowingValueHorizontalSlider(const std::string& unit, int gap):
+    HorizontalSlider(),
     _unit(unit),
     _gap(gap)
 {
@@ -24,10 +25,12 @@ void FollowingValueHorizontalSlider::drawLinearSlider(
 {
     HorizontalSlider::drawLinearSlider(g, x, y, width, height, sliderPos, minSliderPos, maxSliderPos, style, slider);
 
-    (void) width;
     (void) minSliderPos;
     (void) maxSliderPos;
     (void) style;
+
+    // FIXME: find out why mouse events are not coming in.
+    // if (!slider.isMouseOverOrDragging()) return;
 
     const int thumbSize = computeThumbSize(height);
     const int thumbX = computeThumbX(x, width, sliderPos, thumbSize);
@@ -43,7 +46,8 @@ void FollowingValueHorizontalSlider::drawLinearSlider(
     g.setFont(Theme::newFont(_fontWeight, _fontSize));
     g.setColour(Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce());
 
-    g.drawFittedText(valueText, valueX, y + height - static_cast<int>(Theme::getFontSizeInPixels(_fontSize)), valueWidth, 30, juce::Justification::topLeft, 1);
+    if (slider.isMouseOver())
+        g.drawFittedText(valueText, valueX, y + height - static_cast<int>(Theme::getFontSizeInPixels(_fontSize)), valueWidth, 30, juce::Justification::topLeft, 1);
 }
 
 void FollowingValueHorizontalSlider::setUnit(const std::string& unit)

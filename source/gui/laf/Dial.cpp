@@ -154,7 +154,7 @@ void Dial::drawLabel (juce::Graphics& g, juce::Label& label)
     const juce::Colour disabledColor = Theme::newColor(Theme::ThemeColor::DISABLED).asJuce();
     const juce::Colour transparentColor = Theme::newColor(Theme::ThemeColor::TRANSPARENT).asJuce();
     
-    if (! label.isBeingEdited())
+    if (!label.isBeingEdited())
     {
         const juce::Colour labelColor = label.isEnabled() ? label.findColour (juce::Label::textColourId) : disabledColor;
         const juce::Font font(Theme::newFont(Theme::REGULAR, _labelHeight));

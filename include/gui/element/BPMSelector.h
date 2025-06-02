@@ -29,7 +29,6 @@ private:
     juce::Slider _slider {};
     IncrementalButton _minusButton {  "Minus", IncrementalButton::MINUS };
     IncrementalButton _plusButton {  "Plus", IncrementalButton::PLUS };
-    Value _bpmValue { "bpm-selector--value", "", "BPM" };
 
     layout::GridLayout<Component> _gridLayout;
 

@@ -13,11 +13,11 @@ std::unordered_map<Theme::FontSize, float> Theme::fontSizesToPixels = {
     {
         { TITLE, 32.f },
         { SUBTITLE, 24.f },
-        { HEADING, 16.f },
-        { CAPTION, 12.f },
-        { PARAGRAPH, 11.f },
-        { LABEL, 10.f },
-        { SMALL, 8.f }
+        { HEADING, 20.f },
+        { CAPTION, 16.f },
+        { LABEL, 14.f },
+        { PARAGRAPH, 13.f },
+        { SMALL, 10.f }
     }
 };
 
