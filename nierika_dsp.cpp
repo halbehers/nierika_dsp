@@ -65,7 +65,7 @@
 #include "source/gui/layout/GridLayout.cpp"
 #include "source/gui/layout/GridLayoutItem.cpp"
 #include "source/gui/layout/AppLayout.cpp"
-#include "source/gui/layout/WindowManager.cpp"
+#include "source/gui/layout/WindowsManager.cpp"
 #include "source/gui/layout/Dialog.cpp"
 #include "source/gui/Spacing.cpp"
 #include "source/gui/Border.cpp"

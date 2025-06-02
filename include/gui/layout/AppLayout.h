@@ -1,6 +1,6 @@
 #pragma once
 
-#include "WindowManager.h"
+#include "WindowsManager.h"
 #include "../Section.h"
 
 namespace nierika::gui::layout
@@ -20,7 +20,7 @@ public:
 
 private:
     element::Tooltip _tooltip {};
-    WindowManager _windowManager;
+    WindowsManager _windowManager;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AppLayout)
 };

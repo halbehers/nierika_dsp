@@ -2,7 +2,7 @@
 
 namespace nierika::gui::layout {
 
-    Dialog::Dialog(const std::string& identifier, WindowManager& windowManager, const std::string& text):
+    Dialog::Dialog(const std::string& identifier, WindowsManager& windowManager, const std::string& text):
         Component(identifier),
         _windowManager(windowManager),
         _text(text),

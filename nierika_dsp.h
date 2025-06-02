@@ -99,7 +99,7 @@
 #include "include/gui/layout/GridLayout.h"
 #include "include/gui/layout/GridLayoutItem.h"
 #include "include/gui/layout/AppLayout.h"
-#include "include/gui/layout/WindowManager.h"
+#include "include/gui/layout/WindowsManager.h"
 #include "include/gui/layout/Dialog.h"
 #include "include/gui/layout/Window.h"
 #include "include/gui/Spacing.h"

@@ -1,19 +1,19 @@
-#include "../../../include/gui/layout/WindowManager.h"
+#include "../../../include/gui/layout/WindowsManager.h"
 
 namespace nierika::gui::layout {
 
-    WindowManager::WindowManager(juce::Component& parentComponent):
+    WindowsManager::WindowsManager(juce::Component& parentComponent):
         _parentComponent(parentComponent)
     {
         parentComponent.addAndMakeVisible(this, 1000);
     }
 
-    void WindowManager::paint(juce::Graphics& g)
+    void WindowsManager::paint(juce::Graphics& g)
     {
         Component::paint(g);
     }
 
-    void WindowManager::resized()
+    void WindowsManager::resized()
     {
         Component::resized();
         for (auto & [_, window] : _windowsByID)
@@ -53,7 +53,7 @@ namespace nierika::gui::layout {
         }
     }
 
-    void WindowManager::createWindow(const std::string& identifier, std::unique_ptr<Component> component, Distance<> width, Distance<> height, WindowPosition position, int zOrder, bool movable, bool closeable)
+    void WindowsManager::createWindow(const std::string& identifier, std::unique_ptr<Component> component, Distance<> width, Distance<> height, WindowPosition position, int zOrder, bool movable, bool closeable)
     {
         addChildComponent(component.get(), 1000);
         _windowsByID.insert(
@@ -71,12 +71,12 @@ namespace nierika::gui::layout {
         );
     }
 
-    void WindowManager::createWindow(std::unique_ptr<Component> component, Distance<> width, Distance<> height, WindowPosition position, int zOrder, bool movable, bool closeable)
+    void WindowsManager::createWindow(std::unique_ptr<Component> component, Distance<> width, Distance<> height, WindowPosition position, int zOrder, bool movable, bool closeable)
     {
         createWindow(component->getID(), std::move(component), width, height, position, zOrder, movable, closeable);
     }
 
-    void WindowManager::showWindow(const std::string& identifier)
+    void WindowsManager::showWindow(const std::string& identifier)
     {
         if (!windowExists(identifier, true, "WindowManager::showWindow")) return;
 
@@ -88,7 +88,7 @@ namespace nierika::gui::layout {
         resetVisibility();
     }
 
-    void WindowManager::hideWindow(const std::string& identifier)
+    void WindowsManager::hideWindow(const std::string& identifier)
     {
         if (!windowExists(identifier, true, "WindowManager::hideWindow")) return;
 
@@ -100,7 +100,7 @@ namespace nierika::gui::layout {
         resetVisibility();
     }
 
-    bool WindowManager::windowExists(const std::string& identifier, bool logNonExistance, const std::string& callMethod) const {
+    bool WindowsManager::windowExists(const std::string& identifier, bool logNonExistance, const std::string& callMethod) const {
         if (!_windowsByID.contains(identifier)) {
             if (logNonExistance)
                 utils::AppLogger::warn("Window '" + identifier + "' not found.", callMethod);
@@ -109,7 +109,7 @@ namespace nierika::gui::layout {
         return true;
     }
 
-    bool WindowManager::hasVisibleWindows()
+    bool WindowsManager::hasVisibleWindows()
     {
         for (const auto& [_, window] : _windowsByID) {
             if (window.visible) return true;
@@ -117,7 +117,7 @@ namespace nierika::gui::layout {
         return false;
     }
 
-    void WindowManager::resetVisibility()
+    void WindowsManager::resetVisibility()
     {
         setVisible(hasVisibleWindows());
     }

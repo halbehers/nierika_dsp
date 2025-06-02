@@ -5,7 +5,7 @@ namespace nierika::gui::layout
     class Dialog: public Component
     {
     public:
-        Dialog(const std::string& identifier, WindowManager& windowManager, const std::string& text = "");
+        Dialog(const std::string& identifier, WindowsManager& windowManager, const std::string& text = "");
         ~Dialog() override = default;
 
         void paint(juce::Graphics& g) override;
@@ -15,7 +15,7 @@ namespace nierika::gui::layout
 
     private:
         element::SVGButton _closeButton { Icons::getPlus() };
-        WindowManager& _windowManager;
+        WindowsManager& _windowManager;
         std::string _text;
 
         GridLayout<Component> _layout;

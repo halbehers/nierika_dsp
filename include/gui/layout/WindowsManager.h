@@ -5,7 +5,7 @@
 namespace nierika::gui::layout
 {
 
-    class WindowManager final : public Component
+    class WindowsManager final : public Component
     {
     public:
         enum WindowPosition {
@@ -32,8 +32,8 @@ namespace nierika::gui::layout
             WindowPosition position = WINDOW_CENTERED;
         };
 
-        explicit WindowManager(juce::Component& parentComponent);
-        ~WindowManager() override = default;
+        explicit WindowsManager(juce::Component& parentComponent);
+        ~WindowsManager() override = default;
 
         void paint(juce::Graphics& g) override;
         void resized() override;
@@ -51,7 +51,7 @@ namespace nierika::gui::layout
 
         void resetVisibility();
 
-        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(WindowManager)
+        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(WindowsManager)
     };
 
 }
