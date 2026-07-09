@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Distance.h"
+#include "Window.h"
 
 namespace nierika::gui::layout
 {
@@ -8,38 +9,13 @@ namespace nierika::gui::layout
     class WindowsManager final : public Component
     {
     public:
-        enum WindowPosition {
-            WINDOW_CENTERED,
-            WINDOW_TOP_CENTER,
-            WINDOW_TOP_LEFT,
-            WINDOW_TOP_RIGHT,
-            WINDOW_BOTTOM_CENTER,
-            WINDOW_BOTTOM_LEFT,
-            WINDOW_BOTTOM_RIGHT,
-            WINDOW_CENTER_LEFT,
-            WINDOW_CENTER_RIGHT
-        };
-
-        struct Window {
-            std::string identifier;
-            std::unique_ptr<Component> component;
-            Distance<> width;
-            Distance<> height;
-            bool visible = false;
-            int zOrder = 10;
-            bool movable = false;
-            bool closeable = true;
-            WindowPosition position = WINDOW_CENTERED;
-        };
-
         explicit WindowsManager(juce::Component& parentComponent);
         ~WindowsManager() override = default;
 
         void paint(juce::Graphics& g) override;
         void resized() override;
 
-        void createWindow(const std::string& identifier, std::unique_ptr<Component> component, Distance<> width, Distance<> height, WindowPosition position = WINDOW_CENTERED, int zOrder = 100, bool movable = false, bool closeable = true);
-        void createWindow(std::unique_ptr<Component> component, Distance<> width, Distance<> height, WindowPosition position = WINDOW_CENTERED, int zOrder = 100, bool movable = false, bool closeable = false);
+        void createWindow(std::unique_ptr<Window> window);
         void showWindow(const std::string& identifier);
         void hideWindow(const std::string& identifier);
         bool hasVisibleWindows();
@@ -47,7 +23,7 @@ namespace nierika::gui::layout
 
     private:
         juce::Component& _parentComponent;
-        std::unordered_map<std::string, Window> _windowsByID {};
+        std::unordered_map<std::string, std::unique_ptr<Window>> _windowsByID {};
 
         void resetVisibility();
 

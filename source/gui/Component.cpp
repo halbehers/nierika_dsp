@@ -13,11 +13,24 @@ Component::Component(const std::string& identifier, const std::string& name, con
     _margin.setAsMargin();
 
     setTooltip(tooltip);
+
+    Theme::getChangeBroadcaster().addChangeListener(this);
 }
 
 Component::~Component()
 {
+    Theme::getChangeBroadcaster().removeChangeListener(this);
     TooltipManager::getInstance().unregisterComponent(*this);
+}
+
+void Component::changeListenerCallback(juce::ChangeBroadcaster*)
+{
+    if (_border.themeColor.has_value())
+        _border.color = Theme::newColor(*_border.themeColor).asJuce().withAlpha(_border.alpha);
+    if (_background.themeColor.has_value() && !_background.isGradient)
+        _background.color = Theme::newColor(*_background.themeColor).asJuce().withAlpha(_background.alpha);
+
+    repaint();
 }
 
 void Component::paint(juce::Graphics& g)
@@ -104,9 +117,9 @@ bool Component::isTooltipEnabled() const
 
 void Component::displayBorder(Theme::ThemeColor color, float lineThickness, float radius, float alpha)
 {
-    juce::Colour c = Theme::newColor(color).asJuce();
-    c = c.withAlpha(alpha);
-    displayBorder(c, lineThickness, radius);
+    displayBorder(Theme::newColor(color).asJuce().withAlpha(alpha), lineThickness, radius);
+    _border.themeColor = color;
+    _border.alpha = alpha;
 }
 
 void Component::displayBorder(juce::Colour color, float lineThickness, float radius)
@@ -115,6 +128,7 @@ void Component::displayBorder(juce::Colour color, float lineThickness, float rad
     _border.color = color;
     _border.lineThickness = lineThickness;
     _border.radius = radius;
+    _border.themeColor.reset();
 }
 
 void Component::hideBorder()
@@ -124,9 +138,9 @@ void Component::hideBorder()
 
 void Component::displayBackground(Theme::ThemeColor color, float radius, float alpha)
 {
-    const juce::Colour c = Theme::newColor(color).asJuce().withAlpha(alpha);
-
-    displayBackground(c, radius);
+    displayBackground(Theme::newColor(color).asJuce().withAlpha(alpha), radius);
+    _background.themeColor = color;
+    _background.alpha = alpha;
 }
 
 void Component::displayBackground(juce::Colour color, float radius)
@@ -135,6 +149,7 @@ void Component::displayBackground(juce::Colour color, float radius)
     _background.color = color;
     _background.radius = radius;
     _background.isGradient = false;
+    _background.themeColor.reset();
 }
 
 void Component::displayBackground(juce::ColourGradient gradient, float radius)
@@ -143,6 +158,7 @@ void Component::displayBackground(juce::ColourGradient gradient, float radius)
     _background.gradient = gradient;
     _background.radius = radius;
     _background.isGradient = true;
+    _background.themeColor.reset();
 }
 
 void Component::hideBackground()

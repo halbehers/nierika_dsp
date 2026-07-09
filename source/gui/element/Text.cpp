@@ -1,5 +1,7 @@
 #include "../../../include/gui/element/Text.h"
 #include "../../../include/gui/Theme.h"
+#include "nierika_dsp/include/gui/Theme.h"
+#include "nierika_dsp/include/gui/Theme.h"
 
 namespace nierika::gui::element
 {

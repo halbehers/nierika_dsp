@@ -4,15 +4,17 @@ namespace nierika::gui::layout
 {
 
 AppLayout::AppLayout(dsp::ParameterManager& parameterManager, const std::string& pluginEnabledParameterID):
-    Section("app-layout", parameterManager, pluginEnabledParameterID),
-    _windowManager(*this)
+    Section("app-layout", parameterManager, pluginEnabledParameterID)
 {
     addChildComponent(_tooltip);
     if (!pluginEnabledParameterID.empty())
         setBypassable(true);
 
-    _windowManager.createWindow(std::make_unique<Dialog>("dialog", _windowManager, "Ceci est une info qui ne sert a rien, enjoy la vida !"), Distance(70, Distance<>::PERCENTAGE, 400), Distance(20, Distance<>::PERCENTAGE, 40));
-    _windowManager.showWindow("dialog");
+    // auto dialog = std::make_unique<Dialog>("dialog", _windowManager);
+    // dialog->setTitle("Dialog title");
+    // dialog->setText("Ceci est une info qui ne sert a rien, enjoy la vida !");
+    // _windowManager.createWindow(std::move(dialog));
+    // _windowManager.showWindow("dialog");
 }
 
 void AppLayout::displayTooltip()
@@ -28,7 +30,8 @@ void AppLayout::paint(juce::Graphics& g)
 void AppLayout::resized()
 {
     Section::resized();
-    _windowManager.setBounds(getLocalBounds());
+    // _windowManager.setBounds(getLocalBounds());
+
     _tooltip.setBounds(getLayout().getRectangleAtBottom(20.f, 16.f).toNearestInt());
 }
 

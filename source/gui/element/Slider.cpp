@@ -28,9 +28,9 @@ Slider::Slider(const juce::String& label, float minValue, float maxValue, float 
     /**addAndMakeVisible(_labelComponent);
      _labelComponent.setText(label, juce::dontSendNotification);
      _labelComponent.setFont(EmbeddedFonts::getRegular().withHeight(16.0).withStyle(juce::Font::italic));
-     _labelComponent.setColour(juce::Label::ColourIds::backgroundColourId, juce::Colour(COLOR_TRANSPARENT));
-     _labelComponent.setColour(juce::Label::ColourIds::backgroundWhenEditingColourId, juce::Colour(COLOR_TRANSPARENT));
-     _labelComponent.setColour(juce::Label::ColourIds::textColourId, isEnabled() ? juce::Colour(COLOR_TEXT) : juce::Colour(COLOR_DISABLED));
+     _labelComponent.setColour(juce::Label::ColourIds::backgroundColourId, Theme::newColor(Theme::TRANSPARENT).asJuce());
+     _labelComponent.setColour(juce::Label::ColourIds::backgroundWhenEditingColourId, Theme::newColor(Theme::TRANSPARENT).asJuce());
+     _labelComponent.setColour(juce::Label::ColourIds::textColourId, isEnabled() ? Theme::newColor(Theme::TEXT).asJuce() : Theme::newColor(Theme::DISABLED).asJuce());
      _labelComponent.attachToComponent(this, true);
      _labelComponent.setJustificationType(juce::Justification::centred);
      */

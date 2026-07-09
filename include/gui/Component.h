@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <optional>
 
 #include "Theme.h"
 #include "Spacing.h"
@@ -9,7 +10,7 @@
 namespace nierika::gui
 {
 
-class Component : public juce::Component
+class Component : public juce::Component, public juce::ChangeListener
 {
 public:
     explicit Component(const std::string& identifier = utils::UID::generate_v4(), const std::string& name = "", const std::string& tooltip = "");
@@ -18,6 +19,7 @@ public:
     std::string getID() const { return getComponentID().toStdString(); }
 
     void paint(juce::Graphics& g) override;
+    void changeListenerCallback(juce::ChangeBroadcaster* source) override;
 
     void setTooltip(const std::string& text);
     const std::string& getTooltip() const;
@@ -88,6 +90,8 @@ private:
         juce::Colour color;
         float lineThickness;
         float radius;
+        float alpha = 1.f;
+        std::optional<Theme::ThemeColor> themeColor;
     } _border;
 
     struct Background
@@ -97,6 +101,8 @@ private:
         float radius;
         juce::ColourGradient gradient;
         bool isGradient;
+        float alpha = 1.f;
+        std::optional<Theme::ThemeColor> themeColor;
     } _background;
 
     layout::Spacing<float> _margin { 0.f, 0.f, 0.f, 0.f };

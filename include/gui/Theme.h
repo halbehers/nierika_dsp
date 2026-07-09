@@ -1,6 +1,7 @@
 #pragma once
 
 #include <unordered_map>
+#include <optional>
 #include <string>
 
 #define COLOR_WHITE 0xFFFFF8F8
@@ -15,7 +16,7 @@
 #define COLOR_BLUE_400 0xFF334E63
 #define COLOR_BLUE_300 0xFF3A607E
 
-#define COLOR_BLACK COLOR_GRAY_400
+#define COLOR_BLACK 0xFF000000
 
 #define COLOR_TURQUOISE_200 0xFF53F4FB
 #define COLOR_TURQUOISE_300 0xFF39B0C1
@@ -43,7 +44,7 @@ namespace nierika::gui
 
 class Theme
 {
-public:    
+public:
     enum ThemeColor
     {
         TRANSPARENT,
@@ -53,6 +54,7 @@ public:
         MEDIUM_SHADE,
         DARK_SHADE,
         FULL_SHADE,
+        BLACK,
         PRIMARY,
         ACCENT,
         TEXT,
@@ -80,7 +82,26 @@ public:
         LABEL,
         SMALL
     };
-    
+
+    enum class Mode
+    {
+        Dark,
+        Light
+    };
+
+    using Palette = std::unordered_map<ThemeColor, juce::Colour>;
+    using FontSet = std::unordered_map<FontWeight, juce::Font>;
+
+    // Host-facing configuration. Everything is optional: an untouched Config
+    // reproduces today's hardcoded Dark theme exactly.
+    struct Config
+    {
+        Mode mode = Mode::Dark;
+        std::optional<Palette> customPalette;
+        Palette colorOverrides;
+        FontSet fontOverrides;
+    };
+
     class Color
     {
     public:
@@ -93,37 +114,44 @@ public:
         [[nodiscard]] juce::uint32 asHex() const;
         [[nodiscard]] juce::Colour asJuce() const;
         [[nodiscard]] std::string asHexString() const;
-        
+
     private:
         ThemeColor _color;
-        std::unordered_map<ThemeColor, juce::uint32> _themeColorToHex {
-            {
-                { TRANSPARENT, COLOR_TRANSPARENT },
-                { EMPTY_SHADE, COLOR_EMPTY_SHADE },
-                { LIGHT_SHADE, COLOR_LIGHT_SHADE },
-                { LIGHTER_SHADE, COLOR_LIGHTER_SHADE },
-                { MEDIUM_SHADE, COLOR_MEDIUM_SHADE },
-                { DARK_SHADE, COLOR_DARK_SHADE },
-                { FULL_SHADE, COLOR_FULL_SHADE },
-                { PRIMARY, COLOR_PRIMARY },
-                { ACCENT, COLOR_ACCENT },
-                { TEXT, COLOR_TEXT },
-                { DISABLED, COLOR_DISABLED },
-                { DANGER, COLOR_DANGER },
-                { WARNING, COLOR_WARNING }
-            }
-        };
     };
 
+    // One-call host configuration entry point.
+    static void configure(const Config& config);
+
+    // Fine-grained mutators. Each composes with whatever was last configured
+    // (previous overrides are preserved) rather than resetting it.
+    static void setMode(Mode mode);
+    [[nodiscard]] static Mode getMode();
+    static void setColor(ThemeColor color, juce::Colour value);
+    static void setPalette(const Palette& palette);
+    static void setFont(FontWeight weight, juce::Font font);
+    static void setFonts(const FontSet& fonts);
+    static void resetToDefaults();
+
+    // Fires whenever the active palette/fonts change, so live components can
+    // refresh cached theme-derived colours/fonts and repaint.
+    [[nodiscard]] static juce::ChangeBroadcaster& getChangeBroadcaster();
 
     static Color newColor(ThemeColor color);
     [[nodiscard]] static juce::Font newFont(FontWeight weight, FontSize size = PARAGRAPH);
     [[nodiscard]] static float getFontSizeInPixels(FontSize size);
 
 private:
-    static std::unordered_map<FontSize, float> fontSizesToPixels;
-    static std::unordered_map<FontWeight, juce::Font> fontWeightToFont;
+    static Palette buildPreset(Mode mode);
+    static FontSet buildDefaultFontSet();
+    static void applyConfig(const Config& config);
 
+    static Config _lastConfig;
+    static Palette _activePalette;
+    static FontSet _activeFonts;
+    static std::unordered_map<FontSize, float> fontSizesToPixels;
+    static juce::ChangeBroadcaster _changeBroadcaster;
+
+    friend class Color;
 };
 
 }

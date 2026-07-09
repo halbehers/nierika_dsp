@@ -37,6 +37,7 @@ public:
     
     [[nodiscard]] std::string getCurrentTooltip() const;
     void setDefaultTooltip(const std::string& tooltip);
+    void setCurrentTooltip(const std::string& tooltip);
 
 private:
     std::string _defaultTooltip;

@@ -63,6 +63,12 @@ std::string TooltipManager::getCurrentTooltip() const
     return _currentTooltip;
 }
 
+void TooltipManager::setCurrentTooltip(const std::string& tooltip)
+{
+    _currentTooltip = tooltip;
+    notifyListeners();
+}
+
 void TooltipManager::setDefaultTooltip(const std::string& tooltip)
 {
     _defaultTooltip = tooltip;

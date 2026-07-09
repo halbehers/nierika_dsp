@@ -32,8 +32,10 @@ public:
     void setColour(int colourID, juce::Colour newColour);
     void setColour(int colourID, Theme::ThemeColor color);
 
-private:
+protected:
     juce::TextButton _button {};
+
+private:
     laf::TextButton _lookAndFeel;
     bool _isSelected = true;
 

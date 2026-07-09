@@ -20,7 +20,7 @@ public:
 
 private:
     element::Tooltip _tooltip {};
-    WindowsManager _windowManager;
+    // WindowsManager _windowManager;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AppLayout)
 };

@@ -18,72 +18,24 @@ namespace nierika::gui::layout {
         Component::resized();
         for (auto & [_, window] : _windowsByID)
         {
-            const int windowWidthInPx = window.width.getValueInPx(getWidth());
-            const int windowHeightInPx = window.height.getValueInPx(getHeight());
-
-            switch (window.position) {
-                case WINDOW_CENTERED:
-                    window.component->setBounds(juce::Rectangle(getWidth() / 2 - windowWidthInPx / 2, getHeight() / 2 - windowHeightInPx / 2, windowWidthInPx, windowHeightInPx));
-                    break;
-                case WINDOW_TOP_CENTER:
-                    window.component->setBounds(juce::Rectangle(getWidth() / 2 - windowWidthInPx / 2, 0, windowWidthInPx, windowHeightInPx));
-                    break;
-                case WINDOW_TOP_LEFT:
-                    window.component->setBounds(juce::Rectangle(0, 0, windowWidthInPx, windowHeightInPx));
-                    break;
-                case WINDOW_TOP_RIGHT:
-                    window.component->setBounds(juce::Rectangle(getWidth() - windowWidthInPx, 0, windowWidthInPx, windowHeightInPx));
-                    break;
-                case WINDOW_BOTTOM_CENTER:
-                    window.component->setBounds(juce::Rectangle(getWidth() / 2 - windowWidthInPx / 2, getHeight() - windowHeightInPx, windowWidthInPx, windowHeightInPx));
-                    break;
-                case WINDOW_BOTTOM_LEFT:
-                    window.component->setBounds(juce::Rectangle(0, getHeight() - windowHeightInPx, windowWidthInPx, windowHeightInPx));
-                    break;
-                case WINDOW_BOTTOM_RIGHT:
-                    window.component->setBounds(juce::Rectangle(getWidth() - windowWidthInPx, getHeight() - windowHeightInPx, windowWidthInPx, windowHeightInPx));
-                    break;
-                case WINDOW_CENTER_LEFT:
-                    window.component->setBounds(juce::Rectangle(0, getHeight() / 2 - windowHeightInPx / 2, windowWidthInPx, windowHeightInPx));
-                    break;
-                case WINDOW_CENTER_RIGHT:
-                    window.component->setBounds(juce::Rectangle(getWidth() - windowWidthInPx, getHeight() / 2 - windowHeightInPx / 2, windowWidthInPx, windowHeightInPx));
-                    break;
-            }
+            window->resized();
         }
     }
 
-    void WindowsManager::createWindow(const std::string& identifier, std::unique_ptr<Component> component, Distance<> width, Distance<> height, WindowPosition position, int zOrder, bool movable, bool closeable)
+    void WindowsManager::createWindow(std::unique_ptr<Window> window)
     {
-        addChildComponent(component.get(), 1000);
-        _windowsByID.insert(
-            std::make_pair(
-                identifier,
-                Window({.identifier = identifier,
-                       .component = std::move(component),
-                       .width = width,
-                       .height = height,
-                       .position = position,
-                       .zOrder = zOrder,
-                       .movable = movable,
-                       .closeable = closeable})
-            )
-        );
-    }
-
-    void WindowsManager::createWindow(std::unique_ptr<Component> component, Distance<> width, Distance<> height, WindowPosition position, int zOrder, bool movable, bool closeable)
-    {
-        createWindow(component->getID(), std::move(component), width, height, position, zOrder, movable, closeable);
+        addChildComponent(window.get(), 1000);
+        window->setWindowsManager(this);
+        _windowsByID.insert(std::make_pair(window->getID(), std::move(window)));
     }
 
     void WindowsManager::showWindow(const std::string& identifier)
     {
         if (!windowExists(identifier, true, "WindowManager::showWindow")) return;
 
-        Window& window = _windowsByID.at(identifier);
+        Window* window = _windowsByID.at(identifier).get();
 
-        window.visible = true;
-        window.component->setVisible(true);
+        window->setVisible(true);
 
         resetVisibility();
     }
@@ -92,10 +44,9 @@ namespace nierika::gui::layout {
     {
         if (!windowExists(identifier, true, "WindowManager::hideWindow")) return;
 
-        Window& window = _windowsByID.at(identifier);
+        Window* window = _windowsByID.at(identifier).get();
 
-        window.visible = false;
-        window.component->setVisible(false);
+        window->setVisible(false);
 
         resetVisibility();
     }
@@ -112,7 +63,7 @@ namespace nierika::gui::layout {
     bool WindowsManager::hasVisibleWindows()
     {
         for (const auto& [_, window] : _windowsByID) {
-            if (window.visible) return true;
+            if (window->isVisible()) return true;
         }
         return false;
     }
