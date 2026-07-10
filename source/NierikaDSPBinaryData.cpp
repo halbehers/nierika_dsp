@@ -5922,6 +5922,25 @@ static const unsigned char temp_binary_data_14[] =
 
 const char* Brandon_thin_otf = (const char*) temp_binary_data_14;
 
+//================== gear.svg ==================
+static const unsigned char temp_binary_data_15[] =
+"<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n"
+"<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M25.8 14C25.5408 12.7233 25.0384 11.5348 24.3432 10.4852L26.6066 8.22183C26.9971 7.8313 26.9971 7.19814 26.6066 6.80761L25.1924 5.3934C24.8019 5.00287 24.1687 5.00287 23.7782 5.3934L21.5148 7.65679C2"
+"0.4652 6.96161 19.2767 6.4592 18 6.20004V3C18 2.44772 17.5523 2 17 2H15C14.4477 2 14 2.44771 14 3V6.20004C12.7233 6.4592 11.5349 6.9616 10.4853 7.65677L8.2219 5.3934C7.83137 5.00288 7.19821 5.00288 6.80768 5.3934L5.39347 6.80762C5.00294 7.19814 5.00"
+"294 7.8313 5.39347 8.22183L7.65682 10.4852C6.96163 11.5348 6.45921 12.7232 6.20004 14H3C2.44772 14 2 14.4477 2 15V17C2 17.5523 2.44771 18 3 18H6.20004C6.4592 19.2767 6.96161 20.4652 7.65679 21.5148L5.3934 23.7782C5.00287 24.1687 5.00287 24.8019 5.3"
+"934 25.1924L6.80761 26.6066C7.19814 26.9971 7.8313 26.9971 8.22183 26.6066L10.4852 24.3432C11.5348 25.0384 12.7233 25.5408 14 25.8V29C14 29.5523 14.4477 30 15 30H17C17.5523 30 18 29.5523 18 29V25.8C19.2768 25.5408 20.4652 25.0384 21.5148 24.3432L2"
+"3.7782 26.6066C24.1688 26.9971 24.8019 26.9971 25.1925 26.6066L26.6067 25.1924C26.9972 24.8019 26.9972 24.1687 26.6067 23.7782L24.3432 21.5147C25.0384 20.4651 25.5408 19.2767 25.8 18H29C29.5523 18 30 17.5523 30 17V15C30 14.4477 29.5523 14 29 14H2"
+"5.8ZM16 22C19.3137 22 22 19.3137 22 16C22 12.6863 19.3137 10 16 10C12.6863 10 10 12.6863 10 16C10 19.3137 12.6863 22 16 22Z\" fill=\"#000000\"/>\n"
+"</svg>\n";
+
+const char* Gear_svg = (const char*) temp_binary_data_15;
+
+//================== search.svg ==================
+static const unsigned char temp_binary_data_16[] =
+"<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<line x1=\"4\" y1=\"26.1213\" x2=\"6.12132\" y2=\"24\" stroke=\"#000000\" stroke-width=\"5\" stroke-linecap=\"round\"/>\n<circle cx=\"16\" cy=\"1"
+"5\" r=\"11.5\" stroke=\"#000000\" stroke-width=\"3\"/>\n</svg>\n";
+
+const char* Search_svg = (const char*) temp_binary_data_16;
 
 const char* getNamedResource (const char* resourceNameUTF8, int& numBytes);
 const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
@@ -5949,6 +5968,8 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
         case 0xfc83aa75:  numBytes = 89536; return Brandon_med_otf;
         case 0x052d193d:  numBytes = 86528; return Brandon_reg_otf;
         case 0x1320d514:  numBytes = 90808; return Brandon_thin_otf;
+        case 0x5a424bd4:  numBytes = 1483; return Gear_svg;
+        case 0x4c7e1b6d:  numBytes = 278; return Search_svg;
         default: break;
     }
 
@@ -5972,7 +5993,9 @@ const char* namedResourceList[] =
     "Brandon_light_otf",
     "Brandon_med_otf",
     "Brandon_reg_otf",
-    "Brandon_thin_otf"
+    "Brandon_thin_otf",
+    "Gear_svg",
+    "Search_svg"
 };
 
 const char* originalFilenames[] =
@@ -5991,7 +6014,9 @@ const char* originalFilenames[] =
     "Brandon_light.otf",
     "Brandon_med.otf",
     "Brandon_reg.otf",
-    "Brandon_thin.otf"
+    "Brandon_thin.otf",
+    "gear.svg",
+    "search.svg"
 };
 
 const char* getNamedResourceOriginalFilename (const char* resourceNameUTF8);

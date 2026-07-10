@@ -108,10 +108,13 @@ protected:
 private:
     static void log(const Logger::Level level, const std::string& log, const std::string& source)
     {
-        return;
+        // get() lazily constructs the singleton on first use (thread-safe, std::call_once) -
+        // it must run before the isAlive() check, otherwise isAlive() can never become true and
+        // every call silently drops (isAlive() gates use after markShuttingDown()/teardown, not
+        // use before first construction).
+        Logger& logger = get();
         if (!Logger::isAlive()) return;
 
-        Logger& logger = get();
         switch (level)
         {
             case Logger::DEBUG_LEVEL:

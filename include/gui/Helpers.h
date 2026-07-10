@@ -1,6 +1,7 @@
 #pragma once
 
 #define ATTRIBUTE_FILL "fill"
+#define ATTRIBUTE_STROKE "stroke"
 #define SVG_DEFAULT_COLOR "#000000"
 
 namespace nierika::gui::helpers

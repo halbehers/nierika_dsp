@@ -109,7 +109,7 @@ void Section::setGap(const float gap)
 
 void Section::displayBorder()
 {
-    Component::displayBorder(Theme::ThemeColor::EMPTY_SHADE, 1.f, 17.f, 0.2f);
+    Component::displayBorder(Theme::ThemeColor::BORDER, 1.f, Theme::getBorderRadius(), 1.f);
 }
 
 void Section::displayBackground()
@@ -117,7 +117,7 @@ void Section::displayBackground()
     const juce::Colour whiteColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
     const juce::Colour grayColor = Theme::newColor(Theme::ThemeColor::LIGHTER_SHADE).asJuce();
 
-    Component::displayBackground(juce::ColourGradient(whiteColor.withAlpha(0.1f), getWidth() / 2, 0.0, grayColor.withAlpha(0.1f), getWidth() / 2, getHeight(), false), 17.f);
+    Component::displayBackground(juce::ColourGradient(whiteColor.withAlpha(0.1f), getWidth() / 2, 0.0, grayColor.withAlpha(0.1f), getWidth() / 2, getHeight(), false), Theme::getBorderRadius());
 }
 
 void Section::paint(juce::Graphics& g)

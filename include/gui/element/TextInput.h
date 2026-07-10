@@ -25,7 +25,6 @@ public:
     ~TextInput() override = default;
 
     void resized() override;
-    void paint(juce::Graphics& g) override;
 
     void addOnValueChangedListener(OnValueChangedListener* listener);
     void removeOnValueChangedListener(OnValueChangedListener* listener);
@@ -50,16 +49,32 @@ public:
     void textEditorTextChanged(juce::TextEditor & editor) override;
     void textEditorReturnKeyPressed(juce::TextEditor & editor) override;
 
+    void setBorderRadius(float radius) { _borderRadiusOverride = radius; }
+    void resetBorderRadius() { _borderRadiusOverride = -1; }
+    float getBorderRadius() const { return _borderRadiusOverride >= 0 ? _borderRadiusOverride : Theme::getBorderRadius(); }
+
+    void setBackgroundColour(juce::Colour colour) { _backgroundOverride = colour; }
+    void resetBackgroundColour() { _backgroundOverride = juce::Colour(); }
+    juce::Colour getBackgroundColour() const { return _backgroundOverride.isTransparent() ? Theme::newColor(Theme::ThemeColor::SECONDARY_BACKGROUND).asJuce() : _backgroundOverride; }
+
+    void setBorderColour(juce::Colour colour) { _borderOverride = colour; }
+    void resetBorderColour() { _borderOverride = juce::Colour(); }
+    juce::Colour getBorderColour() const { return _borderOverride.isTransparent() ? Theme::newColor(Theme::ThemeColor::BORDER).asJuce().withAlpha(0.2f) : _borderOverride; }
+
 protected:
     juce::TextEditor _input {};
 
 private:
-    laf::TextInput _lookAndFeel;
+    laf::TextInput _lookAndFeel { *this };
 
     std::vector<OnValueChangedListener*> _valueChangedListeners;
     std::vector<OnReturnKeyPressedListener*> _returnKeyListeners;
 
-    std::string _placeholder;
+    juce::Colour _backgroundOverride = juce::Colour();
+    juce::Colour _borderOverride = juce::Colour();
+
+
+    float _borderRadiusOverride = -1;
 
     void setup();
 

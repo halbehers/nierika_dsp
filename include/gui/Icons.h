@@ -17,7 +17,9 @@ public:
     static const char* getPingPong() { return NierikaDSPBinaryData::PingPong_svg; }
     static const char* getNote() { return NierikaDSPBinaryData::Note_svg; }
     static const char* getBoxes() { return NierikaDSPBinaryData::Boxes_svg; }
+    static const char* getGear() { return NierikaDSPBinaryData::Gear_svg; }
     static const char* getInfo() { return NierikaDSPBinaryData::Info_svg; }
+    static const char* getSearch() { return NierikaDSPBinaryData::Search_svg; }
 };
 
 }

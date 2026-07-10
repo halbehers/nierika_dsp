@@ -17,6 +17,9 @@ namespace NierikaDSPBinaryData
     extern const char*   Boxes_svg;
     const int            Boxes_svgSize = 947;
 
+    extern const char*   Gear_svg;
+    const int            Gear_svgSize = 1483;
+
     extern const char*   Info_svg;
     const int            Info_svgSize = 744;
 
@@ -53,8 +56,11 @@ namespace NierikaDSPBinaryData
     extern const char*   Brandon_thin_otf;
     const int            Brandon_thin_otfSize = 90808;
 
+    extern const char*   Search_svg;
+    const int            Search_svgSize = 278;
+
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 15;
+    const int namedResourceListSize = 17;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

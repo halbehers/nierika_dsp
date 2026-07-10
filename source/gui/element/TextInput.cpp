@@ -19,7 +19,7 @@ void TextInput::setup()
     setMultiline(false);
     setCaretVisible(true);
 
-    setIndents(16, 8);
+    setIndents(24, 10);
 
     _input.addListener(this);
 }
@@ -41,17 +41,6 @@ void TextInput::resized()
     Component::resized();
     _input.setBounds(getLocalBounds());
     _input.setFont(Theme::newFont(Theme::LIGHT).withHeight(getHeight() * 0.55f));
-}
-
-void TextInput::paint(juce::Graphics& g)
-{
-    Component::paint(g);
-    if (getText().empty())
-    {
-        g.setColour(Theme::newColor(Theme::ThemeColor::LIGHT_SHADE).asJuce());
-        g.setFont(Theme::newFont(Theme::LIGHT).withHeight(getHeight() * 0.55f));
-        g.drawText(_placeholder, getLocalBounds().withX(getLocalBounds().getX() + 16), juce::Justification::centredLeft, true);
-    }
 }
 
 void TextInput::setHelpText(const std::string& helpText)
@@ -92,7 +81,7 @@ void TextInput::removeReturnKeyPressedListener(OnReturnKeyPressedListener* liste
 
 void TextInput::setPlaceholder(const std::string& text)
 {
-    _placeholder = text;
+    _input.setTextToShowWhenEmpty(juce::String(text), Theme::newColor(Theme::ThemeColor::TEXT).asJuce().withAlpha(0.5f));
 }
 
 }

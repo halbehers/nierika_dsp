@@ -32,7 +32,7 @@ public:
         float handleAlpha = 1.f;
         float handleDotSize = 2.f;
         float movableZoneHeight = 20.f;
-        float dropableZoneRadius = 17.f;
+        float dropableZoneRadius = Theme::getBorderRadius();
         bool splitHandles = false;
         juce::Colour handleColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
         juce::Colour dropableZoneColor = Theme::newColor(Theme::ThemeColor::ACCENT).asJuce();

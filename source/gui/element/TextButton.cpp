@@ -16,6 +16,7 @@ void TextButton::setup()
 
     _button.setLookAndFeel(&_lookAndFeel);
     _button.setButtonText(getName());
+    _button.setMouseCursor(juce::MouseCursor::PointingHandCursor);
 
     _button.onClick = [this]()
     {
@@ -61,6 +62,18 @@ void TextButton::setColour(int colourID, juce::Colour newColour)
 void TextButton::setColour(int colourID, Theme::ThemeColor color)
 {
     _button.setColour(colourID, Theme::newColor(color).asJuce());
+}
+
+void TextButton::setIcon(const char* svgBinary, IconPosition position)
+{
+    _iconBinary = svgBinary;
+    _iconPosition = position;
+}
+
+void TextButton::resetIcon()
+{
+    _iconBinary = nullptr;
+    _iconPosition = IconPosition::Left;
 }
 
 }

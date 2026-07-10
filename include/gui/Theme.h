@@ -18,6 +18,7 @@
 
 #define COLOR_BLACK 0xFF000000
 
+
 #define COLOR_TURQUOISE_200 0xFF53F4FB
 #define COLOR_TURQUOISE_300 0xFF39B0C1
 
@@ -39,6 +40,12 @@
 #define COLOR_DARK_SHADE COLOR_GRAY_300
 #define COLOR_FULL_SHADE COLOR_GRAY_400
 
+#define COLOR_BACKGROUND 0xFF1E1E1E
+#define COLOR_SECONDARY_BACKGROUND 0xFFF2F2F2
+#define COLOR_BORDER COLOR_LIGHTER_SHADE
+
+#define DEFAULT_BORDER_RADIUS 17.f
+
 namespace nierika::gui
 {
 
@@ -55,6 +62,9 @@ public:
         DARK_SHADE,
         FULL_SHADE,
         BLACK,
+        BACKGROUND,
+        SECONDARY_BACKGROUND,
+        BORDER,
         PRIMARY,
         ACCENT,
         TEXT,
@@ -100,6 +110,7 @@ public:
         std::optional<Palette> customPalette;
         Palette colorOverrides;
         FontSet fontOverrides;
+        std::optional<float> borderRadius;
     };
 
     class Color
@@ -130,6 +141,8 @@ public:
     static void setPalette(const Palette& palette);
     static void setFont(FontWeight weight, juce::Font font);
     static void setFonts(const FontSet& fonts);
+    static void setBorderRadius(float radius);
+    [[nodiscard]] static float getBorderRadius();
     static void resetToDefaults();
 
     // Fires whenever the active palette/fonts change, so live components can
@@ -148,6 +161,7 @@ private:
     static Config _lastConfig;
     static Palette _activePalette;
     static FontSet _activeFonts;
+    static float _borderRadius;
     static std::unordered_map<FontSize, float> fontSizesToPixels;
     static juce::ChangeBroadcaster _changeBroadcaster;
 

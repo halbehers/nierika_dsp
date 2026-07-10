@@ -36,6 +36,9 @@ Theme::Palette Theme::buildPreset(const Mode mode)
             { DARK_SHADE, juce::Colour(0xFF6B6468) },
             { FULL_SHADE, juce::Colour(0xFF232323) },
             { BLACK, juce::Colour(static_cast<juce::uint32>(COLOR_BLACK)) },
+            { BACKGROUND, juce::Colour(0xFFF2F2F2) },
+            { SECONDARY_BACKGROUND, juce::Colour(0xFFF2F2F2) },
+            { BORDER, juce::Colour(0xFFCCCCCC) },
             { PRIMARY, juce::Colour(0xFF3A607E) },
             { ACCENT, juce::Colour(0xFF1AAFBD) },
             { TEXT, juce::Colour(0xFF1A1A1A) },
@@ -55,6 +58,9 @@ Theme::Palette Theme::buildPreset(const Mode mode)
         { DARK_SHADE, juce::Colour(static_cast<juce::uint32>(COLOR_DARK_SHADE)) },
         { FULL_SHADE, juce::Colour(static_cast<juce::uint32>(COLOR_FULL_SHADE)) },
         { BLACK, juce::Colour(static_cast<juce::uint32>(COLOR_BLACK)) },
+        { BACKGROUND, juce::Colour(static_cast<juce::uint32>(COLOR_BACKGROUND)) },
+        { SECONDARY_BACKGROUND, juce::Colour(static_cast<juce::uint32>(COLOR_SECONDARY_BACKGROUND)) },
+        { BORDER, juce::Colour(static_cast<juce::uint32>(COLOR_BORDER)) },
         { PRIMARY, juce::Colour(static_cast<juce::uint32>(COLOR_PRIMARY)) },
         { ACCENT, juce::Colour(static_cast<juce::uint32>(COLOR_ACCENT)) },
         { TEXT, juce::Colour(static_cast<juce::uint32>(COLOR_TEXT)) },
@@ -77,6 +83,7 @@ Theme::FontSet Theme::buildDefaultFontSet()
 
 Theme::Palette Theme::_activePalette = Theme::buildPreset(Theme::Mode::Dark);
 Theme::FontSet Theme::_activeFonts = Theme::buildDefaultFontSet();
+float Theme::_borderRadius = DEFAULT_BORDER_RADIUS;
 juce::ChangeBroadcaster Theme::_changeBroadcaster {};
 
 void Theme::applyConfig(const Config& config)
@@ -93,6 +100,8 @@ void Theme::applyConfig(const Config& config)
     for (const auto& [weight, font] : config.fontOverrides)
         fonts[weight] = font;
     _activeFonts = std::move(fonts);
+
+    _borderRadius = config.borderRadius.value_or(DEFAULT_BORDER_RADIUS);
 
     // Theme changes always originate on the message thread (host startup code,
     // or a UI-triggered mode toggle), so synchronous dispatch is safe and keeps
@@ -140,6 +149,17 @@ void Theme::setFonts(const FontSet& fonts)
     for (const auto& [weight, font] : fonts)
         _lastConfig.fontOverrides[weight] = font;
     applyConfig(_lastConfig);
+}
+
+void Theme::setBorderRadius(const float radius)
+{
+    _lastConfig.borderRadius = radius;
+    applyConfig(_lastConfig);
+}
+
+float Theme::getBorderRadius()
+{
+    return _borderRadius;
 }
 
 void Theme::resetToDefaults()

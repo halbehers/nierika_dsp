@@ -36,6 +36,14 @@ public:
         bool shouldDrawButtonAsHighlighted,
         bool shouldDrawButtonAsDown
      ) override;
+
+    void drawToggleButton
+    (
+        juce::Graphics& g,
+        juce::ToggleButton& button,
+        bool shouldDrawButtonAsHighlighted,
+        bool shouldDrawButtonAsDown
+    ) override;
     
     State getState(bool ticked,
                    bool isEnabled,
