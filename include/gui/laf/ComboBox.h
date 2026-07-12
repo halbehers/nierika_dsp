@@ -1,12 +1,14 @@
 #pragma once
 
+namespace nierika::gui::element { class ComboBox; }
+
 namespace nierika::gui::laf
 {
 
 class ComboBox final : public juce::LookAndFeel_V4
 {
 public:
-    ComboBox() = default;
+    explicit ComboBox(const element::ComboBox& parent);
     ~ComboBox() override = default;
 
     void drawComboBox
@@ -38,6 +40,31 @@ public:
     ) override;
     
     juce::Font getComboBoxFont(juce::ComboBox &) override;
+
+    juce::Font getPopupMenuFont() override;
+
+    void drawPopupMenuBackground
+    (
+        juce::Graphics& g,
+		int width,
+		int height
+    ) override;
+
+    int getPopupMenuBorderSize() override;
+
+    void getIdealPopupMenuItemSize
+    (
+        const juce::String& text,
+		bool isSeparator,
+		int standardMenuItemHeight,
+		int& idealWidth,
+		int& idealHeight
+    ) override;
+
+    void positionComboBoxText(juce::ComboBox& comboBox, juce::Label& labelToPosition) override;
+
+protected:
+    const element::ComboBox& _parent;
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ComboBox)

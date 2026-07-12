@@ -15,6 +15,7 @@ void TextInput::setup()
     addAndMakeVisible(_input);
 
     _input.setLookAndFeel(&_lookAndFeel);
+    _input.setColour(juce::TextEditor::ColourIds::textColourId, Theme::newColor(Theme::ThemeColor::TEXT).asJuce());
 
     setMultiline(false);
     setCaretVisible(true);

@@ -31,6 +31,7 @@ void SVGToggle::setup()
 
     _button.setLookAndFeel(&_lookAndFeel);
     _button.setToggleState(true, juce::NotificationType::dontSendNotification);
+    _button.setMouseCursor(juce::MouseCursor::PointingHandCursor);
 
     _button.onClick = [this]()
     {

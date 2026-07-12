@@ -28,6 +28,7 @@
 #define COLOR_PRIMARY COLOR_BLUE_400
 #define COLOR_ACCENT COLOR_TURQUOISE_200
 #define COLOR_TEXT COLOR_WHITE
+#define COLOR_INVERTED_TEXT COLOR_BLACK
 #define COLOR_DISABLED COLOR_GRAY_100
 #define COLOR_DANGER COLOR_RED_100
 #define COLOR_WARNING COLOR_ORANGE_100
@@ -68,6 +69,7 @@ public:
         PRIMARY,
         ACCENT,
         TEXT,
+        INVERTED_TEXT,
         DISABLED,
         DANGER,
         WARNING
@@ -95,28 +97,36 @@ public:
 
     enum class Mode
     {
-        Dark,
-        Light
+        DARK,
+        LIGHT
+    };
+
+    enum class FontFamily
+    {
+        DEFAULT,
+        MONOSPACED
     };
 
     using Palette = std::unordered_map<ThemeColor, juce::Colour>;
+    using PaletteSet = std::unordered_map<Mode, Palette>;
     using FontSet = std::unordered_map<FontWeight, juce::Font>;
 
     // Host-facing configuration. Everything is optional: an untouched Config
     // reproduces today's hardcoded Dark theme exactly.
     struct Config
     {
-        Mode mode = Mode::Dark;
-        std::optional<Palette> customPalette;
-        Palette colorOverrides;
+        Mode mode = Mode::DARK;
+        std::optional<PaletteSet> customPaletteSet;
+        PaletteSet colorOverrides;
         FontSet fontOverrides;
+        FontSet monospaceFontOverrides;
         std::optional<float> borderRadius;
     };
 
     class Color
     {
     public:
-        explicit Color(ThemeColor color);
+        explicit Color(const Mode mode, const ThemeColor color);
         ~Color() = default;
 
         Color(const Color& other) = default;
@@ -127,6 +137,7 @@ public:
         [[nodiscard]] std::string asHexString() const;
 
     private:
+        Mode _mode;
         ThemeColor _color;
     };
 
@@ -137,10 +148,12 @@ public:
     // (previous overrides are preserved) rather than resetting it.
     static void setMode(Mode mode);
     [[nodiscard]] static Mode getMode();
-    static void setColor(ThemeColor color, juce::Colour value);
-    static void setPalette(const Palette& palette);
+    static void setColor(const Mode mode, ThemeColor color, juce::Colour value);
+    static void setPaletteSet(const PaletteSet& palette);
     static void setFont(FontWeight weight, juce::Font font);
     static void setFonts(const FontSet& fonts);
+    static void setMonospaceFont(FontWeight weight, juce::Font font);
+    static void setMonospaceFonts(const FontSet& fonts);
     static void setBorderRadius(float radius);
     [[nodiscard]] static float getBorderRadius();
     static void resetToDefaults();
@@ -151,18 +164,22 @@ public:
 
     static Color newColor(ThemeColor color);
     [[nodiscard]] static juce::Font newFont(FontWeight weight, FontSize size = PARAGRAPH);
-    [[nodiscard]] static float getFontSizeInPixels(FontSize size);
+    [[nodiscard]] static juce::Font newFont(FontFamily family, FontWeight weight, FontSize size = PARAGRAPH);
+    [[nodiscard]] static float getFontSizeInPixels(FontSize size, const FontFamily family = FontFamily::DEFAULT);
 
 private:
-    static Palette buildPreset(Mode mode);
+    static PaletteSet buildPreset();
     static FontSet buildDefaultFontSet();
+    static FontSet buildDefaultMonospaceFontSet();
     static void applyConfig(const Config& config);
 
     static Config _lastConfig;
-    static Palette _activePalette;
+    static PaletteSet _activePaletteSet;
     static FontSet _activeFonts;
+    static FontSet _activeMonospaceFonts;
     static float _borderRadius;
-    static std::unordered_map<FontSize, float> fontSizesToPixels;
+    static std::unordered_map<FontSize, float> defaultFontSizesToPixels;
+    static std::unordered_map<FontSize, float> monospacedFontSizesToPixels;
     static juce::ChangeBroadcaster _changeBroadcaster;
 
     friend class Color;

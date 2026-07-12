@@ -7,11 +7,11 @@ Value::Value(const std::string& identifier, const std::string& name, const std::
     Component(identifier, name)
 {
     addAndMakeVisible(_value);
-    _value.setFont(Theme::BOLD, Theme::SUBTITLE);
+    _value.setFont(Theme::REGULAR, Theme::SMALL, Theme::FontFamily::MONOSPACED);
     _value.setJustificationType(juce::Justification::centredRight);
     _value.setText("-", false);
     
-    _unit.setFont(Theme::THIN, Theme::SUBTITLE);
+    _unit.setFont(Theme::THIN, Theme::LABEL);
     _unit.setColor(Theme::newColor(Theme::TEXT).asJuce().withAlpha(0.7f));
     _unit.setJustificationType(juce::Justification::centredLeft);
     if (unit != "") {
@@ -62,8 +62,50 @@ void Value::resized()
 
 void Value::setFontSize(Theme::FontSize fontSize)
 {
-    _value.setFont(Theme::BOLD, fontSize);
-    _unit.setFont(Theme::THIN, fontSize);
+    _value.setFontSize(fontSize);
+    _unit.setFontSize(fontSize);
+}
+
+void Value::setValueFontSize(Theme::FontSize fontSize)
+{
+    _value.setFontSize(fontSize);
+}
+
+void Value::setUnitFontSize(Theme::FontSize fontSize)
+{
+    _unit.setFontSize(fontSize);
+}
+
+void Value::setFontWeight(Theme::FontWeight weight)
+{
+    _value.setFontWeight(weight);
+    _unit.setFontWeight(weight);
+}
+
+void Value::setValueFontWeight(Theme::FontWeight weight)
+{
+    _value.setFontWeight(weight);
+}
+
+void Value::setUnitFontWeight(Theme::FontWeight weight)
+{
+    _unit.setFontWeight(weight);
+}
+
+void Value::setFontFamily(Theme::FontFamily family)
+{
+    _value.setFontFamily(family);
+    _unit.setFontFamily(family);
+}
+
+void Value::setValueFontFamily(Theme::FontFamily family)
+{
+    _value.setFontFamily(family);
+}
+
+void Value::setUnitFontFamily(Theme::FontFamily family)
+{
+    _unit.setFontFamily(family);
 }
 
 }

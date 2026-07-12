@@ -13,9 +13,7 @@ namespace nierika::gui::layout {
         displayBorder(Theme::ThemeColor::LIGHT_SHADE, 1.f, 16.f);
         displayBackground(Theme::newColor(Theme::ThemeColor::PRIMARY).asJuce(), 16.f);
 
-        _closeButton.onClick = [this] {
-            _windowManager.hideWindow(getID());
-        };
+        _closeButton.addOnClickListener(this);
 
         _title.setFontSize(Theme::HEADING);
         _title.setJustificationType(juce::Justification::topLeft);
@@ -30,6 +28,17 @@ namespace nierika::gui::layout {
             _layout.addComponent("close", _closeButton, 0, 1, 1, 1);
         _layout.addComponent("title", _title, 0, 0, 1, 1);
         _layout.addComponent("text", _text, 1, 0, 1, 1);
+    }
+
+    Dialog::~Dialog()
+    {
+        _closeButton.removeListener(this);
+    }
+
+    void Dialog::onButtonClick(const std::string& componentID)
+    {
+        (void) componentID;
+        _windowManager.hideWindow(getID());
     }
 
     void Dialog::paint(juce::Graphics& g)

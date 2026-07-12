@@ -1,13 +1,14 @@
 #include "../../../include/gui/laf/SVGButton.h"
+#include "../../../include/gui/element/SVGButton.h"
 #include "../../../include/gui/Theme.h"
 #include "../../../include/gui/Helpers.h"
 
 namespace nierika::gui::laf
 {
 
-SVGButton::SVGButton(const char* svgBinary)
+SVGButton::SVGButton(const element::SVGButton& parent):
+    _parent(parent)
 {
-    _svgBinary = svgBinary;
 }
 
 void SVGButton::drawDrawableButton
@@ -22,9 +23,9 @@ void SVGButton::drawDrawableButton
     const std::string highlightedColor = Theme::newColor(Theme::ThemeColor::LIGHT_SHADE).asHexString();
     const std::string downColor = Theme::newColor(Theme::ThemeColor::MEDIUM_SHADE).asHexString();
     const std::string disabledColor = Theme::newColor(Theme::ThemeColor::DISABLED).asHexString();
-    
+
     auto color = whiteColor;
-    
+
     if (!button.isEnabled())
     {
         color = disabledColor;
@@ -37,8 +38,15 @@ void SVGButton::drawDrawableButton
     {
         color = downColor;
     }
-    
-    helpers::drawFromSVG(g, _svgBinary, color, 0, 0, button.getWidth(), button.getHeight(), juce::AffineTransform());
+
+    const float iconSize = _parent.getIconSize();
+    const float x = (static_cast<float>(button.getWidth()) - iconSize) * 0.5f;
+    const float y = (static_cast<float>(button.getHeight()) - iconSize) * 0.5f;
+
+    helpers::drawFromSVG(g, _parent.getIconBinary(), color,
+                          static_cast<int>(x), static_cast<int>(y),
+                          static_cast<int>(iconSize), static_cast<int>(iconSize),
+                          juce::AffineTransform());
 }
 
 }

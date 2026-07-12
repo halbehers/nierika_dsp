@@ -20,10 +20,14 @@ public:
     std::string getText() const;
     void setText(const std::string& text, bool triggerRepaint = true);
     void setFont(juce::Font);
-    void setFont(Theme::FontWeight weight = Theme::REGULAR, Theme::FontSize size = Theme::PARAGRAPH);
+    void setFont(Theme::FontWeight weight = Theme::REGULAR, Theme::FontSize size = Theme::PARAGRAPH, Theme::FontFamily family = Theme::FontFamily::DEFAULT);
     void resetFont();
     void setFontWeight(Theme::FontWeight weight);
+    Theme::FontWeight getFontWeight() const { return _fontWeight; }
+    Theme::FontSize getFontSize() const { return _fontSize; }
+    Theme::FontFamily getFontFamily() const { return _fontFamily; }
     void setFontSize(Theme::FontSize size);
+    void setFontFamily(Theme::FontFamily family);
     void setColor(Theme::ThemeColor color);
     void setColor(juce::Colour color);
     void setJustificationType(juce::Justification justification);
@@ -32,6 +36,7 @@ private:
     juce::Label _text {};
     Theme::FontSize _fontSize = Theme::PARAGRAPH;
     Theme::FontWeight _fontWeight = Theme::REGULAR;
+    Theme::FontFamily _fontFamily = Theme::FontFamily::DEFAULT;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Text)
 };

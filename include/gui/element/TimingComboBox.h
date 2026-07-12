@@ -8,7 +8,7 @@ namespace nierika::gui::element
 class TimingComboBox: public ComboBox
 {
 public:
-    explicit TimingComboBox(const juce::String& name);
+    explicit TimingComboBox(const std::string& identifier);
     ~TimingComboBox() override = default;
 
 private:

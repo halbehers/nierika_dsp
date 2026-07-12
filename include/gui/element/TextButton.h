@@ -17,8 +17,8 @@ public:
 
     enum class IconPosition
     {
-        Left,
-        Right
+        LEFT,
+        RIGHT
     };
 
     TextButton(const std::string& identifier, const std::string& text);
@@ -38,7 +38,7 @@ public:
     void setColour(int colourID, juce::Colour newColour);
     void setColour(int colourID, Theme::ThemeColor color);
 
-    void setIcon(const char* svgBinary, IconPosition position = IconPosition::Left);
+    void setIcon(const char* svgBinary, IconPosition position = IconPosition::LEFT);
     void resetIcon();
     bool hasIcon() const { return _iconBinary != nullptr; }
     IconPosition getIconPosition() const { return _iconPosition; }
@@ -46,6 +46,8 @@ public:
     float getIconSize() const { return getHeight() * 0.4f; }
     void setGap(float gap) { _gap = gap; }
     float getGap() const { return _gap; }
+    void setInvertedTextColor(bool hasInvertedTextColor) { _hasInvertedTextColor = hasInvertedTextColor; }
+    bool hasInvertedTextColor() const { return _hasInvertedTextColor; }
 
 protected:
     juce::TextButton _button {};
@@ -57,8 +59,10 @@ private:
     std::vector<OnClickListener*> _listeners;
 
     const char* _iconBinary = nullptr;
-    IconPosition _iconPosition = IconPosition::Left;
+    IconPosition _iconPosition = IconPosition::LEFT;
     float _gap = 8.f;
+
+    bool _hasInvertedTextColor = false;
 
     void setup();
 

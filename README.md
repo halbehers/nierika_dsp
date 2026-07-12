@@ -16,6 +16,7 @@ A JUCE module containing a collection of DSP &amp; GUI classes made to homegeniz
   - [Configuring a palette and fonts](#configuring-a-palette-and-fonts)
   - [Dark & Light mode](#dark--light-mode)
   - [Fine-grained overrides](#fine-grained-overrides)
+  - [Monospace fonts](#monospace-fonts)
   - [Live theme switching](#live-theme-switching)
 - [Developers](#developers)
 
@@ -194,7 +195,7 @@ PluginAudioProcessor::PluginAudioProcessor()
     : /* ...your existing initializer list... */
 {
     nui::Theme::configure({
-        .mode = nui::Theme::Mode::Dark,
+        .mode = nui::Theme::Mode::DARK,
         .colorOverrides = {
             { nui::Theme::ACCENT,  juce::Colour(0xFFFF3355) },
             { nui::Theme::PRIMARY, juce::Colour(0xFF1F1F2E) }
@@ -210,17 +211,17 @@ PluginAudioProcessor::PluginAudioProcessor()
 
 | Field | Purpose |
 |---|---|
-| `mode` | Starts from the built-in `Dark` or `Light` preset (see below). Defaults to `Mode::Dark`. |
+| `mode` | Starts from the built-in `Dark` or `Light` preset (see below). Defaults to `Mode::DARK`. |
 | `customPalette` | Fully replaces the preset with your own `ThemeColor → juce::Colour` map. Any role you don't specify falls back to the preset's value. |
 | `colorOverrides` | Sparse tweaks applied on top of the preset (or `customPalette`) — the values that always win. Use this for brand colours like `ACCENT`/`PRIMARY` without redefining the whole palette. |
 | `fontOverrides` | Per-`FontWeight` `juce::Font` replacements. Any weight you don't specify keeps using the module's embedded fonts. |
 
 ### Dark & Light mode
 
-`Theme::Mode::Dark` reproduces the module's original hardcoded values byte-for-byte. `Theme::Mode::Light` is a built-in alternative preset with inverted neutrals (dark text/ink on light surfaces) while keeping brand colours (`PRIMARY`, `ACCENT`, `DANGER`, `WARNING`) close to their dark-mode values for brand consistency. Pick one via `Config::mode`, or switch later:
+`Theme::Mode::DARK` reproduces the module's original hardcoded values byte-for-byte. `Theme::Mode::LIGHT` is a built-in alternative preset with inverted neutrals (dark text/ink on light surfaces) while keeping brand colours (`PRIMARY`, `ACCENT`, `DANGER`, `WARNING`) close to their dark-mode values for brand consistency. Pick one via `Config::mode`, or switch later:
 
 ```c++
-nui::Theme::setMode(nui::Theme::Mode::Light);
+nui::Theme::setMode(nui::Theme::Mode::LIGHT);
 nui::Theme::Mode current = nui::Theme::getMode();
 ```
 
@@ -235,8 +236,24 @@ nui::Theme::setColor(nui::Theme::ACCENT, juce::Colour(0xFFFF3355));
 nui::Theme::setPalette(myFullPalette);                 // full custom palette
 nui::Theme::setFont(nui::Theme::BOLD, myBoldFont);
 nui::Theme::setFonts(myFontSet);                        // multiple weights at once
-nui::Theme::resetToDefaults();                          // back to Mode::Dark, no overrides
+nui::Theme::resetToDefaults();                          // back to Mode::DARK, no overrides
 ```
+
+### Monospace fonts
+
+Alongside the default proportional family (selected via `FontWeight`), `Theme` supports a second, independent font family for monospace needs (code, values, timers, ...), selected via `Theme::FontFamily`:
+
+```c++
+juce::Font mono = nui::Theme::newFont(nui::Theme::FontFamily::Monospace, nui::Theme::REGULAR, nui::Theme::CAPTION);
+```
+
+Out of the box — with no font embedded — this falls back to the OS's built-in monospace font (Menlo, Consolas, ...), so it works immediately. To embed your own monospace `.otf`/`.ttf`:
+
+```shell
+python3 script/add_font.py path/to/YourMono-Regular.otf
+```
+
+This registers the font as `NierikaDSPBinaryData` (the same mechanism `script/add_svg_icon.py` uses for icons) and adds an `EmbeddedFonts::get<Name>()` accessor. Then wire it in by replacing the fallback entries in `Theme::buildDefaultMonospaceFontSet()` (`source/gui/Theme.cpp`) with calls to your new accessor, the same way `buildDefaultFontSet()` wires up the default Brandon family. Hosts can also override monospace fonts per-weight via `Theme::setMonospaceFont`/`setMonospaceFonts`, or as part of `Theme::configure(...)`'s `monospaceFontOverrides`.
 
 ### Live theme switching
 

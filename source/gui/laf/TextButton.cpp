@@ -26,7 +26,7 @@ TextButton::TextButton(const element::TextButton& parent):
 juce::Font TextButton::getTextButtonFont(juce::TextButton& button, int buttonHeight)
 {
     (void) button;
-    return Theme::newFont(Theme::REGULAR).withHeight(static_cast<float>(buttonHeight) * 0.65f);
+    return Theme::newFont(Theme::REGULAR, Theme::CAPTION);
 }
 
 void TextButton::drawButtonBackground(juce::Graphics& g, juce::Button& button, const juce::Colour& backgroundColour, bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown)
@@ -53,7 +53,7 @@ void TextButton::drawButtonBackground(juce::Graphics& g, juce::Button& button, c
         return;
 
     auto& textButton = static_cast<juce::TextButton&>(button);
-    const bool isLeft = _parent.getIconPosition() == element::TextButton::IconPosition::Left;
+    const bool isLeft = _parent.getIconPosition() == element::TextButton::IconPosition::LEFT;
     const int fontHeight = juce::roundToInt(getTextButtonFont(textButton, button.getHeight()).getHeight() * 0.6f);
     const int edgeIndent = cornerBasedIndent(button.getWidth(), button.getHeight(), fontHeight,
                                               isLeft ? textButton.isConnectedOnLeft() : textButton.isConnectedOnRight());
@@ -63,7 +63,7 @@ void TextButton::drawButtonBackground(juce::Graphics& g, juce::Button& button, c
     const float iconY = (bounds.getHeight() - iconSize) * 0.5f;
     const float iconX = isLeft ? static_cast<float>(edgeIndent) : bounds.getWidth() - static_cast<float>(edgeIndent) - iconSize;
 
-    helpers::drawFromSVG(g, _parent.getIconBinary(), Theme::newColor(Theme::ThemeColor::TEXT).asHexString(),
+    helpers::drawFromSVG(g, _parent.getIconBinary(), Theme::newColor(_parent.hasInvertedTextColor() ? Theme::ThemeColor::INVERTED_TEXT : Theme::ThemeColor::TEXT).asHexString(),
                           static_cast<int>(iconX), static_cast<int>(iconY),
                           static_cast<int>(iconSize), static_cast<int>(iconSize),
                           juce::AffineTransform());
@@ -76,7 +76,7 @@ void TextButton::drawButtonText(juce::Graphics& g, juce::TextButton& button, boo
 
     const juce::Font font(getTextButtonFont(button, button.getHeight()));
     g.setFont(font);
-    g.setColour(Theme::newColor(Theme::ThemeColor::TEXT).asJuce().withMultipliedAlpha(button.isEnabled() ? 1.0f : 0.5f));
+    g.setColour(Theme::newColor(_parent.hasInvertedTextColor() ? Theme::ThemeColor::INVERTED_TEXT : Theme::ThemeColor::TEXT).asJuce().withMultipliedAlpha(button.isEnabled() ? 1.0f : 0.5f));
 
     const int yIndent = juce::jmin(4, button.proportionOfHeight(0.3f));
     const int fontHeight = juce::roundToInt(font.getHeight() * 0.6f);
@@ -89,7 +89,7 @@ void TextButton::drawButtonText(juce::Graphics& g, juce::TextButton& button, boo
         // The icon sits at the same base indent the text would otherwise start at (see
         // drawButtonBackground), so the gap here only needs to cover icon size + spacing to text.
         const int iconAndGap = juce::roundToInt(_parent.getIconSize() + _parent.getGap());
-        if (_parent.getIconPosition() == element::TextButton::IconPosition::Left)
+        if (_parent.getIconPosition() == element::TextButton::IconPosition::LEFT)
             leftIndent += iconAndGap;
         else
             rightIndent += iconAndGap;

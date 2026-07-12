@@ -4,8 +4,8 @@
 namespace nierika::gui::element
 {
 
-TimingComboBox::TimingComboBox(const juce::String& name):
-    ComboBox(name)
+TimingComboBox::TimingComboBox(const std::string& identifier):
+    ComboBox(identifier)
 {
     for (auto timing : dsp::Timing::getAvailableNoteTimings())
     {

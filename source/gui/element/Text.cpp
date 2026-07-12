@@ -1,7 +1,5 @@
 #include "../../../include/gui/element/Text.h"
 #include "../../../include/gui/Theme.h"
-#include "nierika_dsp/include/gui/Theme.h"
-#include "nierika_dsp/include/gui/Theme.h"
 
 namespace nierika::gui::element
 {
@@ -33,11 +31,12 @@ void Text::setFont(juce::Font font)
     _text.setFont(font);
 }
 
-void Text::setFont(Theme::FontWeight weight, Theme::FontSize size)
+void Text::setFont(Theme::FontWeight weight, Theme::FontSize size, Theme::FontFamily family)
 {
     _fontSize = size;
     _fontWeight = weight;
-    setFont(Theme::newFont(weight, size));
+    _fontFamily = family;
+    setFont(Theme::newFont(family, weight, size));
 }
 
 void Text::resetFont()
@@ -48,13 +47,19 @@ void Text::resetFont()
 void Text::setFontWeight(Theme::FontWeight weight)
 {
     _fontWeight = weight;
-    setFont(weight, _fontSize);
+    setFont(weight, _fontSize, _fontFamily);
 }
 
 void Text::setFontSize(Theme::FontSize size)
 {
     _fontSize = size;
-    setFont(_fontWeight, size);
+    setFont(_fontWeight, size, _fontFamily);
+}
+
+void Text::setFontFamily(Theme::FontFamily family)
+{
+    _fontFamily = family;
+    setFont(_fontWeight, _fontSize, family);
 }
 
 void Text::setColor(Theme::ThemeColor color)

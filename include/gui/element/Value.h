@@ -22,6 +22,14 @@ public:
     void setUnit(const std::string& unit);
     void setGap(float gap);
     void setFontSize(Theme::FontSize fontSize);
+    void setValueFontSize(Theme::FontSize fontSize);
+    void setUnitFontSize(Theme::FontSize fontSize);
+    void setFontWeight(Theme::FontWeight weight);
+    void setValueFontWeight(Theme::FontWeight weight);
+    void setUnitFontWeight(Theme::FontWeight weight);
+    void setFontFamily(Theme::FontFamily family);
+    void setValueFontFamily(Theme::FontFamily family);
+    void setUnitFontFamily(Theme::FontFamily family);
 
 private:
     Text _value = Text("value");

@@ -73,7 +73,7 @@ void TextButton::setIcon(const char* svgBinary, IconPosition position)
 void TextButton::resetIcon()
 {
     _iconBinary = nullptr;
-    _iconPosition = IconPosition::Left;
+    _iconPosition = IconPosition::LEFT;
 }
 
 }

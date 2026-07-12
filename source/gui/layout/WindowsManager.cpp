@@ -6,6 +6,13 @@ namespace nierika::gui::layout {
         _parentComponent(parentComponent)
     {
         parentComponent.addAndMakeVisible(this, 1000);
+
+        // addAndMakeVisible leaves this visible (JUCE components default to visible), which - at
+        // the topmost z-order and sized to cover the whole parent once setBounds() runs - would
+        // silently swallow every mouse click underneath it until the first showWindow/hideWindow
+        // call happens to run resetVisibility(). Start hidden instead: correct from construction,
+        // with no visible windows yet.
+        setVisible(false);
     }
 
     void WindowsManager::paint(juce::Graphics& g)

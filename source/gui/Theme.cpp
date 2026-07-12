@@ -9,64 +9,82 @@
 namespace nierika::gui
 {
 
-std::unordered_map<Theme::FontSize, float> Theme::fontSizesToPixels = {
+std::unordered_map<Theme::FontSize, float> Theme::defaultFontSizesToPixels = {
     {
-        { TITLE, 32.f },
-        { SUBTITLE, 24.f },
-        { HEADING, 20.f },
-        { CAPTION, 16.f },
-        { LABEL, 14.f },
-        { PARAGRAPH, 13.f },
-        { SMALL, 10.f }
+        { Theme::FontSize::TITLE, 36.f },
+        { Theme::FontSize::SUBTITLE, 32.f },
+        { Theme::FontSize::HEADING, 30.f },
+        { Theme::FontSize::CAPTION, 24.f },
+        { Theme::FontSize::LABEL, 22.f },
+        { Theme::FontSize::PARAGRAPH, 18.f },
+        { Theme::FontSize::SMALL, 16.f }
+    }
+};
+
+std::unordered_map<Theme::FontSize, float> Theme::monospacedFontSizesToPixels = {
+    {
+        { Theme::FontSize::TITLE, 30.f },
+        { Theme::FontSize::SUBTITLE, 26.f },
+        { Theme::FontSize::HEADING, 24.f },
+        { Theme::FontSize::CAPTION, 18.f },
+        { Theme::FontSize::LABEL, 16.f },
+        { Theme::FontSize::PARAGRAPH, 12.f },
+        { Theme::FontSize::SMALL, 10.f }
     }
 };
 
 Theme::Config Theme::_lastConfig {};
 
-Theme::Palette Theme::buildPreset(const Mode mode)
+Theme::PaletteSet Theme::buildPreset()
 {
-    if (mode == Mode::Light)
+    return
     {
-        return {
-            { TRANSPARENT, juce::Colour(static_cast<juce::uint32>(COLOR_TRANSPARENT)) },
-            { EMPTY_SHADE, juce::Colour(0xFF1A1A1A) },
-            { LIGHTER_SHADE, juce::Colour(0xFFD8D8D8) },
-            { LIGHT_SHADE, juce::Colour(0xFFC4C4C4) },
-            { MEDIUM_SHADE, juce::Colour(0xFF9A9A9A) },
-            { DARK_SHADE, juce::Colour(0xFF6B6468) },
-            { FULL_SHADE, juce::Colour(0xFF232323) },
-            { BLACK, juce::Colour(static_cast<juce::uint32>(COLOR_BLACK)) },
-            { BACKGROUND, juce::Colour(0xFFF2F2F2) },
-            { SECONDARY_BACKGROUND, juce::Colour(0xFFF2F2F2) },
-            { BORDER, juce::Colour(0xFFCCCCCC) },
-            { PRIMARY, juce::Colour(0xFF3A607E) },
-            { ACCENT, juce::Colour(0xFF1AAFBD) },
-            { TEXT, juce::Colour(0xFF1A1A1A) },
-            { DISABLED, juce::Colour(0xFFB5B5B5) },
-            { DANGER, juce::Colour(0xFFD64545) },
-            { WARNING, juce::Colour(0xFFC97A1F) }
-        };
-    }
-
-    // Mode::Dark - byte-for-byte identical to the original hardcoded values.
-    return {
-        { TRANSPARENT, juce::Colour(static_cast<juce::uint32>(COLOR_TRANSPARENT)) },
-        { EMPTY_SHADE, juce::Colour(static_cast<juce::uint32>(COLOR_EMPTY_SHADE)) },
-        { LIGHTER_SHADE, juce::Colour(static_cast<juce::uint32>(COLOR_LIGHTER_SHADE)) },
-        { LIGHT_SHADE, juce::Colour(static_cast<juce::uint32>(COLOR_LIGHT_SHADE)) },
-        { MEDIUM_SHADE, juce::Colour(static_cast<juce::uint32>(COLOR_MEDIUM_SHADE)) },
-        { DARK_SHADE, juce::Colour(static_cast<juce::uint32>(COLOR_DARK_SHADE)) },
-        { FULL_SHADE, juce::Colour(static_cast<juce::uint32>(COLOR_FULL_SHADE)) },
-        { BLACK, juce::Colour(static_cast<juce::uint32>(COLOR_BLACK)) },
-        { BACKGROUND, juce::Colour(static_cast<juce::uint32>(COLOR_BACKGROUND)) },
-        { SECONDARY_BACKGROUND, juce::Colour(static_cast<juce::uint32>(COLOR_SECONDARY_BACKGROUND)) },
-        { BORDER, juce::Colour(static_cast<juce::uint32>(COLOR_BORDER)) },
-        { PRIMARY, juce::Colour(static_cast<juce::uint32>(COLOR_PRIMARY)) },
-        { ACCENT, juce::Colour(static_cast<juce::uint32>(COLOR_ACCENT)) },
-        { TEXT, juce::Colour(static_cast<juce::uint32>(COLOR_TEXT)) },
-        { DISABLED, juce::Colour(static_cast<juce::uint32>(COLOR_DISABLED)) },
-        { DANGER, juce::Colour(static_cast<juce::uint32>(COLOR_DANGER)) },
-        { WARNING, juce::Colour(static_cast<juce::uint32>(COLOR_WARNING)) }
+        {
+            Mode::LIGHT,
+            {
+                { TRANSPARENT, juce::Colour(static_cast<juce::uint32>(COLOR_TRANSPARENT)) },
+                { EMPTY_SHADE, juce::Colour(0xFF1A1A1A) },
+                { LIGHTER_SHADE, juce::Colour(0xFFD8D8D8) },
+                { LIGHT_SHADE, juce::Colour(0xFFC4C4C4) },
+                { MEDIUM_SHADE, juce::Colour(0xFF9A9A9A) },
+                { DARK_SHADE, juce::Colour(0xFF6B6468) },
+                { FULL_SHADE, juce::Colour(0xFF232323) },
+                { BLACK, juce::Colour(static_cast<juce::uint32>(COLOR_BLACK)) },
+                { BACKGROUND, juce::Colour(0xFFF2F2F2) },
+                { SECONDARY_BACKGROUND, juce::Colour(0xFFF2F2F2) },
+                { BORDER, juce::Colour(0xFFCCCCCC) },
+                { PRIMARY, juce::Colour(0xFF3A607E) },
+                { ACCENT, juce::Colour(0xFF1AAFBD) },
+                { TEXT, juce::Colour(0xFF1A1A1A) },
+                { INVERTED_TEXT, juce::Colour(0xFF1A1A1A) },
+                { DISABLED, juce::Colour(0xFFB5B5B5) },
+                { DANGER, juce::Colour(0xFFD64545) },
+                { WARNING, juce::Colour(0xFFC97A1F) }
+            }
+        },
+        {
+            Mode::DARK,
+            {
+                { TRANSPARENT, juce::Colour(static_cast<juce::uint32>(COLOR_TRANSPARENT)) },
+                { EMPTY_SHADE, juce::Colour(static_cast<juce::uint32>(COLOR_EMPTY_SHADE)) },
+                { LIGHTER_SHADE, juce::Colour(static_cast<juce::uint32>(COLOR_LIGHTER_SHADE)) },
+                { LIGHT_SHADE, juce::Colour(static_cast<juce::uint32>(COLOR_LIGHT_SHADE)) },
+                { MEDIUM_SHADE, juce::Colour(static_cast<juce::uint32>(COLOR_MEDIUM_SHADE)) },
+                { DARK_SHADE, juce::Colour(static_cast<juce::uint32>(COLOR_DARK_SHADE)) },
+                { FULL_SHADE, juce::Colour(static_cast<juce::uint32>(COLOR_FULL_SHADE)) },
+                { BLACK, juce::Colour(static_cast<juce::uint32>(COLOR_BLACK)) },
+                { BACKGROUND, juce::Colour(static_cast<juce::uint32>(COLOR_BACKGROUND)) },
+                { SECONDARY_BACKGROUND, juce::Colour(static_cast<juce::uint32>(COLOR_SECONDARY_BACKGROUND)) },
+                { BORDER, juce::Colour(static_cast<juce::uint32>(COLOR_BORDER)) },
+                { PRIMARY, juce::Colour(static_cast<juce::uint32>(COLOR_PRIMARY)) },
+                { ACCENT, juce::Colour(static_cast<juce::uint32>(COLOR_ACCENT)) },
+                { TEXT, juce::Colour(static_cast<juce::uint32>(COLOR_TEXT)) },
+                { INVERTED_TEXT, juce::Colour(static_cast<juce::uint32>(COLOR_INVERTED_TEXT)) },
+                { DISABLED, juce::Colour(static_cast<juce::uint32>(COLOR_DISABLED)) },
+                { DANGER, juce::Colour(static_cast<juce::uint32>(COLOR_DANGER)) },
+                { WARNING, juce::Colour(static_cast<juce::uint32>(COLOR_WARNING)) }
+            }
+        }
     };
 }
 
@@ -81,25 +99,45 @@ Theme::FontSet Theme::buildDefaultFontSet()
     };
 }
 
-Theme::Palette Theme::_activePalette = Theme::buildPreset(Theme::Mode::Dark);
+Theme::FontSet Theme::buildDefaultMonospaceFontSet()
+{
+    const juce::String monoName = juce::Font::getDefaultMonospacedFontName();
+    return {
+        { BOLD, EmbeddedFonts::getMonospaceBold() },
+        { MEDIUM, EmbeddedFonts::getMonospaceRegular() },
+        { REGULAR, EmbeddedFonts::getMonospaceRegular() },
+        { LIGHT, EmbeddedFonts::getMonospaceRegular() },
+        { THIN, EmbeddedFonts::getMonospaceRegular() }
+    };
+}
+
+Theme::PaletteSet Theme::_activePaletteSet = Theme::buildPreset();
 Theme::FontSet Theme::_activeFonts = Theme::buildDefaultFontSet();
+Theme::FontSet Theme::_activeMonospaceFonts = Theme::buildDefaultMonospaceFontSet();
 float Theme::_borderRadius = DEFAULT_BORDER_RADIUS;
 juce::ChangeBroadcaster Theme::_changeBroadcaster {};
 
 void Theme::applyConfig(const Config& config)
 {
-    Palette palette = buildPreset(config.mode);
-    if (config.customPalette.has_value())
-        for (const auto& [key, value] : *config.customPalette)
-            palette[key] = value;
-    for (const auto& [key, value] : config.colorOverrides)
-        palette[key] = value;
-    _activePalette = std::move(palette);
+    PaletteSet palette = buildPreset();
+    if (config.customPaletteSet.has_value())
+        for (const auto& [mode, colors] : *config.customPaletteSet)
+            for (const auto& [key, value] : colors)
+                palette[mode][key] = value;
+    for (const auto& [mode, colors] : config.colorOverrides)
+        for (const auto& [key, value] : colors)
+            palette[mode][key] = value;
+    _activePaletteSet = std::move(palette);
 
     FontSet fonts = buildDefaultFontSet();
     for (const auto& [weight, font] : config.fontOverrides)
         fonts[weight] = font;
     _activeFonts = std::move(fonts);
+
+    FontSet monospaceFonts = buildDefaultMonospaceFontSet();
+    for (const auto& [weight, font] : config.monospaceFontOverrides)
+        monospaceFonts[weight] = font;
+    _activeMonospaceFonts = std::move(monospaceFonts);
 
     _borderRadius = config.borderRadius.value_or(DEFAULT_BORDER_RADIUS);
 
@@ -126,15 +164,15 @@ Theme::Mode Theme::getMode()
     return _lastConfig.mode;
 }
 
-void Theme::setColor(const ThemeColor color, const juce::Colour value)
+void Theme::setColor(const Mode mode, const ThemeColor color, const juce::Colour value)
 {
-    _lastConfig.colorOverrides[color] = value;
+    _lastConfig.colorOverrides[mode][color] = value;
     applyConfig(_lastConfig);
 }
 
-void Theme::setPalette(const Palette& palette)
+void Theme::setPaletteSet(const PaletteSet& paletteSet)
 {
-    _lastConfig.customPalette = palette;
+    _lastConfig.customPaletteSet = paletteSet;
     applyConfig(_lastConfig);
 }
 
@@ -148,6 +186,19 @@ void Theme::setFonts(const FontSet& fonts)
 {
     for (const auto& [weight, font] : fonts)
         _lastConfig.fontOverrides[weight] = font;
+    applyConfig(_lastConfig);
+}
+
+void Theme::setMonospaceFont(const FontWeight weight, juce::Font font)
+{
+    _lastConfig.monospaceFontOverrides[weight] = std::move(font);
+    applyConfig(_lastConfig);
+}
+
+void Theme::setMonospaceFonts(const FontSet& fonts)
+{
+    for (const auto& [weight, font] : fonts)
+        _lastConfig.monospaceFontOverrides[weight] = font;
     applyConfig(_lastConfig);
 }
 
@@ -173,19 +224,20 @@ juce::ChangeBroadcaster& Theme::getChangeBroadcaster()
     return _changeBroadcaster;
 }
 
-Theme::Color::Color(const ThemeColor color):
+Theme::Color::Color(const Mode mode, const ThemeColor color):
+    _mode(mode),
     _color(color)
 {
 }
 
 juce::uint32 Theme::Color::asHex() const
 {
-    return Theme::_activePalette.at(_color).getARGB();
+    return Theme::_activePaletteSet.at(_mode).at(_color).getARGB();
 }
 
 juce::Colour Theme::Color::asJuce() const
 {
-    return Theme::_activePalette.at(_color);
+    return Theme::_activePaletteSet.at(_mode).at(_color);
 }
 
 std::string Theme::Color::asHexString() const
@@ -197,7 +249,7 @@ std::string Theme::Color::asHexString() const
 
 Theme::Color Theme::newColor(ThemeColor color)
 {
-    return Color(color);
+    return Color(Theme::_lastConfig.mode, color);
 }
 
 juce::Font Theme::newFont(FontWeight style, FontSize size)
@@ -205,9 +257,17 @@ juce::Font Theme::newFont(FontWeight style, FontSize size)
     return _activeFonts.at(style).withHeight(getFontSizeInPixels(size));
 }
 
-float Theme::getFontSizeInPixels(const FontSize size)
+juce::Font Theme::newFont(FontFamily family, FontWeight weight, FontSize size)
 {
-    return fontSizesToPixels.at(size);
+    const FontSet& fonts = family == FontFamily::MONOSPACED ? _activeMonospaceFonts : _activeFonts;
+    return fonts.at(weight).withHeight(getFontSizeInPixels(size, family));
+}
+
+float Theme::getFontSizeInPixels(const FontSize size, const FontFamily family)
+{
+    if (family == FontFamily::MONOSPACED)
+        return monospacedFontSizesToPixels.at(size);
+    return defaultFontSizesToPixels.at(size);
 }
 
 }

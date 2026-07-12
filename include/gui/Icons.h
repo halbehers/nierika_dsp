@@ -20,6 +20,7 @@ public:
     static const char* getGear() { return NierikaDSPBinaryData::Gear_svg; }
     static const char* getInfo() { return NierikaDSPBinaryData::Info_svg; }
     static const char* getSearch() { return NierikaDSPBinaryData::Search_svg; }
+    static const char* getCross() { return NierikaDSPBinaryData::Cross_svg; }
 };
 
 }

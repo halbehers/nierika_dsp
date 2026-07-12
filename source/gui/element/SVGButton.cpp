@@ -3,39 +3,54 @@
 namespace nierika::gui::element
 {
 
-SVGButton::SVGButton(const char* svgBinary):
-juce::DrawableButton("button", ButtonStyle::ImageFitted),
-    _lookAndFeel(svgBinary)
+SVGButton::SVGButton(const std::string& identifier, const char* svgBinary):
+    Component(identifier),
+    _svgBinary(svgBinary)
 {
-    init();
+    setup();
 }
 
-SVGButton::SVGButton(const char* svgBinary, int width, int height):
-    juce::DrawableButton("button", ButtonStyle::ImageFitted),
-    _lookAndFeel(svgBinary),
-    _width(width),
-    _height(height)
+void SVGButton::setup()
 {
-    init();
-}
+    addAndMakeVisible(_button);
 
-void SVGButton::init()
-{
-    setLookAndFeel(&_lookAndFeel);
-}
+    _button.setLookAndFeel(&_lookAndFeel);
+    _button.setMouseCursor(juce::MouseCursor::PointingHandCursor);
 
-void SVGButton::paint(juce::Graphics& g)
-{
-    juce::DrawableButton::paint(g);
+    _button.onClick = [this]()
+    {
+        for (auto listener : _listeners)
+            listener->onButtonClick(getID());
+    };
 }
 
 void SVGButton::resized()
 {
-    juce::DrawableButton::resized();
-    if (_width != -1 && _height != -1)
-    {
-        setSize(_width, _height);
-    }
+    Component::resized();
+    _button.setBounds(getLocalBounds());
+}
+
+void SVGButton::paint(juce::Graphics& g)
+{
+    (void) g;
+}
+
+void SVGButton::setHelpText(const std::string& helpText)
+{
+    _button.setHelpText(helpText);
+}
+
+void SVGButton::addOnClickListener(OnClickListener* listener)
+{
+    _listeners.push_back(listener);
+}
+
+void SVGButton::removeListener(OnClickListener* listener)
+{
+    _listeners.erase(
+        std::remove(_listeners.begin(), _listeners.end(), listener),
+        _listeners.end()
+    );
 }
 
 }

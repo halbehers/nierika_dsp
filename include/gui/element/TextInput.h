@@ -40,6 +40,7 @@ public:
 
     void setMultiline(bool isMultiline) { _input.setMultiLine(isMultiline); }
     bool isMultiline() const { return _input.isMultiLine(); }
+    void setPasswordCharacter(juce::juce_wchar character) { _input.setPasswordCharacter(character); }
     void setCaretVisible (bool shouldBeVisible) { _input.setCaretVisible(shouldBeVisible); }
     bool isCaretVisible() const { return _input.isCaretVisible(); }
     void setIndents(int leftIndent, int rightIndent) { _input.setIndents(leftIndent, rightIndent); }

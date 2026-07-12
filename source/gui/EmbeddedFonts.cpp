@@ -25,6 +25,16 @@ juce::Font EmbeddedFonts::getThin(float fontSize)
     return buildFont(NierikaDSPBinaryData::Brandon_thin_otf, NierikaDSPBinaryData::Brandon_thin_otfSize, fontSize);
 }
 
+juce::Font EmbeddedFonts::getMonospaceRegular(float fontSize)
+{
+    return buildFont(NierikaDSPBinaryData::UbuntuMono_R_ttf, NierikaDSPBinaryData::UbuntuMono_R_ttfSize, fontSize);
+}
+
+juce::Font EmbeddedFonts::getMonospaceBold(float fontSize)
+{
+    return buildFont(NierikaDSPBinaryData::UbuntuMono_B_ttf, NierikaDSPBinaryData::UbuntuMono_B_ttfSize, fontSize);
+}
+
 juce::Font EmbeddedFonts::buildFont(const void *fontFileData, std::size_t fontFileDataSize, float fontSize)
 {
     const juce::Typeface::Ptr typeface = juce::Typeface::createSystemTypefaceFor(fontFileData, fontFileDataSize);
