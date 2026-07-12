@@ -16,6 +16,7 @@ public:
 
     void paint(juce::Graphics& g) override;
     void resized() override;
+    void changeListenerCallback(juce::ChangeBroadcaster* source) override;
 
     std::string getValue() const;
     void setValue(const std::string& value);
@@ -32,6 +33,8 @@ public:
     void setUnitFontFamily(Theme::FontFamily family);
 
 private:
+    void refreshUnitColor();
+
     Text _value = Text("value");
     Text _unit = Text("unit");
     float _gap = 0.f;

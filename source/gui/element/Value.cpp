@@ -12,7 +12,7 @@ Value::Value(const std::string& identifier, const std::string& name, const std::
     _value.setText("-", false);
     
     _unit.setFont(Theme::THIN, Theme::LABEL);
-    _unit.setColor(Theme::newColor(Theme::TEXT).asJuce().withAlpha(0.7f));
+    refreshUnitColor();
     _unit.setJustificationType(juce::Justification::centredLeft);
     if (unit != "") {
         addAndMakeVisible(_unit);
@@ -42,6 +42,21 @@ void Value::setUnit(const std::string& unit)
 void Value::paint(juce::Graphics& g)
 {
     Component::paint(g);
+}
+
+void Value::changeListenerCallback(juce::ChangeBroadcaster* source)
+{
+    refreshUnitColor();
+
+    Component::changeListenerCallback(source);
+}
+
+void Value::refreshUnitColor()
+{
+    // Text::setColor(juce::Colour) is used here (rather than the ThemeColor overload) for the
+    // alpha-dimmed unit text, which clears Text's own ThemeColor-refresh tracking - re-resolve
+    // and reapply explicitly on every theme change instead.
+    _unit.setColor(Theme::newColor(Theme::TEXT).asJuce().withAlpha(0.7f));
 }
 
 void Value::setGap(const float gap)
