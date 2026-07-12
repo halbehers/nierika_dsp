@@ -63,6 +63,8 @@ public:
 
     void positionComboBoxText(juce::ComboBox& comboBox, juce::Label& labelToPosition) override;
 
+    juce::MouseCursor getMouseCursorFor(juce::Component& component) override;
+
 protected:
     const element::ComboBox& _parent;
 

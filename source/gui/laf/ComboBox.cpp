@@ -145,4 +145,10 @@ void ComboBox::positionComboBoxText(juce::ComboBox& comboBox, juce::Label& label
     labelToPosition.setBounds(left, top, comboBox.getWidth() - left, comboBox.getHeight() - top);
 }
 
+juce::MouseCursor ComboBox::getMouseCursorFor(juce::Component& component)
+{
+    (void) component;
+    return juce::MouseCursor::PointingHandCursor;
+}
+
 }
