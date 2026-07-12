@@ -19,6 +19,7 @@ public:
     ~ComboBox() override = default;
 
     void resized() override;
+    void changeListenerCallback(juce::ChangeBroadcaster* source) override;
 
     void addItem(const juce::String& newItemText, int newItemId);
     void setSelectedId(int newItemId, juce::NotificationType notification = juce::sendNotification);

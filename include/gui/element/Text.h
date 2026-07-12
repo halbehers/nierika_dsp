@@ -1,5 +1,6 @@
 #pragma once
 
+#include <optional>
 #include <string>
 
 #include "../Component.h"
@@ -16,6 +17,7 @@ public:
 
     void paint(juce::Graphics& g) override;
     void resized() override;
+    void changeListenerCallback(juce::ChangeBroadcaster* source) override;
 
     std::string getText() const;
     void setText(const std::string& text, bool triggerRepaint = true);
@@ -37,6 +39,7 @@ private:
     Theme::FontSize _fontSize = Theme::PARAGRAPH;
     Theme::FontWeight _fontWeight = Theme::REGULAR;
     Theme::FontFamily _fontFamily = Theme::FontFamily::DEFAULT;
+    std::optional<Theme::ThemeColor> _themeColor;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Text)
 };

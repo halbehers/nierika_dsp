@@ -57,4 +57,11 @@ void ComboBox::removeListener(OnValueChangedListener* listener)
     _listeners.erase(std::remove(_listeners.begin(), _listeners.end(), listener), _listeners.end());
 }
 
+void ComboBox::changeListenerCallback(juce::ChangeBroadcaster* source)
+{
+    _comboBox.setColour(juce::ComboBox::ColourIds::textColourId, Theme::newColor(Theme::ThemeColor::TEXT).asJuce());
+
+    Component::changeListenerCallback(source);
+}
+
 }

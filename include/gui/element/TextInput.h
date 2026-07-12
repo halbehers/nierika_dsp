@@ -25,6 +25,7 @@ public:
     ~TextInput() override = default;
 
     void resized() override;
+    void changeListenerCallback(juce::ChangeBroadcaster* source) override;
 
     void addOnValueChangedListener(OnValueChangedListener* listener);
     void removeOnValueChangedListener(OnValueChangedListener* listener);
@@ -73,6 +74,7 @@ private:
 
     juce::Colour _backgroundOverride = juce::Colour();
     juce::Colour _borderOverride = juce::Colour();
+    std::string _placeholderText;
 
 
     float _borderRadiusOverride = -1;

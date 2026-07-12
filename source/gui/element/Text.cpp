@@ -64,11 +64,13 @@ void Text::setFontFamily(Theme::FontFamily family)
 
 void Text::setColor(Theme::ThemeColor color)
 {
+    _themeColor = color;
     _text.setColour(juce::Label::textColourId, Theme::newColor(color).asJuce());
 }
 
 void Text::setColor(juce::Colour color)
 {
+    _themeColor.reset();
     _text.setColour(juce::Label::textColourId, color);
 }
 
@@ -80,6 +82,14 @@ void Text::setJustificationType(juce::Justification justification)
 void Text::paint(juce::Graphics& g)
 {
     Component::paint(g);
+}
+
+void Text::changeListenerCallback(juce::ChangeBroadcaster* source)
+{
+    if (_themeColor.has_value())
+        setColor(*_themeColor);
+
+    Component::changeListenerCallback(source);
 }
 
 void Text::resized()

@@ -82,7 +82,21 @@ void TextInput::removeReturnKeyPressedListener(OnReturnKeyPressedListener* liste
 
 void TextInput::setPlaceholder(const std::string& text)
 {
+    _placeholderText = text;
     _input.setTextToShowWhenEmpty(juce::String(text), Theme::newColor(Theme::ThemeColor::TEXT).asJuce().withAlpha(0.5f));
+}
+
+void TextInput::changeListenerCallback(juce::ChangeBroadcaster* source)
+{
+    // setColour alone only affects text typed from this point on (per its own doc comment) -
+    // already-entered text keeps its old colour until explicitly reapplied.
+    _input.setColour(juce::TextEditor::ColourIds::textColourId, Theme::newColor(Theme::ThemeColor::TEXT).asJuce());
+    _input.applyColourToAllText(Theme::newColor(Theme::ThemeColor::TEXT).asJuce(), false);
+
+    if (!_placeholderText.empty())
+        _input.setTextToShowWhenEmpty(juce::String(_placeholderText), Theme::newColor(Theme::ThemeColor::TEXT).asJuce().withAlpha(0.5f));
+
+    Component::changeListenerCallback(source);
 }
 
 }
