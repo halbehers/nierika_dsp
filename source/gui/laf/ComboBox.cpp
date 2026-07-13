@@ -104,9 +104,13 @@ void ComboBox::drawPopupMenuBackground
 	int height
 )
 {
-    g.setColour(Theme::newColor(Theme::ThemeColor::SECONDARY_BACKGROUND).asJuce());
+    const juce::Rectangle<float> bounds(0.f, 0.f, (float) width, (float) height);
 
-    g.fillRoundedRectangle(0.0, 0.0, width, height, 8.0);
+    g.setColour(Theme::newColor(Theme::ThemeColor::SECONDARY_BACKGROUND).asJuce());
+    g.fillRoundedRectangle(bounds, 8.0f);
+
+    g.setColour(Theme::newColor(Theme::ThemeColor::BORDER).asJuce());
+    g.drawRoundedRectangle(bounds.reduced(0.5f), 8.0f, 1.0f);
 }
 
 juce::Font ComboBox::getComboBoxFont(juce::ComboBox& comboBox)
@@ -123,6 +127,11 @@ juce::Font ComboBox::getPopupMenuFont()
 int ComboBox::getPopupMenuBorderSize()
 {
     return 12;
+}
+
+int ComboBox::getMenuWindowFlags()
+{
+    return 0; // no native drop shadow - see header comment
 }
 
 void ComboBox::getIdealPopupMenuItemSize

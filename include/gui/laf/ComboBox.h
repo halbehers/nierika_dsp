@@ -52,6 +52,12 @@ public:
 
     int getPopupMenuBorderSize() override;
 
+    // Default LookAndFeel_V2 behaviour adds ComponentPeer::windowHasDropShadow - a native OS
+    // drop shadow anchored to the popup's full rectangular window frame, unclipped to the rounded
+    // corners drawn in drawPopupMenuBackground. Against a dark scrim that reads as a second, hard
+    // rectangular border outside the one we actually draw - disable it entirely.
+    int getMenuWindowFlags() override;
+
     void getIdealPopupMenuItemSize
     (
         const juce::String& text,
