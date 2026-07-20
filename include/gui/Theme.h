@@ -46,6 +46,8 @@
 #define COLOR_BORDER COLOR_LIGHTER_SHADE
 
 #define DEFAULT_BORDER_RADIUS 17.f
+#define DEFAULT_THIN_HEIGHT 32.f
+#define DEFAULT_LARGE_HEIGHT 40.f
 
 namespace nierika::gui
 {
@@ -107,6 +109,13 @@ public:
         MONOSPACED
     };
 
+    enum class HeightType
+    {
+        THIN,
+        LARGE,
+        AUTO
+    };
+
     using Palette = std::unordered_map<ThemeColor, juce::Colour>;
     using PaletteSet = std::unordered_map<Mode, Palette>;
     using FontSet = std::unordered_map<FontWeight, juce::Font>;
@@ -121,6 +130,8 @@ public:
         FontSet fontOverrides;
         FontSet monospaceFontOverrides;
         std::optional<float> borderRadius;
+        std::optional<float> thinHeight;
+        std::optional<float> largeHeight;
     };
 
     class Color
@@ -156,6 +167,12 @@ public:
     static void setMonospaceFonts(const FontSet& fonts);
     static void setBorderRadius(float radius);
     [[nodiscard]] static float getBorderRadius();
+    static void setThinHeight(float height);
+    [[nodiscard]] static float getThinHeight();
+    static void setLargeHeight(float height);
+    [[nodiscard]] static float getLargeHeight();
+    // Resolves a HeightType to a concrete pixel height; autoHeight is used for AUTO.
+    [[nodiscard]] static float resolveHeight(HeightType type, float autoHeight);
     static void resetToDefaults();
 
     // Fires whenever the active palette/fonts change, so live components can
@@ -178,6 +195,8 @@ private:
     static FontSet _activeFonts;
     static FontSet _activeMonospaceFonts;
     static float _borderRadius;
+    static float _thinHeight;
+    static float _largeHeight;
     static std::unordered_map<FontSize, float> defaultFontSizesToPixels;
     static std::unordered_map<FontSize, float> monospacedFontSizesToPixels;
     static juce::ChangeBroadcaster _changeBroadcaster;

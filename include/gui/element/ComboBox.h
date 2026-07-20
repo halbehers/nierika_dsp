@@ -31,10 +31,14 @@ public:
     void setSelectedInvertedTextColor(bool hasInvertedTextColorOnSelected) { _hasInvertedTextColorOnSelected = hasInvertedTextColorOnSelected; }
     bool hasInvertedTextColorOnSelected() const { return _hasInvertedTextColorOnSelected; }
 
+    void setHeightType(Theme::HeightType type) { _heightType = type; resized(); }
+    [[nodiscard]] Theme::HeightType getHeightType() const { return _heightType; }
+
 private:
     laf::ComboBox _lookAndFeel { *this };
     juce::ComboBox _comboBox {};
     bool _hasInvertedTextColorOnSelected = false;
+    Theme::HeightType _heightType = Theme::HeightType::AUTO;
 
     std::vector<OnValueChangedListener*> _listeners;
 

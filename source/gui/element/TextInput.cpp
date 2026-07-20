@@ -20,7 +20,7 @@ void TextInput::setup()
     setMultiline(false);
     setCaretVisible(true);
 
-    setIndents(24, 10);
+    resetIndents();
 
     _input.addListener(this);
 }
@@ -40,8 +40,10 @@ void TextInput::textEditorReturnKeyPressed(juce::TextEditor & editor)
 void TextInput::resized()
 {
     Component::resized();
-    _input.setBounds(getLocalBounds());
-    _input.setFont(Theme::newFont(Theme::LIGHT).withHeight(getHeight() * 0.55f));
+    const auto bounds = getLocalBounds();
+    const auto height = static_cast<int>(Theme::resolveHeight(_heightType, static_cast<float>(bounds.getHeight())));
+    _input.setBounds(bounds.withSizeKeepingCentre(bounds.getWidth(), height));
+    _input.setFont(Theme::newFont(Theme::LIGHT).withHeight(static_cast<float>(_input.getHeight()) * 0.55f));
 }
 
 void TextInput::setHelpText(const std::string& helpText)
@@ -96,7 +98,16 @@ void TextInput::changeListenerCallback(juce::ChangeBroadcaster* source)
     if (!_placeholderText.empty())
         _input.setTextToShowWhenEmpty(juce::String(_placeholderText), Theme::newColor(Theme::ThemeColor::TEXT).asJuce().withAlpha(0.5f));
 
+    resized();
+
     Component::changeListenerCallback(source);
+}
+
+void TextInput::resetIndents()
+{
+    const auto bounds = getLocalBounds();
+    const auto height = static_cast<int>(Theme::resolveHeight(_heightType, static_cast<float>(bounds.getHeight())));
+    setIndents(height / 2, static_cast<int>(height / 5.33f));
 }
 
 }

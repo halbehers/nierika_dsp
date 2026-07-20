@@ -115,6 +115,8 @@ Theme::PaletteSet Theme::_activePaletteSet = Theme::buildPreset();
 Theme::FontSet Theme::_activeFonts = Theme::buildDefaultFontSet();
 Theme::FontSet Theme::_activeMonospaceFonts = Theme::buildDefaultMonospaceFontSet();
 float Theme::_borderRadius = DEFAULT_BORDER_RADIUS;
+float Theme::_thinHeight = DEFAULT_THIN_HEIGHT;
+float Theme::_largeHeight = DEFAULT_LARGE_HEIGHT;
 juce::ChangeBroadcaster Theme::_changeBroadcaster {};
 
 void Theme::applyConfig(const Config& config)
@@ -140,6 +142,8 @@ void Theme::applyConfig(const Config& config)
     _activeMonospaceFonts = std::move(monospaceFonts);
 
     _borderRadius = config.borderRadius.value_or(DEFAULT_BORDER_RADIUS);
+    _thinHeight = config.thinHeight.value_or(DEFAULT_THIN_HEIGHT);
+    _largeHeight = config.largeHeight.value_or(DEFAULT_LARGE_HEIGHT);
 
     // Theme changes always originate on the message thread (host startup code,
     // or a UI-triggered mode toggle), so synchronous dispatch is safe and keeps
@@ -211,6 +215,39 @@ void Theme::setBorderRadius(const float radius)
 float Theme::getBorderRadius()
 {
     return _borderRadius;
+}
+
+void Theme::setThinHeight(const float height)
+{
+    _lastConfig.thinHeight = height;
+    applyConfig(_lastConfig);
+}
+
+float Theme::getThinHeight()
+{
+    return _thinHeight;
+}
+
+void Theme::setLargeHeight(const float height)
+{
+    _lastConfig.largeHeight = height;
+    applyConfig(_lastConfig);
+}
+
+float Theme::getLargeHeight()
+{
+    return _largeHeight;
+}
+
+float Theme::resolveHeight(const HeightType type, const float autoHeight)
+{
+    switch (type)
+    {
+        case HeightType::THIN: return _thinHeight;
+        case HeightType::LARGE: return _largeHeight;
+        case HeightType::AUTO:
+        default: return autoHeight;
+    }
 }
 
 void Theme::resetToDefaults()

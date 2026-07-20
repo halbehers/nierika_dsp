@@ -10,7 +10,7 @@ TextInput::TextInput(const element::TextInput& parent):
 {
 }
 
-void TextInput::fillTextEditorBackground(juce::Graphics& g, int width, int	height, juce::TextEditor& textEditor)
+void TextInput::fillTextEditorBackground(juce::Graphics& g, int width, int height, juce::TextEditor& textEditor)
 {
     const auto backgroundBounds = textEditor.getLocalBounds().toFloat();
     g.setColour(_parent.getBackgroundColour());

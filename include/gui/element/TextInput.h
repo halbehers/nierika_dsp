@@ -63,6 +63,9 @@ public:
     void resetBorderColour() { _borderOverride = juce::Colour(); }
     juce::Colour getBorderColour() const { return _borderOverride.isTransparent() ? Theme::newColor(Theme::ThemeColor::BORDER).asJuce().withAlpha(0.2f) : _borderOverride; }
 
+    void setHeightType(Theme::HeightType type) { _heightType = type; resetIndents(); resized(); }
+    [[nodiscard]] Theme::HeightType getHeightType() const { return _heightType; }
+
 protected:
     juce::TextEditor _input {};
 
@@ -78,8 +81,10 @@ private:
 
 
     float _borderRadiusOverride = -1;
+    Theme::HeightType _heightType = Theme::HeightType::AUTO;
 
     void setup();
+    void resetIndents();
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TextInput)
 };
