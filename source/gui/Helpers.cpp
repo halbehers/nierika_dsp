@@ -54,4 +54,11 @@ void drawFromSVG(juce::Graphics& g, const char* svgBinary, const juce::String& c
     drawable->draw(g, 1.f, affine);
 }
 
+void drawFromAnimatedSVG(juce::Graphics& g, const std::vector<const char*>& frames, const int frameIndex, const juce::String& colHex, int x, int y, int newWidth, int newHeight, juce::AffineTransform affine)
+{
+    if (frames.empty()) return;
+
+    drawFromSVG(g, frames[static_cast<std::size_t>(frameIndex) % frames.size()], colHex, x, y, newWidth, newHeight, affine);
+}
+
 }

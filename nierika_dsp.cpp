@@ -39,6 +39,7 @@
 #include "source/gui/element/SpectrumAnalyzer.cpp"
 #include "source/gui/element/Slider.cpp"
 #include "source/gui/element/Stars.cpp"
+#include "source/gui/element/AnimatedSVG.cpp"
 #include "source/gui/element/SVGButton.cpp"
 #include "source/gui/element/SVGToggle.cpp"
 #include "source/gui/element/TimeInMsDial.cpp"
