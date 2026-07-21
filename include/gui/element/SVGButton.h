@@ -27,6 +27,7 @@ public:
     void setHelpText(const std::string& helpText);
 
     const char* getIconBinary() const { return _svgBinary; }
+    void setIconBinary(const char* svgBinary) { _svgBinary = svgBinary; _button.lookAndFeelChanged(); }
 
     void setIconSize(float size) { _iconSize = size; }
     void resetIconSize() { _iconSize = -1.f; }

@@ -68,8 +68,14 @@ namespace NierikaDSPBinaryData
     extern const char*   UbuntuMono_B_ttf;
     const int            UbuntuMono_B_ttfSize = 191400;
 
+    extern const char*   Stop_svg;
+    const int            Stop_svgSize = 418;
+
+    extern const char*   Capture_svg;
+    const int            Capture_svgSize = 1290;
+
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 20;
+    const int namedResourceListSize = 22;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

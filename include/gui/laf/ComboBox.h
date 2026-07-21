@@ -41,8 +41,6 @@ public:
     
     juce::Font getComboBoxFont(juce::ComboBox &) override;
 
-    juce::Font getPopupMenuFont() override;
-
     void drawPopupMenuBackground
     (
         juce::Graphics& g,

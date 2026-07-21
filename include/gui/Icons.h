@@ -21,6 +21,8 @@ public:
     static const char* getInfo() { return NierikaDSPBinaryData::Info_svg; }
     static const char* getSearch() { return NierikaDSPBinaryData::Search_svg; }
     static const char* getCross() { return NierikaDSPBinaryData::Cross_svg; }
+    static const char* getStop() { return NierikaDSPBinaryData::Stop_svg; }
+    static const char* getCapture() { return NierikaDSPBinaryData::Capture_svg; }
 };
 
 }

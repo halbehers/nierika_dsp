@@ -33,15 +33,17 @@ void ComboBox::drawComboBox
     (void) buttonW;
     (void) buttonH;
     const auto textColor = Theme::newColor(Theme::ThemeColor::TEXT);
-    const auto borderColor = Theme::newColor(Theme::ThemeColor::BORDER);
-    const auto backgroundColor = Theme::newColor(Theme::ThemeColor::SECONDARY_BACKGROUND);
-    const auto disabledColor = Theme::newColor(Theme::ThemeColor::DISABLED);
+    const auto borderColor = _parent.getBorderColour();
+    const auto backgroundColor = _parent.getBackgroundColour();
+    const auto disabledColor = Theme::newColor(Theme::ThemeColor::DISABLED).asJuce();
 
     const auto color = comboBox.isEnabled() ? backgroundColor : disabledColor;
 
-    g.setColour(comboBox.isMouseOver() && comboBox.isEnabled() ? color.asJuce() : color.asJuce());
+    g.setColour(color);
+    g.fillRoundedRectangle(0.0, 0.0, width, height, _parent.getBorderRadius());
 
-    g.fillRoundedRectangle(0.0, 0.0, width, height, 4.0);
+    g.setColour(borderColor);
+    g.drawRoundedRectangle(comboBox.getLocalBounds().toFloat(), _parent.getBorderRadius(), 1.f);
 
     constexpr int arrowSize = 16;
 
@@ -93,7 +95,7 @@ void ComboBox::drawPopupMenuItem
         g.setColour(Theme::newColor(Theme::ThemeColor::INVERTED_TEXT).asJuce());
     else
         g.setColour(Theme::newColor(Theme::ThemeColor::TEXT).asJuce());
-    g.setFont(Theme::newFont(Theme::REGULAR, Theme::CAPTION));
+    g.setFont(Theme::newFont(Theme::REGULAR, Theme::PARAGRAPH));
     g.drawFittedText(text, areaWithMargin.reduced(4).withX(areaWithMargin.getX() + 12), juce::Justification::centredLeft, 1);
 }
 
@@ -104,24 +106,21 @@ void ComboBox::drawPopupMenuBackground
 	int height
 )
 {
+    const auto backgroundColor = _parent.getBackgroundColour().isTransparent() ? Theme::newColor(Theme::ThemeColor::SECONDARY_BACKGROUND).asJuce() : _parent.getBackgroundColour();
+    const auto borderColor = _parent.getBorderColour().isTransparent() ? Theme::newColor(Theme::ThemeColor::BORDER).asJuce().withAlpha(0.2f) : _parent.getBorderColour();
     const juce::Rectangle<float> bounds(0.f, 0.f, (float) width, (float) height);
 
-    g.setColour(Theme::newColor(Theme::ThemeColor::SECONDARY_BACKGROUND).asJuce());
+    g.setColour(backgroundColor);
     g.fillRoundedRectangle(bounds, 8.0f);
 
-    g.setColour(Theme::newColor(Theme::ThemeColor::BORDER).asJuce());
+    g.setColour(borderColor);
     g.drawRoundedRectangle(bounds.reduced(0.5f), 8.0f, 1.0f);
 }
 
 juce::Font ComboBox::getComboBoxFont(juce::ComboBox& comboBox)
 {
     (void) comboBox;
-    return Theme::newFont(Theme::REGULAR, Theme::CAPTION);
-}
-
-juce::Font ComboBox::getPopupMenuFont()
-{
-    return Theme::newFont(Theme::REGULAR, Theme::CAPTION);
+    return Theme::newFont(Theme::REGULAR).withHeight(_parent.getTextHeight());
 }
 
 int ComboBox::getPopupMenuBorderSize()
@@ -143,7 +142,8 @@ void ComboBox::getIdealPopupMenuItemSize
 	int& idealHeight
 )
 {
-    idealHeight = standardMenuItemHeight + 8;
+    // Popup item height is always fixed, independent of the combo box's own HeightType.
+    idealHeight = static_cast<int>(Theme::getThinHeight());
 }
 
 void ComboBox::positionComboBoxText(juce::ComboBox& comboBox, juce::Label& labelToPosition)
@@ -152,6 +152,7 @@ void ComboBox::positionComboBoxText(juce::ComboBox& comboBox, juce::Label& label
     constexpr int left = 8;
 
     labelToPosition.setBounds(left, top, comboBox.getWidth() - left, comboBox.getHeight() - top);
+    labelToPosition.setFont(getComboBoxFont(comboBox));
 }
 
 juce::MouseCursor ComboBox::getMouseCursorFor(juce::Component& component)

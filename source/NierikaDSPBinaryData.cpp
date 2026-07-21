@@ -11822,6 +11822,24 @@ static const unsigned char temp_binary_data_19[] =
 
 const char* UbuntuMono_B_ttf = (const char*) temp_binary_data_19;
 
+//================== stop.svg ==================
+static const unsigned char temp_binary_data_20[] =
+"<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M32 16C32 24.8366 24.8366 32 16 32C7.16344 32 0 24.8366 0 16C0 7.16344 7.16344 0 16 0C24."
+"8366 0 32 7.16344 32 16ZM20 22C21.1046 22 22 21.1046 22 20V12C22 10.8954 21.1046 10 20 10H16H12C10.8954 10 10 10.8954 10 12V20C10 21.1046 10.8954 22 12 22H20Z\" fill=\"#000000\"/>\n</svg>\n";
+
+const char* Stop_svg = (const char*) temp_binary_data_20;
+
+//================== capture.svg ==================
+static const unsigned char temp_binary_data_21[] =
+"<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 2"
+"4.8366 7.16344 32 16 32ZM18.5 13C18.2239 13 18 13.2239 18 13.5V18.5C18 18.7761 18.2239 19 18.5 19C18.7761 19 19 18.7761 19 18.5V13.5C19 13.2239 18.7761 13 18.5 13ZM12.5 15C12.2239 15 12 15.2239 12 15.5V16.5C12 16.7761 12.2239 17 12.5 17C12.7761 17 13"
+" 16.7761 13 16.5V15.5C13 15.2239 12.7761 15 12.5 15ZM14.5 13C14.2239 13 14 13.2239 14 13.5V18.5C14 18.7761 14.2239 19 14.5 19C14.7761 19 15 18.7761 15 18.5V13.5C15 13.2239 14.7761 13 14.5 13ZM20.5 17C20.7761 17 21 16.7761 21 16.5V15.5C21 15.2239 20.7"
+"761 15 20.5 15C20.2239 15 20 15.2239 20 15.5V16.5C20 16.7761 20.2239 17 20.5 17ZM16.5 14C16.2239 14 16 14.2239 16 14.5V17.5C16 17.7761 16.2239 18 16.5 18C16.7761 18 17 17.7761 17 17.5V14.5C17 14.2239 16.7761 14 16.5 14ZM24 22C24 23.1046 23.1046 24 22"
+" 24H19V23H22C22.5523 23 23 22.5523 23 22V19H24V22ZM19 8V9L22 9C22.5523 9 23 9.44772 23 10V13H24V10C24 8.89543 23.1046 8 22 8L19 8ZM13 9V8L10 8C8.89543 8 8 8.89543 8 10V13H9V10C9 9.44772 9.44772 9 10 9H13ZM9 22C9 22.5523 9.44772 23 10 23H13V24H10C8.89"
+"543 24 8 23.1046 8 22V19H9V22Z\" fill=\"#000000\"/>\n</svg>\n";
+
+const char* Capture_svg = (const char*) temp_binary_data_21;
+
 const char* getNamedResource (const char* resourceNameUTF8, int& numBytes);
 const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
 {
@@ -11853,6 +11871,8 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
         case 0xcac185c5:  numBytes = 330; return Cross_svg;
         case 0x8840e684:  numBytes = 205748; return UbuntuMono_R_ttf;
         case 0x875f6e74:  numBytes = 191400; return UbuntuMono_B_ttf;
+        case 0x6a1588c7:  numBytes = 418; return Stop_svg;
+        case 0x6d2549cb:  numBytes = 1290; return Capture_svg;
         default: break;
     }
 
@@ -11881,7 +11901,9 @@ const char* namedResourceList[] =
     "Search_svg",
     "Cross_svg",
     "UbuntuMono_R_ttf",
-    "UbuntuMono_B_ttf"
+    "UbuntuMono_B_ttf",
+    "Stop_svg",
+    "Capture_svg"
 };
 
 const char* originalFilenames[] =
@@ -11905,7 +11927,9 @@ const char* originalFilenames[] =
     "search.svg",
     "cross.svg",
     "UbuntuMono-R.ttf",
-    "UbuntuMono-B.ttf"
+    "UbuntuMono-B.ttf",
+    "stop.svg",
+    "capture.svg"
 };
 
 const char* getNamedResourceOriginalFilename (const char* resourceNameUTF8);
