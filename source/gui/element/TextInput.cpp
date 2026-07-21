@@ -41,7 +41,7 @@ void TextInput::resized()
 {
     Component::resized();
     const auto bounds = getLocalBounds();
-    const auto height = static_cast<int>(Theme::resolveHeight(_heightType, static_cast<float>(bounds.getHeight())));
+    const auto height = getHeight();
     _input.setBounds(bounds.withSizeKeepingCentre(bounds.getWidth(), height));
     _input.setFont(Theme::newFont(Theme::LIGHT).withHeight(static_cast<float>(_input.getHeight()) * 0.55f));
 }

@@ -21,12 +21,16 @@ void MultiWaySwitch::paint(juce::Graphics& g)
 {
     Component::paint(g);
 
-    const auto bounds = getLocalBounds().toFloat();
-    const auto radius = bounds.getHeight() / 2.f;
+    const auto localBounds = getLocalBounds();
+    const auto height = getHeight();
+    const auto bounds = localBounds.withSizeKeepingCentre(localBounds.getWidth(), height).toFloat();
+    const auto radius = getBorderRadius();
     const auto numSegments = static_cast<int>(_labels.size());
 
-    g.setColour(Theme::newColor(Theme::SECONDARY_BACKGROUND).asJuce());
+    g.setColour(getBackgroundColour());
     g.fillRoundedRectangle(bounds, radius);
+    g.setColour(getBorderColour());
+    g.drawRoundedRectangle(bounds, radius, 1.f);
 
     const auto segmentWidth = bounds.getWidth() / static_cast<float>(numSegments);
 

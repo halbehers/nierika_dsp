@@ -51,20 +51,25 @@ public:
     void textEditorTextChanged(juce::TextEditor & editor) override;
     void textEditorReturnKeyPressed(juce::TextEditor & editor) override;
 
+    void setHeightType(Theme::HeightType type) { _heightType = type; resetIndents(); resized(); }
+    [[nodiscard]] Theme::HeightType getHeightType() const { return _heightType; }
+
+    int getHeight() { return static_cast<int>(Theme::resolveHeight(_heightType, static_cast<float>(getLocalBounds().getHeight()))); }
+
     void setBorderRadius(float radius) { _borderRadiusOverride = radius; }
     void resetBorderRadius() { _borderRadiusOverride = -1; }
     float getBorderRadius() const { return _borderRadiusOverride >= 0 ? _borderRadiusOverride : Theme::getBorderRadius(); }
 
     void setBackgroundColour(juce::Colour colour) { _backgroundOverride = colour; }
     void resetBackgroundColour() { _backgroundOverride = juce::Colour(); }
-    juce::Colour getBackgroundColour() const { return _backgroundOverride.isTransparent() ? Theme::newColor(Theme::ThemeColor::SECONDARY_BACKGROUND).asJuce() : _backgroundOverride; }
+    juce::Colour getBackgroundColour() const { return _backgroundOverride.value_or(Theme::newColor(Theme::ThemeColor::SECONDARY_BACKGROUND).asJuce()); }
 
     void setBorderColour(juce::Colour colour) { _borderOverride = colour; }
     void resetBorderColour() { _borderOverride = juce::Colour(); }
-    juce::Colour getBorderColour() const { return _borderOverride.isTransparent() ? Theme::newColor(Theme::ThemeColor::BORDER).asJuce().withAlpha(0.2f) : _borderOverride; }
+    juce::Colour getBorderColour() const { return _borderOverride.value_or(Theme::newColor(Theme::ThemeColor::BORDER).asJuce().withAlpha(0.2f)); }
 
-    void setHeightType(Theme::HeightType type) { _heightType = type; resetIndents(); resized(); }
-    [[nodiscard]] Theme::HeightType getHeightType() const { return _heightType; }
+    void setRounded(bool isRounded) { setBorderRadius(getHeight() / 2); }
+
 
 protected:
     juce::TextEditor _input {};
@@ -75,8 +80,9 @@ private:
     std::vector<OnValueChangedListener*> _valueChangedListeners;
     std::vector<OnReturnKeyPressedListener*> _returnKeyListeners;
 
-    juce::Colour _backgroundOverride = juce::Colour();
-    juce::Colour _borderOverride = juce::Colour();
+    
+    std::optional<juce::Colour> _backgroundOverride = std::nullopt;
+    std::optional<juce::Colour> _borderOverride = std::nullopt;
     std::string _placeholderText;
 
 

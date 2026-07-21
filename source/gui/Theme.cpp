@@ -294,6 +294,11 @@ juce::Font Theme::newFont(FontWeight style, FontSize size)
     return _activeFonts.at(style).withHeight(getFontSizeInPixels(size));
 }
 
+juce::Font Theme::newFont(FontWeight style, float textHeight)
+{
+    return _activeFonts.at(style).withHeight(textHeight);
+}
+
 juce::Font Theme::newFont(FontFamily family, FontWeight weight, FontSize size)
 {
     const FontSet& fonts = family == FontFamily::MONOSPACED ? _activeMonospaceFonts : _activeFonts;

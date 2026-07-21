@@ -28,7 +28,15 @@ void TextButton::setup()
 void TextButton::resized()
 {
     Component::resized();
-    _button.setBounds(getLocalBounds());
+    const auto bounds = getLocalBounds();
+    const auto height = static_cast<int>(Theme::resolveHeight(_heightType, static_cast<float>(bounds.getHeight())));
+    _button.setBounds(bounds.withSizeKeepingCentre(bounds.getWidth(), height));
+}
+
+void TextButton::changeListenerCallback(juce::ChangeBroadcaster* source)
+{
+    resized();
+    Component::changeListenerCallback(source);
 }
 
 void TextButton::setHelpText(const std::string& helpText)

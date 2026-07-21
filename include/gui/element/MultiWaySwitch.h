@@ -49,12 +49,36 @@ public:
     void setSelectedInvertedTextColor(bool hasInvertedTextColorOnSelected) { _hasInvertedTextColorOnSelected = hasInvertedTextColorOnSelected; }
     bool hasInvertedTextColorOnSelected() const { return _hasInvertedTextColorOnSelected; }
 
+    void setHeightType(Theme::HeightType type) { _heightType = type; repaint(); }
+    [[nodiscard]] Theme::HeightType getHeightType() const { return _heightType; }
+
+    void setBackgroundColour(juce::Colour colour) { _backgroundOverride = colour; }
+    void resetBackgroundColour() { _backgroundOverride = juce::Colour(); }
+    juce::Colour getBackgroundColour() const { return _backgroundOverride.value_or(Theme::newColor(Theme::ThemeColor::SECONDARY_BACKGROUND).asJuce()); }
+
+    void setBorderColour(juce::Colour colour) { _borderOverride = colour; }
+    void resetBorderColour() { _borderOverride = juce::Colour(); }
+    juce::Colour getBorderColour() const { return _borderOverride.value_or(Theme::newColor(Theme::ThemeColor::BORDER).asJuce().withAlpha(0.2f)); }
+
+    void setBorderRadius(float radius) { _borderRadiusOverride = radius; }
+    void resetBorderRadius() { _borderRadiusOverride = -1; }
+    float getBorderRadius() const { return _borderRadiusOverride >= 0 ? _borderRadiusOverride : Theme::getBorderRadius(); }
+
+    int getHeight() { return static_cast<int>(Theme::resolveHeight(_heightType, static_cast<float>(getLocalBounds().getHeight()))); }
+
+    void setRounded(bool isRounded) { setBorderRadius(getHeight() / 2); }
+
 private:
     std::vector<std::string> _labels;
     int _selectedIndex = 0;
     float _thumbPosition = 0.f;
     std::vector<OnValueChangedListener*> _listeners;
     bool _hasInvertedTextColorOnSelected = false;
+    Theme::HeightType _heightType = Theme::HeightType::AUTO;
+    float _borderRadiusOverride = -1;
+
+    std::optional<juce::Colour> _backgroundOverride = std::nullopt;
+    std::optional<juce::Colour> _borderOverride = std::nullopt;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MultiWaySwitch)
 };

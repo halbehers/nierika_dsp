@@ -30,7 +30,7 @@ void ComboBox::resized()
 {
     Component::resized();
     const auto bounds = getLocalBounds();
-    const auto height = static_cast<int>(Theme::resolveHeight(_heightType, static_cast<float>(bounds.getHeight())));
+    const auto height = getHeight();
     _comboBox.setBounds(bounds.withSizeKeepingCentre(bounds.getWidth(), height));
 }
 
@@ -64,6 +64,7 @@ void ComboBox::changeListenerCallback(juce::ChangeBroadcaster* source)
     _comboBox.setColour(juce::ComboBox::ColourIds::textColourId, Theme::newColor(Theme::ThemeColor::TEXT).asJuce());
 
     resized();
+    _comboBox.lookAndFeelChanged();
 
     Component::changeListenerCallback(source);
 }

@@ -25,6 +25,7 @@ public:
     ~TextButton() override = default;
 
     void resized() override;
+    void changeListenerCallback(juce::ChangeBroadcaster* source) override;
 
     void addOnClickListener(OnClickListener* listener);
     void removeListener(OnClickListener* listener);
@@ -43,11 +44,14 @@ public:
     bool hasIcon() const { return _iconBinary != nullptr; }
     IconPosition getIconPosition() const { return _iconPosition; }
     const char* getIconBinary() const { return _iconBinary; }
-    float getIconSize() const { return getHeight() * 0.4f; }
+    float getIconSize() const { return static_cast<float>(_button.getHeight()) * 0.4f; }
     void setGap(float gap) { _gap = gap; }
     float getGap() const { return _gap; }
     void setInvertedTextColor(bool hasInvertedTextColor) { _hasInvertedTextColor = hasInvertedTextColor; }
     bool hasInvertedTextColor() const { return _hasInvertedTextColor; }
+
+    void setHeightType(Theme::HeightType type) { _heightType = type; resized(); }
+    [[nodiscard]] Theme::HeightType getHeightType() const { return _heightType; }
 
 protected:
     juce::TextButton _button {};
@@ -63,6 +67,7 @@ private:
     float _gap = 8.f;
 
     bool _hasInvertedTextColor = false;
+    Theme::HeightType _heightType = Theme::HeightType::AUTO;
 
     void setup();
 

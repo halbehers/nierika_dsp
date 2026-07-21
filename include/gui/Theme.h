@@ -181,6 +181,7 @@ public:
 
     static Color newColor(ThemeColor color);
     [[nodiscard]] static juce::Font newFont(FontWeight weight, FontSize size = PARAGRAPH);
+    [[nodiscard]] static juce::Font newFont(FontWeight style, float textHeight);
     [[nodiscard]] static juce::Font newFont(FontFamily family, FontWeight weight, FontSize size = PARAGRAPH);
     [[nodiscard]] static float getFontSizeInPixels(FontSize size, const FontFamily family = FontFamily::DEFAULT);
 
