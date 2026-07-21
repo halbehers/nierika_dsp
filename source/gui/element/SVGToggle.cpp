@@ -8,14 +8,14 @@ namespace nierika::gui::element
 
 SVGToggle::SVGToggle(const std::string& identifier, const char* svgBinary):
     Component(identifier),
-    _lookAndFeel(svgBinary)
+    _svgBinary(svgBinary)
 {
     setup();
 }
 
 SVGToggle::SVGToggle(dsp::ParameterManager& parameterManager, const std::string& parameterID, const char* svgBinary):
     Component(parameterID, parameterManager.getParameterDisplayName(parameterID), parameterManager.getParameterTooltip(parameterID)),
-    _lookAndFeel(svgBinary)
+    _svgBinary(svgBinary)
 {
     setup();
 
@@ -31,7 +31,7 @@ void SVGToggle::setup()
 
     _button.setLookAndFeel(&_lookAndFeel);
     _button.setToggleState(true, juce::NotificationType::dontSendNotification);
-    _button.setMouseCursor(juce::MouseCursor::PointingHandCursor);
+    _button.setMouseCursor(isEnabled() ? juce::MouseCursor::PointingHandCursor : juce::MouseCursor::NormalCursor);
 
     _button.onClick = [this]()
     {
@@ -43,7 +43,16 @@ void SVGToggle::setup()
 void SVGToggle::resized()
 {
     Component::resized();
-    _button.setBounds(getLocalBounds());
+    const auto bounds = getLocalBounds();
+    if (_clickableSurface == helpers::ClickableSurface::ELEMENT_BOUNDARIES)
+    {
+        const auto size = static_cast<int>(getIconSize());
+        _button.setBounds(bounds.withSizeKeepingCentre(size, size));
+    }
+    else
+    {
+        _button.setBounds(bounds);
+    }
 }
 
 void SVGToggle::paint(juce::Graphics& g)
@@ -72,6 +81,13 @@ void SVGToggle::removeListener(OnValueChangedListener* listener)
         std::remove(_listeners.begin(), _listeners.end(), listener),
         _listeners.end()
     );
+}
+
+void SVGToggle::setEnabled(bool shouldBeEnabled)
+{
+    juce::Component::setEnabled(shouldBeEnabled);
+
+    _button.setMouseCursor(shouldBeEnabled ? juce::MouseCursor::PointingHandCursor : juce::MouseCursor::NormalCursor);
 }
 
 }

@@ -11822,14 +11822,20 @@ static const unsigned char temp_binary_data_19[] =
 
 const char* UbuntuMono_B_ttf = (const char*) temp_binary_data_19;
 
-//================== stop.svg ==================
-static const unsigned char temp_binary_data_20[] =
-"<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M32 16C32 24.8366 24.8366 32 16 32C7.16344 32 0 24.8366 0 16C0 7.16344 7.16344 0 16 0C24."
-"8366 0 32 7.16344 32 16ZM20 22C21.1046 22 22 21.1046 22 20V12C22 10.8954 21.1046 10 20 10H16H12C10.8954 10 10 10.8954 10 12V20C10 21.1046 10.8954 22 12 22H20Z\" fill=\"#000000\"/>\n</svg>\n";
-
-const char* Stop_svg = (const char*) temp_binary_data_20;
-
 //================== capture.svg ==================
+static const unsigned char temp_binary_data_20[] =
+"<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M9 17C9 17.5523 8.55228 18 8 18C7.44772 18 7 17.5523 7 17V15C7 14.4477 7.44772 14 8 14C8.55228 14 9 14.4477 9 15V17Z\" fill=\"#000000"
+"\"/>\n<path d=\"M25 17C25 17.5523 24.5523 18 24 18C23.4477 18 23 17.5523 23 17V15C23 14.4477 23.4477 14 24 14C24.5523 14 25 14.4477 25 15V17Z\" fill=\"#000000\"/>\n<path d=\"M13 22C13 22.5523 12.5523 23 12 23C11.4477 23 11 22.5523 11 22V10C11 9.44772"
+" 11.4477 9 12 9C12.5523 9 13 9.44772 13 10V22Z\" fill=\"#000000\"/>\n<path d=\"M21 22C21 22.5523 20.5523 23 20 23C19.4477 23 19 22.5523 19 22V10C19 9.44772 19.4477 9 20 9C20.5523 9 21 9.44772 21 10V22Z\" fill=\"#000000\"/>\n<path d=\"M17 19C17 19.552"
+"3 16.5523 20 16 20C15.4477 20 15 19.5523 15 19V13C15 12.4477 15.4477 12 16 12C16.5523 12 17 12.4477 17 13V19Z\" fill=\"#000000\"/>\n<path d=\"M6 28C4.89543 28 4 27.1046 4 26V22C4 21.4477 3.55228 21 3 21C2.44772 21 2 21.4477 2 22L2 26L2.00488 26.2061C"
+"2.10865 28.2512 3.7488 29.8913 5.79395 29.9951L6 30H10C10.5523 30 11 29.5523 11 29C11 28.4477 10.5523 28 10 28H6Z\" fill=\"#000000\"/>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M26 30H22C21.4477 30 21 29.5523 21 29C21 28.4477 21.4477 28 "
+"22 28H26C27.1046 28 28 27.1046 28 26V22C28 21.4477 28.4477 21 29 21C29.5523 21 30 21.4477 30 22V26C30 28.14 28.3194 29.8879 26.2061 29.9951L26 30Z\" fill=\"#000000\"/>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M30 6V10C30 10.5523 29.5523"
+" 11 29 11C28.4477 11 28 10.5523 28 10V6C28 4.89543 27.1046 4 26 4H22C21.4477 4 21 3.55228 21 3C21 2.44772 21.4477 2 22 2H26C28.2091 2 30 3.79086 30 6Z\" fill=\"#000000\"/>\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M4 10C4 10.5523 3.55228"
+" 11 3 11C2.44772 11 2 10.5523 2 10V6C2 3.79086 3.79086 2 6 2H10C10.5523 2 11 2.44772 11 3C11 3.55228 10.5523 4 10 4H6C4.89543 4 4 4.89543 4 6L4 10Z\" fill=\"#000000\"/>\n</svg>\n";
+
+const char* Capture_svg = (const char*) temp_binary_data_20;
+
+//================== capture_in_circle.svg ==================
 static const unsigned char temp_binary_data_21[] =
 "<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 2"
 "4.8366 7.16344 32 16 32ZM18.5 13C18.2239 13 18 13.2239 18 13.5V18.5C18 18.7761 18.2239 19 18.5 19C18.7761 19 19 18.7761 19 18.5V13.5C19 13.2239 18.7761 13 18.5 13ZM12.5 15C12.2239 15 12 15.2239 12 15.5V16.5C12 16.7761 12.2239 17 12.5 17C12.7761 17 13"
@@ -11838,7 +11844,14 @@ static const unsigned char temp_binary_data_21[] =
 " 24H19V23H22C22.5523 23 23 22.5523 23 22V19H24V22ZM19 8V9L22 9C22.5523 9 23 9.44772 23 10V13H24V10C24 8.89543 23.1046 8 22 8L19 8ZM13 9V8L10 8C8.89543 8 8 8.89543 8 10V13H9V10C9 9.44772 9.44772 9 10 9H13ZM9 22C9 22.5523 9.44772 23 10 23H13V24H10C8.89"
 "543 24 8 23.1046 8 22V19H9V22Z\" fill=\"#000000\"/>\n</svg>\n";
 
-const char* Capture_svg = (const char*) temp_binary_data_21;
+const char* CaptureInCircle_svg = (const char*) temp_binary_data_21;
+
+//================== stop_in_circle.svg ==================
+static const unsigned char temp_binary_data_22[] =
+"<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M32 16C32 24.8366 24.8366 32 16 32C7.16344 32 0 24.8366 0 16C0 7.16344 7.16344 0 16 0C24."
+"8366 0 32 7.16344 32 16ZM20 22C21.1046 22 22 21.1046 22 20V12C22 10.8954 21.1046 10 20 10H16H12C10.8954 10 10 10.8954 10 12V20C10 21.1046 10.8954 22 12 22H20Z\" fill=\"#000000\"/>\n</svg>\n";
+
+const char* StopInCircle_svg = (const char*) temp_binary_data_22;
 
 const char* getNamedResource (const char* resourceNameUTF8, int& numBytes);
 const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
@@ -11871,8 +11884,9 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
         case 0xcac185c5:  numBytes = 330; return Cross_svg;
         case 0x8840e684:  numBytes = 205748; return UbuntuMono_R_ttf;
         case 0x875f6e74:  numBytes = 191400; return UbuntuMono_B_ttf;
-        case 0x6a1588c7:  numBytes = 418; return Stop_svg;
-        case 0x6d2549cb:  numBytes = 1290; return Capture_svg;
+        case 0x6d2549cb:  numBytes = 1859; return Capture_svg;
+        case 0xef926bc0:  numBytes = 1290; return CaptureInCircle_svg;
+        case 0x82c1eebc:  numBytes = 418; return StopInCircle_svg;
         default: break;
     }
 
@@ -11902,8 +11916,9 @@ const char* namedResourceList[] =
     "Cross_svg",
     "UbuntuMono_R_ttf",
     "UbuntuMono_B_ttf",
-    "Stop_svg",
-    "Capture_svg"
+    "Capture_svg",
+    "CaptureInCircle_svg",
+    "StopInCircle_svg"
 };
 
 const char* originalFilenames[] =
@@ -11928,8 +11943,9 @@ const char* originalFilenames[] =
     "cross.svg",
     "UbuntuMono-R.ttf",
     "UbuntuMono-B.ttf",
-    "stop.svg",
-    "capture.svg"
+    "capture.svg",
+    "capture_in_circle.svg",
+    "stop_in_circle.svg"
 };
 
 const char* getNamedResourceOriginalFilename (const char* resourceNameUTF8);
