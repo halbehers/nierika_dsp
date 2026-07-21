@@ -16,8 +16,12 @@ same keyframe times and duration - a single Figma export is one timeline by
 construction, so every animated element in it moves on the same schedule. Frames
 are sampled at the exact declared keyframe instants only, never interpolated
 between them, so easing (calcMode/keySplines/animation-timing-function) and
-repeat/loop attributes are irrelevant and simply dropped when snapshotting
-(looping is AnimatedSVG's job at playback time, not something baked into frames).
+repeat/loop attributes never affect snapshot *geometry* and are dropped from the
+frames themselves (looping is AnimatedSVG's job at playback time). They ARE,
+however, inspected as an AnimatedIcon.easing detection signal (see below) - best
+effort, soft-fail to None (not an error) on any mismatch or unrecognized curve,
+since easing is a cosmetic nicety, not something that can make a frame set itself
+incoherent the way a keyTimes/dur mismatch would.
 
 SMIL rejected outright, with a specific error rather than a silent guess:
   - animated fill/stroke/stop-color (would freeze the icon's colour mid-animation,
@@ -107,7 +111,8 @@ def describe(elem: ET.Element, position: int) -> str:
 
 
 class AnimateBinding:
-    def __init__(self, parent_path, attribute_name, values, key_times, dur, is_transform, transform_type, target_description):
+    def __init__(self, parent_path, attribute_name, values, key_times, dur, is_transform, transform_type,
+                 target_description, calc_mode, key_splines_raw):
         self.parent_path = parent_path
         self.attribute_name = attribute_name
         self.values = values
@@ -116,6 +121,8 @@ class AnimateBinding:
         self.is_transform = is_transform
         self.transform_type = transform_type
         self.target_description = target_description
+        self.calc_mode = calc_mode          # easing detection only - never affects snapshot geometry
+        self.key_splines_raw = key_splines_raw  # easing detection only - raw string, parsed lazily/best-effort
 
 
 def build_binding(parent: ET.Element, animate_elem: ET.Element, parent_path: tuple, position: int) -> AnimateBinding:
@@ -136,7 +143,9 @@ def build_binding(parent: ET.Element, animate_elem: ET.Element, parent_path: tup
         raise SmilError(f"{where}: additive=\"sum\" is not supported; the frozen value would need composing with "
                          f"the parent's existing transform")
 
-    if animate_elem.get("calcMode") == "paced":
+    # SMIL spec default calcMode is "linear" when the attribute is absent.
+    calc_mode = animate_elem.get("calcMode", "linear")
+    if calc_mode == "paced":
         raise SmilError(f"{where}: calcMode=\"paced\" is not supported")
 
     if is_transform:
@@ -175,7 +184,7 @@ def build_binding(parent: ET.Element, animate_elem: ET.Element, parent_path: tup
         raise SmilError(f"{where}: missing a dur=\"...\" attribute")
 
     return AnimateBinding(parent_path, attribute_name, values, key_times, dur_attr, is_transform, transform_type,
-                           describe(parent, position))
+                           describe(parent, position), calc_mode, animate_elem.get("keySplines"))
 
 
 def collect_bindings(root: ET.Element) -> list[AnimateBinding]:
@@ -463,23 +472,27 @@ def index_elements_by_id(root: ET.Element) -> dict[str, tuple[tuple, ET.Element]
 
 
 class CssBinding:
-    def __init__(self, path, key_times, dur, matrices, target_description):
+    def __init__(self, path, key_times, dur, matrices, target_description, step_timing_functions, shorthand_timing):
         self.path = path
         self.key_times = key_times
         self.dur = dur
         self.attribute_name = "transform"  # for validate_shared_schedule's error text only
         self.matrices = matrices
         self.target_description = target_description
+        self.step_timing_functions = step_timing_functions  # {pct: str | None} - easing detection only
+        self.shorthand_timing = shorthand_timing             # str | None - easing detection only
 
 
 def collect_css_bindings(root: ET.Element, style_text: str) -> list[CssBinding]:
     keyframes: dict[str, dict[float, Matrix]] = {}
-    animations: dict[str, tuple[str, str]] = {}  # elem_id -> (keyframes_name, dur)
+    keyframe_timing_functions: dict[str, dict[float, str | None]] = {}
+    animations: dict[str, tuple[str, str, str | None]] = {}  # elem_id -> (keyframes_name, dur, shorthand_timing)
 
     for header, body in split_top_level_blocks(style_text):
         if header.startswith("@keyframes"):
             name = header[len("@keyframes"):].strip()
             steps: dict[float, Matrix] = {}
+            timing_functions: dict[float, str | None] = {}
             for step_header, step_body in split_top_level_blocks(body):
                 pct = parse_percentage(step_header)
                 props = parse_declarations(step_body)
@@ -491,7 +504,9 @@ def collect_css_bindings(root: ET.Element, style_text: str) -> list[CssBinding]:
                 if "transform" not in props:
                     raise SmilError(f"@keyframes {name} {step_header}: missing a transform declaration")
                 steps[pct] = parse_css_transform(props["transform"])
+                timing_functions[pct] = props.get("animation-timing-function")
             keyframes[name] = steps
+            keyframe_timing_functions[name] = timing_functions
         elif header.startswith("#"):
             elem_id = header[1:].strip()
             props = parse_declarations(body)
@@ -501,13 +516,14 @@ def collect_css_bindings(root: ET.Element, style_text: str) -> list[CssBinding]:
             parts = animation.split()
             if len(parts) < 2:
                 raise SmilError(f"#{elem_id}: malformed 'animation' shorthand \"{animation}\"")
-            animations[elem_id] = (parts[0], parts[1])
+            shorthand_timing = parts[2] if len(parts) > 2 else None
+            animations[elem_id] = (parts[0], parts[1], shorthand_timing)
         # Any other top-level rule (plain non-animation CSS) is left alone - not our concern.
 
     id_index = index_elements_by_id(root)
 
     bindings = []
-    for elem_id, (kf_name, dur) in animations.items():
+    for elem_id, (kf_name, dur, shorthand_timing) in animations.items():
         if kf_name not in keyframes:
             raise SmilError(f"#{elem_id}: references @keyframes '{kf_name}' which was not found")
         if elem_id not in id_index:
@@ -518,7 +534,8 @@ def collect_css_bindings(root: ET.Element, style_text: str) -> list[CssBinding]:
         key_times = sorted(steps.keys())
         matrices = [steps[t] for t in key_times]
 
-        bindings.append(CssBinding(path, key_times, dur, matrices, f'<{local_name(elem.tag)} id="{elem_id}">'))
+        bindings.append(CssBinding(path, key_times, dur, matrices, f'<{local_name(elem.tag)} id="{elem_id}">',
+                                    keyframe_timing_functions[kf_name], shorthand_timing))
 
     return bindings
 
@@ -548,14 +565,133 @@ def snapshot_frames_css(root: ET.Element, bindings: list[CssBinding], frame_coun
     return frames
 
 
-def update_animated_icons_header(text: str, frame_identifiers: list[str], duration_seconds: float, getter_name: str) -> str:
+########################################################################################
+# Easing detection - best-effort, soft-fail to None. Populates AnimatedIcon.easing but
+# never blocks an otherwise-valid import (unlike keyTimes/dur mismatches, which are
+# hard errors because they'd make the frame *set* itself incoherent).
+########################################################################################
+
+# Standard CSS Easing Functions Level 1 control points.
+EASING_PRESETS = {
+    "EASE_IN": (0.42, 0.0, 1.0, 1.0),
+    "EASE_OUT": (0.0, 0.0, 0.58, 1.0),
+    "EASE_IN_OUT": (0.42, 0.0, 0.58, 1.0),
+}
+# Reuses the script's existing keyTimes-comparison tolerance (validate_shared_schedule)
+# for consistency, rather than inventing a separate epsilon.
+BEZIER_EPSILON = 1e-3
+
+
+def match_bezier_preset(bezier: tuple[float, float, float, float]) -> str | None:
+    for name, preset in EASING_PRESETS.items():
+        if all(abs(a - b) <= BEZIER_EPSILON for a, b in zip(bezier, preset)):
+            return name
+    return None
+
+
+def parse_key_splines(value: str) -> list[tuple[float, float, float, float]]:
+    segments = []
+    for seg in parse_semicolon_list(value):
+        parts = [p.strip() for p in seg.split(",")]
+        if len(parts) != 4:
+            raise ValueError(f"malformed keySplines segment '{seg}'")
+        segments.append(tuple(float(p) for p in parts))
+    return segments
+
+
+def detect_smil_easing(bindings: list[AnimateBinding]) -> str | None:
+    detected_names = set()
+    for binding in bindings:
+        if binding.calc_mode == "discrete":
+            detected_names.add("FLAT")
+        elif binding.calc_mode == "linear":
+            detected_names.add("LINEAR")
+        elif binding.calc_mode == "spline":
+            if not binding.key_splines_raw:
+                return None
+            try:
+                segments = parse_key_splines(binding.key_splines_raw)
+            except ValueError:
+                return None
+            if not segments:
+                return None
+            first_segment = segments[0]
+            if not all(all(abs(a - b) <= BEZIER_EPSILON for a, b in zip(first_segment, seg)) for seg in segments[1:]):
+                return None  # this element's own segments don't even agree with each other
+            match = match_bezier_preset(first_segment)
+            if match is None:
+                return None
+            detected_names.add(match)
+        else:
+            return None  # unrecognized calcMode
+
+    if len(detected_names) != 1:
+        return None
+    return next(iter(detected_names))
+
+
+CSS_KEYWORD_BEZIERS = {
+    "ease-in": (0.42, 0.0, 1.0, 1.0),
+    "ease-out": (0.0, 0.0, 0.58, 1.0),
+    "ease-in-out": (0.42, 0.0, 0.58, 1.0),
+    "ease": (0.25, 0.1, 0.25, 1.0),  # the CSS default - matches none of our 3 presets, resolves to None
+}
+
+CUBIC_BEZIER_RE = re.compile(r'cubic-bezier\(\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*\)')
+
+
+def match_css_easing_name(value: str) -> str | None:
+    normalized = value.strip().lower()
+    if normalized == "linear":
+        return "LINEAR"
+    if normalized in CSS_KEYWORD_BEZIERS:
+        return match_bezier_preset(CSS_KEYWORD_BEZIERS[normalized])
+    m = CUBIC_BEZIER_RE.match(normalized)
+    if m:
+        return match_bezier_preset(tuple(float(g) for g in m.groups()))
+    return None  # unrecognized syntax (e.g. steps(...)) - not an error, just no signal
+
+
+def detect_css_easing(bindings: list[CssBinding]) -> str | None:
+    # Precedence 1: a per-step animation-timing-function overrides the shorthand's for
+    # that segment under real CSS cascade semantics - if every step across every
+    # binding declares an identical one, prefer it as the more specific signal.
+    all_step_values = []
+    any_step_declared = False
+    for binding in bindings:
+        for pct in binding.key_times:
+            value = binding.step_timing_functions.get(pct)
+            if value is not None:
+                any_step_declared = True
+            all_step_values.append(value)
+
+    if any_step_declared:
+        if len(set(all_step_values)) == 1 and all_step_values[0] is not None:
+            return match_css_easing_name(all_step_values[0])
+        return None  # some steps declared it and others didn't, or they conflict
+
+    # Precedence 2: fall back to the shorthand's 3rd token, if every element agrees.
+    shorthand_values = {b.shorthand_timing for b in bindings}
+    if len(shorthand_values) == 1:
+        (only,) = shorthand_values
+        if only is not None:
+            return match_css_easing_name(only)
+
+    return None
+
+
+def update_animated_icons_header(text: str, frame_identifiers: list[str], duration_seconds: float, getter_name: str,
+                                  easing_name: str | None) -> str:
     for identifier in frame_identifiers:
         if f"::{identifier}" in text:
             raise RuntimeError(f"'{identifier}' is already referenced in {ANIMATED_ICONS_HEADER_PATH.name}")
 
     frames_initializer = ", ".join(f"NierikaDSPBinaryData::{ident}" for ident in frame_identifiers)
+    # AnimatedIcon::easing is the struct's 3rd field, only included when detected - a
+    # missing trailing aggregate member value-initializes to std::nullopt.
+    easing_initializer = f", AnimationEasing::{easing_name}" if easing_name else ""
     new_line = (f"\n    static const AnimatedIcon {getter_name}() "
-                f"{{ return {{ {{ {frames_initializer} }}, {duration_seconds}f }}; }}")
+                f"{{ return {{ {{ {frames_initializer} }}, {duration_seconds}f{easing_initializer} }}; }}")
     return insert_before_class_close(text, "AnimatedIcons", new_line)
 
 
@@ -615,6 +751,12 @@ def main() -> int:
         print(f"error: {e}", file=sys.stderr)
         return 1
 
+    # Easing detection is best-effort and must never block an otherwise-valid import.
+    try:
+        easing_name = detect_smil_easing(smil_bindings) if smil_bindings else detect_css_easing(css_bindings)
+    except Exception:
+        easing_name = None
+
     base_identifier = derive_identifier(svg_path, args.name, "")
     frame_identifiers = [f"{base_identifier}Frame{i}_svg" for i in range(frame_count)]
 
@@ -650,7 +792,7 @@ def main() -> int:
         getter_name = f"get{base_identifier[0].upper()}{base_identifier[1:]}"
         try:
             new_animated_icons_text = update_animated_icons_header(animated_icons_text, frame_identifiers,
-                                                                     duration_seconds, getter_name)
+                                                                     duration_seconds, getter_name, easing_name)
         except RuntimeError as e:
             print(f"error: {e}", file=sys.stderr)
             return 1
@@ -658,6 +800,7 @@ def main() -> int:
     print(f"identifier base: {base_identifier}")
     print(f"frames:          {frame_count}")
     print(f"duration:        {duration_seconds}s")
+    print(f"easing:          {easing_name if easing_name else 'not detected (AnimatedSVG defaults to LINEAR)'}")
     for identifier, size_bytes in zip(frame_identifiers, frame_sizes):
         print(f"  {identifier}  (size {size_bytes} bytes, hash 0x{compute_projucer_hash(identifier):08x})")
     if getter_name:

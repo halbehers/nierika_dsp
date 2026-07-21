@@ -20,14 +20,15 @@ namespace
 
 AnimatedSVG::AnimatedSVG(const std::string& identifier, const AnimatedIcon& icon):
     Component(identifier),
-    _frames(icon.frames)
+    _frames(icon.frames),
+    _animationEasing(icon.easing.value_or(AnimationEasing::LINEAR))
 {
     jassert(_frames.size() >= 2);
 
     _frameRateHz = juce::jmax(1, static_cast<int>(std::round(static_cast<float>(_frames.size()) / icon.durationInSeconds)));
 
     if (_isAnimating)
-        startTimerHz(_frameRateHz);
+        startTimerHz(kCrossfadeTimerHz);
 }
 
 void AnimatedSVG::paint(juce::Graphics& g)
@@ -39,24 +40,34 @@ void AnimatedSVG::paint(juce::Graphics& g)
     const float x = (static_cast<float>(bounds.getWidth()) - iconSize) * 0.5f;
     const float y = (static_cast<float>(bounds.getHeight()) - iconSize) * 0.5f;
 
-    helpers::drawFromAnimatedSVG(g, _frames, static_cast<int>(_currentFrameIndex), toHexString(getColour()),
-                                  static_cast<int>(x), static_cast<int>(y),
-                                  static_cast<int>(iconSize), static_cast<int>(iconSize),
-                                  juce::AffineTransform());
+    helpers::drawFromAnimatedSVGBlended(g, _frames, static_cast<int>(_currentBlend.frameIndex),
+                                         static_cast<int>(_currentBlend.nextFrameIndex), _currentBlend.blendAlpha,
+                                         toHexString(getColour()),
+                                         static_cast<int>(x), static_cast<int>(y),
+                                         static_cast<int>(iconSize), static_cast<int>(iconSize),
+                                         juce::AffineTransform());
 }
 
 void AnimatedSVG::timerCallback()
 {
-    _currentFrameIndex = (_currentFrameIndex + 1) % _frames.size();
+    _elapsedSeconds += 1.0f / static_cast<float>(kCrossfadeTimerHz);
+
+    const float loopDuration = static_cast<float>(_frames.size()) / static_cast<float>(_frameRateHz);
+    _elapsedSeconds = std::fmod(_elapsedSeconds, loopDuration);
+
+    _currentBlend = animation::computeAnimationFrameBlend(_elapsedSeconds, _frames.size(),
+                                                            static_cast<float>(_frameRateHz), _animationEasing);
     repaint();
 }
 
 void AnimatedSVG::setFrameRate(const int fps)
 {
-    _frameRateHz = fps;
+    _frameRateHz = juce::jmax(1, fps);
+}
 
-    if (_isAnimating)
-        startTimerHz(_frameRateHz);
+void AnimatedSVG::setAnimationEasing(const AnimationEasing easing)
+{
+    _animationEasing = easing;
 }
 
 void AnimatedSVG::setAnimating(const bool shouldAnimate)
@@ -64,7 +75,7 @@ void AnimatedSVG::setAnimating(const bool shouldAnimate)
     _isAnimating = shouldAnimate;
 
     if (_isAnimating)
-        startTimerHz(_frameRateHz);
+        startTimerHz(kCrossfadeTimerHz);
     else
         stopTimer();
 }

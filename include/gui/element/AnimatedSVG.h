@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "../AnimatedIcons.h"
+#include "../AnimationEasing.h"
 #include "../Component.h"
 #include "../Helpers.h"
 
@@ -20,8 +21,14 @@ public:
     void paint(juce::Graphics& g) override;
     void timerCallback() override;
 
+    // How many source keyframes the animation advances through per second (not the
+    // repaint/Timer rate, which is fixed - see kCrossfadeTimerHz - so crossfading stays
+    // smooth regardless of how slow/fast the underlying frame sequence plays).
     void setFrameRate(int fps);
     int getFrameRate() const { return _frameRateHz; }
+
+    void setAnimationEasing(AnimationEasing easing);
+    AnimationEasing getAnimationEasing() const { return _animationEasing; }
 
     void setAnimating(bool shouldAnimate);
     bool isAnimating() const { return _isAnimating; }
@@ -35,9 +42,13 @@ public:
     float getIconSize() const { return _iconSize >= 0.f ? _iconSize : static_cast<float>(juce::jmin(getWidth(), getHeight())); }
 
 private:
+    static constexpr int kCrossfadeTimerHz = 60;
+
     std::vector<const char*> _frames;
-    std::size_t _currentFrameIndex = 0;
+    float _elapsedSeconds = 0.f;
+    animation::AnimationFrameBlend _currentBlend;
     int _frameRateHz = 12;
+    AnimationEasing _animationEasing;
     bool _isAnimating = true;
     float _iconSize = -1.f;
     std::optional<juce::Colour> _colourOverride;

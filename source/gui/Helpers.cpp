@@ -36,7 +36,7 @@ void changeColor(const std::unique_ptr<juce::XmlElement>& xml, const juce::Strin
     }
 }
 
-void drawFromSVG(juce::Graphics& g, const char* svgBinary, const juce::String& colHex, int x, int y, int newWidth, int newHeight, juce::AffineTransform affine)
+void drawFromSVG(juce::Graphics& g, const char* svgBinary, const juce::String& colHex, int x, int y, int newWidth, int newHeight, juce::AffineTransform affine, const float opacity)
 {
     const std::unique_ptr<juce::XmlElement> svg(juce::XmlDocument::parse(svgBinary));
     jassert(svg != nullptr);
@@ -51,7 +51,7 @@ void drawFromSVG(juce::Graphics& g, const char* svgBinary, const juce::String& c
     drawable->setTransformToFit(juce::Rectangle<float>(static_cast<float>(squaredX), static_cast<float>(squaredY),
                                                         static_cast<float>(side), static_cast<float>(side)),
                                  juce::RectanglePlacement::centred);
-    drawable->draw(g, 1.f, affine);
+    drawable->draw(g, opacity, affine);
 }
 
 void drawFromAnimatedSVG(juce::Graphics& g, const std::vector<const char*>& frames, const int frameIndex, const juce::String& colHex, int x, int y, int newWidth, int newHeight, juce::AffineTransform affine)
@@ -59,6 +59,17 @@ void drawFromAnimatedSVG(juce::Graphics& g, const std::vector<const char*>& fram
     if (frames.empty()) return;
 
     drawFromSVG(g, frames[static_cast<std::size_t>(frameIndex) % frames.size()], colHex, x, y, newWidth, newHeight, affine);
+}
+
+void drawFromAnimatedSVGBlended(juce::Graphics& g, const std::vector<const char*>& frames, const int frameIndex, const int nextFrameIndex, const float blendAlpha, const juce::String& colHex, int x, int y, int newWidth, int newHeight, juce::AffineTransform affine)
+{
+    if (frames.empty()) return;
+
+    drawFromSVG(g, frames[static_cast<std::size_t>(frameIndex) % frames.size()], colHex, x, y, newWidth, newHeight, affine, 1.0f);
+
+    const float alpha = juce::jlimit(0.f, 1.f, blendAlpha);
+    if (alpha > 0.f)
+        drawFromSVG(g, frames[static_cast<std::size_t>(nextFrameIndex) % frames.size()], colHex, x, y, newWidth, newHeight, affine, alpha);
 }
 
 }

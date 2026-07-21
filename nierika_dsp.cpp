@@ -22,6 +22,7 @@
 #include "source/gui/EmbeddedFonts.cpp"
 #include "source/gui/Formatter.cpp"
 #include "source/gui/Helpers.cpp"
+#include "source/gui/AnimationEasing.cpp"
 #include "source/gui/Theme.cpp"
 #include "source/gui/Section.cpp"
 #include "source/gui/Component.cpp"
