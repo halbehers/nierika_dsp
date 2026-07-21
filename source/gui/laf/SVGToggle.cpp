@@ -5,9 +5,9 @@
 namespace nierika::gui::laf
 {
 
-SVGToggle::SVGToggle(const char* svgBinary)
+SVGToggle::SVGToggle(const element::SVGToggle& parent):
+    _parent(parent)
 {
-    _svgBinary = svgBinary;
 }
 
 SVGToggle::State SVGToggle::getState(bool ticked,
@@ -37,7 +37,7 @@ void SVGToggle::drawTickBox
     bool shouldDrawButtonAsDown
 )
 {
-    if (_svgBinary == nullptr)
+    if (_parent.getIconBinary() == nullptr)
     {
         juce::LookAndFeel_V4::drawTickBox(g, button, x, y, w, h, ticked, isEnabled, shouldDrawButtonAsHighlighted, shouldDrawButtonAsDown);
         return;
@@ -47,7 +47,14 @@ void SVGToggle::drawTickBox
 
     const std::string color = Theme::newColor(themeColor).asHexString();
 
-    helpers::drawFromSVG(g, _svgBinary, color, static_cast<int>(x), static_cast<int>(y), static_cast<int>(w), static_cast<int>(h), juce::AffineTransform());
+    const float iconSize = _parent.getIconSize();
+    const float ix = (static_cast<float>(button.getWidth()) - iconSize) * 0.5f;
+    const float iy = (static_cast<float>(button.getHeight()) - iconSize) * 0.5f;
+
+    helpers::drawFromSVG(g, _parent.getIconBinary(), color,
+                          static_cast<int>(ix), static_cast<int>(iy),
+                          static_cast<int>(iconSize), static_cast<int>(iconSize),
+                          juce::AffineTransform());
 }
 
 void SVGToggle::drawToggleButton
@@ -58,7 +65,7 @@ void SVGToggle::drawToggleButton
     bool shouldDrawButtonAsDown
 )
 {
-    if (_svgBinary == nullptr)
+    if (_parent.getIconBinary() == nullptr)
     {
         juce::LookAndFeel_V4::drawToggleButton(g, button, shouldDrawButtonAsHighlighted, shouldDrawButtonAsDown);
         return;

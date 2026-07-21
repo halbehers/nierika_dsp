@@ -2,6 +2,7 @@
 
 #include "../Component.h"
 #include "../laf/SVGButton.h"
+#include "../Helpers.h"
 
 namespace nierika::gui::element
 {
@@ -29,9 +30,14 @@ public:
     const char* getIconBinary() const { return _svgBinary; }
     void setIconBinary(const char* svgBinary) { _svgBinary = svgBinary; _button.lookAndFeelChanged(); }
 
-    void setIconSize(float size) { _iconSize = size; }
-    void resetIconSize() { _iconSize = -1.f; }
+    void setIconSize(float size) { _iconSize = size; resized(); }
+    void resetIconSize() { _iconSize = -1.f; resized(); }
     float getIconSize() const { return _iconSize >= 0.f ? _iconSize : static_cast<float>(juce::jmin(getWidth(), getHeight())); }
+   
+    void setClickableSurface(const helpers::ClickableSurface clickableSurface) { _clickableSurface = clickableSurface; resized(); }
+    helpers::ClickableSurface getClickableSurface() const { return _clickableSurface; }
+
+    void setEnabled(bool shouldBeEnabled);
 
 private:
     laf::SVGButton _lookAndFeel { *this };
@@ -39,6 +45,7 @@ private:
 
     const char* _svgBinary;
     float _iconSize = -1.f;
+    helpers::ClickableSurface _clickableSurface = helpers::ClickableSurface::ALL_AVAILABLE_AREA;
 
     std::vector<OnClickListener*> _listeners;
 

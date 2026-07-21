@@ -4,14 +4,15 @@
 
 #include "../Theme.h"
 
+namespace nierika::gui::element { class SVGToggle; }
+
 namespace nierika::gui::laf
 {
 
 class SVGToggle final : public juce::LookAndFeel_V4
 {
 public:
-    SVGToggle() = default;
-    explicit SVGToggle(const char* svgBinary);
+    explicit SVGToggle(const element::SVGToggle& parent);
     ~SVGToggle() override = default;
     
     enum State
@@ -51,7 +52,7 @@ public:
                    bool shouldDrawButtonAsDown);
 
 private:
-    const char* _svgBinary;
+    const element::SVGToggle& _parent;
     std::unordered_map<State, Theme::ThemeColor> _stateToThemeColors {
         {
             { SVGToggle::State::DISABLED, Theme::ThemeColor::DISABLED },

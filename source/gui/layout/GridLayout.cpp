@@ -73,6 +73,9 @@ void GridLayout<T>::reset()
     
     _gridResizedRatioRows.clear();
     _gridResizedRatioColumns.clear();
+
+    _fixedRowHeights.clear();
+    _fixedColumnWidths.clear();
 }
 
 template<typename T>
@@ -83,11 +86,55 @@ void GridLayout<T>::resized() noexcept
     _width = bounds.getWidth();
     _height = bounds.getHeight();
 
-    for (std::size_t i = 0; i < _gridRows.size(); ++i)
-        _gridRows[i] = _gridResizedRatioRows[i] * bounds.getHeight() + bounds.getY();
-    for (std::size_t i = 0; i < _gridColumns.size(); ++i)
-        _gridColumns[i] = _gridResizedRatioColumns[i] * bounds.getWidth() + bounds.getX();
-    
+    { // Rows
+        float totalFixedRowHeight = 0.f;
+        float flexibleRowRatioSum = 0.f;
+        for (std::size_t i = 0; i + 1 < _gridResizedRatioRows.size(); ++i)
+        {
+            const float trackRatio = _gridResizedRatioRows[i + 1] - _gridResizedRatioRows[i];
+            if (const auto it = _fixedRowHeights.find(static_cast<int>(i)); it != _fixedRowHeights.end())
+                totalFixedRowHeight += it->second;
+            else
+                flexibleRowRatioSum += trackRatio;
+        }
+        const float flexibleRowHeight = juce::jmax(0.f, bounds.getHeight() - totalFixedRowHeight);
+
+        _gridRows[0] = bounds.getY();
+        for (std::size_t i = 0; i + 1 < _gridResizedRatioRows.size(); ++i)
+        {
+            const float trackRatio = _gridResizedRatioRows[i + 1] - _gridResizedRatioRows[i];
+            const auto fixedIt = _fixedRowHeights.find(static_cast<int>(i));
+            const float trackHeight = fixedIt != _fixedRowHeights.end()
+                ? fixedIt->second
+                : (flexibleRowRatioSum > 0.f ? (trackRatio / flexibleRowRatioSum) * flexibleRowHeight : 0.f);
+            _gridRows[i + 1] = _gridRows[i] + trackHeight;
+        }
+    }
+    { // Columns
+        float totalFixedColumnWidth = 0.f;
+        float flexibleColumnRatioSum = 0.f;
+        for (std::size_t i = 0; i + 1 < _gridResizedRatioColumns.size(); ++i)
+        {
+            const float trackRatio = _gridResizedRatioColumns[i + 1] - _gridResizedRatioColumns[i];
+            if (const auto it = _fixedColumnWidths.find(static_cast<int>(i)); it != _fixedColumnWidths.end())
+                totalFixedColumnWidth += it->second;
+            else
+                flexibleColumnRatioSum += trackRatio;
+        }
+        const float flexibleColumnWidth = juce::jmax(0.f, bounds.getWidth() - totalFixedColumnWidth);
+
+        _gridColumns[0] = bounds.getX();
+        for (std::size_t i = 0; i + 1 < _gridResizedRatioColumns.size(); ++i)
+        {
+            const float trackRatio = _gridResizedRatioColumns[i + 1] - _gridResizedRatioColumns[i];
+            const auto fixedIt = _fixedColumnWidths.find(static_cast<int>(i));
+            const float trackWidth = fixedIt != _fixedColumnWidths.end()
+                ? fixedIt->second
+                : (flexibleColumnRatioSum > 0.f ? (trackRatio / flexibleColumnRatioSum) * flexibleColumnWidth : 0.f);
+            _gridColumns[i + 1] = _gridColumns[i] + trackWidth;
+        }
+    }
+
     replaceAll();
 }
 
@@ -569,6 +616,34 @@ void GridLayout<T>::setGap(const float gap)
 }
 
 template<typename T>
+void GridLayout<T>::setFixedRowHeight(const int rowPosition, const float height)
+{
+    if (rowPosition < 0 || rowPosition >= static_cast<int>(_gridRatioRows.size()) - 1) return;
+
+    _fixedRowHeights[rowPosition] = height;
+}
+
+template<typename T>
+void GridLayout<T>::resetFixedRowHeight(const int rowPosition)
+{
+    _fixedRowHeights.erase(rowPosition);
+}
+
+template<typename T>
+void GridLayout<T>::setFixedColumnWidth(const int columnPosition, const float width)
+{
+    if (columnPosition < 0 || columnPosition >= static_cast<int>(_gridRatioColumns.size()) - 1) return;
+
+    _fixedColumnWidths[columnPosition] = width;
+}
+
+template<typename T>
+void GridLayout<T>::resetFixedColumnWidth(const int columnPosition)
+{
+    _fixedColumnWidths.erase(columnPosition);
+}
+
+template<typename T>
 void GridLayout<T>::setDisplayGrid(bool displayGrid)
 {
     _displayGrid = displayGrid;
@@ -590,6 +665,10 @@ template<typename T>
 void GridLayout<T>::setResizableLine(ResizableLine resizableLine)
 {
     if (const auto size = static_cast<int>(resizableLine.direction == HORIZONTAL ? _gridRows.size() : _gridColumns.size()); resizableLine.position < 1 || resizableLine.position > size - 2) return;
+
+    const bool isHorizontal = resizableLine.direction == HORIZONTAL;
+    const auto& fixedMap = isHorizontal ? _fixedRowHeights : _fixedColumnWidths;
+    if (fixedMap.contains(resizableLine.position - 1) || fixedMap.contains(resizableLine.position)) return;
 
     _resizableLines.push_back(resizableLine);
 }
@@ -967,6 +1046,14 @@ template void GridLayout<juce::Component>::setMargin(float value);
 template void GridLayout<Component>::setMargin(float value);
 template void GridLayout<juce::Component>::setGap(float gap);
 template void GridLayout<Component>::setGap(float gap);
+template void GridLayout<juce::Component>::setFixedRowHeight(int rowPosition, float height);
+template void GridLayout<Component>::setFixedRowHeight(int rowPosition, float height);
+template void GridLayout<juce::Component>::resetFixedRowHeight(int rowPosition);
+template void GridLayout<Component>::resetFixedRowHeight(int rowPosition);
+template void GridLayout<juce::Component>::setFixedColumnWidth(int columnPosition, float width);
+template void GridLayout<Component>::setFixedColumnWidth(int columnPosition, float width);
+template void GridLayout<juce::Component>::resetFixedColumnWidth(int columnPosition);
+template void GridLayout<Component>::resetFixedColumnWidth(int columnPosition);
 template void GridLayout<juce::Component>::setDisplayGrid(bool displayGrid);
 template void GridLayout<Component>::setDisplayGrid(bool displayGrid);
 template void GridLayout<juce::Component>::setResizableLineConfiguration(ResizableLineConfiguration configuration);

@@ -66,7 +66,15 @@ public:
     void setMargin(float value);
 
     void setGap(float gap);
-    
+
+    // Pins a row/column to an absolute pixel size instead of its relative init() weight - the
+    // remaining flexible rows/columns share whatever space is left over (like CSS Grid's px vs
+    // fr tracks).
+    void setFixedRowHeight(int rowPosition, float height);
+    void resetFixedRowHeight(int rowPosition);
+    void setFixedColumnWidth(int columnPosition, float width);
+    void resetFixedColumnWidth(int columnPosition);
+
     void setDisplayGrid(bool displayGrid);
     void setResizableLineConfiguration(ResizableLineConfiguration configuration);
     void setMovableConfiguration(MovableConfiguration configuration);
@@ -151,6 +159,9 @@ protected:
     std::vector<float> _gridRatioRows, _gridRatioColumns;
     std::vector<float> _gridRows, _gridColumns;
     std::vector<float> _gridResizedRatioRows, _gridResizedRatioColumns;
+
+    std::unordered_map<int, float> _fixedRowHeights;
+    std::unordered_map<int, float> _fixedColumnWidths;
 
     std::vector<ResizableLine> _resizableLines;
 
