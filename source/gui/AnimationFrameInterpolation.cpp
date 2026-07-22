@@ -79,9 +79,6 @@ Affine2DDecomposed interpolateDecomposed(const Affine2DDecomposed& a, const Affi
 
 namespace
 {
-    // Strict parse: the whole (trimmed) string must be a single valid float, not just a
-    // leading numeric prefix - juce::String::getFloatValue() silently returns 0 for
-    // garbage input, which would misreport an incompatible attribute as "compatible, but 0".
     bool tryParseFloatStrict(const juce::String& text, float& outValue)
     {
         const juce::String trimmed = text.trim();
@@ -96,8 +93,6 @@ namespace
         return true;
     }
 
-    // Parses "matrix(a b c d e f)" (space or comma separated, matching both this
-    // module's own output and the snapshot script's formatting convention).
     bool tryParseMatrix(const juce::String& text, float (&out)[6])
     {
         const juce::String trimmed = text.trim();
@@ -128,7 +123,6 @@ namespace
         return result;
     }
 
-    // Returns false (incompatible) if valueA/valueB can't be interpolated together.
     bool interpolateAttributeValue(const juce::String& attributeName, const juce::String& valueA,
                                     const juce::String& valueB, const float t, juce::String& outValue)
     {

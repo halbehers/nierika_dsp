@@ -57,13 +57,6 @@ private:
     float _iconSize = -1.f;
     std::optional<juce::Colour> _colourOverride;
 
-    // Per-instance cache of geometrically-interpolated in-between frames, keyed by
-    // (frameIndex << 32 | bucket) - nextFrameIndex is always (frameIndex+1) % frameCount
-    // for the lifetime of an instance so it's redundant in the key. frameIndex/bucket
-    // pairs that turned out structurally incompatible (animation::interpolateSVGFrame
-    // returned nullptr) are remembered in _fallbackFramePairs (keyed by frameIndex only,
-    // since incompatibility is a property of the frame pair, not of a specific bucket)
-    // so the doomed interpolation attempt isn't retried every tick.
     std::unordered_map<std::uint64_t, std::unique_ptr<juce::XmlElement>> _interpolatedFrameCache;
     std::unordered_set<std::size_t> _fallbackFramePairs;
 

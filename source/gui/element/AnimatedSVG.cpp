@@ -26,10 +26,6 @@ AnimatedSVG::AnimatedSVG(const std::string& identifier, const AnimatedIcon& icon
 {
     jassert(_frames.size() >= 2);
 
-    // Seamless-loop exports (e.g. CSS @keyframes authored with matching 0%/100% values)
-    // often bake a redundant final frame identical to the first, so the wrap-around
-    // segment between the last two frames holds a static image for a full segment
-    // duration - drop it so the loop closes directly from the last unique frame.
     while (_frames.size() > 2 && std::strcmp(_frames.back(), _frames.front()) == 0)
         _frames.pop_back();
 
