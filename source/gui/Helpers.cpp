@@ -36,22 +36,37 @@ void changeColor(const std::unique_ptr<juce::XmlElement>& xml, const juce::Strin
     }
 }
 
+namespace
+{
+    void drawFromXmlElement(juce::Graphics& g, const std::unique_ptr<juce::XmlElement>& svg, const juce::String& colHex,
+                             int x, int y, int newWidth, int newHeight, juce::AffineTransform affine, const float opacity)
+    {
+        jassert(svg != nullptr);
+        changeColor(svg, colHex);
+
+        const std::unique_ptr<juce::Drawable> drawable = juce::Drawable::createFromSVG(*svg);
+
+        const int side = juce::jmin(newWidth, newHeight);
+        const int squaredX = x + (newWidth - side) / 2;
+        const int squaredY = y + (newHeight - side) / 2;
+
+        drawable->setTransformToFit(juce::Rectangle<float>(static_cast<float>(squaredX), static_cast<float>(squaredY),
+                                                            static_cast<float>(side), static_cast<float>(side)),
+                                     juce::RectanglePlacement::centred);
+        drawable->draw(g, opacity, affine);
+    }
+}
+
 void drawFromSVG(juce::Graphics& g, const char* svgBinary, const juce::String& colHex, int x, int y, int newWidth, int newHeight, juce::AffineTransform affine, const float opacity)
 {
-    const std::unique_ptr<juce::XmlElement> svg(juce::XmlDocument::parse(svgBinary));
-    jassert(svg != nullptr);
-    changeColor(svg, colHex);
+    std::unique_ptr<juce::XmlElement> svg(juce::XmlDocument::parse(svgBinary));
+    drawFromXmlElement(g, svg, colHex, x, y, newWidth, newHeight, affine, opacity);
+}
 
-    const std::unique_ptr<juce::Drawable> drawable = juce::Drawable::createFromSVG(*svg);
-
-    const int side = juce::jmin(newWidth, newHeight);
-    const int squaredX = x + (newWidth - side) / 2;
-    const int squaredY = y + (newHeight - side) / 2;
-
-    drawable->setTransformToFit(juce::Rectangle<float>(static_cast<float>(squaredX), static_cast<float>(squaredY),
-                                                        static_cast<float>(side), static_cast<float>(side)),
-                                 juce::RectanglePlacement::centred);
-    drawable->draw(g, opacity, affine);
+void drawFromInterpolatedSVG(juce::Graphics& g, const juce::XmlElement& interpolatedFrame, const juce::String& colHex, int x, int y, int newWidth, int newHeight, juce::AffineTransform affine, const float opacity)
+{
+    std::unique_ptr<juce::XmlElement> clone(new juce::XmlElement(interpolatedFrame));
+    drawFromXmlElement(g, clone, colHex, x, y, newWidth, newHeight, affine, opacity);
 }
 
 void drawFromAnimatedSVG(juce::Graphics& g, const std::vector<const char*>& frames, const int frameIndex, const juce::String& colHex, int x, int y, int newWidth, int newHeight, juce::AffineTransform affine)

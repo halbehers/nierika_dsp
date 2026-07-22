@@ -53,6 +53,7 @@
 #include "include/gui/AnalyzerPathGenerator.h"
 #include "include/gui/AnimatedIcons.h"
 #include "include/gui/AnimationEasing.h"
+#include "include/gui/AnimationFrameInterpolation.h"
 #include "include/gui/EmbeddedFonts.h"
 #include "include/gui/Formatter.h"
 #include "include/gui/Helpers.h"

@@ -20,6 +20,11 @@ void drawFromAnimatedSVG(juce::Graphics& g, const std::vector<const char*>& fram
 // into a plain blendAlpha upstream (see animation::computeAnimationFrameBlend).
 void drawFromAnimatedSVGBlended(juce::Graphics& g, const std::vector<const char*>& frames, int frameIndex, int nextFrameIndex, float blendAlpha, const juce::String& colHex, int x, int y, int newWidth, int newHeight, juce::AffineTransform affine);
 
+// Draws an already-generated (e.g. cached) geometrically-interpolated frame tree -
+// see animation::interpolateSVGFrame. Clones it internally before recoloring mutates
+// attributes in place, so the caller's cached tree is never touched.
+void drawFromInterpolatedSVG(juce::Graphics& g, const juce::XmlElement& interpolatedFrame, const juce::String& colHex, int x, int y, int newWidth, int newHeight, juce::AffineTransform affine, float opacity = 1.0f);
+
 enum ClickableSurface {
     ALL_AVAILABLE_AREA,
     ELEMENT_BOUNDARIES

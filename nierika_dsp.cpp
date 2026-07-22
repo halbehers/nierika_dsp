@@ -23,6 +23,7 @@
 #include "source/gui/Formatter.cpp"
 #include "source/gui/Helpers.cpp"
 #include "source/gui/AnimationEasing.cpp"
+#include "source/gui/AnimationFrameInterpolation.cpp"
 #include "source/gui/Theme.cpp"
 #include "source/gui/Section.cpp"
 #include "source/gui/Component.cpp"
