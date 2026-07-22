@@ -86,7 +86,8 @@ void GridLayout<T>::resized() noexcept
     _width = bounds.getWidth();
     _height = bounds.getHeight();
 
-    { // Rows
+    if (! _gridRows.empty()) // Rows
+    {
         float totalFixedRowHeight = 0.f;
         float flexibleRowRatioSum = 0.f;
         for (std::size_t i = 0; i + 1 < _gridResizedRatioRows.size(); ++i)
@@ -110,7 +111,8 @@ void GridLayout<T>::resized() noexcept
             _gridRows[i + 1] = _gridRows[i] + trackHeight;
         }
     }
-    { // Columns
+    if (! _gridColumns.empty()) // Columns
+    {
         float totalFixedColumnWidth = 0.f;
         float flexibleColumnRatioSum = 0.f;
         for (std::size_t i = 0; i + 1 < _gridResizedRatioColumns.size(); ++i)
