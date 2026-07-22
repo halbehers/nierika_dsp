@@ -22,6 +22,7 @@ public:
     void changeListenerCallback(juce::ChangeBroadcaster* source) override;
 
     void addItem(const juce::String& newItemText, int newItemId);
+    void clear(juce::NotificationType notification = juce::dontSendNotification) { _comboBox.clear(notification); }
     void setSelectedId(int newItemId, juce::NotificationType notification = juce::sendNotification);
     [[nodiscard]] int getSelectedId() const;
 

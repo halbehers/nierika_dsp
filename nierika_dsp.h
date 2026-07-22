@@ -37,6 +37,7 @@
 #include "include/NierikaDSPBinaryData.h"
 
 // DSP
+#include "include/dsp/AudioOutputDeviceList.h"
 #include "include/dsp/Channel.h"
 #include "include/dsp/CircularAudioBuffer.h"
 #include "include/dsp/FFTDataGenerator.h"
@@ -64,7 +65,9 @@
 #include "include/gui/Component.h"
 #include "include/gui/TooltipManager.h"
 #include "include/gui/element/BoxToggle.h"
+#include "include/gui/element/BufferSizeComboBox.h"
 #include "include/gui/element/ComboBox.h"
+#include "include/gui/element/DevicesComboBox.h"
 #include "include/gui/element/Dial.h"
 #include "include/gui/element/FrequencyDial.h"
 #include "include/gui/element/HorizontalSlider.h"
@@ -73,6 +76,7 @@
 #include "include/gui/element/Level.h"
 #include "include/gui/element/Levels.h"
 #include "include/gui/element/PercentageDial.h"
+#include "include/gui/element/SampleRateComboBox.h"
 #include "include/gui/element/SpectrumAnalyzer.h"
 #include "include/gui/element/Slider.h"
 #include "include/gui/element/Stars.h"

@@ -12,6 +12,7 @@
 #include "source/NierikaDSPBinaryData.cpp"
 
 // DSP
+#include "source/dsp/AudioOutputDeviceList.cpp"
 #include "source/dsp/CircularAudioBuffer.cpp"
 #include "source/dsp/Timing.cpp"
 #include "source/dsp/sequencer/FXSequencer.cpp"
@@ -29,7 +30,9 @@
 #include "source/gui/Component.cpp"
 #include "source/gui/TooltipManager.cpp"
 #include "source/gui/element/BoxToggle.cpp"
+#include "source/gui/element/BufferSizeComboBox.cpp"
 #include "source/gui/element/ComboBox.cpp"
+#include "source/gui/element/DevicesComboBox.cpp"
 #include "source/gui/element/Dial.cpp"
 #include "source/gui/element/FrequencyDial.cpp"
 #include "source/gui/element/HorizontalSlider.cpp"
@@ -38,6 +41,7 @@
 #include "source/gui/element/Level.cpp"
 #include "source/gui/element/Levels.cpp"
 #include "source/gui/element/PercentageDial.cpp"
+#include "source/gui/element/SampleRateComboBox.cpp"
 #include "source/gui/element/SpectrumAnalyzer.cpp"
 #include "source/gui/element/Slider.cpp"
 #include "source/gui/element/Stars.cpp"
