@@ -51,6 +51,9 @@
 
 // GUI
 #include "include/gui/AnalyzerPathGenerator.h"
+#include "include/gui/AnimatedIcons.h"
+#include "include/gui/AnimationEasing.h"
+#include "include/gui/AnimationFrameInterpolation.h"
 #include "include/gui/EmbeddedFonts.h"
 #include "include/gui/Formatter.h"
 #include "include/gui/Helpers.h"
@@ -73,6 +76,7 @@
 #include "include/gui/element/SpectrumAnalyzer.h"
 #include "include/gui/element/Slider.h"
 #include "include/gui/element/Stars.h"
+#include "include/gui/element/AnimatedSVG.h"
 #include "include/gui/element/SVGButton.h"
 #include "include/gui/element/SVGToggle.h"
 #include "include/gui/element/TimeInMsDial.h"
