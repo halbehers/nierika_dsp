@@ -159,7 +159,7 @@ void GridLayout<T>::paint(juce::Graphics& g)
     paintItemDrawables(g);
     paintResizableLines(g);
     
-    _component.resized();
+    // _component.resized(); // TODO: find out why this was here. Maybe for resizable lines? 
 }
 
 template<typename T>
