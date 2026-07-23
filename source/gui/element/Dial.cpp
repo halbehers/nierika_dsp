@@ -39,7 +39,7 @@ void Dial::setup()
     _slider.setRange(_minValue, _maxValue);
     _slider.setValue(_defaultValue);
     _slider.setMouseCursor(juce::MouseCursor::PointingHandCursor);
-    const juce::Colour transparentColor = Theme::newColor(Theme::ThemeColor::TRANSPARENT).asJuce();
+    const juce::Colour transparentColor = Theme::newColor(Theme::ThemeColor::TRANSPARENT_COLOR).asJuce();
     const juce::Colour whiteColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
     const juce::Colour accentColor = Theme::newColor(Theme::ThemeColor::ACCENT).asJuce();
     _slider.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, accentColor);

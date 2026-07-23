@@ -57,7 +57,7 @@ class Theme
 public:
     enum ThemeColor
     {
-        TRANSPARENT,
+        TRANSPARENT_COLOR,
         EMPTY_SHADE,
         LIGHTER_SHADE,
         LIGHT_SHADE,

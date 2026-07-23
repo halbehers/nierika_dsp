@@ -25,8 +25,11 @@ public:
     void setSelectedDevice(dsp::AudioOutputDeviceKind kind, const juce::String& name, const juce::String& typeName,
                             juce::NotificationType notification = juce::sendNotification);
 
+    void setIODisplay(dsp::IODisplay ioDisplay) { _ioDisplay = ioDisplay; }
+
 private:
     std::vector<dsp::AudioOutputDeviceInfo> _devices;
+    dsp::IODisplay _ioDisplay = dsp::IODisplay::OUTS;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DevicesComboBox)
 };
