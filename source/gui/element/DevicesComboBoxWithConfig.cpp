@@ -16,10 +16,6 @@ namespace
         bool ticked = false;
     };
 
-    // Mirrors juce::AudioDeviceSelectorComponent::ChannelSelectorListBox::getNameForChannelPair:
-    // finds the longest common leading substring (trimmed back to the last preceding space) and
-    // renders "<name1> + <name2 minus common prefix>", e.g. "Line Out 1" + "Line Out 2" -> "Line
-    // Out 1 + 2".
     juce::String getNameForChannelPair(const juce::String& name1, const juce::String& name2)
     {
         juce::String commonBit;
@@ -152,9 +148,6 @@ namespace
             if (row >= _pairs.size())
                 return;
 
-            // Exactly one pair can be active (the plugin's output is fixed-stereo) - reflect that
-            // immediately so the checkbox visibly flips without waiting for the popup to be
-            // rebuilt (it stays open after a selection, so nothing else would repaint it).
             for (auto& pair : _pairs)
                 pair.ticked = false;
             _pairs[row].ticked = true;

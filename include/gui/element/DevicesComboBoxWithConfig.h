@@ -7,9 +7,6 @@
 namespace nierika::gui::element
 {
 
-// A DevicesComboBox with a gear-icon button next to it that opens a popup (built on PopupPanel)
-// for picking which stereo pair of the currently-selected device's output channels the
-// AudioDeviceManager should route to. Standalone-only in practice - see setDeviceManager().
 class DevicesComboBoxWithConfig: public Component
 {
 public:
@@ -24,8 +21,6 @@ public:
 
     void setHeightType(Theme::HeightType type);
 
-    // Non-owning. nullptr (non-standalone builds, or before the standalone holder resolves)
-    // makes the gear button's click a no-op, as does clicking with no currently-open device.
     void setDeviceManager(juce::AudioDeviceManager* deviceManager) { _deviceManager = deviceManager; }
 
     void setIconSize(float size) { _settingsButton.setIconSize(size); }

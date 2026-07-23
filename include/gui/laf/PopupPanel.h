@@ -3,9 +3,6 @@
 namespace nierika::gui::laf
 {
 
-// Shared, stateless look-and-feel for element::PopupPanel's CallOutBox - reads only Theme::
-// defaults (unlike most LAFs in this module, there's no persistent owning element instance to
-// read per-instance overrides from, since a CallOutBox is transient).
 class PopupPanel final : public juce::LookAndFeel_V4
 {
 public:
