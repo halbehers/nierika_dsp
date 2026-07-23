@@ -16,6 +16,13 @@ enum class AudioOutputDeviceKind
     DEVICE           // a concrete, named output-capable device
 };
 
+enum class IODisplay {
+        BOTH,
+        OUTS,
+        INS,
+        NONE,
+};
+
 // One row of the "pick an audio output" list: either a sentinel (no device / follow the system
 // default) or a real device, alongside its channel counts and owning driver type.
 struct AudioOutputDeviceInfo
@@ -58,7 +65,7 @@ public:
 
     // Renders the exact display string for a row: "No Device", "Use System Device", or
     // "<name> (<N> In, <M> Out)".
-    static juce::String getDisplayName(const AudioOutputDeviceInfo& device);
+    static juce::String getDisplayName(const AudioOutputDeviceInfo& device, IODisplay ioDisplay = IODisplay::BOTH);
 };
 
 }

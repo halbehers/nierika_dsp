@@ -111,10 +111,10 @@ void ComboBox::drawPopupMenuBackground
     const juce::Rectangle<float> bounds(0.f, 0.f, (float) width, (float) height);
 
     g.setColour(backgroundColor);
-    g.fillRoundedRectangle(bounds, 8.0f);
+    g.fillRoundedRectangle(bounds, Theme::getBorderRadius());
 
     g.setColour(borderColor);
-    g.drawRoundedRectangle(bounds.reduced(0.5f), 8.0f, 1.0f);
+    g.drawRoundedRectangle(bounds.reduced(0.5f), Theme::getBorderRadius(), 1.0f);
 }
 
 juce::Font ComboBox::getComboBoxFont(juce::ComboBox& comboBox)

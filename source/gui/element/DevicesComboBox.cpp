@@ -30,7 +30,7 @@ void DevicesComboBox::refreshDevices(const juce::NotificationType notification)
 
     clear(juce::dontSendNotification);
     for (std::size_t i = 0; i < _devices.size(); ++i)
-        addItem(dsp::AudioOutputDeviceList::getDisplayName(_devices[i]), static_cast<int>(i) + 1);
+        addItem(dsp::AudioOutputDeviceList::getDisplayName(_devices[i], _ioDisplay), static_cast<int>(i) + 1);
 
     int newSelectedId = 1; // "No Device" is always first
     if (hadSelection)
@@ -59,8 +59,7 @@ const dsp::AudioOutputDeviceInfo& DevicesComboBox::getSelectedDevice() const
     return _devices[static_cast<std::size_t>(selectedId - 1)];
 }
 
-void DevicesComboBox::setSelectedDevice(const dsp::AudioOutputDeviceKind kind, const juce::String& name, const juce::String& typeName,
-                                         const juce::NotificationType notification)
+void DevicesComboBox::setSelectedDevice(const dsp::AudioOutputDeviceKind kind, const juce::String& name, const juce::String& typeName, const juce::NotificationType notification)
 {
     const dsp::AudioOutputDeviceInfo target{ kind, name, typeName, 0, 0, false };
 

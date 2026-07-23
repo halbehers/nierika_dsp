@@ -73,7 +73,7 @@ std::vector<AudioOutputDeviceInfo> AudioOutputDeviceList::getAllDevices()
     return result;
 }
 
-juce::String AudioOutputDeviceList::getDisplayName(const AudioOutputDeviceInfo& device)
+juce::String AudioOutputDeviceList::getDisplayName(const AudioOutputDeviceInfo& device, IODisplay ioDisplay)
 {
     switch (device.kind)
     {
@@ -82,8 +82,20 @@ juce::String AudioOutputDeviceList::getDisplayName(const AudioOutputDeviceInfo& 
         case AudioOutputDeviceKind::DEVICE:         break;
     }
 
-    return device.name + " (" + juce::String(device.numInputChannels) + " In, "
-                              + juce::String(device.numOutputChannels) + " Out)";
+    switch (ioDisplay)
+    {
+        case IODisplay::BOTH:
+            return device.name + " (" + juce::String(device.numInputChannels) + " In, "
+                               + juce::String(device.numOutputChannels) + " Out)";
+        case IODisplay::OUTS:
+            return device.name + " (" + juce::String(device.numOutputChannels) + " Out)";
+        case IODisplay::INS:
+            return device.name + " (" + juce::String(device.numInputChannels) + " In)";
+        case IODisplay::NONE:
+            break;
+    }
+
+    return device.name;
 }
 
 }
