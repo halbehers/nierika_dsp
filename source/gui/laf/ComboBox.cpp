@@ -78,7 +78,7 @@ void ComboBox::drawPopupMenuItem
     }
     else if (isHighlighted)
     {
-        g.setColour(Theme::newColor(Theme::ThemeColor::TEXT).asJuce().withAlpha(0.1f));
+        g.setColour(Theme::newColor(Theme::ThemeColor::BORDER).asJuce());
     }
     else
     {
@@ -89,7 +89,7 @@ void ComboBox::drawPopupMenuItem
 
     const auto areaWithMargin = area.withX(area.getX() + margin).withWidth(area.getWidth() - (margin * 2)).reduced(2);
 
-    g.fillRoundedRectangle(areaWithMargin.toFloat(), 4.0f);
+    g.fillRoundedRectangle(areaWithMargin.toFloat(), Theme::getBorderRadius() / 2.f);
 
     if (isTicked && _parent.hasInvertedTextColorOnSelected())
         g.setColour(Theme::newColor(Theme::ThemeColor::INVERTED_TEXT).asJuce());

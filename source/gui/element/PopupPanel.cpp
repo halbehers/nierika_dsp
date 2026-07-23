@@ -49,17 +49,7 @@ void PopupPanel::onButtonClick(const std::string& componentID)
     auto* parent = getTopLevelComponent();
     const auto area = parent != nullptr ? parent->getLocalArea(this, getLocalBounds()) : getScreenBounds();
 
-    // Point at the icon's full bounds (not a zero-height sliver pinned to its top edge) so
-    // CallOutBox's placement lands the popup just below the icon without overlapping it. An
-    // earlier attempt at tightening the gap (pointing at a zero-height rect at the icon's top)
-    // made CallOutBox's "below" placement land the popup's top ~12px *above* the icon's top,
-    // overlapping the icon's own clickable bounds - since the icon remains in front there
-    // (it's nested deeper in the component tree than the top-level-added CallOutBox in z-order
-    // terms, but overlapping click regions are exactly the kind of thing that silently eats
-    // clicks), every click on the popup in that overlapping region was being re-captured by the
-    // icon button instead of reaching the popup's content, which read as "the checkbox isn't
-    // clickable". Keep the small, non-overlapping default gap instead.
-    show(std::move(content), area, parent);
+    show(std::move(content), area.withY(area.getY() - 16), parent);
 }
 
 juce::CallOutBox& PopupPanel::show(std::unique_ptr<juce::Component> content, const juce::Rectangle<int> areaToPointTo, juce::Component* parentComponent)

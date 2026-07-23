@@ -72,8 +72,9 @@ namespace
             _pairs(std::move(pairs))
         {
             constexpr int width = 220;
-            const auto rowHeight = static_cast<int>(Theme::getThinHeight());
+            const auto rowHeight = static_cast<int>(Theme::getThinHeight()) + 4;
             setSize(width, rowHeight * juce::jmax(1, static_cast<int>(_pairs.size())));
+            setMouseCursor(juce::MouseCursor::PointingHandCursor);
         }
 
         void setOnPairChosen(OnPairChosen onPairChosen) { _onPairChosen = std::move(onPairChosen); }
@@ -86,17 +87,7 @@ namespace
 
             for (std::size_t i = 0; i < _pairs.size(); ++i)
             {
-                const auto rowBounds = juce::Rectangle<int>(0, static_cast<int>(i) * rowHeight, getWidth(), rowHeight);
-
-                // Purely diagnostic/UX: proves mouse events are reaching this component at all,
-                // independent of whether a click actually changes anything (e.g. a device with
-                // only one possible stereo pair, already active, would otherwise look identical
-                // before and after a "successful" click).
-                if (static_cast<int>(i) == _hoveredRow)
-                {
-                    g.setColour(Theme::newColor(Theme::ThemeColor::TEXT).asJuce().withAlpha(0.08f));
-                    g.fillRect(rowBounds);
-                }
+                const auto rowBounds = juce::Rectangle<int>(0, static_cast<int>(i) * rowHeight, getWidth(), rowHeight).reduced(4);
 
                 const auto checkboxBounds = juce::Rectangle<float>(checkboxSize, checkboxSize)
                     .withPosition(static_cast<float>(rowBounds.getX() + margin), static_cast<float>(rowBounds.getCentreY()) - checkboxSize / 2.f);
@@ -115,7 +106,15 @@ namespace
                 }
                 else
                 {
-                    g.setColour(Theme::newColor(Theme::ThemeColor::BORDER).asJuce());
+                    if (static_cast<int>(i) == _hoveredRow)
+                    {
+                        g.setColour(Theme::newColor(Theme::ThemeColor::BORDER).asJuce());
+                        g.fillRoundedRectangle(rowBounds.toFloat(), Theme::getBorderRadius() / 2.f);
+                        g.setColour(Theme::newColor(Theme::ThemeColor::SECONDARY_BACKGROUND).asJuce());
+                    }
+                    else
+                        g.setColour(Theme::newColor(Theme::ThemeColor::BORDER).asJuce());
+
                     g.drawRoundedRectangle(checkboxBounds, 3.f, 1.f);
                 }
 
