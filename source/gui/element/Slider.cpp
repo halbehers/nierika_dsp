@@ -11,7 +11,7 @@ Slider::Slider(const juce::String& label, float minValue, float maxValue, float 
     setRange(minValue, maxValue);
     setValue(defaultValue);
     juce::Slider::setName(label);
-    const juce::Colour transparentColor = Theme::newColor(Theme::ThemeColor::TRANSPARENT).asJuce();
+    const juce::Colour transparentColor = Theme::newColor(Theme::ThemeColor::TRANSPARENT_COLOR).asJuce();
     const juce::Colour whiteColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
     const juce::Colour accentColor = Theme::newColor(Theme::ThemeColor::ACCENT).asJuce();
     setColour(juce::Slider::ColourIds::rotarySliderFillColourId, accentColor);

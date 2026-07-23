@@ -29,7 +29,7 @@ void Dial::drawRotarySlider
     const juce::Colour outlineColor = slider.findColour (juce::Slider::rotarySliderOutlineColourId);
     const juce::Colour fillColor = slider.findColour(juce::Slider::rotarySliderFillColourId);
     const juce::Colour disabledColor = Theme::newColor(Theme::ThemeColor::DISABLED).asJuce();
-    const juce::Colour transparentColor = Theme::newColor(Theme::ThemeColor::TRANSPARENT).asJuce();
+    const juce::Colour transparentColor = Theme::newColor(Theme::ThemeColor::TRANSPARENT_COLOR).asJuce();
     const juce::Colour whiteColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
 
     auto dialBounds = juce::Rectangle<int>(x, y, width, height).toFloat();
@@ -152,7 +152,7 @@ void Dial::drawLabel (juce::Graphics& g, juce::Label& label)
     label.setEditable(false);
 
     const juce::Colour disabledColor = Theme::newColor(Theme::ThemeColor::DISABLED).asJuce();
-    const juce::Colour transparentColor = Theme::newColor(Theme::ThemeColor::TRANSPARENT).asJuce();
+    const juce::Colour transparentColor = Theme::newColor(Theme::ThemeColor::TRANSPARENT_COLOR).asJuce();
     
     if (!label.isBeingEdited())
     {

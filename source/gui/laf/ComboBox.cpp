@@ -82,7 +82,7 @@ void ComboBox::drawPopupMenuItem
     }
     else
     {
-        g.setColour(Theme::newColor(Theme::ThemeColor::TRANSPARENT).asJuce());
+        g.setColour(Theme::newColor(Theme::ThemeColor::TRANSPARENT_COLOR).asJuce());
     }
 
     const int margin = getPopupMenuBorderSize();

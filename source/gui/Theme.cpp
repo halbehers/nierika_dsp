@@ -42,7 +42,7 @@ Theme::PaletteSet Theme::buildPreset()
         {
             Mode::LIGHT,
             {
-                { TRANSPARENT, juce::Colour(static_cast<juce::uint32>(COLOR_TRANSPARENT)) },
+                { TRANSPARENT_COLOR, juce::Colour(static_cast<juce::uint32>(COLOR_TRANSPARENT)) },
                 { EMPTY_SHADE, juce::Colour(0xFF1A1A1A) },
                 { LIGHTER_SHADE, juce::Colour(0xFFD8D8D8) },
                 { LIGHT_SHADE, juce::Colour(0xFFC4C4C4) },
@@ -65,7 +65,7 @@ Theme::PaletteSet Theme::buildPreset()
         {
             Mode::DARK,
             {
-                { TRANSPARENT, juce::Colour(static_cast<juce::uint32>(COLOR_TRANSPARENT)) },
+                { TRANSPARENT_COLOR, juce::Colour(static_cast<juce::uint32>(COLOR_TRANSPARENT)) },
                 { EMPTY_SHADE, juce::Colour(static_cast<juce::uint32>(COLOR_EMPTY_SHADE)) },
                 { LIGHTER_SHADE, juce::Colour(static_cast<juce::uint32>(COLOR_LIGHTER_SHADE)) },
                 { LIGHT_SHADE, juce::Colour(static_cast<juce::uint32>(COLOR_LIGHT_SHADE)) },
