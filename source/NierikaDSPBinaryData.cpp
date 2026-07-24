@@ -11923,6 +11923,51 @@ static const unsigned char temp_binary_data_27[] =
 
 const char* CaptureFrame4_svg = (const char*) temp_binary_data_27;
 
+//================== audio_animated_frame0.svg ==================
+static const unsigned char temp_binary_data_28[] =
+"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\n<g id=\"Frame_2\" clip-path=\"url(#clip0_2025_35)\">\n<g id=\"capture_animated\" transform=\"translate(-4 -4)\">\n<path id=\"Line_10__Stroke_\""
+" transform=\"matrix(-0.000204 -1 1 -0.000204 7 18)\" d=\"M4 0V2H0V0H4Z\" fill=\"#000000\" />\n<path id=\"Line_11__Stroke_\" transform=\"matrix(-0.000204 -1 1 -0.000204 11 23)\" d=\"M14 0V2H0V0H14Z\" fill=\"#000000\" />\n<path id=\"Line_12__Stroke_\" "
+"transform=\"matrix(-0.000204 -1 1 -0.000204 15 20)\" d=\"M8 0V2H0V0H8Z\" fill=\"#000000\" />\n<path id=\"Line_13__Stroke_\" transform=\"matrix(-0.000204 -1 1 -0.000204 19 23)\" d=\"M14 0V2H0V0H14Z\" fill=\"#000000\" />\n<path id=\"Line_14__Stroke_\" "
+"transform=\"matrix(-0.000204 -1 1 -0.000204 23 18)\" d=\"M4 0V2H0V0H4Z\" fill=\"#000000\" />\n</g>\n</g>\n<defs>\n<clipPath id=\"clip0_2025_35\">\n<rect width=\"24\" height=\"24\" fill=\"white\" />\n</clipPath>\n</defs>\n</svg>";
+
+const char* AudioFrame0_svg = (const char*) temp_binary_data_28;
+
+//================== audio_animated_frame1.svg ==================
+static const unsigned char temp_binary_data_29[] =
+"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\n<g id=\"Frame_2\" clip-path=\"url(#clip0_2025_35)\">\n<g id=\"capture_animated\" transform=\"translate(-4 -4)\">\n<path id=\"Line_10__Stroke_\""
+" transform=\"matrix(-0.000204 -1.2 1 -0.000244 7 18.4)\" d=\"M4 0V2H0V0H4Z\" fill=\"#000000\" />\n<path id=\"Line_11__Stroke_\" transform=\"matrix(-0.000204 -1.2 1 -0.000244 11 24.4)\" d=\"M14 0V2H0V0H14Z\" fill=\"#000000\" />\n<path id=\"Line_12__St"
+"roke_\" transform=\"matrix(-0.000204 -1.4 1 -0.000285 15 21.6)\" d=\"M8 0V2H0V0H8Z\" fill=\"#000000\" />\n<path id=\"Line_13__Stroke_\" transform=\"matrix(-0.000204 -0.4 1 -0.000081 19 18.8)\" d=\"M14 0V2H0V0H14Z\" fill=\"#000000\" />\n<path id=\"Lin"
+"e_14__Stroke_\" transform=\"matrix(-0.000204 -2.05 1 -0.000418 23 20.1)\" d=\"M4 0V2H0V0H4Z\" fill=\"#000000\" />\n</g>\n</g>\n<defs>\n<clipPath id=\"clip0_2025_35\">\n<rect width=\"24\" height=\"24\" fill=\"white\" />\n</clipPath>\n</defs>\n</svg>";
+
+const char* AudioFrame1_svg = (const char*) temp_binary_data_29;
+
+//================== audio_animated_frame2.svg ==================
+static const unsigned char temp_binary_data_30[] =
+"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\n<g id=\"Frame_2\" clip-path=\"url(#clip0_2025_35)\">\n<g id=\"capture_animated\" transform=\"translate(-4 -4)\">\n<path id=\"Line_10__Stroke_\""
+" transform=\"matrix(-0.000204 -1 1 -0.000204 7 18)\" d=\"M4 0V2H0V0H4Z\" fill=\"#000000\" />\n<path id=\"Line_11__Stroke_\" transform=\"matrix(-0.000204 -0.8 1 -0.000163 11 21.6)\" d=\"M14 0V2H0V0H14Z\" fill=\"#000000\" />\n<path id=\"Line_12__Stroke"
+"_\" transform=\"matrix(-0.000204 -0.6 1 -0.000122 15 18.4)\" d=\"M8 0V2H0V0H8Z\" fill=\"#000000\" />\n<path id=\"Line_13__Stroke_\" transform=\"matrix(-0.000204 -1.1 1 -0.000224 19 23.7)\" d=\"M14 0V2H0V0H14Z\" fill=\"#000000\" />\n<path id=\"Line_14"
+"__Stroke_\" transform=\"matrix(-0.000204 -1.03 1 -0.00021 23 18.06)\" d=\"M4 0V2H0V0H4Z\" fill=\"#000000\" />\n</g>\n</g>\n<defs>\n<clipPath id=\"clip0_2025_35\">\n<rect width=\"24\" height=\"24\" fill=\"white\" />\n</clipPath>\n</defs>\n</svg>";
+
+const char* AudioFrame2_svg = (const char*) temp_binary_data_30;
+
+//================== audio_animated_frame3.svg ==================
+static const unsigned char temp_binary_data_31[] =
+"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\n<g id=\"Frame_2\" clip-path=\"url(#clip0_2025_35)\">\n<g id=\"capture_animated\" transform=\"translate(-4 -4)\">\n<path id=\"Line_10__Stroke_\""
+" transform=\"matrix(-0.000204 -1.3 1 -0.000265 7 18.6)\" d=\"M4 0V2H0V0H4Z\" fill=\"#000000\" />\n<path id=\"Line_11__Stroke_\" transform=\"matrix(-0.000204 -0.5 1 -0.000102 11 19.5)\" d=\"M14 0V2H0V0H14Z\" fill=\"#000000\" />\n<path id=\"Line_12__St"
+"roke_\" transform=\"matrix(-0.000204 -1.7 1 -0.000346 15 22.8)\" d=\"M8 0V2H0V0H8Z\" fill=\"#000000\" />\n<path id=\"Line_13__Stroke_\" transform=\"matrix(-0.000204 -0.6 1 -0.000122 19 20.2)\" d=\"M14 0V2H0V0H14Z\" fill=\"#000000\" />\n<path id=\"Lin"
+"e_14__Stroke_\" transform=\"matrix(-0.000204 -1.27 1 -0.000259 23 18.54)\" d=\"M4 0V2H0V0H4Z\" fill=\"#000000\" />\n</g>\n</g>\n<defs>\n<clipPath id=\"clip0_2025_35\">\n<rect width=\"24\" height=\"24\" fill=\"white\" />\n</clipPath>\n</defs>\n</svg>";
+
+const char* AudioFrame3_svg = (const char*) temp_binary_data_31;
+
+//================== audio_animated_frame4.svg ==================
+static const unsigned char temp_binary_data_32[] =
+"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">\n<g id=\"Frame_2\" clip-path=\"url(#clip0_2025_35)\">\n<g id=\"capture_animated\" transform=\"translate(-4 -4)\">\n<path id=\"Line_10__Stroke_\""
+" transform=\"matrix(-0.000204 -1 1 -0.000204 7 18)\" d=\"M4 0V2H0V0H4Z\" fill=\"#000000\" />\n<path id=\"Line_11__Stroke_\" transform=\"matrix(-0.000204 -1 1 -0.000204 11 23)\" d=\"M14 0V2H0V0H14Z\" fill=\"#000000\" />\n<path id=\"Line_12__Stroke_\" "
+"transform=\"matrix(-0.000204 -1 1 -0.000204 15 20)\" d=\"M8 0V2H0V0H8Z\" fill=\"#000000\" />\n<path id=\"Line_13__Stroke_\" transform=\"matrix(-0.000204 -1 1 -0.000204 19 23)\" d=\"M14 0V2H0V0H14Z\" fill=\"#000000\" />\n<path id=\"Line_14__Stroke_\" "
+"transform=\"matrix(-0.000204 -1 1 -0.000204 23 18)\" d=\"M4 0V2H0V0H4Z\" fill=\"#000000\" />\n</g>\n</g>\n<defs>\n<clipPath id=\"clip0_2025_35\">\n<rect width=\"24\" height=\"24\" fill=\"white\" />\n</clipPath>\n</defs>\n</svg>";
+
+const char* AudioFrame4_svg = (const char*) temp_binary_data_32;
+
 const char* getNamedResource (const char* resourceNameUTF8, int& numBytes);
 const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
 {
@@ -11962,6 +12007,11 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
         case 0xce9ebb50:  numBytes = 2090; return CaptureFrame2_svg;
         case 0xceacd2d1:  numBytes = 2095; return CaptureFrame3_svg;
         case 0xcebaea52:  numBytes = 2073; return CaptureFrame4_svg;
+        case 0x515a64de:  numBytes = 896; return AudioFrame0_svg;
+        case 0x51687c5f:  numBytes = 917; return AudioFrame1_svg;
+        case 0x517693e0:  numBytes = 913; return AudioFrame2_svg;
+        case 0x5184ab61:  numBytes = 918; return AudioFrame3_svg;
+        case 0x5192c2e2:  numBytes = 896; return AudioFrame4_svg;
         default: break;
     }
 
@@ -11998,7 +12048,12 @@ const char* namedResourceList[] =
     "CaptureFrame1_svg",
     "CaptureFrame2_svg",
     "CaptureFrame3_svg",
-    "CaptureFrame4_svg"
+    "CaptureFrame4_svg",
+    "AudioFrame0_svg",
+    "AudioFrame1_svg",
+    "AudioFrame2_svg",
+    "AudioFrame3_svg",
+    "AudioFrame4_svg"
 };
 
 const char* originalFilenames[] =
@@ -12030,7 +12085,12 @@ const char* originalFilenames[] =
     "capture_frame1.svg",
     "capture_frame2.svg",
     "capture_frame3.svg",
-    "capture_frame4.svg"
+    "capture_frame4.svg",
+    "audio_animated_frame0.svg",
+    "audio_animated_frame1.svg",
+    "audio_animated_frame2.svg",
+    "audio_animated_frame3.svg",
+    "audio_animated_frame4.svg"
 };
 
 const char* getNamedResourceOriginalFilename (const char* resourceNameUTF8);

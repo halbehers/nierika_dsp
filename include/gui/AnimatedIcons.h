@@ -28,6 +28,7 @@ class AnimatedIcons
 {
 public:
     static const AnimatedIcon getCapture() { return { { NierikaDSPBinaryData::CaptureFrame0_svg, NierikaDSPBinaryData::CaptureFrame1_svg, NierikaDSPBinaryData::CaptureFrame2_svg, NierikaDSPBinaryData::CaptureFrame3_svg, NierikaDSPBinaryData::CaptureFrame4_svg }, 1.500426f }; }
+    static const AnimatedIcon getAudio() { return { { NierikaDSPBinaryData::AudioFrame0_svg, NierikaDSPBinaryData::AudioFrame1_svg, NierikaDSPBinaryData::AudioFrame2_svg, NierikaDSPBinaryData::AudioFrame3_svg, NierikaDSPBinaryData::AudioFrame4_svg }, 1.500426f }; }
 };
 
 }
