@@ -60,91 +60,106 @@ Spacing<T>& Spacing<T>::operator=(const Spacing<T>& other)
 }
 
 template<typename T>
-Spacing<T> Spacing<T>::operator+(T value)
+Spacing<T> Spacing<T>::operator+(T value) const
 {
-    left += value;
-    top += value;
-    right += value;
-    bottom += value;
-    
-    return *this;
+    Spacing<T> result(*this);
+
+    result.left += value;
+    result.top += value;
+    result.right += value;
+    result.bottom += value;
+
+    return result;
 }
 
 template<typename T>
-Spacing<T> Spacing<T>::operator+(const Spacing<T>& other)
+Spacing<T> Spacing<T>::operator+(const Spacing<T>& other) const
 {
-    left += other.left;
-    top += other.top;
-    right += other.right;
-    bottom += other.bottom;
-    
-    return *this;
+    Spacing<T> result(*this);
+
+    result.left += other.left;
+    result.top += other.top;
+    result.right += other.right;
+    result.bottom += other.bottom;
+
+    return result;
 }
 
 template<typename T>
-Spacing<T> Spacing<T>::operator-(T value)
+Spacing<T> Spacing<T>::operator-(T value) const
 {
-    left -= value;
-    top -= value;
-    right -= value;
-    bottom -= value;
-    
-    return *this;
+    Spacing<T> result(*this);
+
+    result.left -= value;
+    result.top -= value;
+    result.right -= value;
+    result.bottom -= value;
+
+    return result;
 }
 
 template<typename T>
-Spacing<T> Spacing<T>::operator-(const Spacing<T>& other)
+Spacing<T> Spacing<T>::operator-(const Spacing<T>& other) const
 {
-    left -= other.left;
-    top -= other.top;
-    right -= other.right;
-    bottom -= other.bottom;
-    
-    return *this;
+    Spacing<T> result(*this);
+
+    result.left -= other.left;
+    result.top -= other.top;
+    result.right -= other.right;
+    result.bottom -= other.bottom;
+
+    return result;
 }
 
 template<typename T>
-Spacing<T> Spacing<T>::operator*(T value)
+Spacing<T> Spacing<T>::operator*(T value) const
 {
-    left *= value;
-    top *= value;
-    right *= value;
-    bottom *= value;
-    
-    return *this;
+    Spacing<T> result(*this);
+
+    result.left *= value;
+    result.top *= value;
+    result.right *= value;
+    result.bottom *= value;
+
+    return result;
 }
 
 template<typename T>
-Spacing<T> Spacing<T>::operator*(const Spacing<T>& other)
+Spacing<T> Spacing<T>::operator*(const Spacing<T>& other) const
 {
-    left *= other.left;
-    top *= other.top;
-    right *= other.right;
-    bottom *= other.bottom;
-    
-    return *this;
+    Spacing<T> result(*this);
+
+    result.left *= other.left;
+    result.top *= other.top;
+    result.right *= other.right;
+    result.bottom *= other.bottom;
+
+    return result;
 }
 
 template<typename T>
-Spacing<T> Spacing<T>::operator/(T value)
+Spacing<T> Spacing<T>::operator/(T value) const
 {
-    left /= value;
-    top /= value;
-    right /= value;
-    bottom /= value;
-    
-    return *this;
+    Spacing<T> result(*this);
+
+    result.left /= value;
+    result.top /= value;
+    result.right /= value;
+    result.bottom /= value;
+
+    return result;
 }
 
 template<typename T>
-Spacing<T> Spacing<T>::operator/(const Spacing<T>& other)
+Spacing<T> Spacing<T>::operator/(const Spacing<T>& other) const
 {
-    left /= other.left;
-    top /= other.top;
-    right /= other.right;
-    bottom /= other.bottom;
-    
-    return *this;
+    Spacing<T> result(*this);
+    result.left /= other.left;
+    result.top /= other.top;
+    result.right /= other.right;
+    result.bottom /= other.bottom;
+
+    return result;
 }
 
 template<typename T>
@@ -329,7 +344,7 @@ bool Spacing<T>::isEmpty()
 }
 
 template<typename T>
-juce::Rectangle<T> Spacing<T>::computeBounds(juce::Rectangle<T> bounds)
+juce::Rectangle<T> Spacing<T>::computeBounds(juce::Rectangle<T> bounds) const
 {
     const auto newX = bounds.getX() + static_cast<T>(left);
     const auto newY = bounds.getY() + static_cast<T>(top);
@@ -340,7 +355,7 @@ juce::Rectangle<T> Spacing<T>::computeBounds(juce::Rectangle<T> bounds)
 }
 
 template<typename T>
-juce::Rectangle<T> Spacing<T>::computeBounds(const juce::Component& component)
+juce::Rectangle<T> Spacing<T>::computeBounds(const juce::Component& component) const
 {
     const auto bounds = component.getLocalBounds();
     const juce::Rectangle<T> typedBounds(static_cast<T>(bounds.getX()), static_cast<T>(bounds.getY()), static_cast<T>(bounds.getWidth()), static_cast<T>(bounds.getHeight()));
@@ -349,7 +364,7 @@ juce::Rectangle<T> Spacing<T>::computeBounds(const juce::Component& component)
 }
 
 template<typename T>
-juce::Rectangle<T> Spacing<T>::computeBounds()
+juce::Rectangle<T> Spacing<T>::computeBounds() const
 {
     if (_component == nullptr) return juce::Rectangle<T>(0, 0, 0, 0);
 
@@ -372,30 +387,30 @@ template Spacing<double>::Spacing(const Spacing<double>& other);
 template Spacing<int>& Spacing<int>::operator=(const Spacing<int>& other);
 template Spacing<float>& Spacing<float>::operator=(const Spacing<float>& other);
 template Spacing<double>& Spacing<double>::operator=(const Spacing<double>& other);
-template Spacing<int> Spacing<int>::operator+(int value);
-template Spacing<float> Spacing<float>::operator+(float value);
-template Spacing<double> Spacing<double>::operator+(double value);
-template Spacing<int> Spacing<int>::operator+(const Spacing<int>& other);
-template Spacing<float> Spacing<float>::operator+(const Spacing<float>& other);
-template Spacing<double> Spacing<double>::operator+(const Spacing<double>& other);
-template Spacing<int> Spacing<int>::operator-(int value);
-template Spacing<float> Spacing<float>::operator-(float value);
-template Spacing<double> Spacing<double>::operator-(double value);
-template Spacing<int> Spacing<int>::operator-(const Spacing<int>& other);
-template Spacing<float> Spacing<float>::operator-(const Spacing<float>& other);
-template Spacing<double> Spacing<double>::operator-(const Spacing<double>& other);
-template Spacing<int> Spacing<int>::operator*(int value);
-template Spacing<float> Spacing<float>::operator*(float value);
-template Spacing<double> Spacing<double>::operator*(double value);
-template Spacing<int> Spacing<int>::operator*(const Spacing<int>& other);
-template Spacing<float> Spacing<float>::operator*(const Spacing<float>& other);
-template Spacing<double> Spacing<double>::operator*(const Spacing<double>& other);
-template Spacing<int> Spacing<int>::operator/(int value);
-template Spacing<float> Spacing<float>::operator/(float value);
-template Spacing<double> Spacing<double>::operator/(double value);
-template Spacing<int> Spacing<int>::operator/(const Spacing<int>& other);
-template Spacing<float> Spacing<float>::operator/(const Spacing<float>& other);
-template Spacing<double> Spacing<double>::operator/(const Spacing<double>& other);
+template Spacing<int> Spacing<int>::operator+(int value) const;
+template Spacing<float> Spacing<float>::operator+(float value) const;
+template Spacing<double> Spacing<double>::operator+(double value) const;
+template Spacing<int> Spacing<int>::operator+(const Spacing<int>& other) const;
+template Spacing<float> Spacing<float>::operator+(const Spacing<float>& other) const;
+template Spacing<double> Spacing<double>::operator+(const Spacing<double>& other) const;
+template Spacing<int> Spacing<int>::operator-(int value) const;
+template Spacing<float> Spacing<float>::operator-(float value) const;
+template Spacing<double> Spacing<double>::operator-(double value) const;
+template Spacing<int> Spacing<int>::operator-(const Spacing<int>& other) const;
+template Spacing<float> Spacing<float>::operator-(const Spacing<float>& other) const;
+template Spacing<double> Spacing<double>::operator-(const Spacing<double>& other) const;
+template Spacing<int> Spacing<int>::operator*(int value) const;
+template Spacing<float> Spacing<float>::operator*(float value) const;
+template Spacing<double> Spacing<double>::operator*(double value) const;
+template Spacing<int> Spacing<int>::operator*(const Spacing<int>& other) const;
+template Spacing<float> Spacing<float>::operator*(const Spacing<float>& other) const;
+template Spacing<double> Spacing<double>::operator*(const Spacing<double>& other) const;
+template Spacing<int> Spacing<int>::operator/(int value) const;
+template Spacing<float> Spacing<float>::operator/(float value) const;
+template Spacing<double> Spacing<double>::operator/(double value) const;
+template Spacing<int> Spacing<int>::operator/(const Spacing<int>& other) const;
+template Spacing<float> Spacing<float>::operator/(const Spacing<float>& other) const;
+template Spacing<double> Spacing<double>::operator/(const Spacing<double>& other) const;
 template bool Spacing<int>::operator==(const Spacing<int>& other) const;
 template bool Spacing<float>::operator==(const Spacing<float>& other) const;
 template bool Spacing<double>::operator==(const Spacing<double>& other) const;
@@ -482,11 +497,11 @@ template bool Spacing<int>::isEmpty();
 template bool Spacing<float>::isEmpty();
 template bool Spacing<double>::isEmpty();
 
-template juce::Rectangle<int> Spacing<int>::computeBounds(juce::Rectangle<int> bounds);
-template juce::Rectangle<float> Spacing<float>::computeBounds(juce::Rectangle<float> bounds);
-template juce::Rectangle<double> Spacing<double>::computeBounds(juce::Rectangle<double> bounds);
-template juce::Rectangle<int> Spacing<int>::computeBounds(const juce::Component& component);
-template juce::Rectangle<float> Spacing<float>::computeBounds(const juce::Component& component);
-template juce::Rectangle<double> Spacing<double>::computeBounds(const juce::Component& component);
+template juce::Rectangle<int> Spacing<int>::computeBounds(juce::Rectangle<int> bounds) const;
+template juce::Rectangle<float> Spacing<float>::computeBounds(juce::Rectangle<float> bounds) const;
+template juce::Rectangle<double> Spacing<double>::computeBounds(juce::Rectangle<double> bounds) const;
+template juce::Rectangle<int> Spacing<int>::computeBounds(const juce::Component& component) const;
+template juce::Rectangle<float> Spacing<float>::computeBounds(const juce::Component& component) const;
+template juce::Rectangle<double> Spacing<double>::computeBounds(const juce::Component& component) const;
 
 }

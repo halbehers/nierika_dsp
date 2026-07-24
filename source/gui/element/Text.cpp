@@ -79,6 +79,11 @@ void Text::setJustificationType(juce::Justification justification)
     _text.setJustificationType(justification);
 }
 
+void Text::setMinimumHorizontalScale(float newScale)
+{
+    _text.setMinimumHorizontalScale(newScale);
+}
+
 void Text::paint(juce::Graphics& g)
 {
     Component::paint(g);

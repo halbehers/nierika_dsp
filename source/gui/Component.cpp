@@ -33,6 +33,39 @@ void Component::changeListenerCallback(juce::ChangeBroadcaster*)
     repaint();
 }
 
+void Component::resized()
+{
+    if (_fixedHeight >= 0.f)
+    {
+        // Extra space is what's left after _margin's own top/bottom inset is honoured, not the
+        // raw component height - otherwise _margin and _fixedSizedMargin would both apply on top
+        // of each other and the visible box would end up smaller than _fixedHeight by however
+        // much vertical margin is set.
+        const auto availableHeight = static_cast<float>(getHeight()) - _margin.top - _margin.bottom;
+        const auto extra = juce::jmax(0.f, availableHeight - _fixedHeight);
+
+        switch (_verticalAlignment)
+        {
+            case START:  _fixedSizedMargin.top = 0.f;         _fixedSizedMargin.bottom = extra;        break;
+            case END:    _fixedSizedMargin.top = extra;       _fixedSizedMargin.bottom = 0.f;          break;
+            case CENTER: _fixedSizedMargin.top = extra / 2.f; _fixedSizedMargin.bottom = extra / 2.f;  break;
+        }
+    }
+
+    if (_fixedWidth >= 0.f)
+    {
+        const auto availableWidth = static_cast<float>(getWidth()) - _margin.left - _margin.right;
+        const auto extra = juce::jmax(0.f, availableWidth - _fixedWidth);
+
+        switch (_horizontalAlignment)
+        {
+            case START:  _fixedSizedMargin.left = 0.f;         _fixedSizedMargin.right = extra;         break;
+            case END:    _fixedSizedMargin.left = extra;       _fixedSizedMargin.right = 0.f;           break;
+            case CENTER: _fixedSizedMargin.left = extra / 2.f; _fixedSizedMargin.right = extra / 2.f;   break;
+        }
+    }
+}
+
 void Component::paint(juce::Graphics& g)
 {
     if (_background.display)
@@ -59,7 +92,13 @@ void Component::paint(juce::Graphics& g)
 
 juce::Rectangle<int> Component::getOuterLocalBounds()
 {
-    return _margin.computeBounds().toNearestInt();
+    const auto finalMargin = _margin + _fixedSizedMargin;
+
+    // Not finalMargin.computeBounds() - that overload resolves bounds via the Spacing's own
+    // attached _component pointer, which Spacing's copy constructor doesn't carry over (see
+    // operator+), so a freshly-computed Spacing like this one is never attached to anything and
+    // that overload would always return an empty rect. Pass this component explicitly instead.
+    return finalMargin.computeBounds(*this).toNearestInt();
 }
 
 int Component::getOuterX()

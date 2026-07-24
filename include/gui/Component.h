@@ -19,7 +19,26 @@ public:
     std::string getID() const { return getComponentID().toStdString(); }
 
     void paint(juce::Graphics& g) override;
+    void resized() override;
     void changeListenerCallback(juce::ChangeBroadcaster* source) override;
+
+    enum Alignment { START, END, CENTER };
+
+    void setFixedHeight(float height, bool shouldResize = true) { _fixedHeight = height; if (shouldResize) resized(); }
+    void resetFixedHeight() { _fixedHeight = -1.f; resized(); }
+    [[nodiscard]] float getFixedHeight() const { return _fixedHeight; }
+
+    void setFixedWidth(float width, bool shouldResize = true) { _fixedWidth = width; if (shouldResize) resized(); }
+    void resetFixedWidth() { _fixedWidth = -1.f; resized(); }
+    [[nodiscard]] float getFixedWidth() const { return _fixedWidth; }
+
+    // Ignored unless a fixed height is set.
+    void setVerticalAlignment(Alignment alignment) { _verticalAlignment = alignment; resized(); }
+    [[nodiscard]] Alignment getVerticalAlignment() const { return _verticalAlignment; }
+
+    // Ignored unless a fixed width is set.
+    void setHorizontalAlignment(Alignment alignment) { _horizontalAlignment = alignment; resized(); }
+    [[nodiscard]] Alignment getHorizontalAlignment() const { return _horizontalAlignment; }
 
     void setTooltip(const std::string& text);
     const std::string& getTooltip() const;
@@ -106,7 +125,13 @@ private:
     } _background;
 
     layout::Spacing<float> _margin { 0.f, 0.f, 0.f, 0.f };
+    layout::Spacing<float> _fixedSizedMargin { 0.f, 0.f, 0.f, 0.f };
     layout::Spacing<float> _padding { 0.f, 0.f, 0.f, 0.f };
+
+    float _fixedHeight = -1.f;
+    float _fixedWidth = -1.f;
+    Alignment _verticalAlignment = START;
+    Alignment _horizontalAlignment = START;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Component)
 };

@@ -59,7 +59,9 @@ Theme::PaletteSet Theme::buildPreset()
                 { INVERTED_TEXT, juce::Colour(0xFF1A1A1A) },
                 { DISABLED, juce::Colour(0xFFB5B5B5) },
                 { DANGER, juce::Colour(0xFFD64545) },
-                { WARNING, juce::Colour(0xFFC97A1F) }
+                { DANGER_BORDER, juce::Colour(0xFFD64545) },
+                { WARNING, juce::Colour(0xFFC97A1F) },
+                { WARNING_BORDER, juce::Colour(0xFFC97A1F) }
             }
         },
         {
@@ -82,7 +84,9 @@ Theme::PaletteSet Theme::buildPreset()
                 { INVERTED_TEXT, juce::Colour(static_cast<juce::uint32>(COLOR_INVERTED_TEXT)) },
                 { DISABLED, juce::Colour(static_cast<juce::uint32>(COLOR_DISABLED)) },
                 { DANGER, juce::Colour(static_cast<juce::uint32>(COLOR_DANGER)) },
-                { WARNING, juce::Colour(static_cast<juce::uint32>(COLOR_WARNING)) }
+                { DANGER_BORDER, juce::Colour(static_cast<juce::uint32>(COLOR_DANGER)) },
+                { WARNING, juce::Colour(static_cast<juce::uint32>(COLOR_WARNING)) },
+                { WARNING_BORDER, juce::Colour(static_cast<juce::uint32>(COLOR_WARNING)) }
             }
         }
     };

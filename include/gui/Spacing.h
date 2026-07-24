@@ -12,14 +12,14 @@ struct Spacing {
     Spacing(const Spacing& other);
 
     Spacing<T>& operator=(const Spacing<T>& other);
-    Spacing<T> operator+(T value);
-    Spacing<T> operator+(const Spacing<T>& other);
-    Spacing<T> operator-(T value);
-    Spacing<T> operator-(const Spacing<T>& other);
-    Spacing<T> operator*(T value);
-    Spacing<T> operator*(const Spacing<T>& other);
-    Spacing<T> operator/(T value);
-    Spacing<T> operator/(const Spacing<T>& other);
+    Spacing<T> operator+(T value) const;
+    Spacing<T> operator+(const Spacing<T>& other) const;
+    Spacing<T> operator-(T value) const;
+    Spacing<T> operator-(const Spacing<T>& other) const;
+    Spacing<T> operator*(T value) const;
+    Spacing<T> operator*(const Spacing<T>& other) const;
+    Spacing<T> operator/(T value) const;
+    Spacing<T> operator/(const Spacing<T>& other) const;
     bool operator==(const Spacing<T>& other) const;
     bool operator!=(const Spacing<T>& other) const;
     
@@ -54,9 +54,9 @@ struct Spacing {
     
     bool isEmpty();
     
-    juce::Rectangle<T> computeBounds(juce::Rectangle<T> bounds);
-    juce::Rectangle<T> computeBounds(const juce::Component& component);
-    juce::Rectangle<T> computeBounds();
+    juce::Rectangle<T> computeBounds(juce::Rectangle<T> bounds) const;
+    juce::Rectangle<T> computeBounds(const juce::Component& component) const;
+    juce::Rectangle<T> computeBounds() const;
 
     void attachComponent(juce::Component* component) { _component = component; }
     

@@ -34,6 +34,12 @@ public:
     void setColor(juce::Colour color);
     void setJustificationType(juce::Justification justification);
 
+    // Passthrough to juce::Label::setMinimumHorizontalScale() - how much drawFittedText() may
+    // squash the font horizontally to fit text on one line before it wraps onto another instead.
+    // 1.0 disallows any squashing, forcing text that doesn't fit at full size to wrap rather than
+    // be compressed onto a single line.
+    void setMinimumHorizontalScale(float newScale);
+
 private:
     juce::Label _text {};
     Theme::FontSize _fontSize = Theme::PARAGRAPH;

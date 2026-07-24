@@ -74,7 +74,9 @@ public:
         INVERTED_TEXT,
         DISABLED,
         DANGER,
-        WARNING
+        DANGER_BORDER,
+        WARNING,
+        WARNING_BORDER,
     };
 
     enum FontWeight
