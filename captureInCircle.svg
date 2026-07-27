@@ -1,0 +1,148 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<style>
+@keyframes kf_Line_10__Stroke__transform_0 {
+  0% {
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    transform: translateX(12px) translateY(17px) translate(0.5px, -1px) scaleX(1) scaleY(1) translate(-0.5px, 1px) rotate(-1.571rad) skewX(0rad);
+  }
+  25% {
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    transform: translateX(12px) translateY(17px) translate(0.5px, -1px) scaleX(1) scaleY(1.2) translate(-0.5px, 1px) rotate(-1.571rad) skewX(0rad);
+  }
+  50% {
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    transform: translateX(12px) translateY(17px) translate(0.5px, -1px) scaleX(1) scaleY(1) translate(-0.5px, 1px) rotate(-1.571rad) skewX(0rad);
+  }
+  75% {
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    transform: translateX(12px) translateY(17px) translate(0.5px, -1px) scaleX(1) scaleY(1.3) translate(-0.5px, 1px) rotate(-1.571rad) skewX(0rad);
+  }
+  100% {
+    transform: translateX(12px) translateY(17px) translate(0.5px, -1px) scaleX(1) scaleY(1) translate(-0.5px, 1px) rotate(-1.571rad) skewX(0rad);
+  }
+}
+#Line_10__Stroke_ {
+  transform-origin: 0 0;
+  animation: kf_Line_10__Stroke__transform_0 1.500426s linear infinite;
+}
+@keyframes kf_Line_11__Stroke__transform_0 {
+  0% {
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    transform: translateX(14px) translateY(19px) translate(0.5px, -3px) scaleX(1) scaleY(1) translate(-0.5px, 3px) rotate(-1.571rad) skewX(0rad);
+  }
+  25% {
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    transform: translateX(14px) translateY(19px) translate(0.5px, -3px) scaleX(1) scaleY(1.2) translate(-0.5px, 3px) rotate(-1.571rad) skewX(0rad);
+  }
+  50% {
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    transform: translateX(14px) translateY(19px) translate(0.5px, -3px) scaleX(1) scaleY(0.8) translate(-0.5px, 3px) rotate(-1.571rad) skewX(0rad);
+  }
+  75% {
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    transform: translateX(14px) translateY(19px) translate(0.5px, -3px) scaleX(1) scaleY(0.5) translate(-0.5px, 3px) rotate(-1.571rad) skewX(0rad);
+  }
+  100% {
+    transform: translateX(14px) translateY(19px) translate(0.5px, -3px) scaleX(1) scaleY(1) translate(-0.5px, 3px) rotate(-1.571rad) skewX(0rad);
+  }
+}
+#Line_11__Stroke_ {
+  transform-origin: 0 0;
+  animation: kf_Line_11__Stroke__transform_0 1.500426s linear infinite;
+}
+@keyframes kf_Line_12__Stroke__transform_0 {
+  0% {
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    transform: translateX(16px) translateY(18px) translate(0.5px, -2px) scaleX(1) scaleY(1) translate(-0.5px, 2px) rotate(-1.571rad) skewX(0rad);
+  }
+  24.99% {
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    transform: translateX(16px) translateY(18px) translate(0.5px, -2px) scaleX(1) scaleY(1.4) translate(-0.5px, 2px) rotate(-1.571rad) skewX(0rad);
+  }
+  50% {
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    transform: translateX(16px) translateY(18px) translate(0.5px, -2px) scaleX(1) scaleY(0.6) translate(-0.5px, 2px) rotate(-1.571rad) skewX(0rad);
+  }
+  75% {
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    transform: translateX(16px) translateY(18px) translate(0.5px, -2px) scaleX(1) scaleY(1.7) translate(-0.5px, 2px) rotate(-1.571rad) skewX(0rad);
+  }
+  100% {
+    transform: translateX(16px) translateY(18px) translate(0.5px, -2px) scaleX(1) scaleY(1) translate(-0.5px, 2px) rotate(-1.571rad) skewX(0rad);
+  }
+}
+#Line_12__Stroke_ {
+  transform-origin: 0 0;
+  animation: kf_Line_12__Stroke__transform_0 1.500426s linear infinite;
+}
+@keyframes kf_Line_13__Stroke__transform_0 {
+  0% {
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    transform: translateX(18px) translateY(19px) translate(0.5px, -3px) scaleX(1) scaleY(1) translate(-0.5px, 3px) rotate(-1.571rad) skewX(0rad);
+  }
+  24.99% {
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    transform: translateX(18px) translateY(19px) translate(0.5px, -3px) scaleX(1) scaleY(0.4) translate(-0.5px, 3px) rotate(-1.571rad) skewX(0rad);
+  }
+  50% {
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    transform: translateX(18px) translateY(19px) translate(0.5px, -3px) scaleX(1) scaleY(1.1) translate(-0.5px, 3px) rotate(-1.571rad) skewX(0rad);
+  }
+  75% {
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    transform: translateX(18px) translateY(19px) translate(0.5px, -3px) scaleX(1) scaleY(0.6) translate(-0.5px, 3px) rotate(-1.571rad) skewX(0rad);
+  }
+  100% {
+    transform: translateX(18px) translateY(19px) translate(0.5px, -3px) scaleX(1) scaleY(1) translate(-0.5px, 3px) rotate(-1.571rad) skewX(0rad);
+  }
+}
+#Line_13__Stroke_ {
+  transform-origin: 0 0;
+  animation: kf_Line_13__Stroke__transform_0 1.500426s linear infinite;
+}
+@keyframes kf_Line_14__Stroke__transform_0 {
+  0% {
+    animation-timing-function: ease-in-out;
+    transform: translateX(20px) translateY(17px) translate(0.5px, -1px) scaleX(1) scaleY(1) translate(-0.5px, 1px) rotate(-1.571rad) skewX(0rad);
+  }
+  24.99% {
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    transform: translateX(20px) translateY(17px) translate(0.5px, -1px) scaleX(1) scaleY(2.05) translate(-0.5px, 1px) rotate(-1.571rad) skewX(0rad);
+  }
+  50% {
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    transform: translateX(20px) translateY(17px) translate(0.5px, -1px) scaleX(1) scaleY(1.03) translate(-0.5px, 1px) rotate(-1.571rad) skewX(0rad);
+  }
+  75% {
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+    transform: translateX(20px) translateY(17px) translate(0.5px, -1px) scaleX(1) scaleY(1.27) translate(-0.5px, 1px) rotate(-1.571rad) skewX(0rad);
+  }
+  100% {
+    transform: translateX(20px) translateY(17px) translate(0.5px, -1px) scaleX(1) scaleY(1) translate(-0.5px, 1px) rotate(-1.571rad) skewX(0rad);
+  }
+}
+#Line_14__Stroke_ {
+  transform-origin: 0 0;
+  animation: kf_Line_14__Stroke__transform_0 1.500426s linear infinite;
+}
+</style>
+<g id="Frame_3" clip-path="url(#clip0_2028_112)">
+<g id="capture_animated">
+<circle id="Ellipse_3" cx="16" cy="16" r="16" fill="#000000"/>
+<path id="Rectangle_71__Stroke_" transform="translate(8 19)" d="M2.22222 3.88889C1.60857 3.88889 1.11111 3.39143 1.11111 2.77778V0.555555C1.11111 0.248731 0.862381 0 0.555556 0C0.248731 0 2.37208e-08 0.248731 5.29819e-08 0.555556L2.6491e-07 2.77778L0.00271294 2.89225C0.0603626 4.02844 0.971556 4.93964 2.10775 4.99729L2.22222 5H4.44445C4.75127 5 5 4.75127 5 4.44444C5 4.13762 4.75127 3.88889 4.44444 3.88889H2.22222Z" fill="#ffffff"/>
+<path id="Rectangle_71__Stroke__2" transform="translate(19 19)" fill-rule="evenodd" clip-rule="evenodd" d="M2.77778 5H0.555555C0.24873 5 0 4.75127 0 4.44444C0 4.13762 0.248731 3.88889 0.555555 3.88889H2.77778C3.39143 3.88889 3.88889 3.39143 3.88889 2.77778V0.555555C3.88889 0.24873 4.13762 0 4.44444 0C4.75127 0 5 0.248731 5 0.555555V2.77778C5 3.96669 4.06636 4.93771 2.89225 4.99729L2.77778 5Z" fill="#ffffff"/>
+<path id="Rectangle_71__Stroke__3" transform="translate(19 8)" fill-rule="evenodd" clip-rule="evenodd" d="M5 2.22222V4.44444C5 4.75127 4.75127 5 4.44444 5C4.13762 5 3.88889 4.75127 3.88889 4.44444V2.22222C3.88889 1.60857 3.39143 1.11111 2.77778 1.11111H0.555555C0.24873 1.11111 0 0.86238 0 0.555556C0 0.248731 0.248731 0 0.555555 0H2.77778C4.00508 0 5 0.994923 5 2.22222Z" fill="#ffffff"/>
+<path id="Rectangle_71__Stroke__4" transform="translate(8 8)" fill-rule="evenodd" clip-rule="evenodd" d="M1.11111 4.44445C1.11111 4.75127 0.86238 5 0.555556 5C0.248731 5 0 4.75127 0 4.44444V2.22222C0 0.994923 0.994923 0 2.22222 0H4.44445C4.75127 0 5 0.248731 5 0.555556C5 0.86238 4.75127 1.11111 4.44444 1.11111H2.22222C1.60857 1.11111 1.11111 1.60857 1.11111 2.22222L1.11111 4.44445Z" fill="#ffffff"/>
+<path id="Line_10__Stroke_" transform="matrix(0 -1 1 0 12 17)" d="M2 0V1H0V0H2Z" fill="#ffffff"/>
+<path id="Line_11__Stroke_" transform="matrix(0 -1 1 0 14 19)" d="M6 0V1H0V0H6Z" fill="#ffffff"/>
+<path id="Line_12__Stroke_" transform="matrix(0 -1 1 0 16 18)" d="M4 0V1H0V0H4Z" fill="#ffffff"/>
+<path id="Line_13__Stroke_" transform="matrix(0 -1 1 0 18 19)" d="M6 0V1H0V0H6Z" fill="#ffffff"/>
+<path id="Line_14__Stroke_" transform="matrix(0 -1 1 0 20 17)" d="M2 0V1H0V0H2Z" fill="#ffffff"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_2028_112">
+<rect width="32" height="32" fill="#ffffff"/>
+</clipPath>
+</defs>
+</svg>

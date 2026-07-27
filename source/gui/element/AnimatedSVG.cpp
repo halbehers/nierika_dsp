@@ -9,16 +9,6 @@
 namespace nierika::gui::element
 {
 
-namespace
-{
-    std::string toHexString(const juce::Colour colour)
-    {
-        std::ostringstream oss;
-        oss << "#" << std::uppercase << std::hex << std::setw(6) << std::setfill('0') << (colour.getARGB() & 0xFFFFFF);
-        return oss.str();
-    }
-}
-
 AnimatedSVG::AnimatedSVG(const std::string& identifier, const AnimatedIcon& icon):
     Component(identifier),
     _frames(icon.frames),
@@ -44,28 +34,28 @@ void AnimatedSVG::paint(juce::Graphics& g)
     const int ix = static_cast<int>((static_cast<float>(bounds.getWidth()) - iconSize) * 0.5f);
     const int iy = static_cast<int>((static_cast<float>(bounds.getHeight()) - iconSize) * 0.5f);
     const int size = static_cast<int>(iconSize);
-    const auto colHex = toHexString(getColour());
+    const auto colHex = helpers::toHexString(getColour());
 
     const auto frameIndex = _currentBlend.frameIndex;
     const int bucket = static_cast<int>(std::round(_currentBlend.blendAlpha * static_cast<float>(kCrossfadeTimerHz)));
 
     if (bucket <= 0)
     {
-        helpers::drawFromAnimatedSVG(g, _frames, static_cast<int>(frameIndex), colHex, ix, iy, size, size, juce::AffineTransform());
+        helpers::drawFromAnimatedSVG(g, _frames, static_cast<int>(frameIndex), colHex, ix, iy, size, size, juce::AffineTransform(), getBackgroundColour());
     }
     else if (bucket >= kCrossfadeTimerHz)
     {
-        helpers::drawFromAnimatedSVG(g, _frames, static_cast<int>(_currentBlend.nextFrameIndex), colHex, ix, iy, size, size, juce::AffineTransform());
+        helpers::drawFromAnimatedSVG(g, _frames, static_cast<int>(_currentBlend.nextFrameIndex), colHex, ix, iy, size, size, juce::AffineTransform(), getBackgroundColour());
     }
     else if (const auto* interpolated = getOrCreateInterpolatedFrame(frameIndex, bucket))
     {
-        helpers::drawFromInterpolatedSVG(g, *interpolated, colHex, ix, iy, size, size, juce::AffineTransform());
+        helpers::drawFromInterpolatedSVG(g, *interpolated, colHex, ix, iy, size, size, juce::AffineTransform(), 1.f, getBackgroundColour());
     }
     else
     {
         helpers::drawFromAnimatedSVGBlended(g, _frames, static_cast<int>(frameIndex),
                                              static_cast<int>(_currentBlend.nextFrameIndex), _currentBlend.blendAlpha,
-                                             colHex, ix, iy, size, size, juce::AffineTransform());
+                                             colHex, ix, iy, size, size, juce::AffineTransform(), getBackgroundColour());
     }
 }
 

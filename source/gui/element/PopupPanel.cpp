@@ -11,6 +11,22 @@ namespace
         static laf::PopupPanel lookAndFeel;
         return lookAndFeel;
     }
+
+    // juce::CallOutBox only stores a reference to its content, expecting whatever constructed it
+    // (normally CallOutBoxCallback, owned by the modal-state machinery) to keep it alive. showNonModal()
+    // has no such owner, so this bundles the two together under one deletable object instead.
+    class OwningCallOutBox final : public juce::CallOutBox
+    {
+    public:
+        OwningCallOutBox(std::unique_ptr<juce::Component> ownedContent, juce::Rectangle<int> areaToPointTo)
+            : juce::CallOutBox(*ownedContent, areaToPointTo, nullptr),
+              _ownedContent(std::move(ownedContent))
+        {
+        }
+
+    private:
+        std::unique_ptr<juce::Component> _ownedContent;
+    };
 }
 
 PopupPanel::PopupPanel(const std::string& identifier, const char* svgBinary):
@@ -57,6 +73,22 @@ juce::CallOutBox& PopupPanel::show(std::unique_ptr<juce::Component> content, con
     auto& box = juce::CallOutBox::launchAsynchronously(std::move(content), areaToPointTo, parentComponent);
     box.setLookAndFeel(&getPopupPanelLookAndFeel());
     box.setArrowSize(0.f);
+    return box;
+}
+
+std::unique_ptr<juce::CallOutBox> PopupPanel::showNonModal(std::unique_ptr<juce::Component> content, juce::Rectangle<int> areaToPointTo)
+{
+    auto box = std::make_unique<OwningCallOutBox>(std::move(content), areaToPointTo);
+    box->setLookAndFeel(&getPopupPanelLookAndFeel());
+    box->setArrowSize(0.f);
+
+    // CallOutBox's own constructor only calls setVisible(true) for the "attached to a parent"
+    // branch - for the "added to the desktop" branch (parentComponent == nullptr, our case here)
+    // it leaves visibility to the caller. launchAsynchronously()'s modal wrapper does this itself;
+    // since we're bypassing that wrapper, we have to do it too, or the window is created but never
+    // actually shown.
+    box->setVisible(true);
+
     return box;
 }
 

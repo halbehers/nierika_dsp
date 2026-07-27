@@ -19,24 +19,25 @@ void SVGButton::drawDrawableButton
     bool shouldDrawButtonAsDown
 )
 {
-    const std::string whiteColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asHexString();
-    const std::string highlightedColor = Theme::newColor(Theme::ThemeColor::LIGHT_SHADE).asHexString();
-    const std::string downColor = Theme::newColor(Theme::ThemeColor::MEDIUM_SHADE).asHexString();
-    const std::string disabledColor = Theme::newColor(Theme::ThemeColor::DISABLED).asHexString();
+    const std::string color = helpers::toHexString(_parent.getColour());
+    const float initialColorOpacity = .8f;
+    const float highlightedColorOpacity = 1.f;
+    const float downColorOpacity = .7f;
+    const float disabledColorOpacity = .5f;
 
-    auto color = whiteColor;
+    float opacity = initialColorOpacity;
 
     if (!button.isEnabled())
     {
-        color = disabledColor;
+        opacity = disabledColorOpacity;
     }
     else if (shouldDrawButtonAsHighlighted)
     {
-        color = highlightedColor;
+        opacity = highlightedColorOpacity;
     }
     else if (shouldDrawButtonAsDown)
     {
-        color = downColor;
+        opacity = downColorOpacity;
     }
 
     const float iconSize = _parent.getIconSize();
@@ -46,7 +47,7 @@ void SVGButton::drawDrawableButton
     helpers::drawFromSVG(g, _parent.getIconBinary(), color,
                           static_cast<int>(x), static_cast<int>(y),
                           static_cast<int>(iconSize), static_cast<int>(iconSize),
-                          juce::AffineTransform());
+                          juce::AffineTransform(), opacity, _parent.getBackgroundColour());
 }
 
 }

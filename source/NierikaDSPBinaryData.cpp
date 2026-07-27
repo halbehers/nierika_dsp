@@ -11968,6 +11968,86 @@ static const unsigned char temp_binary_data_32[] =
 
 const char* AudioFrame4_svg = (const char*) temp_binary_data_32;
 
+//================== captureInCircle_frame0.svg ==================
+static const unsigned char temp_binary_data_33[] =
+"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\">\n<g id=\"Frame_3\" clip-path=\"url(#clip0_2028_112)\">\n<g id=\"capture_animated\">\n<circle id=\"Ellipse_3\" cx=\"16\" cy=\"16\" r=\"16\" fill="
+"\"#000000\" />\n<path id=\"Rectangle_71__Stroke_\" transform=\"translate(8 19)\" d=\"M2.22222 3.88889C1.60857 3.88889 1.11111 3.39143 1.11111 2.77778V0.555555C1.11111 0.248731 0.862381 0 0.555556 0C0.248731 0 2.37208e-08 0.248731 5.29819e-08 0.555556"
+"L2.6491e-07 2.77778L0.00271294 2.89225C0.0603626 4.02844 0.971556 4.93964 2.10775 4.99729L2.22222 5H4.44445C4.75127 5 5 4.75127 5 4.44444C5 4.13762 4.75127 3.88889 4.44444 3.88889H2.22222Z\" fill=\"#ffffff\" />\n<path id=\"Rectangle_71__Stroke__2\" t"
+"ransform=\"translate(19 19)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.77778 5H0.555555C0.24873 5 0 4.75127 0 4.44444C0 4.13762 0.248731 3.88889 0.555555 3.88889H2.77778C3.39143 3.88889 3.88889 3.39143 3.88889 2.77778V0.555555C3.88889 0.248"
+"73 4.13762 0 4.44444 0C4.75127 0 5 0.248731 5 0.555555V2.77778C5 3.96669 4.06636 4.93771 2.89225 4.99729L2.77778 5Z\" fill=\"#ffffff\" />\n<path id=\"Rectangle_71__Stroke__3\" transform=\"translate(19 8)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" "
+"d=\"M5 2.22222V4.44444C5 4.75127 4.75127 5 4.44444 5C4.13762 5 3.88889 4.75127 3.88889 4.44444V2.22222C3.88889 1.60857 3.39143 1.11111 2.77778 1.11111H0.555555C0.24873 1.11111 0 0.86238 0 0.555556C0 0.248731 0.248731 0 0.555555 0H2.77778C4.00508 0 5 "
+"0.994923 5 2.22222Z\" fill=\"#ffffff\" />\n<path id=\"Rectangle_71__Stroke__4\" transform=\"translate(8 8)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M1.11111 4.44445C1.11111 4.75127 0.86238 5 0.555556 5C0.248731 5 0 4.75127 0 4.44444V2.22222C"
+"0 0.994923 0.994923 0 2.22222 0H4.44445C4.75127 0 5 0.248731 5 0.555556C5 0.86238 4.75127 1.11111 4.44444 1.11111H2.22222C1.60857 1.11111 1.11111 1.60857 1.11111 2.22222L1.11111 4.44445Z\" fill=\"#ffffff\" />\n<path id=\"Line_10__Stroke_\" transform="
+"\"matrix(-0.000204 -1 1 -0.000204 12 17)\" d=\"M2 0V1H0V0H2Z\" fill=\"#ffffff\" />\n<path id=\"Line_11__Stroke_\" transform=\"matrix(-0.000204 -1 1 -0.000204 14 19)\" d=\"M6 0V1H0V0H6Z\" fill=\"#ffffff\" />\n<path id=\"Line_12__Stroke_\" transform=\""
+"matrix(-0.000204 -1 1 -0.000204 16 18)\" d=\"M4 0V1H0V0H4Z\" fill=\"#ffffff\" />\n<path id=\"Line_13__Stroke_\" transform=\"matrix(-0.000204 -1 1 -0.000204 18 19)\" d=\"M6 0V1H0V0H6Z\" fill=\"#ffffff\" />\n<path id=\"Line_14__Stroke_\" transform=\"ma"
+"trix(-0.000204 -1 1 -0.000204 20 17)\" d=\"M2 0V1H0V0H2Z\" fill=\"#ffffff\" />\n</g>\n</g>\n<defs>\n<clipPath id=\"clip0_2028_112\">\n<rect width=\"32\" height=\"32\" fill=\"#ffffff\" />\n</clipPath>\n</defs>\n</svg>";
+
+const char* CaptureInCircleFrame0_svg = (const char*) temp_binary_data_33;
+
+//================== captureInCircle_frame1.svg ==================
+static const unsigned char temp_binary_data_34[] =
+"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\">\n<g id=\"Frame_3\" clip-path=\"url(#clip0_2028_112)\">\n<g id=\"capture_animated\">\n<circle id=\"Ellipse_3\" cx=\"16\" cy=\"16\" r=\"16\" fill="
+"\"#000000\" />\n<path id=\"Rectangle_71__Stroke_\" transform=\"translate(8 19)\" d=\"M2.22222 3.88889C1.60857 3.88889 1.11111 3.39143 1.11111 2.77778V0.555555C1.11111 0.248731 0.862381 0 0.555556 0C0.248731 0 2.37208e-08 0.248731 5.29819e-08 0.555556"
+"L2.6491e-07 2.77778L0.00271294 2.89225C0.0603626 4.02844 0.971556 4.93964 2.10775 4.99729L2.22222 5H4.44445C4.75127 5 5 4.75127 5 4.44444C5 4.13762 4.75127 3.88889 4.44444 3.88889H2.22222Z\" fill=\"#ffffff\" />\n<path id=\"Rectangle_71__Stroke__2\" t"
+"ransform=\"translate(19 19)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.77778 5H0.555555C0.24873 5 0 4.75127 0 4.44444C0 4.13762 0.248731 3.88889 0.555555 3.88889H2.77778C3.39143 3.88889 3.88889 3.39143 3.88889 2.77778V0.555555C3.88889 0.248"
+"73 4.13762 0 4.44444 0C4.75127 0 5 0.248731 5 0.555555V2.77778C5 3.96669 4.06636 4.93771 2.89225 4.99729L2.77778 5Z\" fill=\"#ffffff\" />\n<path id=\"Rectangle_71__Stroke__3\" transform=\"translate(19 8)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" "
+"d=\"M5 2.22222V4.44444C5 4.75127 4.75127 5 4.44444 5C4.13762 5 3.88889 4.75127 3.88889 4.44444V2.22222C3.88889 1.60857 3.39143 1.11111 2.77778 1.11111H0.555555C0.24873 1.11111 0 0.86238 0 0.555556C0 0.248731 0.248731 0 0.555555 0H2.77778C4.00508 0 5 "
+"0.994923 5 2.22222Z\" fill=\"#ffffff\" />\n<path id=\"Rectangle_71__Stroke__4\" transform=\"translate(8 8)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M1.11111 4.44445C1.11111 4.75127 0.86238 5 0.555556 5C0.248731 5 0 4.75127 0 4.44444V2.22222C"
+"0 0.994923 0.994923 0 2.22222 0H4.44445C4.75127 0 5 0.248731 5 0.555556C5 0.86238 4.75127 1.11111 4.44444 1.11111H2.22222C1.60857 1.11111 1.11111 1.60857 1.11111 2.22222L1.11111 4.44445Z\" fill=\"#ffffff\" />\n<path id=\"Line_10__Stroke_\" transform="
+"\"matrix(-0.000204 -1.2 1 -0.000244 12 17.2)\" d=\"M2 0V1H0V0H2Z\" fill=\"#ffffff\" />\n<path id=\"Line_11__Stroke_\" transform=\"matrix(-0.000204 -1.2 1 -0.000244 14 19.6)\" d=\"M6 0V1H0V0H6Z\" fill=\"#ffffff\" />\n<path id=\"Line_12__Stroke_\" tran"
+"sform=\"matrix(-0.000204 -1.4 1 -0.000285 16 18.8)\" d=\"M4 0V1H0V0H4Z\" fill=\"#ffffff\" />\n<path id=\"Line_13__Stroke_\" transform=\"matrix(-0.000204 -0.4 1 -0.000081 18 17.2)\" d=\"M6 0V1H0V0H6Z\" fill=\"#ffffff\" />\n<path id=\"Line_14__Stroke_"
+"\" transform=\"matrix(-0.000204 -2.05 1 -0.000418 20 18.05)\" d=\"M2 0V1H0V0H2Z\" fill=\"#ffffff\" />\n</g>\n</g>\n<defs>\n<clipPath id=\"clip0_2028_112\">\n<rect width=\"32\" height=\"32\" fill=\"#ffffff\" />\n</clipPath>\n</defs>\n</svg>";
+
+const char* CaptureInCircleFrame1_svg = (const char*) temp_binary_data_34;
+
+//================== captureInCircle_frame2.svg ==================
+static const unsigned char temp_binary_data_35[] =
+"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\">\n<g id=\"Frame_3\" clip-path=\"url(#clip0_2028_112)\">\n<g id=\"capture_animated\">\n<circle id=\"Ellipse_3\" cx=\"16\" cy=\"16\" r=\"16\" fill="
+"\"#000000\" />\n<path id=\"Rectangle_71__Stroke_\" transform=\"translate(8 19)\" d=\"M2.22222 3.88889C1.60857 3.88889 1.11111 3.39143 1.11111 2.77778V0.555555C1.11111 0.248731 0.862381 0 0.555556 0C0.248731 0 2.37208e-08 0.248731 5.29819e-08 0.555556"
+"L2.6491e-07 2.77778L0.00271294 2.89225C0.0603626 4.02844 0.971556 4.93964 2.10775 4.99729L2.22222 5H4.44445C4.75127 5 5 4.75127 5 4.44444C5 4.13762 4.75127 3.88889 4.44444 3.88889H2.22222Z\" fill=\"#ffffff\" />\n<path id=\"Rectangle_71__Stroke__2\" t"
+"ransform=\"translate(19 19)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.77778 5H0.555555C0.24873 5 0 4.75127 0 4.44444C0 4.13762 0.248731 3.88889 0.555555 3.88889H2.77778C3.39143 3.88889 3.88889 3.39143 3.88889 2.77778V0.555555C3.88889 0.248"
+"73 4.13762 0 4.44444 0C4.75127 0 5 0.248731 5 0.555555V2.77778C5 3.96669 4.06636 4.93771 2.89225 4.99729L2.77778 5Z\" fill=\"#ffffff\" />\n<path id=\"Rectangle_71__Stroke__3\" transform=\"translate(19 8)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" "
+"d=\"M5 2.22222V4.44444C5 4.75127 4.75127 5 4.44444 5C4.13762 5 3.88889 4.75127 3.88889 4.44444V2.22222C3.88889 1.60857 3.39143 1.11111 2.77778 1.11111H0.555555C0.24873 1.11111 0 0.86238 0 0.555556C0 0.248731 0.248731 0 0.555555 0H2.77778C4.00508 0 5 "
+"0.994923 5 2.22222Z\" fill=\"#ffffff\" />\n<path id=\"Rectangle_71__Stroke__4\" transform=\"translate(8 8)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M1.11111 4.44445C1.11111 4.75127 0.86238 5 0.555556 5C0.248731 5 0 4.75127 0 4.44444V2.22222C"
+"0 0.994923 0.994923 0 2.22222 0H4.44445C4.75127 0 5 0.248731 5 0.555556C5 0.86238 4.75127 1.11111 4.44444 1.11111H2.22222C1.60857 1.11111 1.11111 1.60857 1.11111 2.22222L1.11111 4.44445Z\" fill=\"#ffffff\" />\n<path id=\"Line_10__Stroke_\" transform="
+"\"matrix(-0.000204 -1 1 -0.000204 12 17)\" d=\"M2 0V1H0V0H2Z\" fill=\"#ffffff\" />\n<path id=\"Line_11__Stroke_\" transform=\"matrix(-0.000204 -0.8 1 -0.000163 14 18.4)\" d=\"M6 0V1H0V0H6Z\" fill=\"#ffffff\" />\n<path id=\"Line_12__Stroke_\" transfor"
+"m=\"matrix(-0.000204 -0.6 1 -0.000122 16 17.2)\" d=\"M4 0V1H0V0H4Z\" fill=\"#ffffff\" />\n<path id=\"Line_13__Stroke_\" transform=\"matrix(-0.000204 -1.1 1 -0.000224 18 19.3)\" d=\"M6 0V1H0V0H6Z\" fill=\"#ffffff\" />\n<path id=\"Line_14__Stroke_\" tr"
+"ansform=\"matrix(-0.000204 -1.03 1 -0.00021 20 17.03)\" d=\"M2 0V1H0V0H2Z\" fill=\"#ffffff\" />\n</g>\n</g>\n<defs>\n<clipPath id=\"clip0_2028_112\">\n<rect width=\"32\" height=\"32\" fill=\"#ffffff\" />\n</clipPath>\n</defs>\n</svg>";
+
+const char* CaptureInCircleFrame2_svg = (const char*) temp_binary_data_35;
+
+//================== captureInCircle_frame3.svg ==================
+static const unsigned char temp_binary_data_36[] =
+"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\">\n<g id=\"Frame_3\" clip-path=\"url(#clip0_2028_112)\">\n<g id=\"capture_animated\">\n<circle id=\"Ellipse_3\" cx=\"16\" cy=\"16\" r=\"16\" fill="
+"\"#000000\" />\n<path id=\"Rectangle_71__Stroke_\" transform=\"translate(8 19)\" d=\"M2.22222 3.88889C1.60857 3.88889 1.11111 3.39143 1.11111 2.77778V0.555555C1.11111 0.248731 0.862381 0 0.555556 0C0.248731 0 2.37208e-08 0.248731 5.29819e-08 0.555556"
+"L2.6491e-07 2.77778L0.00271294 2.89225C0.0603626 4.02844 0.971556 4.93964 2.10775 4.99729L2.22222 5H4.44445C4.75127 5 5 4.75127 5 4.44444C5 4.13762 4.75127 3.88889 4.44444 3.88889H2.22222Z\" fill=\"#ffffff\" />\n<path id=\"Rectangle_71__Stroke__2\" t"
+"ransform=\"translate(19 19)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.77778 5H0.555555C0.24873 5 0 4.75127 0 4.44444C0 4.13762 0.248731 3.88889 0.555555 3.88889H2.77778C3.39143 3.88889 3.88889 3.39143 3.88889 2.77778V0.555555C3.88889 0.248"
+"73 4.13762 0 4.44444 0C4.75127 0 5 0.248731 5 0.555555V2.77778C5 3.96669 4.06636 4.93771 2.89225 4.99729L2.77778 5Z\" fill=\"#ffffff\" />\n<path id=\"Rectangle_71__Stroke__3\" transform=\"translate(19 8)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" "
+"d=\"M5 2.22222V4.44444C5 4.75127 4.75127 5 4.44444 5C4.13762 5 3.88889 4.75127 3.88889 4.44444V2.22222C3.88889 1.60857 3.39143 1.11111 2.77778 1.11111H0.555555C0.24873 1.11111 0 0.86238 0 0.555556C0 0.248731 0.248731 0 0.555555 0H2.77778C4.00508 0 5 "
+"0.994923 5 2.22222Z\" fill=\"#ffffff\" />\n<path id=\"Rectangle_71__Stroke__4\" transform=\"translate(8 8)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M1.11111 4.44445C1.11111 4.75127 0.86238 5 0.555556 5C0.248731 5 0 4.75127 0 4.44444V2.22222C"
+"0 0.994923 0.994923 0 2.22222 0H4.44445C4.75127 0 5 0.248731 5 0.555556C5 0.86238 4.75127 1.11111 4.44444 1.11111H2.22222C1.60857 1.11111 1.11111 1.60857 1.11111 2.22222L1.11111 4.44445Z\" fill=\"#ffffff\" />\n<path id=\"Line_10__Stroke_\" transform="
+"\"matrix(-0.000204 -1.3 1 -0.000265 12 17.3)\" d=\"M2 0V1H0V0H2Z\" fill=\"#ffffff\" />\n<path id=\"Line_11__Stroke_\" transform=\"matrix(-0.000204 -0.5 1 -0.000102 14 17.5)\" d=\"M6 0V1H0V0H6Z\" fill=\"#ffffff\" />\n<path id=\"Line_12__Stroke_\" tran"
+"sform=\"matrix(-0.000204 -1.7 1 -0.000346 16 19.4)\" d=\"M4 0V1H0V0H4Z\" fill=\"#ffffff\" />\n<path id=\"Line_13__Stroke_\" transform=\"matrix(-0.000204 -0.6 1 -0.000122 18 17.8)\" d=\"M6 0V1H0V0H6Z\" fill=\"#ffffff\" />\n<path id=\"Line_14__Stroke_"
+"\" transform=\"matrix(-0.000204 -1.27 1 -0.000259 20 17.27)\" d=\"M2 0V1H0V0H2Z\" fill=\"#ffffff\" />\n</g>\n</g>\n<defs>\n<clipPath id=\"clip0_2028_112\">\n<rect width=\"32\" height=\"32\" fill=\"#ffffff\" />\n</clipPath>\n</defs>\n</svg>";
+
+const char* CaptureInCircleFrame3_svg = (const char*) temp_binary_data_36;
+
+//================== captureInCircle_frame4.svg ==================
+static const unsigned char temp_binary_data_37[] =
+"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\">\n<g id=\"Frame_3\" clip-path=\"url(#clip0_2028_112)\">\n<g id=\"capture_animated\">\n<circle id=\"Ellipse_3\" cx=\"16\" cy=\"16\" r=\"16\" fill="
+"\"#000000\" />\n<path id=\"Rectangle_71__Stroke_\" transform=\"translate(8 19)\" d=\"M2.22222 3.88889C1.60857 3.88889 1.11111 3.39143 1.11111 2.77778V0.555555C1.11111 0.248731 0.862381 0 0.555556 0C0.248731 0 2.37208e-08 0.248731 5.29819e-08 0.555556"
+"L2.6491e-07 2.77778L0.00271294 2.89225C0.0603626 4.02844 0.971556 4.93964 2.10775 4.99729L2.22222 5H4.44445C4.75127 5 5 4.75127 5 4.44444C5 4.13762 4.75127 3.88889 4.44444 3.88889H2.22222Z\" fill=\"#ffffff\" />\n<path id=\"Rectangle_71__Stroke__2\" t"
+"ransform=\"translate(19 19)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.77778 5H0.555555C0.24873 5 0 4.75127 0 4.44444C0 4.13762 0.248731 3.88889 0.555555 3.88889H2.77778C3.39143 3.88889 3.88889 3.39143 3.88889 2.77778V0.555555C3.88889 0.248"
+"73 4.13762 0 4.44444 0C4.75127 0 5 0.248731 5 0.555555V2.77778C5 3.96669 4.06636 4.93771 2.89225 4.99729L2.77778 5Z\" fill=\"#ffffff\" />\n<path id=\"Rectangle_71__Stroke__3\" transform=\"translate(19 8)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" "
+"d=\"M5 2.22222V4.44444C5 4.75127 4.75127 5 4.44444 5C4.13762 5 3.88889 4.75127 3.88889 4.44444V2.22222C3.88889 1.60857 3.39143 1.11111 2.77778 1.11111H0.555555C0.24873 1.11111 0 0.86238 0 0.555556C0 0.248731 0.248731 0 0.555555 0H2.77778C4.00508 0 5 "
+"0.994923 5 2.22222Z\" fill=\"#ffffff\" />\n<path id=\"Rectangle_71__Stroke__4\" transform=\"translate(8 8)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M1.11111 4.44445C1.11111 4.75127 0.86238 5 0.555556 5C0.248731 5 0 4.75127 0 4.44444V2.22222C"
+"0 0.994923 0.994923 0 2.22222 0H4.44445C4.75127 0 5 0.248731 5 0.555556C5 0.86238 4.75127 1.11111 4.44444 1.11111H2.22222C1.60857 1.11111 1.11111 1.60857 1.11111 2.22222L1.11111 4.44445Z\" fill=\"#ffffff\" />\n<path id=\"Line_10__Stroke_\" transform="
+"\"matrix(-0.000204 -1 1 -0.000204 12 17)\" d=\"M2 0V1H0V0H2Z\" fill=\"#ffffff\" />\n<path id=\"Line_11__Stroke_\" transform=\"matrix(-0.000204 -1 1 -0.000204 14 19)\" d=\"M6 0V1H0V0H6Z\" fill=\"#ffffff\" />\n<path id=\"Line_12__Stroke_\" transform=\""
+"matrix(-0.000204 -1 1 -0.000204 16 18)\" d=\"M4 0V1H0V0H4Z\" fill=\"#ffffff\" />\n<path id=\"Line_13__Stroke_\" transform=\"matrix(-0.000204 -1 1 -0.000204 18 19)\" d=\"M6 0V1H0V0H6Z\" fill=\"#ffffff\" />\n<path id=\"Line_14__Stroke_\" transform=\"ma"
+"trix(-0.000204 -1 1 -0.000204 20 17)\" d=\"M2 0V1H0V0H2Z\" fill=\"#ffffff\" />\n</g>\n</g>\n<defs>\n<clipPath id=\"clip0_2028_112\">\n<rect width=\"32\" height=\"32\" fill=\"#ffffff\" />\n</clipPath>\n</defs>\n</svg>";
+
+const char* CaptureInCircleFrame4_svg = (const char*) temp_binary_data_37;
+
 const char* getNamedResource (const char* resourceNameUTF8, int& numBytes);
 const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
 {
@@ -12012,6 +12092,11 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
         case 0x517693e0:  numBytes = 913; return AudioFrame2_svg;
         case 0x5184ab61:  numBytes = 918; return AudioFrame3_svg;
         case 0x5192c2e2:  numBytes = 896; return AudioFrame4_svg;
+        case 0x5929a283:  numBytes = 2578; return CaptureInCircleFrame0_svg;
+        case 0x5937ba04:  numBytes = 2600; return CaptureInCircleFrame1_svg;
+        case 0x5945d185:  numBytes = 2595; return CaptureInCircleFrame2_svg;
+        case 0x5953e906:  numBytes = 2600; return CaptureInCircleFrame3_svg;
+        case 0x59620087:  numBytes = 2578; return CaptureInCircleFrame4_svg;
         default: break;
     }
 
@@ -12053,7 +12138,12 @@ const char* namedResourceList[] =
     "AudioFrame1_svg",
     "AudioFrame2_svg",
     "AudioFrame3_svg",
-    "AudioFrame4_svg"
+    "AudioFrame4_svg",
+    "CaptureInCircleFrame0_svg",
+    "CaptureInCircleFrame1_svg",
+    "CaptureInCircleFrame2_svg",
+    "CaptureInCircleFrame3_svg",
+    "CaptureInCircleFrame4_svg"
 };
 
 const char* originalFilenames[] =
@@ -12090,7 +12180,12 @@ const char* originalFilenames[] =
     "audio_animated_frame1.svg",
     "audio_animated_frame2.svg",
     "audio_animated_frame3.svg",
-    "audio_animated_frame4.svg"
+    "audio_animated_frame4.svg",
+    "captureInCircle_frame0.svg",
+    "captureInCircle_frame1.svg",
+    "captureInCircle_frame2.svg",
+    "captureInCircle_frame3.svg",
+    "captureInCircle_frame4.svg"
 };
 
 const char* getNamedResourceOriginalFilename (const char* resourceNameUTF8);

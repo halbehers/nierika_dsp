@@ -37,12 +37,14 @@ WRAP_WIDTH = 250
 def normalize_default_colors(svg_text: str) -> tuple[str, int]:
     # SVGButton/SVGToggle/TextButton icons recolor at paint-time by string-replacing the
     # literal "#000000" inside each fill/stroke attribute (see Helpers.cpp::changeColor /
-    # SVG_DEFAULT_COLOR) with the active theme colour. A literal "black" fill or stroke
-    # wouldn't match that replacement, so icons must use "#000000" for their ink, whether
-    # they're filled shapes (fill) or line-art icons (stroke).
-    pattern = re.compile(r'(fill|stroke)=(["\'])black\2', re.IGNORECASE)
-    normalized, count = pattern.subn(r'\1="#000000"', svg_text)
-    return normalized, count
+    # SVG_DEFAULT_COLOR) with the active theme colour. A literal "black"/"white" fill or
+    # stroke wouldn't match that replacement, so icons must use "#000000"/"#ffffff" for
+    # their ink, whether they're filled shapes (fill) or line-art icons (stroke).
+    black_pattern = re.compile(r'(fill|stroke)=(["\'])black\2', re.IGNORECASE)
+    normalized, black_count = black_pattern.subn(r'\1="#000000"', svg_text)
+    white_pattern = re.compile(r'(fill|stroke)=(["\'])white\2', re.IGNORECASE)
+    normalized, white_count = white_pattern.subn(r'\1="#ffffff"', normalized)
+    return normalized, black_count + white_count
 
 
 def escape_c_string(content: str) -> str:
@@ -118,8 +120,8 @@ def main() -> int:
 
     normalized_content, color_fixes = normalize_default_colors(raw_content)
     if color_fixes:
-        print(f"note: rewrote {color_fixes} literal fill/stroke=\"black\" occurrence(s) to \"#000000\" "
-              f"(required for theme-driven recoloring)")
+        print(f"note: rewrote {color_fixes} literal fill/stroke=\"black\"/\"white\" occurrence(s) to "
+              f"\"#000000\"/\"#ffffff\" (required for theme-driven recoloring)")
 
     try:
         ET.fromstring(normalized_content)

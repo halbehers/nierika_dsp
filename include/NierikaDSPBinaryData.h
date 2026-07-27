@@ -107,8 +107,23 @@ namespace NierikaDSPBinaryData
     extern const char*   AudioFrame4_svg;
     const int            AudioFrame4_svgSize = 896;
 
+    extern const char*   CaptureInCircleFrame0_svg;
+    const int            CaptureInCircleFrame0_svgSize = 2578;
+
+    extern const char*   CaptureInCircleFrame1_svg;
+    const int            CaptureInCircleFrame1_svgSize = 2600;
+
+    extern const char*   CaptureInCircleFrame2_svg;
+    const int            CaptureInCircleFrame2_svgSize = 2595;
+
+    extern const char*   CaptureInCircleFrame3_svg;
+    const int            CaptureInCircleFrame3_svgSize = 2600;
+
+    extern const char*   CaptureInCircleFrame4_svg;
+    const int            CaptureInCircleFrame4_svgSize = 2578;
+
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 36;
+    const int namedResourceListSize = 41;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

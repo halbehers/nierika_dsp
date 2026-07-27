@@ -38,8 +38,14 @@ public:
     bool isAnimating() const { return _isAnimating; }
 
     void setColour(juce::Colour colour) { _colourOverride = colour; repaint(); }
+    void setColour(Theme::ThemeColor colour) { _colourOverride = Theme::newColor(colour).asJuce(); repaint(); }
     void resetColour() { _colourOverride.reset(); repaint(); }
     juce::Colour getColour() const { return _colourOverride.value_or(Theme::newColor(Theme::ThemeColor::TEXT).asJuce()); }
+
+    void setBackgroundColour(juce::Colour colour) { _backgroundColourOverride = colour; repaint(); }
+    void setBackgroundColour(Theme::ThemeColor colour) { _backgroundColourOverride = Theme::newColor(colour).asJuce(); repaint(); }
+    void resetBackgroundColour() { _backgroundColourOverride.reset(); repaint(); }
+    juce::Colour getBackgroundColour() const { return _backgroundColourOverride.value_or(juce::Colours::transparentBlack); }
 
     void setIconSize(float size) { _iconSize = size; repaint(); }
     void resetIconSize() { _iconSize = -1.f; repaint(); }
@@ -56,6 +62,7 @@ private:
     bool _isAnimating = true;
     float _iconSize = -1.f;
     std::optional<juce::Colour> _colourOverride;
+    std::optional<juce::Colour> _backgroundColourOverride;
 
     std::unordered_map<std::uint64_t, std::unique_ptr<juce::XmlElement>> _interpolatedFrameCache;
     std::unordered_set<std::size_t> _fallbackFramePairs;

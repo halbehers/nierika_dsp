@@ -39,6 +39,16 @@ public:
 
     void setEnabled(bool shouldBeEnabled);
 
+    void setColour(juce::Colour colour) { _colourOverride = colour; repaint(); }
+    void setColour(Theme::ThemeColor colour) { _colourOverride = Theme::newColor(colour).asJuce(); repaint(); }
+    void resetColour() { _colourOverride.reset(); repaint(); }
+    juce::Colour getColour() const { return _colourOverride.value_or(Theme::newColor(Theme::ThemeColor::TEXT).asJuce()); }
+
+    void setBackgroundColour(juce::Colour colour) { _backgroundColourOverride = colour; repaint(); }
+    void setBackgroundColour(Theme::ThemeColor colour) { _backgroundColourOverride = Theme::newColor(colour).asJuce(); repaint(); }
+    void resetBackgroundColour() { _backgroundColourOverride.reset(); repaint(); }
+    juce::Colour getBackgroundColour() const { return _backgroundColourOverride.value_or(juce::Colours::transparentBlack); }
+
 private:
     laf::SVGButton _lookAndFeel { *this };
     juce::DrawableButton _button { "button", juce::DrawableButton::ButtonStyle::ImageFitted };
@@ -46,6 +56,8 @@ private:
     const char* _svgBinary;
     float _iconSize = -1.f;
     helpers::ClickableSurface _clickableSurface = helpers::ClickableSurface::ALL_AVAILABLE_AREA;
+    std::optional<juce::Colour> _colourOverride;
+    std::optional<juce::Colour> _backgroundColourOverride;
 
     std::vector<OnClickListener*> _listeners;
 

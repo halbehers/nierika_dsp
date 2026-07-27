@@ -715,8 +715,8 @@ def main() -> int:
 
     normalized_content, color_fixes = normalize_default_colors(raw_content)
     if color_fixes:
-        print(f"note: rewrote {color_fixes} literal fill/stroke=\"black\" occurrence(s) to \"#000000\" "
-              f"(required for theme-driven recoloring)")
+        print(f"note: rewrote {color_fixes} literal fill/stroke=\"black\"/\"white\" occurrence(s) to "
+              f"\"#000000\"/\"#ffffff\" (required for theme-driven recoloring)")
 
     ET.register_namespace('', SVG_NS)
     if "xlink:" in normalized_content:
