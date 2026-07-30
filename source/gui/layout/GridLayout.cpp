@@ -280,8 +280,8 @@ void GridLayout<T>::paintHandle(juce::Graphics& g, juce::Point<float> center, fl
     {
         for (int y = -1; y <= 1; y += 2)
         {
-            const auto dotX = (isHorizontal ? center.x : center.y) + x * 5;
-            const auto dotY = (isHorizontal ? center.y : center.x) + y * 2 - 1;
+            const auto dotX = (isHorizontal ? center.x : center.y) + static_cast<float>(x * 5);
+            const auto dotY = (isHorizontal ? center.y : center.x) + static_cast<float>(y * 2 - 1);
 
             g.fillEllipse(isHorizontal ? dotX : dotY, isHorizontal ? dotY : dotX, dotSize, dotSize);
         }
@@ -839,7 +839,7 @@ void GridLayout<T>::mouseMove(const juce::MouseEvent& event)
         const auto movableZone = item.getMovableZone(_movableConfiguration.movableZoneHeight);
         const auto relativeMovableZone = juce::Rectangle<float>(movableZone.getX() - _margin.left, movableZone.getY() - _margin.top, movableZone.getWidth(), movableZone.getHeight());
         
-        const auto relativeMousePosition = juce::Point<float>(event.getScreenPosition().x - _component.getScreenX(), event.getScreenPosition().y - _component.getScreenY());
+        const auto relativeMousePosition = juce::Point<float>(static_cast<float>(event.getScreenPosition().x - _component.getScreenX()), static_cast<float>(event.getScreenPosition().y - _component.getScreenY()));
 
         if (relativeMovableZone.contains(relativeMousePosition))
         {
@@ -883,7 +883,7 @@ void GridLayout<T>::mouseDrag(const juce::MouseEvent& event)
     if (!_currentMovableItemId.empty())
     {
         _paintDropableZones = true;
-        const auto relativeMousePosition = juce::Point<float>(event.getScreenPosition().x - _component.getScreenX(), event.getScreenPosition().y - _component.getScreenY());
+        const auto relativeMousePosition = juce::Point<float>(static_cast<float>(event.getScreenPosition().x - _component.getScreenX()), static_cast<float>(event.getScreenPosition().y - _component.getScreenY()));
         _dropableModeMousePosition = relativeMousePosition;
         _component.repaint();
     }
@@ -914,10 +914,10 @@ void GridLayout<T>::mouseUp(const juce::MouseEvent& event)
 
                 if (!canBeMovedInto(itemToSwapWith, itemToSwap)) break;
 
-                const float newItemRowPosition = itemToSwapWith.getRowPosition();
-                const float newItemColumnPosition = itemToSwapWith.getColumnPosition();
-                const float newItemWidth = itemToSwapWith.getWidth();
-                const float newItemHeight = itemToSwapWith.getHeight();
+                const float newItemRowPosition = static_cast<float>(itemToSwapWith.getRowPosition());
+                const float newItemColumnPosition = static_cast<float>(itemToSwapWith.getColumnPosition());
+                const float newItemWidth = static_cast<float>(itemToSwapWith.getWidth());
+                const float newItemHeight = static_cast<float>(itemToSwapWith.getHeight());
 
                 itemToSwapWith.setRowPosition(itemToSwap.getRowPosition());
                 itemToSwapWith.setColumnPosition(itemToSwap.getColumnPosition());

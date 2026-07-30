@@ -32,7 +32,7 @@ public:
     T getValueInPx(T availableSpaceInPx) {
         if (_unit == PIXEL) return clampValue(_value, availableSpaceInPx);
 
-        const T valueInPx = static_cast<int>(_value / 100.f * static_cast<float>(availableSpaceInPx));
+        const T valueInPx = static_cast<int>(static_cast<float>(_value) / 100.f * static_cast<float>(availableSpaceInPx));
 
         return clampValue(valueInPx, availableSpaceInPx);
     }

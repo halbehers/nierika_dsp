@@ -22,7 +22,6 @@ namespace nierika::gui::layout
         bool windowExists(const std::string& identifier, bool logNonExistance = false, const std::string& callMethod = "WindowManager::windowExists") const;
 
     private:
-        juce::Component& _parentComponent;
         std::unordered_map<std::string, std::unique_ptr<Window>> _windowsByID {};
 
         void resetVisibility();

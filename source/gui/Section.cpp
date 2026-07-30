@@ -117,7 +117,7 @@ void Section::displayBackground()
     const juce::Colour whiteColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
     const juce::Colour grayColor = Theme::newColor(Theme::ThemeColor::LIGHTER_SHADE).asJuce();
 
-    Component::displayBackground(juce::ColourGradient(whiteColor.withAlpha(0.1f), getWidth() / 2, 0.0, grayColor.withAlpha(0.1f), getWidth() / 2, getHeight(), false), Theme::getBorderRadius());
+    Component::displayBackground(juce::ColourGradient(whiteColor.withAlpha(0.1f), static_cast<float>(getWidth() / 2), 0.0f, grayColor.withAlpha(0.1f), static_cast<float>(getWidth() / 2), static_cast<float>(getHeight()), false), Theme::getBorderRadius());
 }
 
 void Section::paint(juce::Graphics& g)

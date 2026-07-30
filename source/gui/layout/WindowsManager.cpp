@@ -2,8 +2,7 @@
 
 namespace nierika::gui::layout {
 
-    WindowsManager::WindowsManager(juce::Component& parentComponent):
-        _parentComponent(parentComponent)
+    WindowsManager::WindowsManager(juce::Component& parentComponent)
     {
         parentComponent.addAndMakeVisible(this, 1000);
 

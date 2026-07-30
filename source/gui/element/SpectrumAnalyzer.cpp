@@ -69,12 +69,12 @@ void SpectrumAnalyzer::timerCallback()
     
     fillFFTDataGenerator(&_leftChannelFFTDataGenerator, _leftChannelFifo);
     fillPath(&_leftChannelFFTPath, &_leftChannelFFTDataGenerator);
-    
-    /*if (!_isMono)
+
+    if (!_isMono)
     {
         fillFFTDataGenerator(&_rightChannelFFTDataGenerator, _rightChannelFifo);
         fillPath(&_rightChannelFFTPath, &_rightChannelFFTDataGenerator);
-    }*/
+    }
 
     repaint();
 }
@@ -147,11 +147,17 @@ void SpectrumAnalyzer::paint(juce::Graphics& g)
     filledPath.lineTo(startX, bottom);
     filledPath.closeSubPath();
 
-    g.setGradientFill(juce::ColourGradient(Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce().withAlpha(0.2f), getWidth() / 2, 0.0, Theme::newColor(Theme::ThemeColor::TRANSPARENT_COLOR).asJuce(), getWidth() / 2, getHeight(), false));
+    g.setGradientFill(juce::ColourGradient(Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce().withAlpha(0.2f), static_cast<float>(getWidth() / 2), 0.0f, Theme::newColor(Theme::ThemeColor::TRANSPARENT_COLOR).asJuce(), static_cast<float>(getWidth() / 2), static_cast<float>(getHeight()), false));
     g.fillPath(filledPath);
 
     g.setColour(Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce().withAlpha(0.5f));
     g.strokePath(_leftChannelFFTPath, juce::PathStrokeType(1.f));
+
+    if (!_isMono)
+    {
+        g.setColour(Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce().withAlpha(0.3f));
+        g.strokePath(_rightChannelFFTPath, juce::PathStrokeType(1.f));
+    }
 }
 
 }

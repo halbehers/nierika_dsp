@@ -22,7 +22,6 @@ public:
     int getPadding() const;
 
 private:
-    Type _type;
     const char* _svgBinary;
     int _padding = 16;
 

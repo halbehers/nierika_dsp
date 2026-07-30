@@ -107,7 +107,7 @@ void TextInput::resetIndents()
 {
     const auto bounds = getLocalBounds();
     const auto height = static_cast<int>(Theme::resolveHeight(_heightType, static_cast<float>(bounds.getHeight())));
-    setIndents(height / 2, static_cast<int>(height / 5.33f));
+    setIndents(height / 2, static_cast<int>(static_cast<float>(height) / 5.33f));
 }
 
 }

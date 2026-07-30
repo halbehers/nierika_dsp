@@ -35,7 +35,7 @@ void Dial::drawRotarySlider
     auto dialBounds = juce::Rectangle<int>(x, y, width, height).toFloat();
     auto centre = dialBounds.getCentre();
     float sizeScalar = 0.7f;
-    float maxSize = std::min(dialBounds.getWidth() * sizeScalar, (dialBounds.getHeight() - _labelHeight - 9.f) * sizeScalar) ;
+    float maxSize = std::min(dialBounds.getWidth() * sizeScalar, (dialBounds.getHeight() - Theme::getFontSizeInPixels(_labelHeight) - 9.f) * sizeScalar) ;
 
     /** Dot color*/
     g.setColour(slider.isEnabled() ? whiteColor : transparentColor);
@@ -140,7 +140,7 @@ void Dial::drawRotarySlider
     /** Dial tick thickness*/
     g.strokePath(dialTick, juce::PathStrokeType(lineWidth * 0.75f, juce::PathStrokeType::curved, juce::PathStrokeType::rounded));
     
-    _sliderWidth = slider.getWidth();
+    _sliderWidth = static_cast<float>(slider.getWidth());
 }
 
 void Dial::drawLabel (juce::Graphics& g, juce::Label& label)

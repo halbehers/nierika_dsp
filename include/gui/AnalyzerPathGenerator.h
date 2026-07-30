@@ -46,7 +46,7 @@ public:
                 const auto binFreq = static_cast<float>(binNum) * binWidth;
                 const auto normalizedBinX = juce::mapFromLog10(binFreq, 1.f, 20000.f);
                 int binX = static_cast<int>(std::floor(normalizedBinX * width));
-                p.lineTo(binX, y);
+                p.lineTo(static_cast<float>(binX), y);
             }
         }
         

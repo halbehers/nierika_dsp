@@ -66,7 +66,7 @@ public:
 
     int getHeight() { return static_cast<int>(Theme::resolveHeight(_heightType, static_cast<float>(getLocalBounds().getHeight()))); }
 
-    void setRounded(bool isRounded) { setBorderRadius(getHeight() / 2); }
+    void setRounded(bool isRounded) { if (isRounded) setBorderRadius(static_cast<float>(getHeight()) / 2.f); else resetBorderRadius(); }
 
 private:
     std::vector<std::string> _labels;

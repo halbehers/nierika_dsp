@@ -40,7 +40,7 @@ void ComboBox::drawComboBox
     const auto color = comboBox.isEnabled() ? backgroundColor : disabledColor;
 
     g.setColour(color);
-    g.fillRoundedRectangle(0.0, 0.0, width, height, _parent.getBorderRadius());
+    g.fillRoundedRectangle(0.0f, 0.0f, static_cast<float>(width), static_cast<float>(height), _parent.getBorderRadius());
 
     g.setColour(borderColor);
     g.drawRoundedRectangle(comboBox.getLocalBounds().toFloat(), _parent.getBorderRadius(), 1.f);
@@ -142,6 +142,11 @@ void ComboBox::getIdealPopupMenuItemSize
 	int& idealHeight
 )
 {
+    (void) text;
+    (void) isSeparator;
+    (void) standardMenuItemHeight;
+    (void) idealWidth;
+
     // Popup item height is always fixed, independent of the combo box's own HeightType.
     idealHeight = static_cast<int>(Theme::getThinHeight());
 }

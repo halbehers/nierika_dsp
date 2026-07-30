@@ -68,7 +68,7 @@ public:
     void resetBorderColour() { _borderOverride = juce::Colour(); }
     juce::Colour getBorderColour() const { return _borderOverride.value_or(Theme::newColor(Theme::ThemeColor::BORDER).asJuce().withAlpha(0.2f)); }
 
-    void setRounded(bool isRounded) { setBorderRadius(getHeight() / 2); }
+    void setRounded(bool isRounded) { if (isRounded) setBorderRadius(static_cast<float>(getHeight()) / 2.f); else resetBorderRadius(); }
 
 
 protected:

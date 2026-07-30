@@ -30,14 +30,14 @@ void Tooltip::paint (juce::Graphics& g)
 {
     const auto whiteColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE);
 
-    g.setFont(Theme::newFont(Theme::LIGHT).withHeight(getHeight() - getHeight() / 4));
+    g.setFont(Theme::newFont(Theme::LIGHT).withHeight(static_cast<float>(getHeight() - getHeight() / 4)));
     g.setColour(whiteColor.asJuce());
 
     g.drawFittedText(_tooltip, 28, 0, getWidth(), getHeight(), juce::Justification::left, 1);
 
     const auto grayColor = Theme::newColor(Theme::ThemeColor::LIGHTER_SHADE);
-    g.setGradientFill(juce::ColourGradient(whiteColor.asJuce().withAlpha(0.05f), getWidth() / 2, 0.0, grayColor.asJuce().withAlpha(0.05f), getWidth() / 2, getHeight(), false));
-    g.fillRoundedRectangle(0.f, 0.f, getWidth(), getHeight(), 8.f);
+    g.setGradientFill(juce::ColourGradient(whiteColor.asJuce().withAlpha(0.05f), static_cast<float>(getWidth() / 2), 0.0f, grayColor.asJuce().withAlpha(0.05f), static_cast<float>(getWidth() / 2), static_cast<float>(getHeight()), false));
+    g.fillRoundedRectangle(0.f, 0.f, static_cast<float>(getWidth()), static_cast<float>(getHeight()), 8.f);
 
     if (!_tooltip.empty())
     {

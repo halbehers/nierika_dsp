@@ -31,10 +31,10 @@ void HorizontalSlider::drawLinearSlider(
     const int thumbSize = computeThumbSize(height);
 
     g.setColour(trackColor);
-    g.fillRoundedRectangle(x, y + height / 2 - trackSize / 2, width, trackSize, 1.f);
+    g.fillRoundedRectangle(static_cast<float>(x), static_cast<float>(y + height / 2 - trackSize / 2), static_cast<float>(width), trackSize, 1.f);
 
     g.setColour(slider.isEnabled() ? thumbColor : disabledColor);
-    g.fillRoundedRectangle(computeThumbX(x, width, sliderPos, thumbSize) + 3, y - 1, thumbSize, height + 2, 4.f);
+    g.fillRoundedRectangle(static_cast<float>(computeThumbX(x, width, sliderPos, thumbSize) + 3), static_cast<float>(y - 1), static_cast<float>(thumbSize), static_cast<float>(height + 2), 4.f);
 }
 
 int HorizontalSlider::computeThumbSize(int height)

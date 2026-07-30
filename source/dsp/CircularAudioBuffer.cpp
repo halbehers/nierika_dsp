@@ -68,7 +68,7 @@ void CircularAudioBuffer::process(juce::AudioBuffer<float>& buffer)
             const auto w = _writeHeadBuffer[static_cast<std::size_t>(sample)];
             channelBuffer[w] = channelSamples[static_cast<std::size_t>(sample)];
             auto r = static_cast<float>(w) - _delayLength;
-            if (r < 0.f) r+= _delaySize;
+            if (r < 0.f) r += static_cast<float>(_delaySize);
             channelSamples[sample] = channelBuffer[static_cast<int>(r)];
         }
     }

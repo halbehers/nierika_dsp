@@ -7,7 +7,6 @@ namespace nierika::gui::element
 
 IncrementalButton::IncrementalButton(const juce::String& buttonName, Type type):
     juce::ArrowButton(buttonName, 0.0f, Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce()),
-    _type(type),
     _svgBinary(type == Type::PLUS ? Icons::getPlus() : Icons::getMinus())
 {
     
@@ -16,7 +15,6 @@ IncrementalButton::IncrementalButton(const juce::String& buttonName, Type type):
 
 IncrementalButton::IncrementalButton(Type type):
     juce::ArrowButton(type == Type::PLUS ? "Plus" : "Minus", 0.0f, Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce()),
-    _type(type),
     _svgBinary(type == Type::PLUS ? Icons::getPlus() : Icons::getMinus())
 {
     

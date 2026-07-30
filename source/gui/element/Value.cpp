@@ -71,8 +71,8 @@ void Value::resized()
     const int width = getLocalBounds().getWidth();
     const float realGap = _gap - 4.f;
 
-    _value.setBounds(getLocalBounds().withRight(static_cast<int>(x + (width - width / 2 - realGap / 2))));
-    _unit.setBounds(getLocalBounds().withLeft(static_cast<int>(x + (width - width / 2 + realGap / 2))));
+    _value.setBounds(getLocalBounds().withRight(static_cast<int>(static_cast<float>(x) + static_cast<float>(width - width / 2) - realGap / 2.f)));
+    _unit.setBounds(getLocalBounds().withLeft(static_cast<int>(static_cast<float>(x) + static_cast<float>(width - width / 2) + realGap / 2.f)));
 }
 
 void Value::setFontSize(Theme::FontSize fontSize)

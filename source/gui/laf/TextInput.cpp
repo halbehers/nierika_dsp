@@ -12,13 +12,19 @@ TextInput::TextInput(const element::TextInput& parent):
 
 void TextInput::fillTextEditorBackground(juce::Graphics& g, int width, int height, juce::TextEditor& textEditor)
 {
+    (void) width;
+    (void) height;
+
     const auto backgroundBounds = textEditor.getLocalBounds().toFloat();
     g.setColour(_parent.getBackgroundColour());
     g.fillRoundedRectangle(backgroundBounds, _parent.getBorderRadius());
 }
 
-void TextInput::drawTextEditorOutline(juce::Graphics& g, int width, int	height, juce::TextEditor& textEditor)
+void TextInput::drawTextEditorOutline(juce::Graphics& g, int width, int height, juce::TextEditor& textEditor)
 {
+    (void) width;
+    (void) height;
+
     g.setColour(_parent.getBorderColour());
     g.drawRoundedRectangle(textEditor.getLocalBounds().toFloat(), _parent.getBorderRadius(), 1.f);
 }

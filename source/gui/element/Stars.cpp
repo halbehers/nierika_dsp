@@ -27,8 +27,8 @@ void Stars::computeSmallStars()
     {
         for (int y = 0; y < yCount; ++y)
         {
-            float xPosition = std::rand() % _width + 1;
-            float yPosition = std::rand() % _height + 1;
+            float xPosition = static_cast<float>(std::rand() % _width + 1);
+            float yPosition = static_cast<float>(std::rand() % _height + 1);
             _smallStarPositions.push_back(juce::Point<float>(xPosition, yPosition));
         }
     }
@@ -46,8 +46,8 @@ void Stars::computeMediumStars()
     {
         for (int y = 0; y < yCount; ++y)
         {
-            float xPosition = std::rand() % _width + 1;
-            float yPosition = std::rand() % _height + 1;
+            float xPosition = static_cast<float>(std::rand() % _width + 1);
+            float yPosition = static_cast<float>(std::rand() % _height + 1);
             _mediumStarPositions.push_back(juce::Point<float>(xPosition, yPosition));
         }
     }
@@ -65,8 +65,8 @@ void Stars::computeLargeStars()
     {
         for (int y = 0; y < yCount; ++y)
         {
-            float xPosition = std::rand() % _width + 1;
-            float yPosition = std::rand() % _height + 1;
+            float xPosition = static_cast<float>(std::rand() % _width + 1);
+            float yPosition = static_cast<float>(std::rand() % _height + 1);
             _largeStarPositions.push_back(juce::Point<float>(xPosition, yPosition));
         }
     }

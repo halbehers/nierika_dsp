@@ -38,8 +38,6 @@ public:
 
 private:
     float _sliderWidth = 0.f;
-    bool sliderIsDial = true;
-    bool isReversed = false;
     juce::String _sliderName = "";
     juce::String _shortLabel = "";
     LabelVisibility _labelVisibility = VISIBLE;

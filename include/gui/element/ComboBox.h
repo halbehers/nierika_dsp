@@ -49,9 +49,9 @@ public:
     void resetBorderRadius() { _borderRadiusOverride = -1; }
     float getBorderRadius() const { return _borderRadiusOverride >= 0 ? _borderRadiusOverride : Theme::getBorderRadius(); }
 
-    void setRounded(bool isRounded) { setBorderRadius(getHeight() / 2); }
+    void setRounded(bool isRounded) { if (isRounded) setBorderRadius(static_cast<float>(getHeight()) / 2.f); else resetBorderRadius(); }
 
-    void setTextHeight(int textHeight) { _textHeightOverride = textHeight; _comboBox.lookAndFeelChanged(); }
+    void setTextHeight(int textHeight) { _textHeightOverride = static_cast<float>(textHeight); _comboBox.lookAndFeelChanged(); }
     void setTextHeight(const Theme::FontSize size) { _textHeightOverride = Theme::getFontSizeInPixels(size); _comboBox.lookAndFeelChanged(); }
     void resetTextHeight() { _textHeightOverride = -1; _comboBox.lookAndFeelChanged(); }
     float getTextHeight() const { return _textHeightOverride >= 0.f ? _textHeightOverride : Theme::getFontSizeInPixels(_heightType == Theme::HeightType::THIN ? Theme::SMALL : Theme::PARAGRAPH); }

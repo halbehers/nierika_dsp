@@ -26,6 +26,7 @@ TextButton::TextButton(const element::TextButton& parent):
 juce::Font TextButton::getTextButtonFont(juce::TextButton& button, int buttonHeight)
 {
     (void) button;
+    (void) buttonHeight;
     return Theme::newFont(Theme::REGULAR, Theme::CAPTION);
 }
 
