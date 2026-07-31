@@ -67,15 +67,18 @@ void GridLayout<T>::reset()
 {
     _gridRatioRows.clear();
     _gridRatioColumns.clear();
-    
+
     _gridRows.clear();
     _gridColumns.clear();
-    
+
     _gridResizedRatioRows.clear();
     _gridResizedRatioColumns.clear();
 
     _fixedRowHeights.clear();
     _fixedColumnWidths.clear();
+
+    _itemsById.clear();
+    _componentsById.clear();
 }
 
 template<typename T>
