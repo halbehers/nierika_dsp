@@ -12048,6 +12048,38 @@ static const unsigned char temp_binary_data_37[] =
 
 const char* CaptureInCircleFrame4_svg = (const char*) temp_binary_data_37;
 
+//================== arrow_left.svg ==================
+static const unsigned char temp_binary_data_38[] =
+"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\">\n  <path fill=\"#000000\" d=\"M16 4 L8 12 L16 20 Z\"/>\n</svg>\n";
+
+const char* ArrowLeft_svg = (const char*) temp_binary_data_38;
+
+//================== arrow_right.svg ==================
+static const unsigned char temp_binary_data_39[] =
+"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\">\n  <path fill=\"#000000\" d=\"M8 4 L16 12 L8 20 Z\"/>\n</svg>\n";
+
+const char* ArrowRight_svg = (const char*) temp_binary_data_39;
+
+//================== play.svg ==================
+static const unsigned char temp_binary_data_40[] =
+"<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M23.75 14.7012C24.7499 15.2785 24.7499 16.7215 23.75 17.2988L10.25 25.0937C9.25004 25.6709 8 24.9486 8 23.7939L8 8.20605C8 7.05144 9."
+"25003 6.32912 10.25 6.90625L23.75 14.7012Z\" stroke=\"#000000\" stroke-width=\"3\"/>\n</svg>\n";
+
+const char* Play_svg = (const char*) temp_binary_data_40;
+
+//================== pause.svg ==================
+static const unsigned char temp_binary_data_41[] =
+"<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<line x1=\"11.5\" y1=\"7.5\" x2=\"11.5\" y2=\"24.5\" stroke=\"#000000\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n<line x1=\"20.5\" y1=\"7"
+".5\" x2=\"20.5\" y2=\"24.5\" stroke=\"#000000\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n</svg>\n";
+
+const char* Pause_svg = (const char*) temp_binary_data_41;
+
+//================== stop.svg ==================
+static const unsigned char temp_binary_data_42[] =
+"<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<rect x=\"7.5\" y=\"7.5\" width=\"17\" height=\"17\" rx=\"2.5\" stroke=\"#000000\" stroke-width=\"3\"/>\n</svg>\n";
+
+const char* Stop_svg = (const char*) temp_binary_data_42;
+
 const char* getNamedResource (const char* resourceNameUTF8, int& numBytes);
 const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
 {
@@ -12097,6 +12129,11 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
         case 0x5945d185:  numBytes = 2595; return CaptureInCircleFrame2_svg;
         case 0x5953e906:  numBytes = 2600; return CaptureInCircleFrame3_svg;
         case 0x59620087:  numBytes = 2578; return CaptureInCircleFrame4_svg;
+        case 0x8c2c2135:  numBytes = 118; return ArrowLeft_svg;
+        case 0x340233d8:  numBytes = 117; return ArrowRight_svg;
+        case 0x73db22f9:  numBytes = 325; return Play_svg;
+        case 0xa8e7487b:  numBytes = 311; return Pause_svg;
+        case 0x6a1588c7:  numBytes = 193; return Stop_svg;
         default: break;
     }
 
@@ -12143,7 +12180,12 @@ const char* namedResourceList[] =
     "CaptureInCircleFrame1_svg",
     "CaptureInCircleFrame2_svg",
     "CaptureInCircleFrame3_svg",
-    "CaptureInCircleFrame4_svg"
+    "CaptureInCircleFrame4_svg",
+    "ArrowLeft_svg",
+    "ArrowRight_svg",
+    "Play_svg",
+    "Pause_svg",
+    "Stop_svg"
 };
 
 const char* originalFilenames[] =
@@ -12185,7 +12227,12 @@ const char* originalFilenames[] =
     "captureInCircle_frame1.svg",
     "captureInCircle_frame2.svg",
     "captureInCircle_frame3.svg",
-    "captureInCircle_frame4.svg"
+    "captureInCircle_frame4.svg",
+    "arrow_left.svg",
+    "arrow_right.svg",
+    "play.svg",
+    "pause.svg",
+    "stop.svg"
 };
 
 const char* getNamedResourceOriginalFilename (const char* resourceNameUTF8);

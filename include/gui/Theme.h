@@ -27,6 +27,7 @@
 
 #define COLOR_PRIMARY COLOR_BLUE_400
 #define COLOR_ACCENT COLOR_TURQUOISE_200
+#define COLOR_SECONDARY_ACCENT 0xFFE17C8C
 #define COLOR_TEXT COLOR_WHITE
 #define COLOR_INVERTED_TEXT COLOR_BLACK
 #define COLOR_DISABLED COLOR_GRAY_100
@@ -48,6 +49,9 @@
 #define DEFAULT_BORDER_RADIUS 17.f
 #define DEFAULT_THIN_HEIGHT 32.f
 #define DEFAULT_LARGE_HEIGHT 40.f
+#define DEFAULT_THIN_DIAL_HEIGHT 28.f
+#define DEFAULT_MEDIUM_DIAL_HEIGHT 32.f
+#define DEFAULT_LARGE_DIAL_HEIGHT 36.f
 
 namespace nierika::gui
 {
@@ -70,6 +74,7 @@ public:
         BORDER,
         PRIMARY,
         ACCENT,
+        SECONDARY_ACCENT,
         TEXT,
         INVERTED_TEXT,
         DISABLED,
@@ -94,8 +99,8 @@ public:
         SUBTITLE,
         HEADING,
         CAPTION,
-        PARAGRAPH,
         LABEL,
+        PARAGRAPH,
         SMALL
     };
 
@@ -118,6 +123,20 @@ public:
         AUTO
     };
 
+    enum class DialHeightType
+    {
+        THIN,
+        MEDIUM,
+        LARGE,
+        AUTO
+    };
+
+    enum class TabDesign
+    {
+        BUTTON,
+        TAB
+    };
+
     using Palette = std::unordered_map<ThemeColor, juce::Colour>;
     using PaletteSet = std::unordered_map<Mode, Palette>;
     using FontSet = std::unordered_map<FontWeight, juce::Font>;
@@ -134,6 +153,9 @@ public:
         std::optional<float> borderRadius;
         std::optional<float> thinHeight;
         std::optional<float> largeHeight;
+        std::optional<float> dialThinHeight;
+        std::optional<float> dialMediumHeight;
+        std::optional<float> dialLargeHeight;
     };
 
     class Color
@@ -175,6 +197,14 @@ public:
     [[nodiscard]] static float getLargeHeight();
     // Resolves a HeightType to a concrete pixel height; autoHeight is used for AUTO.
     [[nodiscard]] static float resolveHeight(HeightType type, float autoHeight);
+    static void setDialThinHeight(float height);
+    [[nodiscard]] static float getDialThinHeight();
+    static void setDialMediumHeight(float height);
+    [[nodiscard]] static float getDialMediumHeight();
+    static void setDialLargeHeight(float height);
+    [[nodiscard]] static float getDialLargeHeight();
+    // Resolves a HeightType to a concrete pixel height; autoHeight is used for AUTO.
+    [[nodiscard]] static float resolveDialHeight(DialHeightType type, float autoHeight);
     static void resetToDefaults();
 
     // Fires whenever the active palette/fonts change, so live components can
@@ -200,6 +230,9 @@ private:
     static float _borderRadius;
     static float _thinHeight;
     static float _largeHeight;
+    static float _dialThinHeight;
+    static float _dialMediumHeight;
+    static float _dialLargeHeight;
     static std::unordered_map<FontSize, float> defaultFontSizesToPixels;
     static std::unordered_map<FontSize, float> monospacedFontSizesToPixels;
     static juce::ChangeBroadcaster _changeBroadcaster;

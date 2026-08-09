@@ -34,6 +34,8 @@ Section::Section(const std::string& identifier, dsp::ParameterManager& parameter
     addChildComponent(_fxSequencerButton, 100);
     _fxSequencer->registerSection(getComponentID().toStdString());
     _fxSequencerButton.addOnValueChangedListener(this);
+
+    setSectionNameFont(_sectionNameFontWeight, _sectionNameFontSize);
 }
 
 Section::~Section()
@@ -89,11 +91,28 @@ void Section::setSectionName(const std::string& name)
     if (!name.empty())
     {
         addAndMakeVisible(_nameLabel);
-        _nameLabel.setFont(Theme::newFont(Theme::MEDIUM, Theme::CAPTION));
+        _nameLabel.setFont(Theme::newFont(_sectionNameFontWeight, _sectionNameFontSize));
         _nameLabel.setColour(juce::Label::ColourIds::textColourId, Theme::newColor(Theme::ThemeColor::TEXT).asJuce());
         _nameLabel.setJustificationType(juce::Justification::centred);
         setHasHeader(true);
     }
+}
+
+void Section::setSectionNameFontSize(Theme::FontSize fontSize)
+{
+    _sectionNameFontSize = fontSize;
+    setSectionNameFont(_sectionNameFontWeight, _sectionNameFontSize);
+}
+
+void Section::setSectionNameFontWeight(Theme::FontWeight fontWeight)
+{
+    _sectionNameFontWeight = fontWeight;
+    setSectionNameFont(_sectionNameFontWeight, _sectionNameFontSize);
+}
+
+void Section::setSectionNameFont(Theme::FontWeight fontWeight, Theme::FontSize fontSize)
+{
+    _nameLabel.setFont(Theme::newFont(fontWeight, fontSize));
 }
 
 void Section::setFXSequencer(dsp::FXSequencer* fxSequencer)
@@ -138,15 +157,49 @@ void Section::resized()
     }
     if (_nameLabel.getText() != "")
     {
-        _nameLabel.setBounds(0, 10, getWidth(), 8);
+        // Full header height (not a tiny fixed 8px sliver) so the label's own centred
+        // justification actually has room to render without clipping top/bottom.
+        _nameLabel.setBounds(0, 0, getWidth(), static_cast<int>(HEADER_HEIGHT));
     }
 
     getActiveLayout().resized();
 
     if (_tabs.count() > 1)
     {
-        _tabs.setBounds(0, getHeight() - static_cast<int>(FOOTER_HEIGHT), getWidth(), static_cast<int>(FOOTER_HEIGHT));
+        const auto footerHeight = getFooterHeight();
+        _tabs.setBounds(0, getHeight() - static_cast<int>(footerHeight), getWidth(), static_cast<int>(footerHeight));
     }
+
+    // These four are all added by this base class's own constructor, which - being a base class
+    // constructor - always runs before any derived class's own constructor body gets a chance to
+    // addAndMakeVisible() its real content. addAndMakeVisible()'s default zOrder (-1) inserts new
+    // children at the *front* of the z-order (confirmed against JUCE's own Component::
+    // addChildComponent doc and its getComponentAt hit-test traversal, which checks front-to-back
+    // - i.e. last-added first), so every derived section's own content silently ends up in front
+    // of these header/footer controls, intercepting clicks in any overlapping region even without
+    // any visible corruption (the controls still paint fine since paint order matches hit-test
+    // order - only interaction breaks). Reasserting front position here, on every resize, is the
+    // standard, idiomatic JUCE fix for "these overlay controls must always stay on top."
+    //
+    // Order matters: toFront() puts each call's target at the very front, so whichever of these
+    // runs LAST ends up frontmost. _nameLabel spans the full header width (including the area
+    // under _enabledButton/_fxSequencerButton), so it must be sent to front FIRST - otherwise it
+    // silently sits on top of the header buttons and swallows their clicks (a disabled _nameLabel
+    // still intercepts the hit-test even though it visibly does nothing, since JUCE hit-testing
+    // only checks visibility, not isEnabled()).
+    if (_nameLabel.getText() != "") _nameLabel.toFront(false);
+    if (_tabs.count() > 1) _tabs.toFront(false);
+    if (_isBypassable) _enabledButton.toFront(false);
+    if (_isFXSequencerActivable) _fxSequencerButton.toFront(false);
+}
+
+float Section::getFooterHeight() const
+{
+    // Theme::resolveHeight only resolves the tab buttons' own row height - it knows nothing
+    // about Tabs' internal top/bottom margin, which still has to fit inside whatever we reserve
+    // here or the buttons overflow the strip we hand back to them.
+    const auto tabsMargin = _tabs.getMargin();
+    return Theme::resolveHeight(_tabs.getHeightType(), FOOTER_HEIGHT) + tabsMargin.top + tabsMargin.bottom;
 }
 
 juce::Rectangle<int> Section::getBypassButtonBounds()
@@ -218,9 +271,35 @@ void Section::switchPanel(const std::string& panelID)
         return;
     }
     getActiveLayout().setVisible(false);
-    _tabs.setSelectedTabID(panelID);
+
+    // _selectedPanelID must be updated *before* _tabs.setSelectedTabID(), not after: that call
+    // synchronously fires Tabs::OnTabChangedListener, which Section itself implements as
+    // onTabChanged() -> switchPanel(panelID) - a reentrant call. If _selectedPanelID were still the
+    // old value at that point, the reentrancy guard above wouldn't catch it, and the whole body
+    // (including the listener notification below) would run twice per external switchPanel() call.
     _selectedPanelID = panelID;
+    _tabs.setSelectedTabID(panelID);
     getActiveLayout().setVisible(true);
+
+    // A newly-activated panel's grid has never had resized() called on it while it was the
+    // active one (Section::resized() only ever calls getActiveLayout().resized(), so an inactive
+    // panel's items sit at their default (0,0,0,0) bounds until now) - without this, switching to
+    // a panel whose content was registered before the Section itself was ever resized leaves
+    // every item in that panel invisible-by-zero-size until the next unrelated window resize.
+    getActiveLayout().resized();
+
+    for (auto* listener : _panelChangedListeners)
+        listener->onPanelChanged(panelID);
+}
+
+void Section::addOnPanelChangedListener(OnPanelChangedListener* listener)
+{
+    _panelChangedListeners.push_back(listener);
+}
+
+void Section::removeListener(OnPanelChangedListener* listener)
+{
+    _panelChangedListeners.erase(std::remove(_panelChangedListeners.begin(), _panelChangedListeners.end(), listener), _panelChangedListeners.end());
 }
 
 void Section::onTabChanged(const std::string& newSelectedTabID)
@@ -341,6 +420,181 @@ void Section::setLayoutMovableConfiguration(layout::GridLayout<Component>::Movab
         layout->setMovableConfiguration(configuration);
 }
 
+void Section::setTabsBackgroundColour(juce::Colour colour)
+{
+    _tabs.setBackgroundColour(colour);
+}
+
+void Section::resetTabsBackgroundColour()
+{
+    _tabs.resetBackgroundColour();
+}
+
+juce::Colour Section::getTabsBackgroundColour() const
+{
+    return _tabs.getBackgroundColour();
+}
+
+void Section::setTabsSelectedBackgroundColour(juce::Colour colour)
+{
+    _tabs.setSelectedBackgroundColour(colour);
+}
+
+void Section::resetTabsSelectedBackgroundColour()
+{
+    _tabs.resetSelectedBackgroundColour();
+}
+
+juce::Colour Section::getTabsSelectedBackgroundColour() const
+{
+    return _tabs.getSelectedBackgroundColour();
+}
+
+void Section::setTabsBorderColour(juce::Colour colour)
+{
+    _tabs.setBorderColour(colour);
+}
+
+void Section::resetTabsBorderColour()
+{
+    _tabs.resetBorderColour();
+}
+
+juce::Colour Section::getTabsBorderColour() const
+{
+    return _tabs.getBorderColour();
+}
+
+void Section::setTabsSelectedBorderColour(juce::Colour colour)
+{
+    _tabs.setSelectedBorderColour(colour);
+}
+
+void Section::resetTabsSelectedBorderColour()
+{
+    _tabs.resetSelectedBorderColour();
+}
+
+juce::Colour Section::getTabsSelectedBorderColour() const
+{
+    return _tabs.getSelectedBorderColour();
+}
+
+void Section::setTabsBorderRadius(float radius)
+{
+    _tabs.setBorderRadius(radius);
+}
+
+void Section::resetTabsBorderRadius()
+{
+    _tabs.resetBorderRadius();
+}
+
+float Section::getTabsBorderRadius() const
+{
+    return _tabs.getBorderRadius();
+}
+
+void Section::setTabsFontSize(Theme::FontSize size)
+{
+    _tabs.setFontSize(size);
+}
+
+void Section::resetTabsFontSize()
+{
+    _tabs.resetFontSize();
+}
+
+Theme::FontSize Section::getTabsFontSize() const
+{
+    return _tabs.getFontSize();
+}
+
+void Section::setTabsFontWeight(Theme::FontWeight weight)
+{
+    _tabs.setFontWeight(weight);
+}
+
+void Section::resetTabsFontWeight()
+{
+    _tabs.resetFontWeight();
+}
+
+Theme::FontWeight Section::getTabsFontWeight() const
+{
+    return _tabs.getFontWeight();
+}
+
+void Section::setTabsFont(Theme::FontWeight weight, Theme::FontSize size)
+{
+    _tabs.setFont(weight, size);
+}
+
+void Section::resetTabsFont()
+{
+    _tabs.resetFont();
+}
+
+void Section::setTabsHeightType(Theme::HeightType type)
+{
+    _tabs.setHeightType(type);
+
+    // The footer's own padding was sized off the previous height, so it needs recomputing
+    // against the new one - otherwise the tab bar and the padding reserved for it drift apart.
+    if (_hasFooter) setHasFooter(true);
+    resized();
+}
+
+Theme::HeightType Section::getTabsHeightType() const
+{
+    return _tabs.getHeightType();
+}
+
+void Section::setTabsDesign(Theme::TabDesign design)
+{
+    _tabs.setTabDesign(design);
+
+    // Margin (part of Tabs' own outer bounds) changes with design, and getFooterHeight() reads
+    // it - recompute the reserved footer padding exactly like setTabsHeightType does.
+    if (_hasFooter) setHasFooter(true);
+    resized();
+}
+
+Theme::TabDesign Section::getTabsDesign() const
+{
+    return _tabs.getTabDesign();
+}
+
+void Section::setTabsTextColour(juce::Colour colour)
+{
+    _tabs.setTextColour(colour);
+}
+
+void Section::resetTabsTextColour()
+{
+    _tabs.resetTextColour();
+}
+
+juce::Colour Section::getTabsTextColour() const
+{
+    return _tabs.getTextColour();
+}
+
+void Section::setTabsSelectedTextColour(juce::Colour colour)
+{
+    _tabs.setSelectedTextColour(colour);
+}
+
+void Section::resetTabsSelectedTextColour()
+{
+    _tabs.resetSelectedTextColour();
+}
+
+juce::Colour Section::getTabsSelectedTextColour() const
+{
+    return _tabs.getSelectedTextColour();
+}
+
 const std::vector<std::reference_wrapper<Component>>& Section::getRegisteredComponents(const std::string& panelID) const
 {
         return _registeredComponentsByPanelID.at(panelID);
@@ -366,7 +620,7 @@ bool Section::hasHeader() const
 void Section::setHasFooter(bool hasFooter)
 {
     _hasFooter = hasFooter;
-    if (_hasFooter) withBottomPadding(FOOTER_HEIGHT);
+    if (_hasFooter) withBottomPadding(getFooterHeight());
     else setPadding(0.f);
 }
 

@@ -9,12 +9,6 @@ AppLayout::AppLayout(dsp::ParameterManager& parameterManager, const std::string&
     addChildComponent(_tooltip);
     if (!pluginEnabledParameterID.empty())
         setBypassable(true);
-
-    // auto dialog = std::make_unique<Dialog>("dialog", _windowManager);
-    // dialog->setTitle("Dialog title");
-    // dialog->setText("Ceci est une info qui ne sert a rien, enjoy la vida !");
-    // _windowManager.createWindow(std::move(dialog));
-    // _windowManager.showWindow("dialog");
 }
 
 void AppLayout::displayTooltip()
@@ -30,7 +24,6 @@ void AppLayout::paint(juce::Graphics& g)
 void AppLayout::resized()
 {
     Section::resized();
-    // _windowManager.setBounds(getLocalBounds());
 
     _tooltip.setBounds(getLayout().getRectangleAtBottom(20.f, 16.f).toNearestInt());
 }

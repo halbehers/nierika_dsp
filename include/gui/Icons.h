@@ -24,6 +24,11 @@ public:
     static const char* getCapture() { return NierikaDSPBinaryData::Capture_svg; }
     static const char* getCaptureInCircle() { return NierikaDSPBinaryData::CaptureInCircle_svg; }
     static const char* getStopInCircle() { return NierikaDSPBinaryData::StopInCircle_svg; }
+    static const char* getArrowLeft() { return NierikaDSPBinaryData::ArrowLeft_svg; }
+    static const char* getArrowRight() { return NierikaDSPBinaryData::ArrowRight_svg; }
+    static const char* getPlay() { return NierikaDSPBinaryData::Play_svg; }
+    static const char* getPause() { return NierikaDSPBinaryData::Pause_svg; }
+    static const char* getStop() { return NierikaDSPBinaryData::Stop_svg; }
 };
 
 }

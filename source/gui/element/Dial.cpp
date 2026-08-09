@@ -56,6 +56,13 @@ void Dial::setup()
     _slider.setComponentID(getComponentID());
 }
 
+void Dial::setAccentColor(Theme::ThemeColor colorId)
+{
+    const auto color = Theme::newColor(colorId).asJuce();
+    _slider.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, color);
+    _slider.setColour(juce::Slider::ColourIds::trackColourId, color);
+}
+
 void Dial::setShortLabel(const juce::String& shortLabel)
 {
     _lookAndFeel.setShortLabel(shortLabel);

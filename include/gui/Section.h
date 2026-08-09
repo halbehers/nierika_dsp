@@ -19,6 +19,12 @@ namespace nierika::gui
 class Section : public Component, public element::SVGToggle::OnValueChangedListener, public element::Tabs::OnTabChangedListener
 {
 public:
+    struct OnPanelChangedListener
+    {
+        virtual ~OnPanelChangedListener() = default;
+        virtual void onPanelChanged(const std::string& newPanelID) = 0;
+    };
+
     Section(const std::string& identifier, dsp::ParameterManager& parameterManager, const std::string& sectionEnabledParameterID = "",  const std::string& sectionFXSequencerActivationParameterID = "");
     ~Section() override;
 
@@ -32,6 +38,9 @@ public:
     void setBypass(bool isBypassed);
 
     void setSectionName(const std::string& name);
+    void setSectionNameFontSize(Theme::FontSize fontSize);
+    void setSectionNameFontWeight(Theme::FontWeight fontWeight);
+    void setSectionNameFont(Theme::FontWeight fontWeight, Theme::FontSize fontSize);
 
     void setFXSequencer(dsp::FXSequencer* fxSequencer);
     void registerComponent(Component& component, const std::string& panelID = MAIN_PANEL_ID);
@@ -50,6 +59,51 @@ public:
     void setLayoutResizableLineConfiguration(layout::GridLayout<Component>::ResizableLineConfiguration configuration);
     void setLayoutMovableConfiguration(layout::GridLayout<Component>::MovableConfiguration configuration);
 
+    void setTabsBackgroundColour(juce::Colour colour);
+    void resetTabsBackgroundColour();
+    juce::Colour getTabsBackgroundColour() const;
+
+    void setTabsSelectedBackgroundColour(juce::Colour colour);
+    void resetTabsSelectedBackgroundColour();
+    juce::Colour getTabsSelectedBackgroundColour() const;
+
+    void setTabsBorderColour(juce::Colour colour);
+    void resetTabsBorderColour();
+    juce::Colour getTabsBorderColour() const;
+
+    void setTabsSelectedBorderColour(juce::Colour colour);
+    void resetTabsSelectedBorderColour();
+    juce::Colour getTabsSelectedBorderColour() const;
+
+    void setTabsBorderRadius(float radius);
+    void resetTabsBorderRadius();
+    float getTabsBorderRadius() const;
+
+    void setTabsFontSize(Theme::FontSize size);
+    void resetTabsFontSize();
+    Theme::FontSize getTabsFontSize() const;
+
+    void setTabsFontWeight(Theme::FontWeight weight);
+    void resetTabsFontWeight();
+    Theme::FontWeight getTabsFontWeight() const;
+
+    void setTabsFont(Theme::FontWeight weight, Theme::FontSize size);
+    void resetTabsFont();
+
+    void setTabsHeightType(Theme::HeightType type);
+    [[nodiscard]] Theme::HeightType getTabsHeightType() const;
+
+    void setTabsDesign(Theme::TabDesign design);
+    [[nodiscard]] Theme::TabDesign getTabsDesign() const;
+
+    void setTabsTextColour(juce::Colour colour);
+    void resetTabsTextColour();
+    juce::Colour getTabsTextColour() const;
+
+    void setTabsSelectedTextColour(juce::Colour colour);
+    void resetTabsSelectedTextColour();
+    juce::Colour getTabsSelectedTextColour() const;
+
     void setHasHeader(bool hasHeader);
     bool hasHeader() const;
 
@@ -66,12 +120,18 @@ public:
     
     void switchPanel(const std::string& panelID);
 
+    void addOnPanelChangedListener(OnPanelChangedListener* listener);
+    void removeListener(OnPanelChangedListener* listener);
+
     void onTabChanged(const std::string& newSelectedTabID) override;
 
 protected:
     dsp::FXSequencer* _fxSequencer =  nullptr;
     dsp::ParameterManager& _parameterManager;
     juce::Label _nameLabel {};
+
+    Theme::FontSize _sectionNameFontSize = Theme::CAPTION;
+    Theme::FontWeight _sectionNameFontWeight = Theme::MEDIUM;
 
     element::SVGToggle _enabledButton;
     element::SVGToggle _fxSequencerButton;
@@ -91,6 +151,10 @@ protected:
     virtual juce::Rectangle<int> getBypassButtonBounds();
     virtual juce::Rectangle<int> getFXSequencerButtonBounds();
 
+    // Resolves FOOTER_HEIGHT through the tabs' own HeightType, so a THIN/LARGE tab bar gets a
+    // footer that actually matches its rendered height instead of the fixed AUTO default.
+    [[nodiscard]] float getFooterHeight() const;
+
 
 private:
     std::unordered_map<std::string, std::unique_ptr<layout::GridLayout<Component>>> _panelLayoutsByID;
@@ -104,6 +168,8 @@ private:
     bool _isFXSequencerActivable = false;
 
     std::unordered_map<std::string, std::vector<std::reference_wrapper<Component>>> _registeredComponentsByPanelID;
+
+    std::vector<OnPanelChangedListener*> _panelChangedListeners;
 
     int computeNbOfColumns(int maxNbColumns, const std::string& panelID = MAIN_PANEL_ID) const;
     int computeNbOfRows(int maxNbRows, int nbOfColumns, const std::string& panelID = MAIN_PANEL_ID) const;

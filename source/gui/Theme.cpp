@@ -55,6 +55,7 @@ Theme::PaletteSet Theme::buildPreset()
                 { BORDER, juce::Colour(0xFFCCCCCC) },
                 { PRIMARY, juce::Colour(0xFF3A607E) },
                 { ACCENT, juce::Colour(0xFF1AAFBD) },
+                { SECONDARY_ACCENT, juce::Colour(0xFFE17C8C) },
                 { TEXT, juce::Colour(0xFF1A1A1A) },
                 { INVERTED_TEXT, juce::Colour(0xFF1A1A1A) },
                 { DISABLED, juce::Colour(0xFFB5B5B5) },
@@ -80,6 +81,7 @@ Theme::PaletteSet Theme::buildPreset()
                 { BORDER, juce::Colour(static_cast<juce::uint32>(COLOR_BORDER)) },
                 { PRIMARY, juce::Colour(static_cast<juce::uint32>(COLOR_PRIMARY)) },
                 { ACCENT, juce::Colour(static_cast<juce::uint32>(COLOR_ACCENT)) },
+                { SECONDARY_ACCENT, juce::Colour(static_cast<juce::uint32>(COLOR_SECONDARY_ACCENT)) },
                 { TEXT, juce::Colour(static_cast<juce::uint32>(COLOR_TEXT)) },
                 { INVERTED_TEXT, juce::Colour(static_cast<juce::uint32>(COLOR_INVERTED_TEXT)) },
                 { DISABLED, juce::Colour(static_cast<juce::uint32>(COLOR_DISABLED)) },
@@ -121,6 +123,9 @@ Theme::FontSet Theme::_activeMonospaceFonts = Theme::buildDefaultMonospaceFontSe
 float Theme::_borderRadius = DEFAULT_BORDER_RADIUS;
 float Theme::_thinHeight = DEFAULT_THIN_HEIGHT;
 float Theme::_largeHeight = DEFAULT_LARGE_HEIGHT;
+float Theme::_dialThinHeight = DEFAULT_THIN_DIAL_HEIGHT;
+float Theme::_dialMediumHeight = DEFAULT_MEDIUM_DIAL_HEIGHT;
+float Theme::_dialLargeHeight = DEFAULT_LARGE_DIAL_HEIGHT;
 juce::ChangeBroadcaster Theme::_changeBroadcaster {};
 
 void Theme::applyConfig(const Config& config)
@@ -148,6 +153,9 @@ void Theme::applyConfig(const Config& config)
     _borderRadius = config.borderRadius.value_or(DEFAULT_BORDER_RADIUS);
     _thinHeight = config.thinHeight.value_or(DEFAULT_THIN_HEIGHT);
     _largeHeight = config.largeHeight.value_or(DEFAULT_LARGE_HEIGHT);
+    _dialThinHeight = config.dialThinHeight.value_or(DEFAULT_THIN_DIAL_HEIGHT);
+    _dialMediumHeight = config.dialMediumHeight.value_or(DEFAULT_MEDIUM_DIAL_HEIGHT);
+    _dialLargeHeight = config.dialLargeHeight.value_or(DEFAULT_LARGE_DIAL_HEIGHT);
 
     // Theme changes always originate on the message thread (host startup code,
     // or a UI-triggered mode toggle), so synchronous dispatch is safe and keeps
@@ -250,6 +258,51 @@ float Theme::resolveHeight(const HeightType type, const float autoHeight)
         case HeightType::THIN: return _thinHeight;
         case HeightType::LARGE: return _largeHeight;
         case HeightType::AUTO:
+        default: return autoHeight;
+    }
+}
+
+void Theme::setDialThinHeight(const float height)
+{
+    _lastConfig.dialThinHeight = height;
+    applyConfig(_lastConfig);
+}
+
+float Theme::getDialThinHeight()
+{
+    return _dialThinHeight;
+}
+
+void Theme::setDialMediumHeight(const float height)
+{
+    _lastConfig.dialMediumHeight = height;
+    applyConfig(_lastConfig);
+}
+
+float Theme::getDialMediumHeight()
+{
+    return _dialMediumHeight;
+}
+
+void Theme::setDialLargeHeight(const float height)
+{
+    _lastConfig.dialLargeHeight = height;
+    applyConfig(_lastConfig);
+}
+
+float Theme::getDialLargeHeight()
+{
+    return _dialLargeHeight;
+}
+
+float Theme::resolveDialHeight(const DialHeightType type, const float autoHeight)
+{
+    switch (type)
+    {
+        case DialHeightType::THIN: return _dialThinHeight;
+        case DialHeightType::MEDIUM: return _dialMediumHeight;
+        case DialHeightType::LARGE: return _dialLargeHeight;
+        case DialHeightType::AUTO:
         default: return autoHeight;
     }
 }

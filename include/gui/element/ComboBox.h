@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Component.h"
 #include "../laf/ComboBox.h"
+#include "../Component.h"
 
 namespace nierika::gui::element
 {
@@ -25,6 +25,10 @@ public:
     void clear(juce::NotificationType notification = juce::dontSendNotification) { _comboBox.clear(notification); }
     void setSelectedId(int newItemId, juce::NotificationType notification = juce::sendNotification);
     [[nodiscard]] int getSelectedId() const;
+
+    // Shown in place of an item's text whenever getSelectedId() == 0 (nothing selected) - e.g.
+    // after clear(), or when setSelectedId() couldn't restore a previous selection.
+    void setTextWhenNothingSelected(const juce::String& text) { _comboBox.setTextWhenNothingSelected(text); }
 
     void addOnValueChangedListener(OnValueChangedListener* listener);
     void removeListener(OnValueChangedListener* listener);
