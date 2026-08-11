@@ -145,6 +145,21 @@ void Section::paint(juce::Graphics& g)
     getActiveLayout().paint(g);
 }
 
+void Section::changeListenerCallback(juce::ChangeBroadcaster* source)
+{
+    Component::changeListenerCallback(source);
+
+    // _nameLabel is a raw juce::Label (not a nierika::gui::Component), so its colour/font are
+    // one-shot juce::Colour/juce::Font values baked in by setSectionName()/setSectionNameFont() -
+    // they never track the theme on their own and need re-deriving here on every notification,
+    // same as Component's own _border/_background handling above.
+    if (_nameLabel.getText() != "")
+    {
+        _nameLabel.setColour(juce::Label::ColourIds::textColourId, Theme::newColor(Theme::ThemeColor::TEXT).asJuce());
+        setSectionNameFont(_sectionNameFontWeight, _sectionNameFontSize);
+    }
+}
+
 void Section::resized()
 {
     if (_isBypassable)
@@ -425,6 +440,11 @@ void Section::setTabsBackgroundColour(juce::Colour colour)
     _tabs.setBackgroundColour(colour);
 }
 
+void Section::setTabsBackgroundColour(Theme::ThemeColor colorId)
+{
+    _tabs.setBackgroundColour(colorId);
+}
+
 void Section::resetTabsBackgroundColour()
 {
     _tabs.resetBackgroundColour();
@@ -438,6 +458,11 @@ juce::Colour Section::getTabsBackgroundColour() const
 void Section::setTabsSelectedBackgroundColour(juce::Colour colour)
 {
     _tabs.setSelectedBackgroundColour(colour);
+}
+
+void Section::setTabsSelectedBackgroundColour(Theme::ThemeColor colorId)
+{
+    _tabs.setSelectedBackgroundColour(colorId);
 }
 
 void Section::resetTabsSelectedBackgroundColour()

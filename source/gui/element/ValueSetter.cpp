@@ -66,6 +66,21 @@ void ValueSetter::setup()
     _textEditor.setColour(juce::TextEditor::textColourId, Theme::newColor(Theme::ThemeColor::TEXT).asJuce());
 }
 
+void ValueSetter::changeListenerCallback(juce::ChangeBroadcaster* source)
+{
+    Component::changeListenerCallback(source);
+
+    // _textEditor's colours/font are cached JUCE ColourIds/Font baked once in setup() - always the
+    // same fixed ThemeColors (TRANSPARENT/TEXT), never per-instance customizable, so they can
+    // simply be unconditionally re-applied here (getValueBackgroundColour()'s own live-Theme
+    // getter and repaint() from above already cover the surrounding pill/label painted in paint()).
+    _textEditor.setFont(Theme::newFont(Theme::REGULAR, getFontSize()));
+    _textEditor.setColour(juce::TextEditor::backgroundColourId, Theme::newColor(Theme::ThemeColor::TRANSPARENT_COLOR).asJuce());
+    _textEditor.setColour(juce::TextEditor::outlineColourId, Theme::newColor(Theme::ThemeColor::TRANSPARENT_COLOR).asJuce());
+    _textEditor.setColour(juce::TextEditor::focusedOutlineColourId, Theme::newColor(Theme::ThemeColor::TRANSPARENT_COLOR).asJuce());
+    _textEditor.setColour(juce::TextEditor::textColourId, Theme::newColor(Theme::ThemeColor::TEXT).asJuce());
+}
+
 void ValueSetter::paint(juce::Graphics& g)
 {
     Component::paint(g);

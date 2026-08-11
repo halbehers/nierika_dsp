@@ -137,8 +137,11 @@ namespace NierikaDSPBinaryData
     extern const char*   Stop_svg;
     const int            Stop_svgSize = 193;
 
+    extern const char*   Handle_svg;
+    const int            Handle_svgSize = 682;
+
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 46;
+    const int namedResourceListSize = 47;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

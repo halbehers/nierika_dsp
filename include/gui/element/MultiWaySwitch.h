@@ -56,6 +56,10 @@ public:
     void resetBackgroundColour() { _backgroundOverride = juce::Colour(); }
     juce::Colour getBackgroundColour() const { return _backgroundOverride.value_or(Theme::newColor(Theme::ThemeColor::SECONDARY_BACKGROUND).asJuce()); }
 
+    void setThumbColour(juce::Colour colour) { _thumbOverride = colour; }
+    void resetThumbColour() { _thumbOverride = juce::Colour(); }
+    juce::Colour getThumbColour() const { return _thumbOverride.value_or(Theme::newColor(Theme::ThemeColor::ACCENT).asJuce()); }
+
     void setBorderColour(juce::Colour colour) { _borderOverride = colour; }
     void resetBorderColour() { _borderOverride = juce::Colour(); }
     juce::Colour getBorderColour() const { return _borderOverride.value_or(Theme::newColor(Theme::ThemeColor::BORDER).asJuce().withAlpha(0.2f)); }
@@ -78,6 +82,7 @@ private:
     float _borderRadiusOverride = -1;
 
     std::optional<juce::Colour> _backgroundOverride = std::nullopt;
+    std::optional<juce::Colour> _thumbOverride = std::nullopt;
     std::optional<juce::Colour> _borderOverride = std::nullopt;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MultiWaySwitch)

@@ -41,6 +41,13 @@ public:
     
     juce::Font getComboBoxFont(juce::ComboBox &) override;
 
+    // Default LookAndFeel_V2 behaviour reads ComboBox::textColourId off the LookAndFeel object's
+    // own private colour map, which nothing here ever sets - it stays permanently on
+    // LookAndFeel_V4's baked-in construction-time default, entirely disconnected from Theme.
+    // Drawing it ourselves, live from Theme, is what makes the "nothing selected" placeholder
+    // actually follow theme changes.
+    void drawComboBoxTextWhenNothingSelected(juce::Graphics& g, juce::ComboBox& box, juce::Label& label) override;
+
     void drawPopupMenuBackground
     (
         juce::Graphics& g,

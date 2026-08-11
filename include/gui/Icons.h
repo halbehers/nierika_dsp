@@ -29,6 +29,7 @@ public:
     static const char* getPlay() { return NierikaDSPBinaryData::Play_svg; }
     static const char* getPause() { return NierikaDSPBinaryData::Pause_svg; }
     static const char* getStop() { return NierikaDSPBinaryData::Stop_svg; }
+    static const char* getHandle() { return NierikaDSPBinaryData::Handle_svg; }
 };
 
 }

@@ -29,6 +29,7 @@ public:
 
     void paint(juce::Graphics& g) override;
     void resized() override;
+    void changeListenerCallback(juce::ChangeBroadcaster* source) override;
 
     void mouseDown(const juce::MouseEvent& event) override;
     void mouseDrag(const juce::MouseEvent& event) override;
@@ -47,10 +48,19 @@ public:
     void resetFontSize();
     [[nodiscard]] Theme::FontSize getFontSize() const { return _fontSizeOverride.value_or(Theme::PARAGRAPH); }
 
-    // Mirrors ComboBox/Cycler's own setBackgroundColour convention.
-    void setValueBackgroundColour(juce::Colour colour) { _valueBackgroundOverride = colour; repaint(); }
-    void resetValueBackgroundColour() { _valueBackgroundOverride = juce::Colour(); repaint(); }
-    [[nodiscard]] juce::Colour getValueBackgroundColour() const { return _valueBackgroundOverride.value_or(Theme::newColor(Theme::ThemeColor::SECONDARY_BACKGROUND).asJuce()); }
+    // Mirrors ComboBox/Cycler's own setBackgroundColour convention. getValueBackgroundColour() is
+    // called fresh inside paint() every repaint, and re-resolves _valueBackgroundThemeColorOverride
+    // live rather than caching a resolved Colour - so unlike Dial/VerticalSlider this needs no
+    // changeListenerCallback of its own; the base class's inherited repaint() on any theme
+    // notification is all that's required for it to pick up a live change.
+    void setValueBackgroundColour(juce::Colour colour) { _valueBackgroundThemeColorOverride.reset(); _valueBackgroundOverride = colour; repaint(); }
+    void setValueBackgroundColour(Theme::ThemeColor colorId) { _valueBackgroundThemeColorOverride = colorId; repaint(); }
+    void resetValueBackgroundColour() { _valueBackgroundThemeColorOverride.reset(); _valueBackgroundOverride = juce::Colour(); repaint(); }
+    [[nodiscard]] juce::Colour getValueBackgroundColour() const
+    {
+        if (_valueBackgroundThemeColorOverride) return Theme::newColor(*_valueBackgroundThemeColorOverride).asJuce();
+        return _valueBackgroundOverride.value_or(Theme::newColor(Theme::ThemeColor::SECONDARY_BACKGROUND).asJuce());
+    }
 
     // When set, the value background (and the value text/edit box drawn on top of it) shrinks to
     // this size instead of filling the whole pill area, and setValueBackground{Horizontal,Vertical}
@@ -110,6 +120,7 @@ private:
 
     std::optional<Theme::FontSize> _fontSizeOverride = std::nullopt;
     std::optional<juce::Colour> _valueBackgroundOverride = std::nullopt;
+    std::optional<Theme::ThemeColor> _valueBackgroundThemeColorOverride = std::nullopt;
     std::optional<float> _valueBackgroundWidthOverride = std::nullopt;
     std::optional<float> _valueBackgroundHeightOverride = std::nullopt;
     Alignment _valueBackgroundHorizontalAlignment = START;

@@ -41,7 +41,7 @@ void MultiWaySwitch::paint(juce::Graphics& g)
         segmentWidth - thumbMargin * 2.f,
         bounds.getHeight() - thumbMargin * 2.f);
 
-    g.setColour(Theme::newColor(Theme::ACCENT).asJuce());
+    g.setColour(getThumbColour());
     g.fillRoundedRectangle(selectedBounds, radius - thumbMargin);
 
     g.setFont(Theme::newFont(Theme::MEDIUM, Theme::SMALL));

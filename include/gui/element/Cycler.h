@@ -35,6 +35,7 @@ public:
 
     void paint(juce::Graphics& g) override;
     void resized() override;
+    void changeListenerCallback(juce::ChangeBroadcaster* source) override;
 
     void setSelectedIndex(int index);
     [[nodiscard]] int getSelectedIndex() const { return _selectedIndex; }
@@ -45,8 +46,9 @@ public:
 
     void onButtonClick(const std::string& componentID) override;
 
-    void setBackgroundColour(juce::Colour colour) { _backgroundOverride = colour; refreshBackgroundAndBorder(); }
-    void resetBackgroundColour() { _backgroundOverride = juce::Colour(); }
+    void setBackgroundColour(juce::Colour colour) { _backgroundThemeColorOverride.reset(); _backgroundOverride = colour; refreshBackgroundAndBorder(); }
+    void setBackgroundColour(Theme::ThemeColor colorId) { _backgroundThemeColorOverride = colorId; _backgroundOverride = Theme::newColor(colorId).asJuce(); refreshBackgroundAndBorder(); }
+    void resetBackgroundColour() { _backgroundThemeColorOverride.reset(); _backgroundOverride = juce::Colour(); }
     juce::Colour getBackgroundColour() const { return _backgroundOverride.value_or(Theme::newColor(Theme::ThemeColor::SECONDARY_BACKGROUND).asJuce()); }
 
     void setBorderColour(juce::Colour colour) { _borderOverride = colour; refreshBackgroundAndBorder(); }
@@ -67,6 +69,7 @@ private:
     void refreshLabel();
     void applyIndexFromUI(int newIndex);
     std::optional<juce::Colour> _backgroundOverride = std::nullopt;
+    std::optional<Theme::ThemeColor> _backgroundThemeColorOverride = std::nullopt;
     std::optional<juce::Colour> _borderOverride = std::nullopt;
     float _borderRadiusOverride = -1;
 

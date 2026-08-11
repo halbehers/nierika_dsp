@@ -123,6 +123,19 @@ juce::Font ComboBox::getComboBoxFont(juce::ComboBox& comboBox)
     return Theme::newFont(Theme::REGULAR).withHeight(_parent.getTextHeight());
 }
 
+void ComboBox::drawComboBoxTextWhenNothingSelected(juce::Graphics& g, juce::ComboBox& box, juce::Label& label)
+{
+    g.setColour(Theme::newColor(Theme::ThemeColor::TEXT).asJuce().withMultipliedAlpha(0.5f));
+
+    const auto font = getComboBoxFont(box);
+    g.setFont(font);
+
+    const auto textArea = label.getBorderSize().subtractedFrom(box.getLocalBounds());
+    g.drawFittedText(box.getTextWhenNothingSelected(), textArea, label.getJustificationType(),
+                      juce::jmax(1, static_cast<int>(static_cast<float>(textArea.getHeight()) / font.getHeight())),
+                      label.getMinimumHorizontalScale());
+}
+
 int ComboBox::getPopupMenuBorderSize()
 {
     return 12;

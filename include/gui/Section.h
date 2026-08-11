@@ -30,6 +30,7 @@ public:
 
     void paint(juce::Graphics& g) override;
     void resized() override;
+    void changeListenerCallback(juce::ChangeBroadcaster* source) override;
 
     void displayBorder();
     void displayBackground();
@@ -60,10 +61,12 @@ public:
     void setLayoutMovableConfiguration(layout::GridLayout<Component>::MovableConfiguration configuration);
 
     void setTabsBackgroundColour(juce::Colour colour);
+    void setTabsBackgroundColour(Theme::ThemeColor colorId);
     void resetTabsBackgroundColour();
     juce::Colour getTabsBackgroundColour() const;
 
     void setTabsSelectedBackgroundColour(juce::Colour colour);
+    void setTabsSelectedBackgroundColour(Theme::ThemeColor colorId);
     void resetTabsSelectedBackgroundColour();
     juce::Colour getTabsSelectedBackgroundColour() const;
 

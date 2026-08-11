@@ -32,21 +32,14 @@ Dial::~Dial()
 void Dial::setup()
 {
     addAndMakeVisible(_slider);
-    
+
     _slider.setName(getName());
     _slider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalDrag);
     _slider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 100, 17);
     _slider.setRange(_minValue, _maxValue);
     _slider.setValue(_defaultValue);
     _slider.setMouseCursor(juce::MouseCursor::PointingHandCursor);
-    const juce::Colour transparentColor = Theme::newColor(Theme::ThemeColor::TRANSPARENT_COLOR).asJuce();
-    const juce::Colour whiteColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
-    const juce::Colour accentColor = Theme::newColor(Theme::ThemeColor::ACCENT).asJuce();
-    _slider.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, accentColor);
-    _slider.setColour(juce::Slider::ColourIds::trackColourId, accentColor);
-    _slider.setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, transparentColor);
-    _slider.setColour(juce::Slider::ColourIds::thumbColourId, whiteColor);
-    _slider.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, transparentColor);
+    applyThemeColours();
 
     if (_valueSuffix != "") {
         _slider.setTextValueSuffix(" " + _valueSuffix);
@@ -56,11 +49,37 @@ void Dial::setup()
     _slider.setComponentID(getComponentID());
 }
 
+void Dial::applyThemeColours()
+{
+    const juce::Colour transparentColor = Theme::newColor(Theme::ThemeColor::TRANSPARENT_COLOR).asJuce();
+    const juce::Colour whiteColor = Theme::newColor(Theme::ThemeColor::EMPTY_SHADE).asJuce();
+    const juce::Colour accentColor = Theme::newColor(_accentColorId).asJuce();
+    _slider.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, accentColor);
+    _slider.setColour(juce::Slider::ColourIds::trackColourId, accentColor);
+    _slider.setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, transparentColor);
+    _slider.setColour(juce::Slider::ColourIds::thumbColourId, whiteColor);
+    _slider.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, transparentColor);
+}
+
 void Dial::setAccentColor(Theme::ThemeColor colorId)
 {
+    _accentColorId = colorId;
     const auto color = Theme::newColor(colorId).asJuce();
     _slider.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, color);
     _slider.setColour(juce::Slider::ColourIds::trackColourId, color);
+}
+
+void Dial::changeListenerCallback(juce::ChangeBroadcaster* source)
+{
+    Component::changeListenerCallback(source);
+
+    applyThemeColours();
+
+    // The value/label text box is a separate Label the LookAndFeel creates once
+    // (laf::Dial::createSliderTextBox) and caches its own colours/font into - lookAndFeelChanged()
+    // is the same mechanism setFontSize()/setHeightType() already use elsewhere in this class to
+    // force it to be recreated (and thus re-themed) on demand.
+    _slider.lookAndFeelChanged();
 }
 
 void Dial::setShortLabel(const juce::String& shortLabel)

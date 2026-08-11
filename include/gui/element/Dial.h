@@ -22,6 +22,7 @@ public:
     ~Dial() override;
 
     void resized() override;
+    void changeListenerCallback(juce::ChangeBroadcaster* source) override;
     void setShortLabel(const juce::String& shortLabel);
     void setEnabled(bool isEnabled);
 
@@ -72,6 +73,7 @@ protected:
     std::optional<Theme::FontSize> _fontSizeOverride = std::nullopt;
     std::optional<Theme::FontWeight> _fontWeightOverride = std::nullopt;
     std::optional<float> _labelGapOverride = std::nullopt;
+    Theme::ThemeColor _accentColorId = Theme::ThemeColor::ACCENT;
 
     juce::Slider _slider;
     laf::Dial _lookAndFeel { *this };
@@ -79,6 +81,7 @@ protected:
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> _attachment;
 
     virtual void setup();
+    void applyThemeColours();
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Dial)
 };

@@ -70,6 +70,19 @@ void Cycler::paint(juce::Graphics& g)
     Component::paint(g);
 }
 
+void Cycler::changeListenerCallback(juce::ChangeBroadcaster* source)
+{
+    Component::changeListenerCallback(source);
+
+    // refreshBackgroundAndBorder() goes through displayBackground/displayBorder's concrete-Colour
+    // overloads (see its own declaration comment), which clear Component's own themeColor
+    // tracking - so a tracked background ThemeColor needs re-resolving here first, or it would
+    // never see a live theme switch despite Component's machinery existing for exactly that.
+    if (_backgroundThemeColorOverride) _backgroundOverride = Theme::newColor(*_backgroundThemeColorOverride).asJuce();
+
+    refreshBackgroundAndBorder();
+}
+
 void Cycler::resized()
 {
     Component::resized();

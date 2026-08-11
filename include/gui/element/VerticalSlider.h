@@ -13,7 +13,10 @@ namespace nierika::gui::element
 // colour, border radius) and Dial-style extras: font size/weight overrides, and a hover-swap label
 // (shows the static name normally, the live formatted value while hovering/dragging - identical
 // mechanism to laf::Dial::drawLabel, see laf::VerticalSlider).
-class VerticalSlider: public Slider
+// juce::Slider (Slider's own base) has no ChangeListener/Theme-broadcaster hookup at all - this
+// class registers/unregisters itself directly rather than relying on nierika::gui::Component,
+// which Slider deliberately doesn't derive from.
+class VerticalSlider: public Slider, public juce::ChangeListener
 {
 public:
     VerticalSlider(const juce::String& label, float minValue, float maxValue, float defaultValue, const juce::String& valueSuffix = "");
@@ -23,12 +26,16 @@ public:
     VerticalSlider(dsp::ParameterManager& parameterManager, const std::string& parameterID, const std::string& valueSuffix = "");
     ~VerticalSlider() override;
 
+    void changeListenerCallback(juce::ChangeBroadcaster* source) override;
+
     // juce::Colour primary, matching Cycler::setBackgroundColour's existing convention; a
-    // Theme::ThemeColor overload layered on top for the common app-theme case.
+    // Theme::ThemeColor overload layered on top for the common app-theme case - tracked in
+    // _trackColorId/_thumbColorId so a live theme change can re-resolve it (see
+    // changeListenerCallback), same pattern as Dial::setAccentColor.
     void setTrackColour(juce::Colour colour);
-    void setTrackColour(Theme::ThemeColor colorId) { setTrackColour(Theme::newColor(colorId).asJuce()); }
+    void setTrackColour(Theme::ThemeColor colorId);
     void setThumbColour(juce::Colour colour);
-    void setThumbColour(Theme::ThemeColor colorId) { setThumbColour(Theme::newColor(colorId).asJuce()); }
+    void setThumbColour(Theme::ThemeColor colorId);
 
     void setBorderRadius(float radius) { _borderRadiusOverride = radius; lookAndFeelChanged(); }
     void resetBorderRadius() { _borderRadiusOverride = std::nullopt; lookAndFeelChanged(); }
@@ -58,6 +65,15 @@ public:
 
 private:
     float _sliderWidth = 16.0f;
+    // Absent by default (tracks the live Theme::ACCENT/EMPTY_SHADE default), holds the tracked id
+    // once set via the Theme::ThemeColor overload, and holds nothing but is skipped on theme
+    // change once the raw-juce::Colour overload has been used (see _trackColourIsRawOverride) -
+    // an explicit concrete colour is intentionally frozen, matching every other setXxxColour
+    // override pair in this codebase (e.g. Tabs::setBackgroundColour).
+    std::optional<Theme::ThemeColor> _trackColorIdOverride = std::nullopt;
+    std::optional<Theme::ThemeColor> _thumbColorIdOverride = std::nullopt;
+    bool _trackColourIsRawOverride = false;
+    bool _thumbColourIsRawOverride = false;
     std::optional<float> _borderRadiusOverride = std::nullopt;
     std::optional<float> _thumbBorderRadiusOverride = std::nullopt;
     std::optional<Theme::FontSize> _fontSizeOverride = std::nullopt;

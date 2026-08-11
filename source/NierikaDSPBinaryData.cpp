@@ -12080,6 +12080,15 @@ static const unsigned char temp_binary_data_42[] =
 
 const char* Stop_svg = (const char*) temp_binary_data_42;
 
+//================== handle.svg ==================
+static const unsigned char temp_binary_data_43[] =
+"<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<rect x=\"6\" y=\"6\" width=\"4\" height=\"4\" rx=\"1\" fill=\"#000000\"/>\n<rect x=\"6\" y=\"14\" width=\"4\" height=\"4\" rx=\"1\" fill=\"#00"
+"0000\"/>\n<rect x=\"6\" y=\"22\" width=\"4\" height=\"4\" rx=\"1\" fill=\"#000000\"/>\n<rect x=\"14\" y=\"6\" width=\"4\" height=\"4\" rx=\"1\" fill=\"#000000\"/>\n<rect x=\"14\" y=\"14\" width=\"4\" height=\"4\" rx=\"1\" fill=\"#000000\"/>\n<rect x="
+"\"14\" y=\"22\" width=\"4\" height=\"4\" rx=\"1\" fill=\"#000000\"/>\n<rect x=\"22\" y=\"6\" width=\"4\" height=\"4\" rx=\"1\" fill=\"#000000\"/>\n<rect x=\"22\" y=\"14\" width=\"4\" height=\"4\" rx=\"1\" fill=\"#000000\"/>\n<rect x=\"22\" y=\"22\" w"
+"idth=\"4\" height=\"4\" rx=\"1\" fill=\"#000000\"/>\n</svg>\n";
+
+const char* Handle_svg = (const char*) temp_binary_data_43;
+
 const char* getNamedResource (const char* resourceNameUTF8, int& numBytes);
 const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
 {
@@ -12134,6 +12143,7 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
         case 0x73db22f9:  numBytes = 325; return Play_svg;
         case 0xa8e7487b:  numBytes = 311; return Pause_svg;
         case 0x6a1588c7:  numBytes = 193; return Stop_svg;
+        case 0xed4de3ed:  numBytes = 682; return Handle_svg;
         default: break;
     }
 
@@ -12185,7 +12195,8 @@ const char* namedResourceList[] =
     "ArrowRight_svg",
     "Play_svg",
     "Pause_svg",
-    "Stop_svg"
+    "Stop_svg",
+    "Handle_svg"
 };
 
 const char* originalFilenames[] =
@@ -12232,7 +12243,8 @@ const char* originalFilenames[] =
     "arrow_right.svg",
     "play.svg",
     "pause.svg",
-    "stop.svg"
+    "stop.svg",
+    "handle.svg"
 };
 
 const char* getNamedResourceOriginalFilename (const char* resourceNameUTF8);

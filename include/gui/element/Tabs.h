@@ -22,6 +22,7 @@ public:
 
     void paint(juce::Graphics& g) override;
     void resized() override;
+    void changeListenerCallback(juce::ChangeBroadcaster* source) override;
 
     void addOnTabChangedListener(OnTabChangedListener* listener);
     void removeListener(OnTabChangedListener* listener);
@@ -46,10 +47,12 @@ public:
     void reset();
 
     void setBackgroundColour(juce::Colour colour);
+    void setBackgroundColour(Theme::ThemeColor colorId);
     void resetBackgroundColour();
     juce::Colour getBackgroundColour() const;
 
     void setSelectedBackgroundColour(juce::Colour colour);
+    void setSelectedBackgroundColour(Theme::ThemeColor colorId);
     void resetSelectedBackgroundColour();
     juce::Colour getSelectedBackgroundColour() const;
 
@@ -100,6 +103,8 @@ private:
 
     std::optional<juce::Colour> _backgroundOverride = std::nullopt;
     std::optional<juce::Colour> _selectedBackgroundOverride = std::nullopt;
+    std::optional<Theme::ThemeColor> _backgroundThemeColorOverride = std::nullopt;
+    std::optional<Theme::ThemeColor> _selectedBackgroundThemeColorOverride = std::nullopt;
     std::optional<juce::Colour> _borderOverride = std::nullopt;
     std::optional<juce::Colour> _selectedBorderOverride = std::nullopt;
     float _borderRadiusOverride = -1.f;

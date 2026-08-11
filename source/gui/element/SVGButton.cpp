@@ -15,7 +15,7 @@ void SVGButton::setup()
     addAndMakeVisible(_button);
 
     _button.setLookAndFeel(&_lookAndFeel);
-    _button.setMouseCursor(isEnabled() ? juce::MouseCursor::PointingHandCursor : juce::MouseCursor::NormalCursor);
+    _button.setMouseCursor(isEnabled() ? _cursorType : juce::MouseCursor::NormalCursor);
 
     _button.onClick = [this]()
     {
@@ -66,7 +66,13 @@ void SVGButton::setEnabled(bool shouldBeEnabled)
 {
     juce::Component::setEnabled(shouldBeEnabled);
 
-    _button.setMouseCursor(shouldBeEnabled ? juce::MouseCursor::PointingHandCursor : juce::MouseCursor::NormalCursor);
+    _button.setMouseCursor(shouldBeEnabled ? _cursorType : juce::MouseCursor::NormalCursor);
+}
+
+void SVGButton::setMouseCursor(juce::MouseCursor::StandardCursorType cursorType)
+{
+    _cursorType = cursorType;
+    _button.setMouseCursor(isEnabled() ? _cursorType : juce::MouseCursor::NormalCursor);
 }
 
 }

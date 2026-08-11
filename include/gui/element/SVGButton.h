@@ -39,6 +39,14 @@ public:
 
     void setEnabled(bool shouldBeEnabled);
 
+    // The actual clickable/hoverable surface is the internal DrawableButton child below, not this
+    // wrapper Component - it sets its own cursor explicitly (see setup()), so a plain
+    // Component::setMouseCursor() call on this wrapper would have no visible effect. This overload
+    // overrides that child's default PointingHandCursor (e.g. for a button whose action is "drag me
+    // out" rather than "click me") - reapplied by setEnabled() too, same enabled/disabled fallback
+    // to NormalCursor as the default.
+    void setMouseCursor(juce::MouseCursor::StandardCursorType cursorType);
+
     void setColour(juce::Colour colour) { _colourOverride = colour; repaint(); }
     void setColour(Theme::ThemeColor colour) { _colourOverride = Theme::newColor(colour).asJuce(); repaint(); }
     void resetColour() { _colourOverride.reset(); repaint(); }
@@ -54,6 +62,7 @@ private:
     juce::DrawableButton _button { "button", juce::DrawableButton::ButtonStyle::ImageFitted };
 
     const char* _svgBinary;
+    juce::MouseCursor::StandardCursorType _cursorType = juce::MouseCursor::PointingHandCursor;
     float _iconSize = -1.f;
     helpers::ClickableSurface _clickableSurface = helpers::ClickableSurface::ALL_AVAILABLE_AREA;
     std::optional<juce::Colour> _colourOverride;

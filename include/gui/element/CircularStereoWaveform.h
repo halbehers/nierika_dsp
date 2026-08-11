@@ -27,9 +27,17 @@ public:
 
     void paint(juce::Graphics&) override;
 
-    void setBackgroundColour(juce::Colour colour) { _backgroundOverride = colour; repaint(); }
-    void resetBackgroundColour() { _backgroundOverride = juce::Colour(); repaint(); }
-    juce::Colour getBackgroundColour() const { return _backgroundOverride.value_or(Theme::newColor(Theme::ThemeColor::SECONDARY_BACKGROUND).asJuce()); }
+    // getBackgroundColour() is called fresh inside paint() every repaint, and re-resolves
+    // _backgroundThemeColorOverride live rather than caching a resolved Colour - so a live theme
+    // change just needs the base class's inherited repaint(), no changeListenerCallback override.
+    void setBackgroundColour(juce::Colour colour) { _backgroundThemeColorOverride.reset(); _backgroundOverride = colour; repaint(); }
+    void setBackgroundColour(Theme::ThemeColor colorId) { _backgroundThemeColorOverride = colorId; repaint(); }
+    void resetBackgroundColour() { _backgroundThemeColorOverride.reset(); _backgroundOverride = juce::Colour(); repaint(); }
+    juce::Colour getBackgroundColour() const
+    {
+        if (_backgroundThemeColorOverride) return Theme::newColor(*_backgroundThemeColorOverride).asJuce();
+        return _backgroundOverride.value_or(Theme::newColor(Theme::ThemeColor::SECONDARY_BACKGROUND).asJuce());
+    }
 
     void setBorderColour(juce::Colour colour) { _borderOverride = colour; repaint(); }
     void resetBorderColour() { _borderOverride = juce::Colour(); repaint(); }
@@ -66,6 +74,7 @@ private:
     std::optional<juce::Colour> _traceColourOverride = std::nullopt;
     bool _magnifyingGlassEnabled = true; // on by default - it's the intended look, not an opt-in extra
     std::optional<juce::Colour> _backgroundOverride = std::nullopt;
+    std::optional<Theme::ThemeColor> _backgroundThemeColorOverride = std::nullopt;
     std::optional<juce::Colour> _borderOverride = std::nullopt;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(CircularStereoWaveform)

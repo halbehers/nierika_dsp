@@ -36,6 +36,20 @@ void Tabs::applyDesignLayout()
     }
 }
 
+void Tabs::changeListenerCallback(juce::ChangeBroadcaster* source)
+{
+    Component::changeListenerCallback(source);
+
+    // Background/selectedBackground are pushed into each TextButton's own cached override by
+    // applyStyle() (see below) rather than read live at paint time, so a tracked ThemeColor needs
+    // re-resolving here before that push happens, or a live theme switch would keep re-pushing the
+    // same stale resolved colour forever.
+    if (_backgroundThemeColorOverride) _backgroundOverride = Theme::newColor(*_backgroundThemeColorOverride).asJuce();
+    if (_selectedBackgroundThemeColorOverride) _selectedBackgroundOverride = Theme::newColor(*_selectedBackgroundThemeColorOverride).asJuce();
+
+    for (const auto& tab : _tabs) applyStyle(*tab);
+}
+
 void Tabs::paint(juce::Graphics& g)
 {
     Component::paint(g);
@@ -179,12 +193,21 @@ std::string Tabs::getSelectedTabTooltip() const
 
 void Tabs::setBackgroundColour(juce::Colour colour)
 {
+    _backgroundThemeColorOverride.reset();
     _backgroundOverride = colour;
+    for (const auto& tab : _tabs) applyStyle(*tab);
+}
+
+void Tabs::setBackgroundColour(Theme::ThemeColor colorId)
+{
+    _backgroundThemeColorOverride = colorId;
+    _backgroundOverride = Theme::newColor(colorId).asJuce();
     for (const auto& tab : _tabs) applyStyle(*tab);
 }
 
 void Tabs::resetBackgroundColour()
 {
+    _backgroundThemeColorOverride.reset();
     _backgroundOverride = juce::Colour();
     for (const auto& tab : _tabs) applyStyle(*tab);
 }
@@ -196,12 +219,21 @@ juce::Colour Tabs::getBackgroundColour() const
 
 void Tabs::setSelectedBackgroundColour(juce::Colour colour)
 {
+    _selectedBackgroundThemeColorOverride.reset();
     _selectedBackgroundOverride = colour;
+    for (const auto& tab : _tabs) applyStyle(*tab);
+}
+
+void Tabs::setSelectedBackgroundColour(Theme::ThemeColor colorId)
+{
+    _selectedBackgroundThemeColorOverride = colorId;
+    _selectedBackgroundOverride = Theme::newColor(colorId).asJuce();
     for (const auto& tab : _tabs) applyStyle(*tab);
 }
 
 void Tabs::resetSelectedBackgroundColour()
 {
+    _selectedBackgroundThemeColorOverride.reset();
     _selectedBackgroundOverride = juce::Colour();
     for (const auto& tab : _tabs) applyStyle(*tab);
 }
