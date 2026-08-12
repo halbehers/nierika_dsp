@@ -74,7 +74,7 @@ void ComboBox::drawPopupMenuItem
 
     if (isTicked)
     {
-        g.setColour(Theme::newColor(Theme::ThemeColor::ACCENT).asJuce());
+        g.setColour(_parent.getTickedColour());
     }
     else if (isHighlighted)
     {

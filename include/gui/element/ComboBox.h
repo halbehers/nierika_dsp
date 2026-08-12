@@ -49,6 +49,11 @@ public:
     void resetBorderColour() { _borderOverride = juce::Colour(); }
     juce::Colour getBorderColour() const { return _borderOverride.value_or(Theme::newColor(Theme::ThemeColor::BORDER).asJuce().withAlpha(0.2f)); }
 
+    // Fill colour of the currently-selected item's row in the popup list.
+    void setTickedColour(juce::Colour colour) { _tickedOverride = colour; }
+    void resetTickedColour() { _tickedOverride = juce::Colour(); }
+    juce::Colour getTickedColour() const { return _tickedOverride.value_or(Theme::newColor(Theme::ThemeColor::ACCENT).asJuce()); }
+
     void setBorderRadius(float radius) { _borderRadiusOverride = radius; }
     void resetBorderRadius() { _borderRadiusOverride = -1; }
     float getBorderRadius() const { return _borderRadiusOverride >= 0 ? _borderRadiusOverride : Theme::getBorderRadius(); }
@@ -70,6 +75,7 @@ private:
 
     std::optional<juce::Colour> _backgroundOverride = std::nullopt;
     std::optional<juce::Colour> _borderOverride = std::nullopt;
+    std::optional<juce::Colour> _tickedOverride = std::nullopt;
     float _textHeightOverride = -1.f;
     float _borderRadiusOverride = -1;
 
