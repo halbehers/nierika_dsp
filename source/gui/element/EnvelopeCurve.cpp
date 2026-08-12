@@ -158,6 +158,11 @@ void EnvelopeCurve::mouseUp(const juce::MouseEvent&)
     _draggedBreakpoint = -1;
 }
 
+void EnvelopeCurve::mouseMove(const juce::MouseEvent& event)
+{
+    setMouseCursor(hitTestBreakpoint(event.position) >= 0 ? juce::MouseCursor::DraggingHandCursor : juce::MouseCursor::NormalCursor);
+}
+
 float EnvelopeCurve::msToX(float cumulativeMs) const noexcept
 {
     const auto width = static_cast<float>(getWidth());

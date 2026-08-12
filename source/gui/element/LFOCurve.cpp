@@ -133,6 +133,12 @@ void LFOCurve::mouseUp(const juce::MouseEvent&)
     _isDraggingSmooth = false;
 }
 
+void LFOCurve::mouseMove(const juce::MouseEvent& event)
+{
+    const auto isOverDragPoint = computeDragPointPosition().getDistanceFrom(event.position) <= kLfoCurveHitTestRadius;
+    setMouseCursor(isOverDragPoint ? juce::MouseCursor::DraggingHandCursor : juce::MouseCursor::NormalCursor);
+}
+
 float LFOCurve::computeShapeValue(double phase01) const noexcept
 {
     double raw;

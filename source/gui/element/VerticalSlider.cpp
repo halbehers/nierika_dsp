@@ -29,6 +29,7 @@ VerticalSlider::~VerticalSlider()
 void VerticalSlider::setup()
 {
     setLookAndFeel(&_lookAndFeel);
+    setMouseCursor(juce::MouseCursor::PointingHandCursor);
     Theme::getChangeBroadcaster().addChangeListener(this);
 }
 

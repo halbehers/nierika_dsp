@@ -162,6 +162,12 @@ void FilterResponseCurve::mouseUp(const juce::MouseEvent&)
     _isDragging = false;
 }
 
+void FilterResponseCurve::mouseMove(const juce::MouseEvent& event)
+{
+    const auto isOverDragPoint = computeDragPointPosition().getDistanceFrom(event.position) <= kFilterCurveHitTestRadius;
+    setMouseCursor(isOverDragPoint ? juce::MouseCursor::DraggingHandCursor : juce::MouseCursor::NormalCursor);
+}
+
 float FilterResponseCurve::computeMagnitudeDb(float frequencyHz) const noexcept
 {
     // Standard analytic magnitude response of a 2nd-order (12dB/octave) state-variable filter -
