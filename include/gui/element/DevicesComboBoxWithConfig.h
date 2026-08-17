@@ -28,6 +28,9 @@ public:
 
     void setIODisplay(dsp::IODisplay ioDisplay) { _devicesComboBox.setIODisplay(ioDisplay); }
 
+    void setTickedColour(juce::Colour colour) { _devicesComboBox.setTickedColour(colour); }
+    void resetTickedColour() { _devicesComboBox.resetTickedColour(); }
+
 private:
     DevicesComboBox _devicesComboBox { "devices-combo-box-with-config-combo-box" };
     PopupPanel _settingsButton { "devices-combo-box-with-config-settings-button", Icons::getGear() };
